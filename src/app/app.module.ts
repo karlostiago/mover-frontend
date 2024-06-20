@@ -4,15 +4,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {Button} from "primeng/button";
+import {HeaderComponent} from "./core/header/header.component";
+import {NgOptimizedImage} from "@angular/common";
+import { MenuLateralComponent } from './core/menu/menu-lateral/menu-lateral.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    MenuLateralComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    Button
+    Button,
+    NgOptimizedImage
   ],
   providers: [],
   bootstrap: [AppComponent]

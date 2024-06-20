@@ -7,12 +7,14 @@ import {Button} from "primeng/button";
 import {HeaderComponent} from "./core/header/header.component";
 import {NgOptimizedImage} from "@angular/common";
 import { MenuLateralComponent } from './core/menu/menu-lateral/menu-lateral.component';
+import { LogoComponent } from './core/logo/logo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    MenuLateralComponent
+    MenuLateralComponent,
+    LogoComponent
   ],
   imports: [
     BrowserModule,

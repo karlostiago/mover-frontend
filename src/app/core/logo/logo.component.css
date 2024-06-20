@@ -1,0 +1,29 @@
+.logo-letter {
+    display: inline-block;
+    transform: rotateX(-180deg);
+}
+
+.logo-letter {
+    position: absolute;
+    top: -0.9rem;
+    left: 3rem;
+}
+
+.logo-title {
+    position: relative;
+    display: inline-block;
+}
+
+.logo-subtitile {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: -1rem;
+
+    color: #edebeb;
+
+}
+
+.red-letter {
+    color: red;
+}

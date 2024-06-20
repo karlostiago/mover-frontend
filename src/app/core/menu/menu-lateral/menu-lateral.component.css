@@ -6,7 +6,8 @@ aside {
 
     top: 0;
     left: 0;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
+    transition: width 0.3s ease;
 }
 
 .logo {
@@ -107,4 +108,20 @@ aside {
 
 .sidebar > li.active > ul {
     display: block;
+}
+
+@media (max-width: 768px) {
+    aside {
+        width: 80px;
+        overflow-y: inherit;
+    }
+
+    .sidebar > li > i {
+        display: flex;
+        justify-content: center;
+    }
+
+    .sidebar > li > a {
+        display: none;
+    }
 }

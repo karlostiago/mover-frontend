@@ -1,29 +1,13 @@
-.logo-letter {
-    display: inline-block;
-    transform: rotateX(-180deg);
+.mobile-logo {
+    display: none;
 }
 
-.logo-letter {
-    position: absolute;
-    top: -0.9rem;
-    left: 3rem;
-}
+@media (max-width: 768px) {
+    .mobile-logo {
+        display: block;
+    }
 
-.logo-title {
-    position: relative;
-    display: inline-block;
-}
-
-.logo-subtitile {
-    display: flex;
-    justify-content: flex-end;
-
-    margin-top: -1rem;
-
-    color: #edebeb;
-
-}
-
-.red-letter {
-    color: red;
+    .main-logo {
+        display: none;
+    }
 }

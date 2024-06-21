@@ -6,7 +6,7 @@ aside {
 
     top: 0;
     left: 0;
-    /*overflow-y: auto;*/
+
     transition: width 0.3s ease;
 }
 
@@ -46,26 +46,26 @@ aside {
 }
 
 .sidebar > li:hover {
-    background-color: #f7cd24;
+    background-color: #47B051;
     cursor: pointer;
 
-    color: #34495e;
+    color: #fff;
 
     transition: 0.5s;
 }
 
 .sidebar li:hover a {
-    color: #34495e;
+    color: #fff;
 }
 
 .sidebar > li.active {
-    background-color: #f7cd24;
-    color: #34495e;
+    background-color: #47B051;
+    color: #fff;
 }
 
 .sidebar > li.active a {
-    background-color: #f7cd24;
-    color: #34495e;
+    background-color: #47B051;
+    color: #fff;
 }
 
 .sidebar > li > ul {
@@ -98,12 +98,16 @@ aside {
     color: #34495e;
 }
 
+.sidebar > li > ul > li:hover a {
+    color: #fff;
+}
+
 .sidebar > li:hover > ul {
     display: block;
 }
 
 .sidebar > li > ul > li:hover {
-    background-color: #f7cd24;
+    background-color: #47B051;
 }
 
 .sidebar > li.active > ul {

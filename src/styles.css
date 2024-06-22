@@ -7,5 +7,22 @@ body {
 }
 
 body, input, textarea, button {
-    font-size: 1rem!important;
+    font-size: 0.875rem!important;
+}
+
+.p-menuitem-link {
+    text-decoration: none !important;
+}
+
+label {
+    color: rgba(0, 0, 0, 0.54) !important;
+}
+/**
+ * ---------------------------------------------------------
+ *      Configuração de estilos dos cards
+ * ---------------------------------------------------------
+ */
+.card {
+    border-radius: 0!important;
+    --bs-card-border-color: none !important;
 }

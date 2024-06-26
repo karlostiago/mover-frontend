@@ -14,7 +14,7 @@ body, input, textarea, button {
     text-decoration: none !important;
 }
 
-label {
+label, h1, p {
     color: rgba(0, 0, 0, 0.54) !important;
 }
 /**

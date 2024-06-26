@@ -11,6 +11,8 @@ import { LogoComponent } from './core/logo/logo.component';
 import { MainComponent } from './core/main/main.component';
 import { BreadcrumbComponent } from './core/breadcrumb/breadcrumb.component';
 import {BreadcrumbModule} from "primeng/breadcrumb";
+import {CalendarModule} from "primeng/calendar";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -24,9 +26,11 @@ import {BreadcrumbModule} from "primeng/breadcrumb";
     imports: [
         BrowserModule,
         AppRoutingModule,
+        BrowserAnimationsModule,
         Button,
         NgOptimizedImage,
-        BreadcrumbModule
+        BreadcrumbModule,
+        CalendarModule
     ],
   providers: [],
   bootstrap: [AppComponent]

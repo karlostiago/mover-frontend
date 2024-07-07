@@ -13,6 +13,10 @@ import { BreadcrumbComponent } from './core/breadcrumb/breadcrumb.component';
 import {BreadcrumbModule} from "primeng/breadcrumb";
 import {CalendarModule} from "primeng/calendar";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { BrandComponent } from './pages/brand/brand.component';
+import {ChipsModule} from "primeng/chips";
+import {InputSwitchModule} from "primeng/inputswitch";
 
 @NgModule({
   declarations: [
@@ -21,7 +25,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     MenuLateralComponent,
     LogoComponent,
     MainComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    DashboardComponent,
+    BrandComponent
   ],
     imports: [
         BrowserModule,
@@ -30,7 +36,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         Button,
         NgOptimizedImage,
         BreadcrumbModule,
-        CalendarModule
+        CalendarModule,
+        ChipsModule,
+        InputSwitchModule
     ],
   providers: [],
   bootstrap: [AppComponent]

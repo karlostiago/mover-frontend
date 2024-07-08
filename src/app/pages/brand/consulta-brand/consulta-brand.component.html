@@ -74,12 +74,12 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
-                                    <span (click)="confirmationDelete()" class="btn-cursor-pointer">
+                                    <a href="#" (click)="confirmationDelete()" class="btn-cursor-pointer">
                                         <i class="fa-regular fa-trash-can"></i>
-                                    </span>
-                                    <span class="ms-2">
+                                    </a>
+                                    <a href="#"  class="ms-2" [routerLink]="['/editar/marcas/', 1]">
                                         <i class="fa-regular fa-pen-to-square"></i>
-                                    </span>
+                                    </a>
                                 </td>
                             </tr>
                         </ng-template>

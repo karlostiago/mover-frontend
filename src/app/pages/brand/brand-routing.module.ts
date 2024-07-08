@@ -5,7 +5,7 @@ import {CadastroBrandComponent} from "./cadastro-brand/cadastro-brand.component"
 
 const rotas: Routes = [
     {
-        path: 'consulta/marcas',
+        path: 'consultar/marcas',
         component: ConsultaBrandComponent
     },
     {

@@ -7,6 +7,7 @@ import {NgOptimizedImage} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {CoreModule} from "./core/core.module";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import {CoreModule} from "./core/core.module";
         NgOptimizedImage,
 
         CoreModule,
+        ConfirmDialogModule,
     ],
     providers: [],
     exports: [

@@ -7,4 +7,13 @@
     <main class="content container-fluid">
         <router-outlet></router-outlet>
     </main>
+
+    <p-confirmDialog header="Confirmação" icon="pi pi-exclamation-triangle" #confirmDialog>
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" label="Sim" class="p-button-danger p-button-sm"
+                    (click)="confirmDialog.accept()"></button>
+            <button type="button" pButton icon="pi pi-times" label="Não" class="p-button-danger p-button-sm"
+                    (click)="confirmDialog.reject()"></button>
+        </p-footer>
+    </p-confirmDialog>
 </div>

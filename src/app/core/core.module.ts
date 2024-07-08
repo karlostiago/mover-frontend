@@ -3,6 +3,7 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {BrandModule} from "../pages/brand/brand.module";
 import {HeaderComponent} from "./header/header.component";
 import {MenuLateralComponent} from "./menu/menu-lateral/menu-lateral.component";
+import {ConfirmationService} from "primeng/api";
 
 @NgModule({
     declarations: [
@@ -17,6 +18,9 @@ import {MenuLateralComponent} from "./menu/menu-lateral/menu-lateral.component";
     imports: [
         CommonModule,
         NgOptimizedImage
+    ],
+    providers: [
+        ConfirmationService
     ]
 })
 export class CoreModule { }

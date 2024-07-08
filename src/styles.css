@@ -26,6 +26,10 @@ label, h1, p, h4, small, input, thead, th, td {
     color: rgba(0, 0, 0, 0.54) !important;
 }
 
+.btn-cursor-pointer {
+    cursor: pointer !important;
+}
+
 /**
  * ---------------------------------------------------------
  *      Classes para aplicar o efeito de aparecimento gradual (fadeIn)

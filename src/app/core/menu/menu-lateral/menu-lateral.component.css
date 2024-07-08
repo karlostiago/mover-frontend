@@ -11,6 +11,10 @@ aside {
     z-index: 1;
 }
 
+.mobile-logo {
+    display: none;
+}
+
 .logo {
     width: 100%;
     height: auto;
@@ -127,6 +131,14 @@ aside {
     }
 
     .sidebar > li > a {
+        display: none;
+    }
+
+    .mobile-logo {
+        display: block;
+    }
+
+    .main-logo {
         display: none;
     }
 }

@@ -1,0 +1,91 @@
+<form autocomplete="off">
+    <div class="row g-3">
+        <div class="col-12">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-6">
+                    <h1 class="title">Marcas</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label"> Pesquisar *:</label>
+                            <input pInputText class="form-control" name="pesquisar" id="pesquisar">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-12 col-md-6 order-md-1 text-md-start">
+                            <button type="button" pButton class="p-button-success p-button-sm">
+                                <i class="fa-solid fa-magnifying-glass m-1"></i>
+                                Pesquisar
+                            </button>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 text-md-end">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/cadastro/marcas/novo">
+                                <i class="fa-solid fa-plus m-1"></i>
+                                Novo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-body">
+                    <p-table [value]="brands" [paginator]="true" [rows]="10"
+                             responsiveLayout="stack" [breakpoint]="'960px'"
+                             styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-center w-40">ATIVO</th>
+                                <th class="text-center w-15">DESCRIÇÂO</th>
+                                <th class="text-center w-5">AÇÔES</th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-brand>
+                            <tr>
+                                <td class="text-center">
+                                    <span class="p-column-title">ATIVO</span>
+                                    <span class=" {{ brand['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                    {{ brand["active"] === true ? 'Sim' : 'Não' }}
+                                </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">DESCRIÇÂO</span>
+                                    {{ brand["description"] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">AÇÔES</span>
+                                    <span>
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </span>
+                                    <span class="ms-2">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

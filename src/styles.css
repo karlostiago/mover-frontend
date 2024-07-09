@@ -73,6 +73,10 @@ a {
     background: #ebebeb !important;
 }
 
+.p-datatable .p-datatable-tbody > tr > td {
+    padding: 0.55rem 1rem;
+}
+
 /**
  * ---------------------------------------------------------
  *      Configuração de estilos dos cards
@@ -112,10 +116,24 @@ a {
     border-color: #dee2e6 !important;
 }
 
+.p-inputtext {
+    padding: 12px 28px 12px 12px !important;
+}
+
+/**
+ * ---------------------------------------------------------
+ *      Configuração de estilos dos texts
+ * ---------------------------------------------------------
+ */
 .text-bg-success {
     background: #47b051 !important;
 }
 
+/**
+ * ---------------------------------------------------------
+ *      Configuração de estilos dos buttons
+ * ---------------------------------------------------------
+ */
 .p-button.p-button-contrast {
     background: #2c3e50 !important;
     border: 1px solid #2c3e50 !important;
@@ -168,5 +186,23 @@ a {
 
 .p-inputswitch.p-focus .p-inputswitch-slider {
     box-shadow: none;
+}
+
+/**
+ * ---------------------------------------------------------
+ *      Configuração de estilos dos dropdown
+ * ---------------------------------------------------------
+ */
+.p-dropdown-items {
+    padding-left: 0;
+}
+
+.p-dropdown:not(.p-disabled):hover {
+    border-color: #dee2e6 !important;
+}
+
+.p-dropdown:not(.p-disabled).p-focus {
+    box-shadow: none;
+    border-color: #dee2e6 !important;
 }
 

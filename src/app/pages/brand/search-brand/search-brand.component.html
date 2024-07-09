@@ -56,6 +56,7 @@
                             <tr>
                                 <th class="text-center w-40">ATIVO</th>
                                 <th class="text-center w-15">DESCRIÇÂO</th>
+                                <th class="text-center w-15">SIMBOLO</th>
                                 <th class="text-center w-5">AÇÔES</th>
                             </tr>
                         </ng-template>
@@ -71,6 +72,11 @@
                                 <td class="text-center">
                                     <span class="p-column-title">DESCRIÇÂO</span>
                                     {{ brand["description"] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">SIMBOLO</span>
+                                    <img src="data:image/png;base64, {{ brand['symble'] }}" />
+
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>

@@ -33,6 +33,25 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-3">
+                            <label class="form-label"> Simbolo *:</label>
+                            <p-dropdown styleClass="w-100" name="symbol" id="symbol" [options]="symbols" [showClear]="true"
+                                        placeholder="Selecione um simbolo" [(ngModel)]="selectedSymbol">
+                                <ng-template pTemplate="selectedItem">
+                                    <div class="flex align-items-center gap-2" *ngIf="selectedSymbol">
+                                        <img src="data:image/png;base64, {{ selectedSymbol }}" style="width: 48px"  alt="symbol"/>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-symbol pTemplate="item">
+                                    <div class="flex align-items-center gap-2">
+                                        <img src="data:image/png;base64, {{symbol}}" style="width: 48px"  alt="symbol"/>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-12">
                             <label class="form-label">Ativo:</label>
                             <p-inputSwitch name="ativo" id="ativo" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>

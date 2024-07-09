@@ -9,6 +9,8 @@ import {TableModule} from "primeng/table";
 import {InputTextModule} from "primeng/inputtext";
 import {RouterLink} from "@angular/router";
 import {BrandRoutingModule} from "./brand-routing.module";
+import {DropdownModule} from "primeng/dropdown";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -28,7 +30,9 @@ import {BrandRoutingModule} from "./brand-routing.module";
         InputTextModule,
         RouterLink,
         BrandRoutingModule,
-        Button
+        Button,
+        DropdownModule,
+        FormsModule
     ]
 })
 export class BrandModule { }

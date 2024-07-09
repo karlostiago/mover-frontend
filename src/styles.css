@@ -126,6 +126,11 @@ a {
     border: 1px solid #2c3e50 !important;
 }
 
+.p-button.p-button-link {
+    padding: 5px;
+    color: #757575;
+}
+
 /**
  * ---------------------------------------------------------
  *      Configuração de estilos dos dialogs
@@ -149,4 +154,5 @@ a {
 
 .p-dialog.p-confirm-dialog .p-confirm-dialog-message {
     margin-left: inherit;
+    font-size: .875rem;
 }

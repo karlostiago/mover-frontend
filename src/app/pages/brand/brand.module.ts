@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CadastroBrandComponent} from "./cadastro-brand/cadastro-brand.component";
+import {RegisterBrandComponent} from "./register-brand/register-brand.component";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {InputTextareaModule} from "primeng/inputtextarea";
-import {ButtonDirective} from "primeng/button";
-import {ConsultaBrandComponent} from "./consulta-brand/consulta-brand.component";
+import {Button, ButtonDirective} from "primeng/button";
+import {SearchBrandComponent} from "./search-brand/search-brand.component";
 import {TableModule} from "primeng/table";
 import {InputTextModule} from "primeng/inputtext";
 import {RouterLink} from "@angular/router";
@@ -12,12 +12,12 @@ import {BrandRoutingModule} from "./brand-routing.module";
 
 @NgModule({
     declarations: [
-        CadastroBrandComponent,
-        ConsultaBrandComponent
+        RegisterBrandComponent,
+        SearchBrandComponent
     ],
     exports: [
-        CadastroBrandComponent,
-        ConsultaBrandComponent
+        RegisterBrandComponent,
+        SearchBrandComponent
     ],
     imports: [
         CommonModule,
@@ -27,7 +27,8 @@ import {BrandRoutingModule} from "./brand-routing.module";
         TableModule,
         InputTextModule,
         RouterLink,
-        BrandRoutingModule
+        BrandRoutingModule,
+        Button
     ]
 })
 export class BrandModule { }

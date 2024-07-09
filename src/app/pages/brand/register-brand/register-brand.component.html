@@ -15,7 +15,7 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-header">
-                    <h4>Cadastro</h4>
+                    <h4> {{ isNewRegister() ? 'Cadastrar' : 'Atualizar' }}</h4>
                 </div>
 
                 <div class="card-body">
@@ -45,7 +45,7 @@
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>
-                    <button pButton type="button" class="p-button-danger p-button-sm ms-2" routerLink="/consultar/marcas">
+                    <button pButton type="button" class="p-button-danger p-button-sm ms-2" routerLink="/search/brands">
                         <i class="fa-solid fa-remove m-1"></i>
                         Cancelar
                     </button>

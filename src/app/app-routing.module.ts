@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {ConsultaBrandComponent} from "./pages/brand/consulta-brand/consulta-brand.component";
+import {SearchBrandComponent} from "./pages/brand/search-brand/search-brand.component";
 
 const rotas: Routes = [
     {
         path: '',
-        component: ConsultaBrandComponent
+        component: SearchBrandComponent
     }
 ]
 

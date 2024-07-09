@@ -1,20 +1,20 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {ConsultaBrandComponent} from "./consulta-brand/consulta-brand.component";
-import {CadastroBrandComponent} from "./cadastro-brand/cadastro-brand.component";
+import {SearchBrandComponent} from "./search-brand/search-brand.component";
+import {RegisterBrandComponent} from "./register-brand/register-brand.component";
 
 const rotas: Routes = [
     {
-        path: 'consultar/marcas',
-        component: ConsultaBrandComponent
+        path: 'search/brands',
+        component: SearchBrandComponent
     },
     {
-        path: 'cadastro/marcas/novo',
-        component: CadastroBrandComponent
+        path: 'register/brands/new',
+        component: RegisterBrandComponent
     },
     {
-        path: 'editar/marcas/:id',
-        component: CadastroBrandComponent
+        path: 'update/brands/:id',
+        component: RegisterBrandComponent
     },
 ]
 

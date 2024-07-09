@@ -32,7 +32,7 @@
                             </button>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 text-md-end">
-                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/cadastro/marcas/novo">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/register/brands/new">
                                 <i class="fa-solid fa-plus m-1"></i>
                                 Novo
                             </button>
@@ -74,12 +74,12 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
-                                    <a href="#" (click)="confirmationDelete()" class="btn-cursor-pointer">
+                                    <p-button [link]="true" (click)="confirmationDelete()" >
                                         <i class="fa-regular fa-trash-can"></i>
-                                    </a>
-                                    <a href="#"  class="ms-2" [routerLink]="['/editar/marcas/', 1]">
+                                    </p-button>
+                                    <p-button [link]="true" [routerLink]="['/update/brands/', 1]">
                                         <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
+                                    </p-button>
                                 </td>
                             </tr>
                         </ng-template>

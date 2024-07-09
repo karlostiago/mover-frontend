@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
 
 @Component({
-  selector: 'app-consulta-brand',
-  templateUrl: './consulta-brand.component.html',
-  styleUrls: ['./consulta-brand.component.css']
+  selector: 'app-search-brand',
+  templateUrl: './search-brand.component.html',
+  styleUrls: ['./search-brand.component.css']
 })
-export class ConsultaBrandComponent implements OnInit {
+export class SearchBrandComponent implements OnInit {
 
     brands: any = []
 

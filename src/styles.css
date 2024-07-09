@@ -156,3 +156,17 @@ a {
     margin-left: inherit;
     font-size: .875rem;
 }
+
+/**
+ * ---------------------------------------------------------
+ *      Configuração de estilos dos inputSwitch
+ * ---------------------------------------------------------
+ */
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+    background: #2c3e50;
+}
+
+.p-inputswitch.p-focus .p-inputswitch-slider {
+    box-shadow: none;
+}
+

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
-import {Symbol} from "../../../enum/Symbol";
+import {SymbolBrandBase64} from "../../../enum/SymbolBrandBase64";
 
 @Component({
   selector: 'app-search-brand',
@@ -16,10 +16,10 @@ export class SearchBrandComponent implements OnInit {
 
     ngOnInit(): void {
         this.brands = [
-            { id: 1, description: "Audi", symble: Symbol.AUDI, active: true},
-            { id: 2, description: "BMW", symble: Symbol.BMW, active: false},
-            { id: 3, description: "Mercedes", symble: Symbol.MERCEDES, active: true},
-            { id: 4, description: "Golf", symble: Symbol.VOLKSWAGEN, active: false}
+            { id: 1, description: "Audi", symble: SymbolBrandBase64.AUDI, active: true},
+            { id: 2, description: "BMW", symble: SymbolBrandBase64.BMW, active: false},
+            { id: 3, description: "Mercedes", symble: SymbolBrandBase64.MERCEDES, active: true},
+            { id: 4, description: "Golf", symble: SymbolBrandBase64.VOLKSWAGEN, active: false}
         ]
     }
 

@@ -210,3 +210,9 @@ input {
     border-color: #dee2e6 !important;
 }
 
+@media (max-width: 768px) {
+    .text-md-end {
+        text-align: right !important;
+    }
+}
+

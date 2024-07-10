@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {AbstractRegister} from "../../../core/AbstractRegister";
-import {Symbol} from "../../../enum/Symbol";
+import {SymbolBrandBase64} from "../../../enum/SymbolBrandBase64";
 
 @Component({
   selector: 'app-register-brand',
@@ -23,9 +23,9 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
     }
 
     private loadSymbols() {
-        for (const key in Symbol) {
+        for (const key in SymbolBrandBase64) {
             // @ts-ignore
-            this.symbols.push(Symbol[`${key}`]);
+            this.symbols.push(SymbolBrandBase64[`${key}`]);
         }
     }
 }

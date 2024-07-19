@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
-import {SymbolBrandBase64} from "../../../enum/SymbolBrandBase64";
+import {SymbolBrandBase64} from "../../../../enum/SymbolBrandBase64";
 
 @Component({
   selector: 'app-search-brand',

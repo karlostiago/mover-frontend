@@ -1,0 +1,17 @@
+.loading {
+    background: transparent;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+}
+
+.loading-main {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-left: -40px;
+    margin-top: -40px;
+}

@@ -1,0 +1,21 @@
+<div *ngIf="loading | async">
+    <ng-template #custom>
+        <div class="loading">
+            <div class="loading-main">
+                <p-progressSpinner fill="var(--surface-ground)"></p-progressSpinner>
+                <br/>
+                <label>Processando....</label>
+            </div>
+        </div>
+    </ng-template>
+
+    <ngx-loading
+        [show]="true"
+        [template]="custom"
+        [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+        backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+        primaryColour: '#ffffff', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }"
+    ></ngx-loading>
+</div>
+
+

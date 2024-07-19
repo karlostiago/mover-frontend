@@ -2,11 +2,15 @@
     <app-header></app-header>
 </header>
 
+<app-loader></app-loader>
+
 <div class="main">
     <app-menu-lateral></app-menu-lateral>
     <main class="content container-fluid">
         <router-outlet></router-outlet>
     </main>
+
+    <p-toast [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
 
     <p-confirmDialog header="Confirmação" icon="pi pi-exclamation-triangle" #confirmDialog>
         <p-footer>

@@ -6,7 +6,7 @@ body {
     background: var(--gray-400)!important;
 }
 
-table {
+table, .p-button-label {
     font-family: 'Ubuntu', sans-serif!important;
 }
 
@@ -14,7 +14,7 @@ thead, th {
     font-weight: 400;
 }
 
-body, input, textarea, button, td, thead {
+body, input, textarea, button, td, thead, .p-button-label {
     font-size: 0.875rem!important;
 }
 
@@ -22,7 +22,7 @@ body, input, textarea, button, td, thead {
     text-decoration: none !important;
 }
 
-label, h1, p, h4, small, input, thead, th, td {
+label, h1, p, h4, small, input, thead, th, td, .p-button-label {
     color: rgba(0, 0, 0, 0.54) !important;
 }
 
@@ -153,6 +153,11 @@ input {
     color: #757575;
 }
 
+.p-button:focus {
+    box-shadow: none !important;
+    border-color: #dee2e6 !important;
+}
+
 /**
  * ---------------------------------------------------------
  *      Configuração de estilos dos dialogs
@@ -214,5 +219,14 @@ input {
     .text-md-end {
         text-align: right !important;
     }
+}
+
+/**
+ * ---------------------------------------------------------
+ *      Configuração de estilos fileUpload
+ * ---------------------------------------------------------
+ */
+.p-fileupload-choose {
+    padding: 12px 28px 12px 12px !important;
 }
 

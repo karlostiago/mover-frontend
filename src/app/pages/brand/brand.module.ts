@@ -11,6 +11,7 @@ import {RouterLink} from "@angular/router";
 import {BrandRoutingModule} from "./brand-routing.module";
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
+import {FileUploadModule} from "primeng/fileupload";
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import {FormsModule} from "@angular/forms";
         BrandRoutingModule,
         Button,
         DropdownModule,
-        FormsModule
+        FormsModule,
+        FileUploadModule
     ]
 })
 export class BrandModule { }

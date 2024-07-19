@@ -8,6 +8,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {CoreModule} from "./core/core.module";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {SharedModule} from "../shared/SharedModule";
+import {HttpClientModule} from "@angular/common/http";
+import {LoaderModule} from "./core/loader/loader.module";
 
 @NgModule({
     declarations: [
@@ -15,15 +18,20 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
         DashboardComponent
     ],
     imports: [
+        HttpClientModule,
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         NgOptimizedImage,
 
         CoreModule,
+        SharedModule,
         ConfirmDialogModule,
+        LoaderModule
     ],
-    providers: [],
+    providers: [
+
+    ],
     exports: [
 
     ],

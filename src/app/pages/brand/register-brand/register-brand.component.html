@@ -1,4 +1,4 @@
-<form autocomplete="off" class="fade-in">
+<form autocomplete="off" class="fade-in" #form="ngForm" (ngSubmit)="saveOrUpdate(form)">
     <div class="row g-3">
         <div class="col-12">
             <div class="row align-items-center">
@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label class="form-label"> Descrição da marca *:</label>
-                            <input pInputText class="form-control" name="descricao" id="descricao">
+                            <input pInputText class="form-control" name="name" id="name" [(ngModel)]="brand['name']">
                         </div>
                     </div>
 
@@ -52,9 +52,42 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-3">
+                            <label class="form-label">Carregar novo simbolo:</label>
+                            <p-fileUpload
+                                mode="basic"
+                                url="{{ uploadURL }}"
+                                name="file"
+                                chooseLabel="Selecionar"
+                                chooseIcon="fa-solid fa-arrow-up-from-bracket"
+                                styleClass="form-control"
+                                accept="image/*"
+                                maxFileSize="1000000"
+                                [auto]="true"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-12">
                             <label class="form-label">Ativo:</label>
-                            <p-inputSwitch name="ativo" id="ativo" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                            <p-inputSwitch name="ativo" id="ativo" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"
+                                [(ngModel)]="brand['active']"></p-inputSwitch>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">
+                                <strong>
+                                    Observação para carregamento de simbolos:
+                                </strong>
+                            </label>
+                            <p class="alert alert-danger">
+                                <i class="fa-solid fa-check"></i>
+                                Para submeter a um novo simbolo é preciso que esteja no formato png, e no tamanho 48x48.
+                            </p>
                         </div>
                     </div>
                 </div>

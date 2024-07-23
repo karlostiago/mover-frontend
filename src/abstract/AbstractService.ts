@@ -1,6 +1,7 @@
 import {HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
+import {ErrorHandler} from "../app/core/handler/ErrorHandler";
 
 export abstract class AbstractService <T> {
 
@@ -9,6 +10,8 @@ export abstract class AbstractService <T> {
     // protected constructor(
     //     protected error: ErroHandlerService) {
     // }
+
+    protected constructor(protected errorHandler: ErrorHandler) { }
 
     protected abstract pathURL(): string;
 
@@ -32,7 +35,7 @@ export abstract class AbstractService <T> {
                     resolve(data as T);
                 },
                 error: (error) => {
-                    // this.error.capturar(error);
+                    this.errorHandler.capture(error);
                 }
             })
         })

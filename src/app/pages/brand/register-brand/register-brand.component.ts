@@ -74,19 +74,25 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
     }
 
     private save(form: NgForm) {
+        this.loadEmptySymbolWhenNotSelected();
         this.brandService.save(this.brand).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
             form.resetForm();
-        }).catch(error => {
-            this.alertService.error("Não foi possível registrar, " + error);
-        });
+        })
+    }
+
+    private loadEmptySymbolWhenNotSelected() {
+        if (!this.selectedSymbolId) {
+            const symbol = new SymbolEntity();
+            symbol.imageBase64 = "empty";
+            symbol.description = "empty";
+            this.brand.symbol = symbol;
+        }
     }
 
     private update() {
         this.brandService.update(this.brand).then(() => {
             this.alertService.success("Registro atualizado com sucesso.");
-        }).catch(error => {
-            this.alertService.error("Não foi possível atualizar, " + error);
         });
     }
 

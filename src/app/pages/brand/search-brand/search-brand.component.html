@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label class="form-label"> Pesquisar *:</label>
-                            <input pInputText class="form-control" name="pesquisar" id="pesquisar">
+                            <input pInputText class="form-control" name="pesquisar" id="pesquisar" [(ngModel)]="filterName">
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="card-footer">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-12 col-md-6 text-md-start">
-                            <button type="button" pButton class="p-button-success p-button-sm">
+                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()">
                                 <i class="fa-solid fa-magnifying-glass m-1"></i>
                                 Pesquisar
                             </button>

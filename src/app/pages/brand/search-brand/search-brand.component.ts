@@ -13,6 +13,8 @@ export class SearchBrandComponent implements OnInit {
 
     brands = new Array<BrandEntity>();
 
+    filterName: string = "";
+
     constructor(private confirmationService: ConfirmationService,
                 private brandService: BrandService,
                 private alertService: AlertService) {
@@ -37,8 +39,12 @@ export class SearchBrandComponent implements OnInit {
         this.brandService.delete(id).then(() => {
             this.brands = this.brands.filter(b => b.id !== id);
             this.alertService.success("Registro deletado com sucesso.");
-        }).catch(error => {
-            this.alertService.error(error);
-        })
+        });
+    }
+
+    filterBy() {
+        this.brandService.findByName(this.filterName).then(response => {
+            this.brands = response;
+        });
     }
 }

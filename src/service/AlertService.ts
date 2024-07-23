@@ -20,6 +20,10 @@ export class AlertService {
         this.build(message, 'warn', 'Atenção');
     }
 
+    info(message: string) {
+        this.build(message, 'info', 'Info');
+    }
+
     private build(message: string, severity: string, summary: string) {
         this.messageService.add({
             severity: severity,

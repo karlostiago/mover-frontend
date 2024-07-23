@@ -1,6 +1,8 @@
+import {SymbolEntity} from "./SymbolEntity";
+
 export class BrandEntity {
     id: number = 0;
     name: string = "";
-    symbol: string = "";
+    symbol = new SymbolEntity();
     active: boolean = false;
 }

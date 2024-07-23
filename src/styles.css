@@ -230,3 +230,8 @@ input {
     padding: 12px 28px 12px 12px !important;
 }
 
+.p-disabled {
+    cursor: no-drop!important;
+    pointer-events: auto;
+}
+

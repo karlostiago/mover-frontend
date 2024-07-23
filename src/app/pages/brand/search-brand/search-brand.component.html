@@ -71,19 +71,18 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">DESCRIÇÂO</span>
-                                    {{ brand["description"] }}
+                                    {{ brand["name"] }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">SIMBOLO</span>
-                                    <img src="data:image/png;base64, {{ brand['symble'] }}" />
-
+                                    <img src="data:image/png;base64, {{ brand['symbol']['imageBase64'] }}" style="width: 48px" />
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
-                                    <p-button [link]="true" (click)="confirmationDelete()" >
+                                    <p-button [link]="true" (click)="confirmationDelete(brand)" >
                                         <i class="fa-regular fa-trash-can"></i>
                                     </p-button>
-                                    <p-button [link]="true" [routerLink]="['/update/brands/', 1]">
+                                    <p-button [link]="true" [routerLink]="['/update/brands/', brand.id]">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </p-button>
                                 </td>

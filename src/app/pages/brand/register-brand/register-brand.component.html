@@ -35,16 +35,19 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label class="form-label"> Simbolo *:</label>
-                            <p-dropdown styleClass="w-100" name="symbol" id="symbol" [options]="symbols" [showClear]="true"
-                                        placeholder="Selecione um simbolo" [(ngModel)]="selectedSymbol">
-                                <ng-template pTemplate="selectedItem">
-                                    <div class="flex align-items-center gap-2" *ngIf="selectedSymbol">
-                                        <img src="data:image/png;base64, {{ selectedSymbol }}" style="width: 48px"  alt="symbol"/>
-                                    </div>
-                                </ng-template>
+                            <p-dropdown styleClass="w-100" name="symbol" id="symbol" [options]="symbols" [showClear]="false"
+                                        placeholder="Selecione um simbolo"
+                                        optionLabel="id"
+                                        optionValue="id"
+                                        [(ngModel)]="selectedSymbolId">
                                 <ng-template let-symbol pTemplate="item">
                                     <div class="flex align-items-center gap-2">
-                                        <img src="data:image/png;base64, {{symbol}}" style="width: 48px"  alt="symbol"/>
+                                        <img src="data:image/png;base64, {{ symbol.imageBase64 }}" style="width: 48px"  alt="symbol"/>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-selected pTemplate="selectedItem">
+                                    <div class="flex align-items-center gap-2">
+                                        <img src="data:image/png;base64, {{ selected['imageBase64'] }}" style="width: 48px"  alt="symbol"/>
                                     </div>
                                 </ng-template>
                             </p-dropdown>
@@ -64,6 +67,10 @@
                                 accept="image/*"
                                 maxFileSize="1000000"
                                 [auto]="true"
+                                [disabled]="uploadSymbolDisabled()"
+                                (onBeforeUpload)="updateURL($event)"
+                                (onUpload)="uploadSuccess($event)"
+                                (onError)="uploadError($event)"
                             />
                         </div>
                     </div>
@@ -79,12 +86,7 @@
                     <br />
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="form-label">
-                                <strong>
-                                    Observação para carregamento de simbolos:
-                                </strong>
-                            </label>
-                            <p class="alert alert-danger">
+                            <p class="alert alert-info">
                                 <i class="fa-solid fa-check"></i>
                                 Para submeter a um novo simbolo é preciso que esteja no formato png, e no tamanho 48x48.
                             </p>

@@ -9,12 +9,19 @@
         </div>
     </span>
     <ul class="sidebar">
-        <li class="active">
+        <li routerLinkActive="active">
             <i class="fa-solid fa-gauge"></i>
-            <a href="#"> Dashboard </a>
+            <a routerLink="/dashboard/home"> Dashboard </a>
         </li>
         <li>
             <i class="fa-regular fa-newspaper"></i>
+            <a href="#"> Operacional </a>
+            <ul>
+                <li> <a routerLink="/search/brands"> Marcas </a> </li>
+            </ul>
+        </li>
+        <li>
+            <i class="fa-solid fa-chart-line"></i>
             <a href="#"> Relatórios </a>
             <ul>
                 <li> <a href="#"> Gastos </a> </li>

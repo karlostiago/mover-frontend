@@ -4,5 +4,5 @@ export class BrandEntity {
     id: number = 0;
     name: string = "";
     symbol = new SymbolEntity();
-    active: boolean = false;
+    active: boolean = true;
 }

@@ -219,6 +219,9 @@ input {
     .text-md-end {
         text-align: right !important;
     }
+    .col-xs-6 {
+        width: 50% !important;
+    }
 }
 
 /**

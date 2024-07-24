@@ -27,14 +27,14 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="form-label"> Descrição da marca *:</label>
+                            <label class="form-label"> Descrição *:</label>
                             <input pInputText class="form-control" name="name" id="name" [(ngModel)]="brand['name']">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3">
-                            <label class="form-label"> Simbolo *:</label>
+                            <label class="form-label"> Símbolo *:</label>
                             <p-dropdown styleClass="w-100" name="symbol" id="symbol" [options]="symbols" [showClear]="false"
                                         placeholder="Selecione um simbolo"
                                         optionLabel="id"
@@ -56,7 +56,7 @@
 
                     <div class="row">
                         <div class="col-md-3">
-                            <label class="form-label">Carregar novo simbolo:</label>
+                            <label class="form-label">Carregar novo símbolo:</label>
                             <p-fileUpload
                                 mode="basic"
                                 url="{{ uploadURL }}"
@@ -88,7 +88,7 @@
                         <div class="col-md-12">
                             <p class="alert alert-info">
                                 <i class="fa-solid fa-check"></i>
-                                Para submeter a um novo simbolo é preciso que esteja no formato png, e no tamanho 48x48.
+                                Para submeter um novo símbolo é preciso que esteja no formato png e no tamanho 48x48.
                             </p>
                         </div>
                     </div>

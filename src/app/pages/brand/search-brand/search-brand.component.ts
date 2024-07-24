@@ -23,12 +23,13 @@ export class SearchBrandComponent implements OnInit {
     ngOnInit(): void {
         this.brandService.findAll().then(response => {
             this.brands = response;
+            this.brands.length > 10
         });
     }
 
     confirmationDelete(brand: BrandEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir a marca ?`,
+            message: `Tem certeza que deseja excluir a Marca ?`,
             accept: () => {
                 this.delete(brand.id);
             }

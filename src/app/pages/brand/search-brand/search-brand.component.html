@@ -49,33 +49,33 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table [value]="brands" [paginator]="true" [rows]="10"
+                    <p-table [value]="brands" [paginator]="brands.length > 10" [rows]="10"
                              responsiveLayout="stack" [breakpoint]="'960px'"
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th class="text-center w-40">ATIVO</th>
-                                <th class="text-center w-15">DESCRIÇÂO</th>
                                 <th class="text-center w-15">SIMBOLO</th>
-                                <th class="text-center w-5">AÇÔES</th>
+                                <th class="text-center w-15">DESCRIÇÂO</th>
+                                <th class="text-center w-40">ATIVO</th>
+                                <th class="text-center w-5">AÇÕES</th>
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="body" let-brand>
                             <tr>
                                 <td class="text-center">
-                                    <span class="p-column-title">ATIVO</span>
-                                    <span class=" {{ brand['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                    {{ brand["active"] === true ? 'Sim' : 'Não' }}
-                                </span>
+                                    <span class="p-column-title">SIMBOLO</span>
+                                    <img src="data:image/png;base64, {{ brand['symbol']['imageBase64'] }}" style="width: 48px" />
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">DESCRIÇÂO</span>
                                     {{ brand["name"] }}
                                 </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">SIMBOLO</span>
-                                    <img src="data:image/png;base64, {{ brand['symbol']['imageBase64'] }}" style="width: 48px" />
+                                    <span class="p-column-title">ATIVO</span>
+                                    <span class=" {{ brand['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                        {{ brand["active"] === true ? 'Sim' : 'Não' }}
+                                    </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
@@ -85,6 +85,14 @@
                                     <p-button [link]="true" [routerLink]="['/update/brands/', brand.id]">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </p-button>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="4" style="text-align: center;">
+                                    Nenhum registro encontrado
                                 </td>
                             </tr>
                         </ng-template>

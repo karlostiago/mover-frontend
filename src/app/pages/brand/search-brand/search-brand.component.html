@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="form-label"> Pesquisar *:</label>
+                            <label class="form-label"> Pesquisar:</label>
                             <input pInputText class="form-control" name="pesquisar" id="pesquisar" [(ngModel)]="filterName">
                         </div>
                     </div>
@@ -53,8 +53,8 @@
                              responsiveLayout="stack" [breakpoint]="'960px'"
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
                         <ng-template pTemplate="header">
-                            <tr>
-                                <th class="text-center w-15">SIMBOLO</th>
+                            <tr *ngIf="brands.length > 0">
+                                <th class="text-center w-15">SÍMBOLO</th>
                                 <th class="text-center w-15">DESCRIÇÃO</th>
                                 <th class="text-center w-40">ATIVO</th>
                                 <th class="text-center w-5">AÇÕES</th>
@@ -64,11 +64,11 @@
                         <ng-template pTemplate="body" let-brand>
                             <tr>
                                 <td class="text-center">
-                                    <span class="p-column-title">SIMBOLO</span>
+                                    <span class="p-column-title">SÍMBOLO</span>
                                     <img src="data:image/png;base64, {{ brand['symbol']['imageBase64'] }}" style="width: 48px" />
                                 </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">DESCRIÇÂO</span>
+                                    <span class="p-column-title">DESCRIÇÃO</span>
                                     {{ brand["name"] }}
                                 </td>
                                 <td class="text-center">
@@ -92,7 +92,7 @@
                         <ng-template pTemplate="emptymessage">
                             <tr>
                                 <td colspan="4" style="text-align: center;">
-                                    Nenhum registro encontrado
+                                    Nenhum registro encontrado.
                                 </td>
                             </tr>
                         </ng-template>

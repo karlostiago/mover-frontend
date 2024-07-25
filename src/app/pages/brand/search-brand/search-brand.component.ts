@@ -23,7 +23,6 @@ export class SearchBrandComponent implements OnInit {
     ngOnInit(): void {
         this.brandService.findAll().then(response => {
             this.brands = response;
-            this.brands.length > 10
         });
     }
 

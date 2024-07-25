@@ -36,7 +36,7 @@
                         <div class="col-md-3">
                             <label class="form-label"> Símbolo *:</label>
                             <p-dropdown styleClass="w-100" name="symbol" id="symbol" [options]="symbols" [showClear]="false"
-                                        placeholder="Selecione um simbolo"
+                                        placeholder="Selecione um símbolo"
                                         optionLabel="id"
                                         optionValue="id"
                                         [(ngModel)]="selectedSymbolId">
@@ -58,6 +58,7 @@
                         <div class="col-md-3">
                             <label class="form-label">Carregar novo símbolo:</label>
                             <p-fileUpload
+                                #fileUpload
                                 mode="basic"
                                 url="{{ uploadURL }}"
                                 name="file"
@@ -78,7 +79,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label class="form-label">Ativo:</label>
-                            <p-inputSwitch name="ativo" id="ativo" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"
+                            <p-inputSwitch name="active" id="active" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"
                                 [(ngModel)]="brand['active']"></p-inputSwitch>
                         </div>
                     </div>

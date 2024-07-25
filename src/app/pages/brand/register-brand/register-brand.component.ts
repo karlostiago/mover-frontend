@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {AbstractRegister} from "../../../../abstract/AbstractRegister";
 import {BrandEntity} from "../../../../entity/BrandEntity";
@@ -8,6 +8,7 @@ import {AlertService} from "../../../../service/AlertService";
 import {environment} from "../../../../environments/environment";
 import {SymbolService} from "../symbol.service";
 import {SymbolEntity} from "../../../../entity/SymbolEntity";
+import {FileUpload} from "primeng/fileupload";
 
 @Component({
     selector: 'app-register-brand',
@@ -24,6 +25,8 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
 
     uploadURL = `${environment.apiUrl}/brands/upload?filename=`;
 
+    @ViewChild("fileUpload") fileUpload: FileUpload | undefined;
+
     constructor(protected override activatedRoute: ActivatedRoute,
                 private brandService: BrandService,
                 private symbolService: SymbolService,
@@ -37,6 +40,7 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
         if (!this.registerNew) {
             this.brandService.findById(this.id).then(response => {
                 this.brand = response;
+                this.symbols.push(this.brand.symbol);
                 this.selectedSymbolId = this.brand.symbol.id;
             });
         }
@@ -61,7 +65,8 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
     }
 
     uploadError(e: any) {
-        this.alertService.error("Erro no carregamento da imagem.");
+        this.alertService.error("Erro no carregamento da imagem. " + e.error.error[0]['message']);
+        this.fileUpload?.clear();
     }
 
     uploadSymbolDisabled() {
@@ -76,9 +81,12 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
     private save(form: NgForm) {
         this.loadEmptySymbolWhenNotSelected();
         this.brandService.save(this.brand).then(() => {
+            this.symbols = this.symbols.filter(s => s.id !== this.brand.symbol.id);
             this.alertService.success("Registro cadastrado com sucesso.");
-            form.resetForm();
-        })
+            form.resetForm({
+                active: true
+            });
+        });
     }
 
     private loadEmptySymbolWhenNotSelected() {

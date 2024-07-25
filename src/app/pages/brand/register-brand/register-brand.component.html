@@ -39,7 +39,8 @@
                                         placeholder="Selecione um símbolo"
                                         optionLabel="id"
                                         optionValue="id"
-                                        [(ngModel)]="selectedSymbolId">
+                                        [(ngModel)]="selectedSymbolId"
+                                        required="true">
                                 <ng-template let-symbol pTemplate="item">
                                     <div class="flex align-items-center gap-2">
                                         <img src="data:image/png;base64, {{ symbol.imageBase64 }}" style="width: 48px"  alt="symbol"/>
@@ -96,7 +97,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!formValid()">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

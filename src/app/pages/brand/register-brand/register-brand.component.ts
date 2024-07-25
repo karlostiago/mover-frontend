@@ -73,6 +73,10 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
         return this.brand.name == null || this.brand.name.length <= 2;
     }
 
+    formValid() {
+        return this.selectedSymbolId !== 0 && this.brand.name.length > 0;
+    }
+
     private findSymbolById() {
         const symbol = this.symbols.filter(symbol => symbol.id === this.selectedSymbolId)[0];
         if (symbol) this.brand.symbol = symbol;
@@ -84,7 +88,8 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
             this.symbols = this.symbols.filter(s => s.id !== this.brand.symbol.id);
             this.alertService.success("Registro cadastrado com sucesso.");
             form.resetForm({
-                active: true
+                active: true,
+                name: ""
             });
         });
     }

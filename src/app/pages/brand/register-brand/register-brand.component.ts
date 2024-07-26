@@ -62,6 +62,7 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
     async uploadSuccess(e: any) {
         this.alertService.success("Carregamento da imagem executado com sucesso.");
         await this.loadSymbols();
+        this.selectedSymbolId = this.symbols[this.symbols.length - 1].id;
     }
 
     uploadError(e: any) {

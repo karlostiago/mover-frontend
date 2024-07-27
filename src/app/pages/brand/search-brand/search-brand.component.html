@@ -49,7 +49,7 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table [value]="brands" [paginator]="brands.length > 10" [rows]="10"
+                    <p-table #table [value]="brands" [paginator]="brands.length > 10" [rows]="10"
                              responsiveLayout="stack" [breakpoint]="'960px'"
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
                         <ng-template pTemplate="header">

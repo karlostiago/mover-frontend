@@ -68,9 +68,10 @@ input {
 }
 
 .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
-    background: transparent !important;
+    background: #2c3e50 !important;
     border-color: inherit !important;
-    color: rgba(0, 0, 0, 0.54) !important;
+    color: #fff !important;
+    border-radius: 50% !important;
 }
 
 .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {

@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
 import {BrandService} from "../brand.service";
 import {AlertService} from "../../../../service/AlertService";
 import {BrandEntity} from "../../../../entity/BrandEntity";
+import {Table} from "primeng/table";
 
 @Component({
   selector: 'app-search-brand',
@@ -14,6 +15,8 @@ export class SearchBrandComponent implements OnInit {
     brands = new Array<BrandEntity>();
 
     filterName: string = "";
+
+    @ViewChild("table") table: Table | undefined;
 
     constructor(private confirmationService: ConfirmationService,
                 private brandService: BrandService,
@@ -45,6 +48,7 @@ export class SearchBrandComponent implements OnInit {
     filterBy() {
         this.brandService.findByName(this.filterName).then(response => {
             this.brands = response;
+            this.table?.reset();
         });
     }
 }

@@ -1,0 +1,126 @@
+<form autocomplete="off" class="fade-in">
+    <div class="row g-3">
+        <div class="col-12">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-6">
+                    <h1 class="title">Modelos</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label"> Pesquisar:</label>
+                            <input pInputText class="form-control" name="pesquisar" id="pesquisar" [(ngModel)]="searchFilter">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-6 col-xs-6 text-md-start">
+                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()">
+                                <i class="fa-solid fa-magnifying-glass m-1"></i>
+                                Pesquisar
+                            </button>
+                        </div>
+                        <div class="col-6 col-xs-6 text-md-end">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/register/models/new">
+                                <i class="fa-solid fa-plus m-1"></i>
+                                Novo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-body">
+                    <p-table #table [value]="models" [paginator]="models.length > 10" [rows]="10"
+                             responsiveLayout="stack" [breakpoint]="'960px'"
+                             sortField="brandId"  sortMode="single" rowGroupMode="subheader" groupRowsBy="brandId"
+                             styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+
+                        <ng-template pTemplate="header">
+                            <tr *ngIf="models.length > 0">
+                                <th class="text-center w-15">DESCRIÇÃO</th>
+                                <th class="text-center w-15">COR</th>
+                                <th class="text-center w-15">ANO DE FABRICAÇÃO</th>
+                                <th class="text-center w-15">ANO DO MODELO</th>
+                                <th class="text-center w-40">ATIVO</th>
+                                <th class="text-center w-5">AÇÕES</th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="groupheader" let-model>
+                            <tr pRowGroupHeader>
+                                <td colspan="6">
+                                    <span>
+                                        <strong><i>{{ model['brandName'] }}</i></strong>
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-model>
+                            <tr>
+                                <td class="text-center">
+                                    <span class="p-column-title">DESCRIÇÃO</span>
+                                    {{ model['name'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">COR</span>
+                                    {{ model['color'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">ANO DE FABRICAÇÃO</span>
+                                    {{ model['yearManufacture'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">ANO DO MODELO</span>
+                                    {{ model['yearModel'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">ATIVO</span>
+                                    <span class=" {{ model['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                        {{ model["active"] === true ? 'Sim' : 'Não' }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">AÇÔES</span>
+                                    <p-button [link]="true"  (click)="confirmationDelete(model)">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </p-button>
+                                    <p-button [link]="true" [routerLink]="['/update/models/', model.id]">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </p-button>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="6" style="text-align: center;">
+                                    Nenhum registro encontrado.
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

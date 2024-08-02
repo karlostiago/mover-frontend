@@ -6,6 +6,7 @@ import {MenuLateralComponent} from "./menu/menu-lateral/menu-lateral.component";
 import {ConfirmationService} from "primeng/api";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {DashboardModule} from "../pages/dashboard/dashboard.module";
+import {ModelModule} from "../pages/model/model.module";
 
 @NgModule({
     declarations: [
@@ -15,6 +16,7 @@ import {DashboardModule} from "../pages/dashboard/dashboard.module";
     exports: [
         DashboardModule,
         BrandModule,
+        ModelModule,
         HeaderComponent,
         MenuLateralComponent
     ],

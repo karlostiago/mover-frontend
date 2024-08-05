@@ -39,6 +39,10 @@ export class RegisterModelComponent extends AbstractRegister implements OnInit {
     }
 
     saveOrUpdate(form: NgForm) {
+        if (this.selectedBrandId) {
+            this.model.brandId = this.selectedBrandId;
+        }
+
         if (this.model.id) {
             this.update();
         } else {
@@ -54,9 +58,6 @@ export class RegisterModelComponent extends AbstractRegister implements OnInit {
     }
 
     private save(form: NgForm) {
-        if (this.selectedBrandId) {
-            this.model.brandId = this.selectedBrandId;
-        }
         this.modelService.save(this.model).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
             form.resetForm({
@@ -68,6 +69,8 @@ export class RegisterModelComponent extends AbstractRegister implements OnInit {
     }
 
     private update() {
+        console.log(this.model.brandId);
+        console.log(this.selectedBrandId);
         this.modelService.update(this.model).then(() => {
             this.alertService.success("Registro atualizado com sucesso.");
         });

@@ -14,6 +14,8 @@ export class SearchModelComponent implements OnInit {
     models = new Array<ModelEntity>();
 
     searchFilter: string = "";
+    yearManufactureFilter: string = "";
+    yearModelFilter: string = "";
 
     @ViewChild("table") table: Table | undefined;
 
@@ -45,6 +47,22 @@ export class SearchModelComponent implements OnInit {
     }
 
     filterBy() {
+        this.modelService.findBy(this.buildSearchFilter()).then(response => {
+            this.models = response;
+            this.table?.reset();
+        })
+    }
 
+    inputChange(e: any) {
+        const inputValue = e.target.value;
+        if (inputValue.length > 4) {
+            e.target.value = inputValue.slice(0, 4);
+        }
+    }
+
+    private buildSearchFilter() {
+        return this.searchFilter + ";"
+            + this.yearManufactureFilter + ";"
+            + this.yearModelFilter;
     }
 }

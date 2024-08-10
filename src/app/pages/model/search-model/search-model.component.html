@@ -16,21 +16,9 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <label class="form-label"> Pesquisar:</label>
                             <input pInputText class="form-control" name="search" id="search" [(ngModel)]="searchFilter" />
-                        </div>
-
-                        <div class="col-md-2">
-                            <label class="form-label"> Ano / Fabricação:</label>
-                            <input type="number" pInputText class="form-control" name="yearManufacture" id="yearManufacture"
-                                   [(ngModel)]="yearManufactureFilter" (keyup)="inputChange($event)" />
-                        </div>
-
-                        <div class="col-md-2">
-                            <label class="form-label"> Ano / Modelo:</label>
-                            <input type="number" pInputText class="form-control" name="yearModel" id="yearModel"
-                                   [(ngModel)]="yearModelFilter" (keyup)="inputChange($event)" />
                         </div>
                     </div>
                 </div>
@@ -68,12 +56,9 @@
 
                         <ng-template pTemplate="header">
                             <tr *ngIf="models.length > 0">
-                                <th class="text-center w-15">DESCRIÇÃO</th>
-                                <th class="text-center w-15">COR</th>
-                                <th class="text-center w-15">ANO / FABRICAÇÃO</th>
-                                <th class="text-center w-15">ANO / MODELO</th>
-                                <th class="text-center w-40">ATIVO</th>
-                                <th class="text-center w-5">AÇÕES</th>
+                                <th class="text-center w-75">DESCRIÇÃO</th>
+                                <th class="text-center">ATIVO</th>
+                                <th class="text-center">AÇÕES</th>
                             </tr>
                         </ng-template>
 
@@ -93,19 +78,7 @@
                                     <span class="p-column-title">DESCRIÇÃO</span>
                                     {{ model['name'] }}
                                 </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">COR</span>
-                                    {{ model['color'] }}
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">ANO / FABRICAÇÃO</span>
-                                    {{ model['yearManufacture'] }}
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">ANO / MODELO</span>
-                                    {{ model['yearModel'] }}
-                                </td>
-                                <td class="text-center">
+                                <td class="text-center w-5">
                                     <span class="p-column-title">ATIVO</span>
                                     <span class=" {{ model['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
                                         {{ model["active"] === true ? 'Sim' : 'Não' }}

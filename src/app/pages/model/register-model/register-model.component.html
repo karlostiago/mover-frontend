@@ -26,37 +26,17 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-9">
-                            <label class="form-label"> Descrição *:</label>
-                            <input pInputText class="form-control" name="name" id="name" [required]="true" [(ngModel)]="model['name']">
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label"> Cor *:</label>
-                            <input pInputText class="form-control" name="color" id="color" [required]="true" [(ngModel)]="model['color']">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2">
-                            <label class="form-label"> Ano de fabricação *:</label>
-                            <input type="number" pInputText class="form-control" [required]="true" name="yearManufacture"
-                                   id="yearManufacture" [(ngModel)]="model['yearManufacture']" min="0" (keyup)="inputChange($event)" />
-                        </div>
-
-                        <div class="col-md-2">
-                            <label class="form-label"> Ano do modelo *:</label>
-                            <input type="number" pInputText class="form-control" [required]="true" name="yearModel"
-                                   id="yearModel" [(ngModel)]="model['yearModel']" min="0" (keyup)="inputChange($event)" />
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-3">
                             <label class="form-label"> Marca *:</label>
                             <p-dropdown styleClass="w-100" name="brand" id="brand" placeholder="Selecione uma marca"
                                         optionLabel="name" optionValue="id" [(ngModel)]="selectedBrandId"
                                         [options]="brands" required="true" />
+                        </div>
+
+                        <div class="col-md-9">
+                            <label class="form-label"> Descrição *:</label>
+                            <input pInputText class="form-control" name="name" id="name" [required]="true" [(ngModel)]="model['name']"
+                                [maxlength]="100">
                         </div>
                     </div>
 
@@ -74,7 +54,7 @@
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>
-                    <button pButton type="reset" class="p-button-danger p-button-sm ms-2" [disabled]="!isNewRegister()">
+                    <button pButton type="button" (click)="cancel(form)" class="p-button-danger p-button-sm ms-2" [disabled]="!isNewRegister()">
                         <i class="fa-solid fa-remove m-1"></i>
                         Cancelar
                     </button>

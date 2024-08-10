@@ -1,4 +1,5 @@
 import {ActivatedRoute} from "@angular/router";
+import {NgForm} from "@angular/forms";
 
 export abstract class AbstractRegister  {
 
@@ -14,5 +15,11 @@ export abstract class AbstractRegister  {
 
     isNewRegister(){
         return this.registerNew;
+    }
+
+    cancel(form: NgForm) {
+        form.resetForm({
+            active: true,
+        });
     }
 }

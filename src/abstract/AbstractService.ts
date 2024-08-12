@@ -7,10 +7,6 @@ export abstract class AbstractService <T> {
 
     protected baseURL = environment.apiUrl;
 
-    // protected constructor(
-    //     protected error: ErroHandlerService) {
-    // }
-
     protected constructor(protected errorHandler: ErrorHandler) { }
 
     protected abstract pathURL(): string;

@@ -78,6 +78,13 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
         return this.selectedSymbolId !== 0 && this.brand.name.length > 0;
     }
 
+    override cancel(form: NgForm) {
+        form.resetForm({
+            active: true,
+            name: ""
+        });
+    }
+
     private findSymbolById() {
         const symbol = this.symbols.filter(symbol => symbol.id === this.selectedSymbolId)[0];
         if (symbol) this.brand.symbol = symbol;
@@ -88,10 +95,7 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
         this.brandService.save(this.brand).then(() => {
             this.symbols = this.symbols.filter(s => s.id !== this.brand.symbol.id);
             this.alertService.success("Registro cadastrado com sucesso.");
-            form.resetForm({
-                active: true,
-                name: ""
-            });
+            this.cancel(form);
         });
     }
 

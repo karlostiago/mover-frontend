@@ -50,13 +50,6 @@ export class RegisterModelComponent extends AbstractRegister implements OnInit {
         }
     }
 
-    inputChange(e: any) {
-        const inputValue = e.target.value;
-        if (inputValue.length > 4) {
-            e.target.value = inputValue.slice(0, 4);
-        }
-    }
-
     private save(form: NgForm) {
         this.modelService.save(this.model).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");

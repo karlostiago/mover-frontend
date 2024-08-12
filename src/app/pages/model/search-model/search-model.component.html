@@ -56,6 +56,7 @@
 
                         <ng-template pTemplate="header">
                             <tr *ngIf="models.length > 0">
+                                <th class="text-left">MARCA</th>
                                 <th class="text-center w-75">DESCRIÇÃO</th>
                                 <th class="text-center">ATIVO</th>
                                 <th class="text-center">AÇÕES</th>
@@ -64,7 +65,7 @@
 
                         <ng-template pTemplate="groupheader" let-model>
                             <tr pRowGroupHeader>
-                                <td colspan="6">
+                                <td colspan="4">
                                     <span>
                                         <strong><i>{{ model['brandName'] }}</i></strong>
                                     </span>
@@ -74,6 +75,7 @@
 
                         <ng-template pTemplate="body" let-model>
                             <tr>
+                                <td></td>
                                 <td class="text-center">
                                     <span class="p-column-title">DESCRIÇÃO</span>
                                     {{ model['name'] }}

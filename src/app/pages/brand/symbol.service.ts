@@ -9,16 +9,11 @@ import {ErrorHandler} from "../../core/handler/ErrorHandler";
 })
 export class SymbolService extends AbstractService<SymbolEntity> {
 
-    constructor(private httpClient: HttpClient,  override errorHandler: ErrorHandler) {
-        super(errorHandler);
+    constructor(override httpClient: HttpClient,  override errorHandler: ErrorHandler) {
+        super(httpClient, errorHandler);
     }
 
     protected pathURL(): string {
         return "symbols";
-    }
-
-    async findAll(): Promise<Array<SymbolEntity>> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}`, this.options());
-        return this.toPromise(request);
     }
 }

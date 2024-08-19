@@ -3,47 +3,40 @@ import {NgForm} from "@angular/forms";
 import {AbstractRegister} from "../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
 import {AlertService} from "../../../../service/AlertService";
-import {ModelService} from "../model.service";
+import {VehicleService} from "../vehicle.service";
 import {ModelEntity} from "../../../../entity/ModelEntity";
 import {BrandService} from "../../brand/brand.service";
 import {BrandEntity} from "../../../../entity/BrandEntity";
+import {VehicleEntity} from "../../../../entity/VehicleEntity";
+import {ModelService} from "../../model/model.service";
 
 @Component({
   selector: 'app-register-model',
-  templateUrl: './register-model.component.html',
-  styleUrls: ['./register-model.component.css']
+  templateUrl: './register-vehicle.component.html',
+  styleUrls: ['./register-vehicle.component.css']
 })
-export class RegisterModelComponent extends AbstractRegister implements OnInit {
+export class RegisterVehicleComponent extends AbstractRegister implements OnInit {
 
-    model = new ModelEntity();
+    vehicle = new VehicleEntity();
+    vehicles = new Array<VehicleEntity>();
+    models = new Array<ModelEntity>();
     brands = new Array<BrandEntity>();
-
-    selectedBrandId = null;
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 private brandService: BrandService,
-                private modelService: ModelService) {
+                private modelService: ModelService,
+                private vehicleService: VehicleService) {
         super(activatedRoute);
     }
 
     ngOnInit(): void {
         this.loadingBrands();
-
-        if (!this.registerNew) {
-            this.modelService.findById(this.id).then(response => {
-                this.model = response;
-                this.selectedBrandId = this.model.brandId;
-            });
-        }
+        this.loadingModels();
     }
 
     saveOrUpdate(form: NgForm) {
-        if (this.selectedBrandId) {
-            this.model.brandId = this.selectedBrandId;
-        }
-
-        if (this.model.id) {
+        if (this.vehicle.id) {
             this.update();
         } else {
             this.save(form);
@@ -51,18 +44,16 @@ export class RegisterModelComponent extends AbstractRegister implements OnInit {
     }
 
     private save(form: NgForm) {
-        this.modelService.save(this.model).then(() => {
+        this.vehicleService.save(this.vehicle).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
             form.resetForm({
-                active: true,
-                name: "",
-                color: "",
+                active: true
             });
         });
     }
 
     private update() {
-        this.modelService.update(this.model.id, this.model).then(() => {
+        this.vehicleService.update(this.vehicle.id, this.vehicle).then(() => {
             this.alertService.success("Registro atualizado com sucesso.");
         });
     }
@@ -70,6 +61,12 @@ export class RegisterModelComponent extends AbstractRegister implements OnInit {
     private loadingBrands() {
         this.brandService.findAll().then(response => {
             this.brands = response;
+        });
+    }
+
+    private loadingModels() {
+        this.modelService.findAll().then(response => {
+            this.models = response;
         });
     }
 }

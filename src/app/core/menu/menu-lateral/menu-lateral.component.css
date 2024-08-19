@@ -102,11 +102,13 @@ aside {
     border-bottom: 1px solid #fff;
 }
 
-.sidebar > li > ul > li a {
+.sidebar > li > ul > li a,
+.sidebar > li > ul > li span {
     color: #34495e;
 }
 
-.sidebar > li > ul > li:hover a {
+.sidebar > li > ul > li:hover a,
+.sidebar > li > ul > li:hover span {
     color: #fff;
 }
 

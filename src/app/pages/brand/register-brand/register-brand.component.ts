@@ -35,7 +35,7 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
     }
 
     async ngOnInit() {
-        await this.loadSymbols();
+        await this.loadingSymbols();
 
         if (!this.registerNew) {
             this.brandService.findById(this.id).then(response => {
@@ -61,7 +61,7 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
 
     async uploadSuccess(e: any) {
         this.alertService.success("Carregamento da imagem executado com sucesso.");
-        await this.loadSymbols();
+        await this.loadingSymbols();
         this.selectedSymbolId = this.symbols[this.symbols.length - 1].id;
     }
 
@@ -109,12 +109,12 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
     }
 
     private update() {
-        this.brandService.update(this.brand).then(() => {
+        this.brandService.update(this.brand.id, this.brand).then(() => {
             this.alertService.success("Registro atualizado com sucesso.");
         });
     }
 
-    private async loadSymbols() {
+    private async loadingSymbols() {
         const symbols = await this.symbolService.findAll();
         for (const symbol of symbols) {
             this.symbols.push(symbol)

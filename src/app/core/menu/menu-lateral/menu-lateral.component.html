@@ -17,9 +17,9 @@
             <i class="fa-regular fa-newspaper"></i>
             <a href="#"> Operacional </a>
             <ul>
-                <li> <a routerLink="/search/brands"> Marcas </a> </li>
-                <li> <a routerLink="/search/models"> Modelos </a> </li>
-<!--                <li> <a routerLink="/search/brands"> Veículos </a> </li>-->
+                <li routerLink="/search/brands"> <span> Marcas </span> </li>
+                <li routerLink="/search/models"> <span> Modelos </span> </li>
+                <li routerLink="/search/vehicles"> <span> Veículos </span> </li>
             </ul>
         </li>
         <li>
@@ -67,7 +67,7 @@
     </ul>
 
     <div class="footer mt-auto">
-        <span class="badge bg-success"> {{ productionEnviroment ? 'PRD' : 'DSV' }} </span> <br />
+        <span class="{{ running ? 'badge bg-success' : 'badge bg-danger' }}"> {{ productionEnviroment ? 'PRD' : 'DSV' }} </span> <br />
         <small> Versão: {{ version }}_Release </small>
     </div>
 </aside>

@@ -7,6 +7,7 @@ import {ConfirmationService} from "primeng/api";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {DashboardModule} from "../pages/dashboard/dashboard.module";
 import {ModelModule} from "../pages/model/model.module";
+import {VehicleModule} from "../pages/vehicle/vehicle.module";
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import {ModelModule} from "../pages/model/model.module";
         DashboardModule,
         BrandModule,
         ModelModule,
+        VehicleModule,
         HeaderComponent,
         MenuLateralComponent
     ],

@@ -237,6 +237,10 @@ a.btn:active {
     font-weight: 300!important;
 }
 
+.p-dropdown .p-inputtext {
+    height: 2.8125rem;
+}
+
 @media (max-width: 768px) {
     .text-md-end {
         text-align: right !important;

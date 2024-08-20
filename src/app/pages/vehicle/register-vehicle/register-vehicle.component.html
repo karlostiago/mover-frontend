@@ -40,12 +40,12 @@
                             <div class="col-md-3">
                                 <label class="form-label"> Ano fabricação *:</label>
                                 <input pInputText class="form-control" name="yearManufacture" id="yearManufacture"
-                                      maxlength="4" appOnlyNumber [required]="true" [(ngModel)]="vehicle.yearManufacture">
+                                      maxlength="4" appOnlyNumber [required]="true" [(ngModel)]="vehicle.yearManufacture" />
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label"> Ano modelo *:</label>
                                 <input pInputText class="form-control" name="modelYear" appOnlyNumber maxlength="4" id="modelYear"
-                                       [(ngModel)]="vehicle.modelYear" [required]="true">
+                                       [(ngModel)]="vehicle.modelYear" [required]="true" />
                             </div>
                         </div>
 
@@ -54,24 +54,30 @@
                                 <label class="form-label"> Placa *:</label>
                                 <input pInputText class="form-control" name="licensePlate" id="licensePlate" [(ngModel)]="vehicle.licensePlate" [required]="true" />
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <label class="form-label"> Renavam *:</label>
-                                <input pInputText class="form-control" name="renavam" id="renavam" [(ngModel)]="vehicle.renavam" [required]="true">
+                                <input pInputText class="form-control" name="renavam" id="renavam" [(ngModel)]="vehicle.renavam" [required]="true" />
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label"> Km de aquisição *:</label>
-                                <input pInputText class="form-control" name="kmAquisition" id="kmAquisition" [(ngModel)]="vehicle.mileageAtAcquisition" [required]="true">
+                                <input pInputText class="form-control" name="kmAquisition" id="kmAquisition" [(ngModel)]="vehicle.mileageAtAcquisition" [required]="true" />
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label"> Cor *:</label>
-                                <input pInputText class="form-control" name="color" id="color" [(ngModel)]="vehicle.color" [required]="true">
+                                <input pInputText class="form-control" name="color" id="color" [(ngModel)]="vehicle.color" [required]="true" />
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label"> Tipo combustivel *:</label>
+                                <p-dropdown styleClass="w-100" name="fuelType" id="fuelType" placeholder="Selecione"
+                                            optionLabel="description" optionValue="description" [(ngModel)]="selectedFuelType"
+                                            [options]="fuelTypes" required="true" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-2">
                                 <label class="form-label"> Valor aquisição *:</label>
-                                <input pInputText class="form-control" name="aquisitionValue" id="aquisitionValue" appCurrencyFormatPtBr [(ngModel)]="vehicle.acquisitionValue" [required]="true">
+                                <input pInputText class="form-control" name="aquisitionValue" id="aquisitionValue" appCurrencyFormatPtBr [(ngModel)]="vehicle.acquisitionValue" [required]="true" />
                             </div>
                             <div class="col-md-2">
                                 <label class="form-label"> Data aquisição *:</label>
@@ -79,27 +85,20 @@
                                        (change)="onCalculatedFipe()" />
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label"> Data disponibilidade *:</label>
-                                <input pInputText class="form-control" name="avaliabilityDate" id="avaliabilityDate" appDateFormatPtBr [(ngModel)]="vehicle.availabilityDate" [required]="true">
+                                <label class="form-label"> Data disponibilidade:</label>
+                                <input pInputText class="form-control" name="avaliabilityDate" id="avaliabilityDate" appDateFormatPtBr [(ngModel)]="vehicle.availabilityDate" />
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label"> Valor fipe aquisição *:</label>
-                                <input pInputText class="form-control" name="fipeValueAquisition" id="fipeValueAquisition" appCurrencyFormatPtBr [(ngModel)]="vehicle.fipeValueAtAcquisition" [required]="true">
+                                <input pInputText class="form-control" name="fipeValueAquisition" id="fipeValueAquisition" appCurrencyFormatPtBr [(ngModel)]="vehicle.fipeValueAtAcquisition" [required]="true" />
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label"> Desvalorização da fipe *:</label>
-                                <input pInputText class="form-control" name="fipeDepreciation" id="fipeDepreciation" appCurrencyFormatPtBr [(ngModel)]="vehicle.fipeDepreciation" [required]="true">
+                                <label class="form-label"> Desvalorização da fipe:</label>
+                                <input pInputText class="form-control" name="fipeDepreciation" id="fipeDepreciation" appCurrencyFormatPtBr [(ngModel)]="vehicle.fipeDepreciation" />
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-2">
-                                <label class="form-label"> Tipo combustivel *:</label>
-                                <p-dropdown styleClass="w-100" name="fuelType" id="fuelType" placeholder="Selecione"
-                                            optionLabel="description" optionValue="code" [(ngModel)]="selectedFuelType"
-                                            [options]="fuelTypes" required="true" />
-
-                            </div>
                             <div class="col-md-2">
                                 <label class="form-label"> Leilão *:</label>
                                 <p-dropdown styleClass="w-100" name="auction" id="auction" placeholder="Selecione"
@@ -108,7 +107,7 @@
                             <div class="col-md-2">
                                 <label class="form-label"> Situação *:</label>
                                 <p-dropdown styleClass="w-100" name="situation" id="situation" placeholder="Selecione"
-                                            [options]="optionsEnum" [(ngModel)]="vehicle.situation" required="true" />
+                                            optionLabel="description" optionValue="code" [options]="situations" [(ngModel)]="vehicle.situation" required="true" />
                             </div>
                         </div>
 

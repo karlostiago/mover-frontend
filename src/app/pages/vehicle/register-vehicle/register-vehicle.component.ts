@@ -13,6 +13,7 @@ import {FuelTypeEntity} from "../../../../entity/FuelTypeEntity";
 import {OptionEnum} from "../../../../enum/OptionEnum";
 import {FipeService} from "../fipe.service";
 import {LoaderService} from "../../../core/loader/loader.service";
+import {SituationEntity} from "../../../../entity/SituationEntity";
 
 @Component({
   selector: 'app-register-vehicle',
@@ -26,6 +27,7 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
     models = new Array<ModelEntity>();
     brands = new Array<BrandEntity>();
     fuelTypes = new Array<FuelTypeEntity>();
+    situations = new Array<SituationEntity>();
     optionsEnum = new Array<string>();
 
     selectedBrandId = null;
@@ -47,6 +49,7 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
         this.loadingBrands();
         this.loadingFuelTypes();
         this.loadingOptions();
+        this.loadingSituation();
     }
 
     saveOrUpdate(form: NgForm) {
@@ -68,14 +71,18 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
 
     async onCalculatedFipe() {
         this.loaderService.automatic = false;
-        if(this.selectedBrandId && this.selectedModelId && this.vehicle.modelYear) {
+        console.log('id marca', this.selectedBrandId)
+        console.log('id modelo', this.selectedModelId)
+        console.log('ano modelo', this.vehicle.modelYear)
+        console.log('tipo combustivel', this.selectedFuelType)
+        if(this.selectedBrandId && this.selectedModelId && this.vehicle.modelYear && this.selectedFuelType) {
+            this.vehicle.fuelType = this.selectedFuelType;
             const model = await this.modelService.findById(this.selectedModelId).then(response => {
                 return response;
             });
-
             if (model && model.brandName) {
-                this.fipeService.calculated(model.brandName, model.name, this.vehicle.modelYear).then(response => {
-
+                this.fipeService.calculated(model.brandName, model.name, this.vehicle.modelYear, this.vehicle.fuelType).then(response => {
+                    this.vehicle.fipeValueAtAcquisition = response.value;
                 });
             }
         }
@@ -104,7 +111,7 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
     }
 
     private loadingFuelTypes() {
-        this.vehicleService.findFuelTypes().then(response => {
+        this.vehicleService.findAllFuelTypes().then(response => {
             this.fuelTypes = response;
         });
     }
@@ -113,5 +120,11 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
         for (const value of Object.values(OptionEnum)) {
             this.optionsEnum.push(value);
         }
+    }
+
+    private loadingSituation() {
+        this.vehicleService.findAllSituation().then(response => {
+            this.situations = response;
+        })
     }
 }

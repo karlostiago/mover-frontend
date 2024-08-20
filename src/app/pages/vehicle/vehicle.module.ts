@@ -13,6 +13,7 @@ import {OnlyNumberDirective} from "../../../shared/directive/OnlyNumberDirective
 import {CoreModule} from "../../core/core.module";
 import {DateFormatPtBrDirecitve} from "../../../shared/directive/DateFormatPtBrDirecitve";
 import {CurrencyFormatPtBrDirective} from "../../../shared/directive/CurrencyFormatPtBrDirective";
+import {DecimalFormatDirective} from "../../../shared/directive/DecimalFormatDirective";
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import {CurrencyFormatPtBrDirective} from "../../../shared/directive/CurrencyFor
         SearchVehicleComponent,
         OnlyNumberDirective,
         DateFormatPtBrDirecitve,
-        CurrencyFormatPtBrDirective
+        CurrencyFormatPtBrDirective,
+        DecimalFormatDirective
     ],
     exports: [
         RegisterVehicleComponent,

@@ -34,6 +34,7 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
     selectedModelId = null;
     selectedFuelType = null;
     blockSelectedModel = true;
+    selectedOption: string;
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
@@ -69,14 +70,16 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
         }
     }
 
+    onChangeOption() {
+        if (this.selectedOption) {
+            this.vehicle.auction = this.selectedOption === 'SIM';
+        }
+    }
+
     async onCalculatedFipe() {
         this.loaderService.automatic = false;
-        console.log('id marca', this.selectedBrandId)
-        console.log('id modelo', this.selectedModelId)
-        console.log('ano modelo', this.vehicle.modelYear)
-        console.log('tipo combustivel', this.selectedFuelType)
-        if(this.selectedBrandId && this.selectedModelId && this.vehicle.modelYear && this.selectedFuelType) {
-            this.vehicle.fuelType = this.selectedFuelType;
+        if(this.selectedBrandId && this.selectedModelId && this.vehicle.yearManufacture && this.selectedFuelType) {
+            this.setProperties();
             const model = await this.modelService.findById(this.selectedModelId).then(response => {
                 return response;
             });
@@ -89,9 +92,19 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
         this.loaderService.automatic = true;
     }
 
+    private setProperties() {
+        // @ts-ignore
+        this.vehicle.brandId = this.selectedBrandId;
+        // @ts-ignore
+        this.vehicle.modelId = this.selectedModelId;
+        // @ts-ignore
+        this.vehicle.fuelType = this.selectedFuelType;
+    }
+
     private save(form: NgForm) {
         this.vehicleService.save(this.vehicle).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
+            this.blockSelectedModel = true;
             form.resetForm({
                 active: true
             });

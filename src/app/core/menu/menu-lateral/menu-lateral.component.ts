@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from "../../../../environments/environment";
 import {HealthCheckService} from "../../../../service/HealthCheckService";
-import {HealthCheckEntity} from "../../../../entity/HealthCheckEntity";
 
 @Component({
   selector: 'app-menu-lateral',
@@ -22,7 +21,6 @@ export class MenuLateralComponent implements OnInit {
 
         this.healhCheckService.isRunning().then(response => {
             this.running = response.running;
-            console.log(this.running);
         })
     }
 }

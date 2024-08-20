@@ -21,4 +21,9 @@ export class ModelService extends AbstractService<ModelEntity> {
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/filterBy?search=${search}`, this.options());
         return this.toPromise(request);
     }
+
+    async findByBrandId(brandId: number): Promise<Array<ModelEntity>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/find-by-brand-id?brandId=${brandId}`, this.options());
+        return this.toPromise(request);
+    }
 }

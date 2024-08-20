@@ -9,11 +9,18 @@ import {InputTextModule} from "primeng/inputtext";
 import {TableModule} from "primeng/table";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {DropdownModule} from "primeng/dropdown";
+import {OnlyNumberDirective} from "../../../shared/directive/OnlyNumberDirective";
+import {CoreModule} from "../../core/core.module";
+import {DateFormatPtBrDirecitve} from "../../../shared/directive/DateFormatPtBrDirecitve";
+import {CurrencyFormatPtBrDirective} from "../../../shared/directive/CurrencyFormatPtBrDirective";
 
 @NgModule({
     declarations: [
         RegisterVehicleComponent,
-        SearchVehicleComponent
+        SearchVehicleComponent,
+        OnlyNumberDirective,
+        DateFormatPtBrDirecitve,
+        CurrencyFormatPtBrDirective
     ],
     exports: [
         RegisterVehicleComponent,

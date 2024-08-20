@@ -10,12 +10,18 @@ import {VehicleService} from "../vehicle.service";
 })
 export class SearchVehicleComponent implements OnInit {
 
+    searchFilter: string = "";
+
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
                 private modelService: VehicleService) {
     }
 
     ngOnInit(): void {
+
+    }
+
+    filterBy() {
 
     }
 }

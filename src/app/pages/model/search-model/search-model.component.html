@@ -50,9 +50,7 @@
             <div class="card">
                 <div class="card-body">
                     <p-table #table [value]="models" [paginator]="models.length > 10" [rows]="10"
-                             responsiveLayout="stack" [breakpoint]="'960px'"
-                             sortField="brandId"  sortMode="single" rowGroupMode="subheader" groupRowsBy="brandId"
-                             styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+                             responsiveLayout="stack" [breakpoint]="'960px'" styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
 
                         <ng-template pTemplate="header">
                             <tr *ngIf="models.length > 0">
@@ -63,19 +61,12 @@
                             </tr>
                         </ng-template>
 
-                        <ng-template pTemplate="groupheader" let-model>
-                            <tr pRowGroupHeader>
-                                <td colspan="4">
-                                    <span>
-                                        <strong><i>{{ model['brandName'] }}</i></strong>
-                                    </span>
-                                </td>
-                            </tr>
-                        </ng-template>
-
                         <ng-template pTemplate="body" let-model>
                             <tr>
-                                <td></td>
+                                <td class="text-left">
+                                    <span class="p-column-title">MARCA</span>
+                                    {{ model['brandName'] }}
+                                </td>
                                 <td class="text-center">
                                     <span class="p-column-title">DESCRIÇÃO</span>
                                     {{ model['name'] }}
@@ -87,7 +78,7 @@
                                     </span>
                                 </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">AÇÔES</span>
+                                    <span class="p-column-title">AÇÕES</span>
                                     <p-button [link]="true"  (click)="confirmationDelete(model)">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </p-button>

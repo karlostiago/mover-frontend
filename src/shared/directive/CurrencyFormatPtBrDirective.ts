@@ -20,11 +20,11 @@ export class CurrencyFormatPtBrDirective {
         value = value.replace(/[^0-9]/g, '');
         if (value.length > 2) {
             value = value.slice(0, value.length - 2) + ',' + value.slice(value.length - 2);
+            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            this.el.nativeElement.value = '' + value;
+            const numericValue = parseFloat(value.replace(/\./g, '').replace(',', '.'));
+            this.onChange(numericValue);
         }
-        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-        this.el.nativeElement.value = '' + value;
-        const numericValue = parseFloat(value.replace(/\./g, '').replace(',', '.'));
-        this.onChange(numericValue);
     }
 
     @HostListener('blur', ['$event']) onBlur() {

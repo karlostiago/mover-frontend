@@ -52,7 +52,7 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <label class="form-label"> Placa *:</label>
-                                <input pInputText class="form-control" name="licensePlate" id="licensePlate" [(ngModel)]="vehicle.licensePlate" [required]="true">
+                                <input pInputText class="form-control" name="licensePlate" id="licensePlate" [(ngModel)]="vehicle.licensePlate" [required]="true" />
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label"> Renavam *:</label>
@@ -75,7 +75,8 @@
                             </div>
                             <div class="col-md-2">
                                 <label class="form-label"> Data aquisição *:</label>
-                                <input pInputText class="form-control" name="aquisitionDate" id="aquisitionDate" [(ngModel)]="vehicle.acquisitionDate" appDateFormatPtBr [required]="true">
+                                <input pInputText class="form-control" name="aquisitionDate" id="aquisitionDate" [(ngModel)]="vehicle.acquisitionDate" appDateFormatPtBr [required]="true"
+                                       (change)="onCalculatedFipe()" />
                             </div>
                             <div class="col-md-2">
                                 <label class="form-label"> Data disponibilidade *:</label>
@@ -92,14 +93,14 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <label class="form-label"> Tipo combustivel *:</label>
                                 <p-dropdown styleClass="w-100" name="fuelType" id="fuelType" placeholder="Selecione"
-                                            optionLabel="description" optionValue="code" [(ngModel)]="selectedFuelTypeId"
+                                            optionLabel="description" optionValue="code" [(ngModel)]="selectedFuelType"
                                             [options]="fuelTypes" required="true" />
 
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <label class="form-label"> Leilão *:</label>
                                 <p-dropdown styleClass="w-100" name="auction" id="auction" placeholder="Selecione"
                                             [options]="optionsEnum" [(ngModel)]="vehicle.auction" required="true" />

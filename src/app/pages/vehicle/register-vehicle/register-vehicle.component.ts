@@ -11,6 +11,8 @@ import {VehicleEntity} from "../../../../entity/VehicleEntity";
 import {ModelService} from "../../model/model.service";
 import {FuelTypeEntity} from "../../../../entity/FuelTypeEntity";
 import {OptionEnum} from "../../../../enum/OptionEnum";
+import {FipeService} from "../fipe.service";
+import {LoaderService} from "../../../core/loader/loader.service";
 
 @Component({
   selector: 'app-register-vehicle',
@@ -28,13 +30,15 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
 
     selectedBrandId = null;
     selectedModelId = null;
-    selectedFuelTypeId = null;
+    selectedFuelType = null;
     blockSelectedModel = true;
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 private brandService: BrandService,
                 private modelService: ModelService,
+                private fipeService: FipeService,
+                private loaderService: LoaderService,
                 private vehicleService: VehicleService) {
         super(activatedRoute);
     }
@@ -54,11 +58,28 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
     }
 
     onChangeFindModel() {
-        // @ts-ignore
-        this.modelService.findByBrandId(this.selectedBrandId).then(response => {
-            this.models = response;
-            this.blockSelectedModel = false;
-        });
+        if (this.selectedBrandId) {
+            this.modelService.findByBrandId(this.selectedBrandId).then(response => {
+                this.models = response;
+                this.blockSelectedModel = false;
+            });
+        }
+    }
+
+    async onCalculatedFipe() {
+        this.loaderService.automatic = false;
+        if(this.selectedBrandId && this.selectedModelId && this.vehicle.modelYear) {
+            const model = await this.modelService.findById(this.selectedModelId).then(response => {
+                return response;
+            });
+
+            if (model && model.brandName) {
+                this.fipeService.calculated(model.brandName, model.name, this.vehicle.modelYear).then(response => {
+
+                });
+            }
+        }
+        this.loaderService.automatic = true;
     }
 
     private save(form: NgForm) {

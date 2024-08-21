@@ -1,9 +1,9 @@
 export class VehicleEntity {
     id: number = 0;
-    brandId: number = 0;
-    brandName: string;
-    modelId: number = 0;
-    modelName: string;
+    brandId: number | null = 0;
+    brandName: string | null;
+    modelId: number | null = 0;
+    modelName: string | null;
     licensePlate: string;
     yearManufacture: number;
     modelYear: number;
@@ -17,6 +17,6 @@ export class VehicleEntity {
     fipeDepreciation: number;
     color: string;
     situation: string;
-    fuelType: string;
+    fuelType: string | null;
     active: boolean = true;
 }

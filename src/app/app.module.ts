@@ -1,15 +1,18 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {NgOptimizedImage} from "@angular/common";
+import {NgOptimizedImage, registerLocaleData} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CoreModule} from "./core/core.module";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {SharedModule} from "../shared/SharedModule";
 import {HttpClientModule} from "@angular/common/http";
 import {LoaderModule} from "./core/loader/loader.module";
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
     declarations: [
@@ -28,7 +31,7 @@ import {LoaderModule} from "./core/loader/loader.module";
         LoaderModule
     ],
     providers: [
-
+        { provide: LOCALE_ID, useValue: 'pt-BR' }
     ],
     exports: [
 

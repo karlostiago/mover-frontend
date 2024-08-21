@@ -30,11 +30,11 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
     situations = new Array<SituationEntity>();
     optionsEnum = new Array<string>();
 
-    selectedBrandId = null;
-    selectedModelId = null;
-    selectedFuelType = null;
+    selectedBrandId:  number | null = null;
+    selectedModelId:  number | null = null;
+    selectedFuelType:  string | null = null;
     blockSelectedModel = true;
-    selectedOption: string;
+    selectedOption:  string | null = null;
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
@@ -51,6 +51,14 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
         this.loadingFuelTypes();
         this.loadingOptions();
         this.loadingSituation();
+
+        if (!this.registerNew) {
+            this.vehicleService.findById(this.id).then(response => {
+                this.vehicle = response;
+                this.setPropertyUpdate();
+                this.onChangeFindModel();
+            });
+        }
     }
 
     saveOrUpdate(form: NgForm) {
@@ -93,9 +101,7 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
     }
 
     private setProperties() {
-        // @ts-ignore
         this.vehicle.brandId = this.selectedBrandId;
-        // @ts-ignore
         this.vehicle.modelId = this.selectedModelId;
         // @ts-ignore
         this.vehicle.fuelType = this.selectedFuelType;
@@ -139,5 +145,13 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
         this.vehicleService.findAllSituation().then(response => {
             this.situations = response;
         })
+    }
+
+    private setPropertyUpdate() {
+        this.selectedModelId = this.vehicle.modelId;
+        this.selectedBrandId = this.vehicle.brandId;
+        this.selectedFuelType = this.vehicle.fuelType;
+        this.selectedOption = this.vehicle.auction ? OptionEnum.YES : OptionEnum.NO;
+        this.blockSelectedModel = false;
     }
 }

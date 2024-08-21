@@ -42,4 +42,88 @@
             </div>
         </div>
     </div>
+
+    <br />
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-body">
+                    <p-table #table [value]="vehicles" [paginator]="vehicles.length > 10" [rows]="10"
+                             responsiveLayout="stack" [breakpoint]="'1300px'"
+                             styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+                        <ng-template pTemplate="header">
+                            <tr *ngIf="vehicles.length > 0">
+                                <th class="text-left">MARCA</th>
+                                <th class="text-left">MODELO</th>
+                                <th class="text-center">ANO MODELO</th>
+                                <th class="text-center">ANO FABRICAÇÃO</th>
+                                <th class="text-center">PLACA</th>
+                                <th class="text-center">V. AQUISIÇÃO</th>
+                                <th class="text-center">SITUAÇÃO</th>
+                                <th class="text-center">ATIVO</th>
+                                <th class="text-center">AÇÕES</th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-vehicle>
+                            <tr>
+                                <td class="text-left">
+                                    <span class="p-column-title">MARCA</span>
+                                    {{ vehicle['brandName'] }}
+                                </td>
+                                <td class="text-left">
+                                    <span class="p-column-title">MODELO</span>
+                                    {{ vehicle['modelName'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">ANO MODELO</span>
+                                    {{ vehicle['modelYear'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">ANO FABRICAÇÃO</span>
+                                    {{ vehicle['yearManufacture'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">PLACA</span>
+                                    {{ vehicle['licensePlate'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">V. AQUISIÇÃO</span>
+                                    {{ vehicle['acquisitionValue'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">SITUAÇÃO</span>
+                                    {{ vehicle['situation'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">ATIVO</span>
+                                    <span class=" {{ vehicle['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                        {{ vehicle["active"] === true ? 'Sim' : 'Não' }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">AÇÔES</span>
+                                    <p-button [link]="true" (click)="confirmationDelete(vehicle)" >
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </p-button>
+                                    <p-button [link]="true" [routerLink]="['/update/vehicles/', vehicle.id]">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </p-button>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="6" style="text-align: center;">
+                                    Nenhum registro encontrado.
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>

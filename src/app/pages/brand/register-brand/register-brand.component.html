@@ -43,12 +43,12 @@
                                         required>
                                 <ng-template let-symbol pTemplate="item">
                                     <div class="flex align-items-center gap-2">
-                                        <img src="data:image/png;base64, {{ symbol.imageBase64 }}" style="width: 48px"  alt="symbol"/>
+                                        <img src="data:image/png;base64, {{ symbol.imageBase64 }}" style="width: 3rem"  alt="symbol"/>
                                     </div>
                                 </ng-template>
                                 <ng-template let-selected pTemplate="selectedItem">
                                     <div class="flex align-items-center gap-2">
-                                        <img src="data:image/png;base64, {{ selected['imageBase64'] }}" style="width: 48px"  alt="symbol"/>
+                                        <img src="data:image/png;base64, {{ selected['imageBase64'] }}" style="width: 3rem; position: relative; bottom: 0.8125rem;"  alt="symbol"/>
                                     </div>
                                 </ng-template>
                             </p-dropdown>
@@ -86,6 +86,7 @@
                     </div>
 
                     <br />
+
                     <div class="row">
                         <div class="col-md-12">
                             <p class="alert alert-info">

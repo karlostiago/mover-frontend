@@ -33,8 +33,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label"> Modelo *:</label>
-                                <p-dropdown styleClass="w-100" name="model" id="model" placeholder="Selecione"
-                                            optionLabel="name" optionValue="id" [(ngModel)]="selectedModelId"
+                                <p-dropdown styleClass="w-100" name="model" id="model" placeholder="Selecione" [filter]="true" filterBy="name" optionLabel="name" optionValue="id" [(ngModel)]="selectedModelId"
                                             [options]="models" required="true" [disabled]="blockSelectedModel" />
                             </div>
                             <div class="col-md-3">
@@ -77,12 +76,12 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <label class="form-label"> Valor aquisição *:</label>
-                                <input pInputText class="form-control" name="aquisitionValue" id="aquisitionValue" appCurrencyFormatPtBr [(ngModel)]="vehicle.acquisitionValue" [required]="true"
-                                       (change)="onCalculatedFipe()" />
+                                <input pInputText class="form-control" name="aquisitionValue" id="aquisitionValue" appCurrencyFormatPtBr [(ngModel)]="vehicle.acquisitionValue" [required]="true" />
                             </div>
                             <div class="col-md-2">
                                 <label class="form-label"> Data aquisição *:</label>
-                                <input pInputText class="form-control" name="aquisitionDate" id="aquisitionDate" [(ngModel)]="vehicle.acquisitionDate" appDateFormatPtBr [required]="true" />
+                                <input pInputText class="form-control" name="aquisitionDate" id="aquisitionDate" [(ngModel)]="vehicle.acquisitionDate" appDateFormatPtBr [required]="true"
+                                       (change)="onCalculatedFipe()" />
                             </div>
                             <div class="col-md-2">
                                 <label class="form-label"> Data disponibilidade:</label>

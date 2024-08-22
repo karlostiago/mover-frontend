@@ -17,8 +17,8 @@ export class FipeService extends AbstractService<FipeEntity> {
         return "fipe";
     }
 
-    async calculated(brand: string, model: string, modelYear: number, fuelType: string | null): Promise<FipeEntity> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/calculated/brand/${brand}/model/${model}/modelYear/${modelYear}/fuelType/${fuelType}`, this.options());
+    async calculated(brand: string, model: string, modelYear: number, fuelType: string | null, dateReference: Date): Promise<FipeEntity> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/calculated/brand/${brand}/model/${model}/modelYear/${modelYear}/fuelType/${fuelType}/reference/${dateReference}`, this.options());
         return this.toPromise(request);
     }
 }

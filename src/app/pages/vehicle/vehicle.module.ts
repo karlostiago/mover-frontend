@@ -14,6 +14,8 @@ import {CoreModule} from "../../core/core.module";
 import {DateFormatPtBrDirecitve} from "../../../shared/directive/DateFormatPtBrDirecitve";
 import {CurrencyFormatPtBrDirective} from "../../../shared/directive/CurrencyFormatPtBrDirective";
 import {DecimalFormatDirective} from "../../../shared/directive/DecimalFormatDirective";
+import {DialogModule} from "primeng/dialog";
+import {DialogFipeComponent} from "./dialog-fipe/dialog-fipe.component";
 
 @NgModule({
     declarations: [
@@ -22,7 +24,8 @@ import {DecimalFormatDirective} from "../../../shared/directive/DecimalFormatDir
         OnlyNumberDirective,
         DateFormatPtBrDirecitve,
         CurrencyFormatPtBrDirective,
-        DecimalFormatDirective
+        DecimalFormatDirective,
+        DialogFipeComponent
     ],
     exports: [
         RegisterVehicleComponent,
@@ -37,7 +40,8 @@ import {DecimalFormatDirective} from "../../../shared/directive/DecimalFormatDir
         TableModule,
         Button,
         InputSwitchModule,
-        DropdownModule
+        DropdownModule,
+        DialogModule
     ]
 })
 export class VehicleModule { }

@@ -4,6 +4,7 @@ import {AlertService} from "../../../../service/AlertService";
 import {VehicleService} from "../vehicle.service";
 import {VehicleEntity} from "../../../../entity/VehicleEntity";
 import {Table} from "primeng/table";
+import {DialogFipeComponent} from "../dialog-fipe/dialog-fipe.component";
 
 @Component({
   selector: 'app-search-vehicle',
@@ -16,6 +17,7 @@ export class SearchVehicleComponent implements OnInit {
     searchFilter: string = "";
 
     @ViewChild("table") table: Table | undefined;
+    @ViewChild('dialogFipe') dialogFipe: DialogFipeComponent;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
@@ -49,5 +51,9 @@ export class SearchVehicleComponent implements OnInit {
             this.vehicles = response;
             this.table?.reset();
         });
+    }
+
+    showDialogFipe(vehicleId: number) {
+        this.dialogFipe.showDialogFipe(vehicleId);
     }
 }

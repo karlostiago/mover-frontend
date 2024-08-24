@@ -63,12 +63,37 @@ export class DateFormatPtBrDirecitve {
     }
 
     private emitDate(value: string) {
-        if (value.length === 10) { // Se o formato for dd/mm/yyyy
+        if (this.valid(value)) { // Se o formato for dd/mm/yyyy
             const [day, month, year] = value.split('/');
             const date = new Date(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(day, 10));
             this.onChange(date);
-        } else {
+        }
+        else if (this.invalid(value)) {
+            const dateError = new Date(1800, 1, 1);
+            this.onChange(dateError);
+        }
+        else {
             this.onChange(null);
         }
+    }
+
+    private valid(value: string) {
+        return !this.invalid(value);
+    }
+
+    private invalid(value: string) {
+        if ((value.length >= 1 && value.length <= 10)) {
+            const [day, month, year] = value.split("/");
+            if (parseInt(day, 10) > 31) {
+                return true;
+            }
+            if ((parseInt(month, 10) - 1) > 11) {
+                return true;
+            }
+            if (year !== undefined && year.startsWith("0")) {
+                return true;
+            }
+        }
+        return false;
     }
 }

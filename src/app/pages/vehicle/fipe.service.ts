@@ -3,6 +3,7 @@ import {AbstractService} from "../../../abstract/AbstractService";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../core/handler/ErrorHandler";
 import {FipeEntity} from "../../../entity/FipeEntity";
+import {SummaryFipeEntity} from "../../../entity/SummaryFipeEntity";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,12 @@ export class FipeService extends AbstractService<FipeEntity> {
     }
 
     async calculated(brand: string, model: string, modelYear: number, fuelType: string | null, dateReference: Date): Promise<FipeEntity> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/calculated/brand/${brand}/model/${model}/modelYear/${modelYear}/fuelType/${fuelType}/reference/${dateReference}`, this.options());
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/calculated/brand/${brand}/modelYear/${modelYear}?fuelType=${fuelType}&model=${model}&reference=${dateReference}`, this.options());
+        return this.toPromise(request);
+    }
+
+    async findByVehicleId(id: number): Promise<SummaryFipeEntity> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/find-by/vehicleId/${id}`, this.options());
         return this.toPromise(request);
     }
 }

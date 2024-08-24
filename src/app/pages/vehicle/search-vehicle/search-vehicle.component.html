@@ -56,11 +56,11 @@
                             <tr *ngIf="vehicles.length > 0">
                                 <th class="text-left">MARCA</th>
                                 <th class="text-left">MODELO</th>
-                                <th class="text-center">ANO MODELO</th>
-                                <th class="text-center">ANO FABRICAÇÃO</th>
                                 <th class="text-center">PLACA</th>
+                                <th class="text-center">ANO FABRICAÇÃO / ANO MODELO</th>
                                 <th class="text-center">V. AQUISIÇÃO</th>
                                 <th class="text-center">SITUAÇÃO</th>
+                                <th class="text-center">FIPE</th>
                                 <th class="text-center">ATIVO</th>
                                 <th class="text-center">AÇÕES</th>
                             </tr>
@@ -77,16 +77,12 @@
                                     {{ vehicle['modelName'] }}
                                 </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">ANO MODELO</span>
-                                    {{ vehicle['modelYear'] }}
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">ANO FABRICAÇÃO</span>
-                                    {{ vehicle['yearManufacture'] }}
-                                </td>
-                                <td class="text-center">
                                     <span class="p-column-title">PLACA</span>
                                     {{ vehicle['licensePlate'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">ANO FABRICAÇÃO / ANO MODELO</span>
+                                    {{ vehicle['yearManufacture'] }} / {{ vehicle['modelYear'] }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">V. AQUISIÇÃO</span>
@@ -95,6 +91,12 @@
                                 <td class="text-center">
                                     <span class="p-column-title">SITUAÇÃO</span>
                                     {{ vehicle['situation'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">FIPE</span>
+                                    <p-button [link]="true" (click)="showDialogFipe(vehicle['id'])">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </p-button>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>
@@ -112,6 +114,8 @@
                                     </p-button>
                                 </td>
                             </tr>
+
+                            <app-dialog-fipe #dialogFipe ></app-dialog-fipe>
                         </ng-template>
 
                         <ng-template pTemplate="emptymessage">

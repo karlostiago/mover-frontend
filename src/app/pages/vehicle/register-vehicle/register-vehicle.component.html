@@ -27,24 +27,23 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label class="form-label"> Marca *:</label>
-                                <p-dropdown styleClass="w-100" name="brand" id="brand" placeholder="Selecione"
-                                            optionLabel="name" optionValue="id" [(ngModel)]="selectedBrandId"
-                                            [options]="brands" required="true" (onChange)="onChangeFindModel()" />
+                                <p-dropdown styleClass="w-100" name="brand" id="brand" placeholder="Selecione" optionLabel="name" optionValue="id" [(ngModel)]="this.vehicle.brandId"
+                                            [options]="brands" required="true" (onChange)="onChangeFindModel(); onChangeResetModel()" />
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label"> Modelo *:</label>
-                                <p-dropdown styleClass="w-100" name="model" id="model" placeholder="Selecione" [filter]="true" filterBy="name" optionLabel="name" optionValue="id" [(ngModel)]="selectedModelId"
+                                <p-dropdown styleClass="w-100" name="model" id="model" placeholder="Selecione" [filter]="true" filterBy="name" optionLabel="name" optionValue="id" [(ngModel)]="this.vehicle.modelId"
                                             [options]="models" required="true" [disabled]="blockSelectedModel" />
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label"> Ano fabricação *:</label>
-                                <input pInputText class="form-control" name="yearManufacture" id="yearManufacture"
-                                      maxlength="4" appOnlyNumber [required]="true" [(ngModel)]="vehicle.yearManufacture" />
+                                <p-dropdown styleClass="w-100" name="yearManufacture" id="yearManufacture" placeholder="Selecione"
+                                            [(ngModel)]="vehicle.yearManufacture" filter="true" [options]="years" required="true" />
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label"> Ano modelo *:</label>
-                                <input pInputText class="form-control" name="modelYear" appOnlyNumber maxlength="4" id="modelYear"
-                                       [(ngModel)]="vehicle.modelYear" [required]="true" />
+                                <p-dropdown styleClass="w-100" name="modelYear" id="modelYear" placeholder="Selecione"
+                                            [(ngModel)]="vehicle.modelYear" filter="true" [options]="years" required="true" />
                             </div>
                         </div>
 
@@ -68,7 +67,7 @@
                             <div class="col-md-2">
                                 <label class="form-label"> Tipo combustivel *:</label>
                                 <p-dropdown styleClass="w-100" name="fuelType" id="fuelType" placeholder="Selecione"
-                                            optionLabel="description" optionValue="description" [(ngModel)]="selectedFuelType"
+                                            optionLabel="description" optionValue="description" [(ngModel)]="this.vehicle.fuelType"
                                             [options]="fuelTypes" required="true" />
                             </div>
                         </div>
@@ -89,7 +88,8 @@
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label"> Valor fipe aquisição *:</label>
-                                <input pInputText class="form-control" name="fipeValueAquisition" id="fipeValueAquisition" appCurrencyFormatPtBr [(ngModel)]="vehicle.fipeValueAtAcquisition" [required]="true" />
+                                <input pInputText class="form-control" name="fipeValueAquisition" id="fipeValueAquisition" appCurrencyFormatPtBr [(ngModel)]="vehicle.fipeValueAtAcquisition"
+                                       [required]="true"/>
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label"> Desvalorização da fipe:</label>
@@ -121,7 +121,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || isValidFipeAtAcquisition()">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

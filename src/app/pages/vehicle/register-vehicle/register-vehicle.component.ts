@@ -29,10 +29,8 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
     fuelTypes = new Array<FuelTypeEntity>();
     situations = new Array<SituationEntity>();
     optionsEnum = new Array<string>();
+    years = new Array<number>();
 
-    selectedBrandId:  number | null = null;
-    selectedModelId:  number | null = null;
-    selectedFuelType:  string | null = null;
     blockSelectedModel = true;
     selectedOption:  string | null = null;
 
@@ -51,6 +49,7 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
         this.loadingFuelTypes();
         this.loadingOptions();
         this.loadingSituation();
+        this.loadingYearsOfManufactureAndModels();
 
         if (!this.registerNew) {
             this.vehicleService.findById(this.id).then(response => {
@@ -70,8 +69,8 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
     }
 
     onChangeFindModel() {
-        if (this.selectedBrandId) {
-            this.modelService.findByBrandId(this.selectedBrandId).then(response => {
+        if (this.vehicle.brandId) {
+            this.modelService.findByBrandId(this.vehicle.brandId).then(response => {
                 this.models = response;
                 this.blockSelectedModel = false;
             });
@@ -84,11 +83,27 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
         }
     }
 
+    onChangeResetModel() {
+        this.vehicle.modelId = null;
+    }
+
+    isValidFipeAtAcquisition() {
+        if (this.vehicle.fipeValueAtAcquisition === undefined) {
+            return true;
+        }
+        else if (isNaN(this.vehicle.fipeValueAtAcquisition)) {
+            return true;
+        }
+        else if (this.vehicle.fipeValueAtAcquisition === 0) {
+            return true;
+        }
+        return false;
+    }
+
     async onCalculatedFipe() {
         this.loaderService.automatic = false;
-        if(this.selectedBrandId && this.selectedModelId && this.vehicle.yearManufacture && this.selectedFuelType) {
-            this.setProperties();
-            const model = await this.modelService.findById(this.selectedModelId).then(response => {
+        if(this.vehicle.brandId && this.vehicle.modelId && this.vehicle.yearManufacture && this.vehicle.fuelType) {
+            const model = await this.modelService.findById(this.vehicle.modelId).then(response => {
                 return response;
             });
             if (model && model.brandName) {
@@ -98,13 +113,6 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
             }
         }
         this.loaderService.automatic = true;
-    }
-
-    private setProperties() {
-        this.vehicle.brandId = this.selectedBrandId;
-        this.vehicle.modelId = this.selectedModelId;
-        // @ts-ignore
-        this.vehicle.fuelType = this.selectedFuelType;
     }
 
     private save(form: NgForm) {
@@ -148,10 +156,14 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
     }
 
     private setPropertyUpdate() {
-        this.selectedModelId = this.vehicle.modelId;
-        this.selectedBrandId = this.vehicle.brandId;
-        this.selectedFuelType = this.vehicle.fuelType;
         this.selectedOption = this.vehicle.auction ? OptionEnum.YES : OptionEnum.NO;
         this.blockSelectedModel = false;
+    }
+
+    private loadingYearsOfManufactureAndModels() {
+        const currentYear = new Date().getFullYear();
+        for (let year = 0; year < 100; year++ ) {
+            this.years.push(currentYear - year);
+        }
     }
 }

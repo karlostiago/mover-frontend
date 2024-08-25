@@ -82,18 +82,14 @@ export class DateFormatPtBrDirecitve {
     }
 
     private invalid(value: string) {
-        if ((value.length >= 1 && value.length <= 10)) {
-            const [day, month, year] = value.split("/");
-            if (parseInt(day, 10) > 31) {
-                return true;
-            }
-            if ((parseInt(month, 10) - 1) > 11) {
-                return true;
-            }
-            if (year !== undefined && year.startsWith("0")) {
-                return true;
-            }
+        const [day, month, year] = value.split("/");
+        if (parseInt(day, 10) > 31) {
+            return true;
         }
-        return false;
+        if ((parseInt(month, 10) - 1) > 11) {
+            return true;
+        }
+        return year === undefined || year.startsWith("0") || year.length !== 4;
+
     }
 }

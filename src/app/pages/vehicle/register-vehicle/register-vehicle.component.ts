@@ -77,6 +77,13 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
         }
     }
 
+    onChangeInfoUpdateFipeValueAcquisition() {
+        if (!this.isNewRegister() && this.vehicle.acquisitionValue) {
+            this.vehicle.fipeValueAtAcquisition = 0;
+            this.alertService.warning('O modelo foi modificado. É necessário atualizar o campo valor fipe aquisição!');
+        }
+    }
+
     onChangeOption() {
         if (this.selectedOption) {
             this.vehicle.auction = this.selectedOption === 'SIM';

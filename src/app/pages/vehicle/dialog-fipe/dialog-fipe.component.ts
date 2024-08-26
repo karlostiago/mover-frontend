@@ -20,11 +20,14 @@ export class DialogFipeComponent implements OnInit {
 
     }
 
-    showDialogFipe(vehicleId: number) {
+    async showDialogFipe(vehicleId: number) {
         this.visible = true;
         this.summaries = new Array<SummaryFipeEntity>();
-        this.fipeService.findByVehicleId(vehicleId).then(response => {
+        await this.fipeService.findByVehicleId(vehicleId).then(response => {
             this.summaries.push(response);
         });
+        if (this.summaries[0].valueAcquisition === 0) {
+            this.summaries = new Array<SummaryFipeEntity>();
+        }
     }
 }

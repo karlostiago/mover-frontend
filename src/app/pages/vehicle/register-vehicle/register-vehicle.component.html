@@ -23,99 +23,100 @@
                         <div class="col-md-12 mb-10">
                             <small class="float-end">Campos com ( * ) são obrigatórios.</small>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="form-label"> Marca *:</label>
-                                <p-dropdown styleClass="w-100" name="brand" id="brand" placeholder="Selecione" optionLabel="name" optionValue="id" [(ngModel)]="this.vehicle.brandId"
-                                            [options]="brands" required="true" (onChange)="onChangeFindModel(); onChangeResetModel()" />
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label"> Modelo *:</label>
-                                <p-dropdown styleClass="w-100" name="model" id="model" placeholder="Selecione" [filter]="true" filterBy="name" optionLabel="name" optionValue="id" [(ngModel)]="this.vehicle.modelId"
-                                            [options]="models" required="true" [disabled]="blockSelectedModel" />
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label"> Ano fabricação *:</label>
-                                <p-dropdown styleClass="w-100" name="yearManufacture" id="yearManufacture" placeholder="Selecione"
-                                            [(ngModel)]="vehicle.yearManufacture" filter="true" [options]="years" required="true" />
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label"> Ano modelo *:</label>
-                                <p-dropdown styleClass="w-100" name="modelYear" id="modelYear" placeholder="Selecione"
-                                            [(ngModel)]="vehicle.modelYear" filter="true" [options]="years" required="true" />
-                            </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="form-label"> Marca *:</label>
+                            <p-dropdown styleClass="w-100" name="brand" id="brand" placeholder="Selecione" optionLabel="name" optionValue="id" [(ngModel)]="this.vehicle.brandId"
+                                        [options]="brands" required="true" (onChange)="onChangeFindModel(); onChangeResetModel()" />
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label class="form-label"> Placa *:</label>
-                                <input pInputText class="form-control" name="licensePlate" id="licensePlate" [(ngModel)]="vehicle.licensePlate" [required]="true" />
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label"> Renavam *:</label>
-                                <input pInputText class="form-control" name="renavam" id="renavam" appOnlyNumber [(ngModel)]="vehicle.renavam" [required]="true" />
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label"> Km de aquisição *:</label>
-                                <input pInputText class="form-control" name="kmAquisition" id="kmAquisition" appDecimalFormat [(ngModel)]="vehicle.mileageAtAcquisition" [required]="true" />
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label"> Cor *:</label>
-                                <input pInputText class="form-control" name="color" id="color" [(ngModel)]="vehicle.color" [required]="true" />
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label"> Tipo combustível *:</label>
-                                <p-dropdown styleClass="w-100" name="fuelType" id="fuelType" placeholder="Selecione"
-                                            optionLabel="description" optionValue="description" [(ngModel)]="this.vehicle.fuelType"
-                                            [options]="fuelTypes" required="true" />
-                            </div>
+                        <div class="col-md-3">
+                            <label class="form-label"> Modelo *:</label>
+                            <p-dropdown styleClass="w-100" name="model" id="model" placeholder="Selecione" [filter]="true" filterBy="name" optionLabel="name" optionValue="id" [(ngModel)]="this.vehicle.modelId"
+                                        [options]="models" required="true" [disabled]="blockSelectedModel" (onChange)="onChangeInfoUpdateFipeValueAcquisition()" />
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label class="form-label"> Valor aquisição *:</label>
-                                <input pInputText class="form-control" name="aquisitionValue" id="aquisitionValue" appCurrencyFormatPtBr [(ngModel)]="vehicle.acquisitionValue" [required]="true" />
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label"> Data aquisição *:</label>
-                                <input pInputText class="form-control" name="aquisitionDate" id="aquisitionDate" [(ngModel)]="vehicle.acquisitionDate" appDateFormatPtBr [required]="true"
-                                       (change)="onCalculatedFipe()" />
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label"> Data disponibilidade:</label>
-                                <input pInputText class="form-control" name="avaliabilityDate" id="avaliabilityDate" appDateFormatPtBr [(ngModel)]="vehicle.availabilityDate" />
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label"> Valor fipe aquisição *:</label>
-                                <input pInputText class="form-control" name="fipeValueAquisition" id="fipeValueAquisition" appCurrencyFormatPtBr [(ngModel)]="vehicle.fipeValueAtAcquisition"
-                                       [required]="true"/>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label"> Desvalorização da fipe:</label>
-                                <input pInputText class="form-control" name="fipeDepreciation" id="fipeDepreciation" appCurrencyFormatPtBr [(ngModel)]="vehicle.fipeDepreciation" />
-                            </div>
+                        <div class="col-md-3">
+                            <label class="form-label"> Ano fabricação *:</label>
+                            <p-dropdown styleClass="w-100" name="yearManufacture" id="yearManufacture" placeholder="Selecione"
+                                        [(ngModel)]="vehicle.yearManufacture" filter="true" [options]="years" required="true" />
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label class="form-label"> Leilão *:</label>
-                                <p-dropdown styleClass="w-100" name="auction" id="auction" placeholder="Selecione"
-                                            [options]="optionsEnum" [(ngModel)]="selectedOption" required="true" (onChange)="onChangeOption()" />
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label"> Situação *:</label>
-                                <p-dropdown styleClass="w-100" name="situation" id="situation" placeholder="Selecione"
-                                            optionLabel="description" optionValue="description" [options]="situations" [(ngModel)]="vehicle.situation" required="true" />
-                            </div>
+                        <div class="col-md-3">
+                            <label class="form-label"> Ano modelo *:</label>
+                            <p-dropdown styleClass="w-100" name="modelYear" id="modelYear" placeholder="Selecione"
+                                        [(ngModel)]="vehicle.modelYear" filter="true" [options]="years" required="true" />
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label class="form-label">Ativo:</label>
-                                <p-inputSwitch name="active" id="active" styleClass="form-control"
-                                               [(ngModel)]="vehicle['active']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="form-label"> Placa *:</label>
+                            <input pInputText class="form-control" name="licensePlate" id="licensePlate"  [maxlength]="7"
+                                   [(ngModel)]="vehicle.licensePlate" [required]="true" />
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label"> Renavam *:</label>
+                            <input pInputText class="form-control" name="renavam" id="renavam" appOnlyNumber [(ngModel)]="vehicle.renavam" [required]="true" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label"> Km de aquisição *:</label>
+                            <input pInputText class="form-control" name="kmAquisition" id="kmAquisition" appDecimalFormat [(ngModel)]="vehicle.mileageAtAcquisition" [required]="true" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label"> Cor *:</label>
+                            <input pInputText class="form-control" name="color" id="color" [(ngModel)]="vehicle.color" [required]="true" />
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label"> Tipo combustível *:</label>
+                            <p-dropdown styleClass="w-100" name="fuelType" id="fuelType" placeholder="Selecione"
+                                        optionLabel="description" optionValue="description" [(ngModel)]="this.vehicle.fuelType"
+                                        [options]="fuelTypes" required="true" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="form-label"> Valor aquisição *:</label>
+                            <input pInputText class="form-control" name="aquisitionValue" id="aquisitionValue" appCurrencyFormatPtBr [(ngModel)]="vehicle.acquisitionValue" [required]="true" />
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label"> Data aquisição *:</label>
+                            <input pInputText class="form-control" name="aquisitionDate" id="aquisitionDate" [(ngModel)]="vehicle.acquisitionDate" appDateFormatPtBr [required]="true"
+                                   (change)="onCalculatedFipe()" />
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label"> Data disponibilidade:</label>
+                            <input pInputText class="form-control" name="avaliabilityDate" id="avaliabilityDate" appDateFormatPtBr [(ngModel)]="vehicle.availabilityDate" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label"> Valor fipe aquisição *:</label>
+                            <input pInputText class="form-control" name="fipeValueAquisition" id="fipeValueAquisition" appCurrencyFormatPtBr [(ngModel)]="vehicle.fipeValueAtAcquisition"
+                                   [required]="true"/>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label"> Desvalorização da fipe:</label>
+                            <input pInputText class="form-control" name="fipeDepreciation" id="fipeDepreciation" appCurrencyFormatPtBr [(ngModel)]="vehicle.fipeDepreciation" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="form-label"> Leilão *:</label>
+                            <p-dropdown styleClass="w-100" name="auction" id="auction" placeholder="Selecione"
+                                        [options]="optionsEnum" [(ngModel)]="selectedOption" required="true" (onChange)="onChangeOption()" />
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label"> Situação *:</label>
+                            <p-dropdown styleClass="w-100" name="situation" id="situation" placeholder="Selecione"
+                                        optionLabel="description" optionValue="description" [options]="situations" [(ngModel)]="vehicle.situation" required="true" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">Ativo:</label>
+                            <p-inputSwitch name="active" id="active" styleClass="form-control"
+                                           [(ngModel)]="vehicle['active']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
                         </div>
                     </div>
                 </div>

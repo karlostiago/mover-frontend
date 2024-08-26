@@ -115,7 +115,9 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
             });
             if (model && model.brandName) {
                 this.fipeService.calculated(model.brandName, model.name, this.vehicle.modelYear, this.vehicle.fuelType, this.vehicle.acquisitionDate).then(response => {
-                    this.vehicle.fipeValueAtAcquisition = response.value;
+                    if (response.value > 0) {
+                      this.vehicle.fipeValueAtAcquisition = response.value;
+                    }
                 });
             }
         }

@@ -74,14 +74,16 @@
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">MODELO</span>
-                                    {{ vehicle['modelName'] }}
+                                    <span class="text-limited-15">
+                                        {{ vehicle['modelName'] }}
+                                    </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">PLACA</span>
                                     {{ vehicle['licensePlate'] }}
                                 </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">ANO FAB. / ANO MODELO</span>
+                                    <span class="p-column-title">FAB. / MOD.</span>
                                     {{ vehicle['yearManufacture'] }} / {{ vehicle['modelYear'] }}
                                 </td>
                                 <td class="text-center">

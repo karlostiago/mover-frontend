@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AbstractService} from "../../../abstract/AbstractService";
+import {BaseService} from "../../../abstract/BaseService";
 import {ModelEntity} from "../../../entity/ModelEntity";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../core/handler/ErrorHandler";
@@ -7,7 +7,7 @@ import {ErrorHandler} from "../../core/handler/ErrorHandler";
 @Injectable({
   providedIn: 'root'
 })
-export class ModelService extends AbstractService<ModelEntity> {
+export class ModelService extends BaseService<ModelEntity> {
 
     constructor(override httpClient: HttpClient,  override errorHandler: ErrorHandler) {
         super(httpClient, errorHandler);

@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
 import {ErrorHandler} from "../app/core/handler/ErrorHandler";
 
-export abstract class AbstractService <T> {
+export abstract class BaseService<T> {
 
     protected baseURL = environment.apiUrl;
 

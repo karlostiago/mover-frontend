@@ -1,29 +1,24 @@
 import {Injectable} from '@angular/core';
-import {AbstractService} from "../../../abstract/AbstractService";
-import {ModelEntity} from "../../../entity/ModelEntity";
+import {BaseService} from "../../../abstract/BaseService";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../core/handler/ErrorHandler";
+import {AccountEntity} from "../../../entity/AccountEntity";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService extends AbstractService<ModelEntity> {
+export class AccountService extends BaseService<AccountEntity> {
 
     constructor(override httpClient: HttpClient,  override errorHandler: ErrorHandler) {
         super(httpClient, errorHandler);
     }
 
     protected pathURL(): string {
-        return "models";
+        return "accounts";
     }
 
-    async findBy(search: string): Promise<Array<ModelEntity>> {
+    async findBy(search: string): Promise<Array<AccountEntity>> {
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/filterBy?search=${search}`, this.options());
-        return this.toPromise(request);
-    }
-
-    async findByBrandId(brandId: number): Promise<Array<ModelEntity>> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/find-by-brand-id?brandId=${brandId}`, this.options());
         return this.toPromise(request);
     }
 }

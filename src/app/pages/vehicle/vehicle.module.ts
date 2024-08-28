@@ -29,7 +29,8 @@ import {DialogFipeComponent} from "./dialog-fipe/dialog-fipe.component";
     ],
     exports: [
         RegisterVehicleComponent,
-        SearchVehicleComponent
+        SearchVehicleComponent,
+        DialogFipeComponent
     ],
     imports: [
         CommonModule,

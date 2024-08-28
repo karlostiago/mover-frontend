@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AbstractService} from "../../../abstract/AbstractService";
+import {BaseService} from "../../../abstract/BaseService";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../core/handler/ErrorHandler";
 import {FipeEntity} from "../../../entity/FipeEntity";
@@ -8,7 +8,7 @@ import {SummaryFipeEntity} from "../../../entity/SummaryFipeEntity";
 @Injectable({
   providedIn: 'root'
 })
-export class FipeService extends AbstractService<FipeEntity> {
+export class FipeService extends BaseService<FipeEntity> {
 
     constructor(override httpClient: HttpClient,  override errorHandler: ErrorHandler) {
         super(httpClient, errorHandler);

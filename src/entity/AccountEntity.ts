@@ -3,5 +3,6 @@ export class AccountEntity {
     name: string = "";
     icont: string = "";
     initialBalance: number = 0;
+    caution: boolean = false;
     active: boolean = true;
 }

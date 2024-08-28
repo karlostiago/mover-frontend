@@ -12,22 +12,19 @@ import {AccountService} from "../account.service";
 })
 export class SearchAccountComponent implements OnInit {
     accounts = new Array<AccountEntity>();
-    //
-    // searchFilter: string = "";
-    // yearManufactureFilter: string = "";
-    // yearModelFilter: string = "";
-    //
+    searchFilter: string = "";
+
     @ViewChild("table") table: Table | undefined;
-    //
+
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
                 private accountService: AccountService) {
     }
 
     ngOnInit(): void {
-        // this.modelService.findAll().then(response => {
-        //     this.models = response;
-        // });
+        this.accountService.findAll().then(response => {
+            this.accounts = response;
+        });
     }
 
     confirmationDelete(account: AccountEntity) {
@@ -40,16 +37,16 @@ export class SearchAccountComponent implements OnInit {
     }
 
     delete(id: number) {
-    //     this.modelService.delete(id).then(() => {
-    //         this.models = this.models.filter(m => m.id !== id);
-    //         this.alertService.success("Registro deletado com sucesso.");
-    //     });
+        this.accountService.delete(id).then(() => {
+            this.accounts = this.accounts.filter(a => a.id !== id);
+            this.alertService.success("Registro deletado com sucesso.");
+        });
     }
-    //
-    // filterBy() {
-    //     this.modelService.findBy(this.searchFilter).then(response => {
-    //         this.models = response;
-    //         this.table?.reset();
-    //     })
-    // }
+
+    filterBy() {
+        this.accountService.findBy(this.searchFilter).then(response => {
+            this.accounts = response;
+            this.table?.reset();
+        })
+    }
 }

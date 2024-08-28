@@ -1,6 +1,10 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
+:host ::ng-deep .p-dialog {
+    z-index: 1050 !important; /* Ajuste o valor conforme necessário */
+}
+
 body {
     font-family: 'Ubuntu', sans-serif!important;
     background: var(--gray-400)!important;
@@ -37,6 +41,13 @@ a {
 
 input {
     text-transform: uppercase;
+}
+
+.text-limited-15 {
+    width: 15ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 /**

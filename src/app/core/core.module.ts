@@ -8,6 +8,7 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
 import {DashboardModule} from "../pages/dashboard/dashboard.module";
 import {ModelModule} from "../pages/model/model.module";
 import {VehicleModule} from "../pages/vehicle/vehicle.module";
+import {AccountModule} from "../pages/account/account.module";
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import {VehicleModule} from "../pages/vehicle/vehicle.module";
         BrandModule,
         ModelModule,
         VehicleModule,
+        AccountModule,
         HeaderComponent,
         MenuLateralComponent
     ],

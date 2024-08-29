@@ -9,22 +9,14 @@ import {InputTextModule} from "primeng/inputtext";
 import {TableModule} from "primeng/table";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {DropdownModule} from "primeng/dropdown";
-import {OnlyNumberDirective} from "../../../shared/directive/OnlyNumberDirective";
-import {CoreModule} from "../../core/core.module";
-import {DateFormatPtBrDirecitve} from "../../../shared/directive/DateFormatPtBrDirecitve";
-import {CurrencyFormatPtBrDirective} from "../../../shared/directive/CurrencyFormatPtBrDirective";
-import {DecimalFormatDirective} from "../../../shared/directive/DecimalFormatDirective";
 import {DialogModule} from "primeng/dialog";
 import {DialogFipeComponent} from "./dialog-fipe/dialog-fipe.component";
+import {SharedModule} from "../../../shared/SharedModule";
 
 @NgModule({
     declarations: [
         RegisterVehicleComponent,
         SearchVehicleComponent,
-        OnlyNumberDirective,
-        DateFormatPtBrDirecitve,
-        CurrencyFormatPtBrDirective,
-        DecimalFormatDirective,
         DialogFipeComponent
     ],
     exports: [
@@ -42,7 +34,8 @@ import {DialogFipeComponent} from "./dialog-fipe/dialog-fipe.component";
         Button,
         InputSwitchModule,
         DropdownModule,
-        DialogModule
+        DialogModule,
+        SharedModule
     ]
 })
 export class VehicleModule { }

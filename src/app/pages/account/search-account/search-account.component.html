@@ -54,9 +54,9 @@
 
                         <ng-template pTemplate="header">
                             <tr *ngIf="accounts.length > 0">
+                                <th class="text-center">ÍCONE</th>
                                 <th class="text-left">DESCRIÇÃO</th>
                                 <th class="text-center">SALDO INICIAL</th>
-                                <th class="text-center">ÍCONE</th>
                                 <th class="text-center">CAUÇÃO</th>
                                 <th class="text-center">ATIVO</th>
                                 <th class="text-center">AÇÕES</th>
@@ -65,6 +65,10 @@
 
                         <ng-template pTemplate="body" let-account>
                             <tr>
+                                <td class="text-center">
+                                    <span class="p-column-title">ÍCONE</span>
+                                    {{ account['icon'] ? account['icon'] : '-' }}
+                                </td>
                                 <td class="text-left">
                                     <span class="p-column-title">DESCRIÇÃO</span>
                                     {{ account['name'] }}
@@ -72,10 +76,6 @@
                                 <td class="text-center">
                                     <span class="p-column-title">SALDO INICIAL</span>
                                     {{ account['initialBalance'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">ÍCONE</span>
-                                    {{ account['icon'] ? account['icon'] : '-' }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">CAUÇÃO</span>

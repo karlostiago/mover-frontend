@@ -267,7 +267,7 @@ a.btn:active {
  * ---------------------------------------------------------
  */
 .p-fileupload-choose {
-    padding: 12px 28px 12px 12px !important;
+    padding: 12px 28px 10px 12px !important;
 }
 
 .p-disabled, button[disabled]{

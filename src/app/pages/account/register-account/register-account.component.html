@@ -26,7 +26,72 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-8">
+                            <label class="form-label"> Descrição da conta *:</label>
+                            <input pInputText class="form-control" name="bankName" id="bankName" [(ngModel)]="account['name']" [required]="true">
+                        </div>
 
+                        <div class="col-md-4">
+                            <label class="form-label"> Saldo inicial *:</label>
+                            <input pInputText class="form-control" name="initialBalance" id="initialBalance" [(ngModel)]="account['initialBalance']" appCurrencyFormatPtBr [required]="true">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="form-label"> Ícone :</label>
+                            <p-dropdown styleClass="w-100" name="icon" id="icon" [showClear]="false"
+                                        [options]="icons"
+                                        [(ngModel)]="account['codeIcon']"
+                                        placeholder="Selecione"
+                                        optionLabel="code"
+                                        optionValue="code"
+                                        required>
+                                <ng-template let-icon pTemplate="item">
+                                    <div class="flex align-items-center gap-2">
+                                        <img src="{{ icon['urlImage'] }}" style="width: 3rem"  alt="icon" /> <span> {{ icon['bankName'] }} </span>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-selected pTemplate="selectedItem">
+                                    <div class="flex align-items-center gap-2">
+                                        <img src="{{ selected['urlImage'] }}" style="width: 3rem; position: relative; bottom: 0.8125rem;" alt="icon" /> <span style="position: relative; bottom: 0.75rem;"> {{ selected['bankName'] }} </span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Importar ícone:</label>
+                            <p-fileUpload
+                                #fileUpload
+                                mode="basic"
+                                url="{{ uploadURL }}"
+                                name="file"
+                                chooseLabel="Importar"
+                                chooseIcon="fa-solid fa-arrow-up-from-bracket"
+                                styleClass="form-control"
+                                accept="image/*"
+                                maxFileSize="1000000"
+                                [auto]="true"
+                                [disabled]="uploadSymbolDisabled()"
+                                (onBeforeUpload)="updateURL($event)"
+                                (onUpload)="uploadSuccess($event)"
+                                (onError)="uploadError($event)"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="form-label">Ativo:</label>
+                            <p-inputSwitch name="active" id="active" styleClass="form-control"
+                                           [(ngModel)]="account['active']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Caução:</label>
+                            <p-inputSwitch name="caution" id="caution" styleClass="form-control"
+                                           [(ngModel)]="account['caution']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                        </div>
                     </div>
                 </div>
 

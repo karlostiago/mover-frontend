@@ -18,7 +18,6 @@ export class RegisterAccountComponent extends AbstractRegister implements OnInit
 
     account = new AccountEntity();
     icons = new Array<BankIconEntity>();
-    uploadURL = `${environment.apiUrl}/accounts/upload?filename=`;
 
     @ViewChild("fileUpload") fileUpload: FileUpload | undefined;
 
@@ -53,34 +52,14 @@ export class RegisterAccountComponent extends AbstractRegister implements OnInit
         }
     }
 
-    updateURL(e: any) {
-        // e.formData.append('filename', this.brand.name);
-    }
-
-    async uploadSuccess(e: any) {
-        // this.alertService.success("Carregamento da imagem executado com sucesso.");
-        // await this.loadingSymbols();
-        // this.selectedSymbolId = this.symbols[this.symbols.length - 1].id;
-    }
-
-    uploadError(e: any) {
-        this.alertService.error("Erro na importação do ícone. " + e.error.error[0]['message']);
-        this.fileUpload?.clear();
-    }
-
-    uploadSymbolDisabled() {
-        return this.account.name == null || this.account.name.length <= 3;
-    }
-
     private save(form: NgForm) {
-        // this.modelService.save(this.model).then(() => {
-        //     this.alertService.success("Registro cadastrado com sucesso.");
-        //     form.resetForm({
-        //         active: true,
-        //         name: "",
-        //         color: "",
-        //     });
-        // });
+        this.accountService.save(this.account).then(() => {
+            this.alertService.success("Registro cadastrado com sucesso.");
+            form.resetForm({
+                active: true,
+                caution: false
+            });
+        });
     }
 
     private update() {

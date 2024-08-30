@@ -4,6 +4,7 @@ import {Table} from "primeng/table";
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../service/AlertService";
 import {AccountService} from "../account.service";
+import {BankIconEntity} from "../../../../entity/BankIconEntity";
 
 @Component({
   selector: 'app-search-account',
@@ -12,6 +13,8 @@ import {AccountService} from "../account.service";
 })
 export class SearchAccountComponent implements OnInit {
     accounts = new Array<AccountEntity>();
+    icons = new Array<BankIconEntity>();
+
     searchFilter: string = "";
 
     @ViewChild("table") table: Table | undefined;
@@ -21,7 +24,9 @@ export class SearchAccountComponent implements OnInit {
                 private accountService: AccountService) {
     }
 
-    ngOnInit(): void {
+    async ngOnInit() {
+        await this.loadingIcons();
+        console.log(this.icons);
         this.accountService.findAll().then(response => {
             this.accounts = response;
         });
@@ -48,5 +53,12 @@ export class SearchAccountComponent implements OnInit {
             this.accounts = response;
             this.table?.reset();
         })
+    }
+
+    private async loadingIcons() {
+        const icons = await this.accountService.findAllIcons();
+        for (const icon of icons) {
+            this.icons.push(icon);
+        }
     }
 }

@@ -26,20 +26,25 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-5 col-sm-12">
                             <label class="form-label"> Descrição da conta *:</label>
                             <input pInputText class="form-control" name="bankName" id="bankName" [(ngModel)]="account['name']" [required]="true">
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Número da conta e dígito *:</label>
+                            <input pInputText class="form-control" name="accountNumber" id="accountNumber" appOnlyNumber [maxlength]="10" [(ngModel)]="account['accountNumber']" [required]="true">
+                        </div>
+
+                        <div class="col-md-3 col-sm-12">
                             <label class="form-label"> Saldo inicial *:</label>
                             <input pInputText class="form-control" name="initialBalance" id="initialBalance" [(ngModel)]="account['initialBalance']" appCurrencyFormatPtBr [required]="true">
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">
-                            <label class="form-label"> Ícone :</label>
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Ícone *:</label>
                             <p-dropdown styleClass="w-100" name="icon" id="icon" [showClear]="false"
                                         [options]="icons"
                                         [(ngModel)]="account['codeIcon']"
@@ -59,38 +64,32 @@
                                 </ng-template>
                             </p-dropdown>
                         </div>
+                    </div>
 
-                        <div class="col-md-3">
-                            <label class="form-label">Importar ícone:</label>
-                            <p-fileUpload
-                                #fileUpload
-                                mode="basic"
-                                url="{{ uploadURL }}"
-                                name="file"
-                                chooseLabel="Importar"
-                                chooseIcon="fa-solid fa-arrow-up-from-bracket"
-                                styleClass="form-control"
-                                accept="image/*"
-                                maxFileSize="1000000"
-                                [auto]="true"
-                                [disabled]="uploadSymbolDisabled()"
-                                (onBeforeUpload)="updateURL($event)"
-                                (onUpload)="uploadSuccess($event)"
-                                (onError)="uploadError($event)"
-                            />
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="form-label">Caução:</label>
+                            <p-inputSwitch name="caution" id="caution" styleClass="form-control"
+                                           [(ngModel)]="account['caution']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label class="form-label">Ativo:</label>
                             <p-inputSwitch name="active" id="active" styleClass="form-control"
                                            [(ngModel)]="account['active']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
                         </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Caução:</label>
-                            <p-inputSwitch name="caution" id="caution" styleClass="form-control"
-                                           [(ngModel)]="account['caution']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                    </div>
+
+                    <br />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="alert alert-info">
+                                <i class="fa-solid fa-check"></i>
+                                Quando não encontrar o ícone da instituição bancária desejado, pode selecionar o ícone <strong>Banco genérico</strong>.
+                            </p>
                         </div>
                     </div>
                 </div>

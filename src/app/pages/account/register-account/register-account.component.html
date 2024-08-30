@@ -33,7 +33,7 @@
 
                         <div class="col-md-4 col-sm-12">
                             <label class="form-label"> Número da conta e dígito *:</label>
-                            <input pInputText class="form-control" name="accountNumber" id="accountNumber" appOnlyNumber [maxlength]="10" [(ngModel)]="account['accountNumber']" [required]="true">
+                            <input pInputText class="form-control" name="number" id="number" appOnlyNumber [maxlength]="10" [(ngModel)]="account['number']" [required]="true">
                         </div>
 
                         <div class="col-md-3 col-sm-12">
@@ -54,12 +54,12 @@
                                         required>
                                 <ng-template let-icon pTemplate="item">
                                     <div class="flex align-items-center gap-2">
-                                        <img src="{{ icon['urlImage'] }}" style="width: 3rem"  alt="icon" /> <span> {{ icon['bankName'] }} </span>
+                                        <img src="{{ icon['image'] }}" style="width: 3rem"  alt="icon" /> <span> {{ icon['bankName'] }} </span>
                                     </div>
                                 </ng-template>
                                 <ng-template let-selected pTemplate="selectedItem">
                                     <div class="flex align-items-center gap-2">
-                                        <img src="{{ selected['urlImage'] }}" style="width: 3rem; position: relative; bottom: 0.8125rem;" alt="icon" /> <span style="position: relative; bottom: 0.75rem;"> {{ selected['bankName'] }} </span>
+                                        <img src="{{ selected['image'] }}" style="width: 3rem; position: relative; bottom: 0.8125rem;" alt="icon" /> <span style="position: relative; bottom: 0.75rem;"> {{ selected['bankName'] }} </span>
                                     </div>
                                 </ng-template>
                             </p-dropdown>

@@ -32,6 +32,7 @@ export class RegisterAccountComponent extends AbstractRegister implements OnInit
 
         if (!this.registerNew) {
             this.accountService.findById(this.id).then(response => {
+                console.log(response)
                 this.account = response;
             });
         }
@@ -63,8 +64,8 @@ export class RegisterAccountComponent extends AbstractRegister implements OnInit
     }
 
     private update() {
-        // this.modelService.update(this.model.id, this.model).then(() => {
-        //     this.alertService.success("Registro atualizado com sucesso.");
-        // });
+        this.accountService.update(this.account.id, this.account).then(() => {
+            this.alertService.success("Registro atualizado com sucesso.");
+        });
     }
 }

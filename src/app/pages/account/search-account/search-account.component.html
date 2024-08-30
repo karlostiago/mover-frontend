@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label class="form-label"> Pesquisar:</label>
-                            <input pInputText class="form-control" name="search" id="search" />
+                            <input pInputText class="form-control" id="search" name="search" [(ngModel)]="searchFilter" />
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="card-footer">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-6 col-xs-6 text-md-start">
-                            <button type="button" pButton class="p-button-success p-button-sm" >
+                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()">
                                 <i class="fa-solid fa-magnifying-glass m-1"></i>
                                 Pesquisar
                             </button>
@@ -56,6 +56,7 @@
                             <tr *ngIf="accounts.length > 0">
                                 <th class="text-center">ÍCONE</th>
                                 <th class="text-left">DESCRIÇÃO</th>
+                                <th class="text-center">NÚMERO</th>
                                 <th class="text-center">SALDO INICIAL</th>
                                 <th class="text-center">CAUÇÃO</th>
                                 <th class="text-center">ATIVO</th>
@@ -67,11 +68,15 @@
                             <tr>
                                 <td class="text-center">
                                     <span class="p-column-title">ÍCONE</span>
-                                    <img src="{{ account['icon'] }}" style="width: 2rem"  alt="icon" />
+                                    <img src="{{ account['imageIcon'] }}" style="width: 2rem"  alt="icon" />
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">DESCRIÇÃO</span>
                                     {{ account['name'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">NÚMERO</span>
+                                    {{ account['number'] }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">SALDO INICIAL</span>

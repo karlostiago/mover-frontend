@@ -9,6 +9,7 @@ import {DashboardModule} from "../pages/dashboard/dashboard.module";
 import {ModelModule} from "../pages/model/model.module";
 import {VehicleModule} from "../pages/vehicle/vehicle.module";
 import {AccountModule} from "../pages/account/account.module";
+import {ClientModule} from "../pages/client/client.module";
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import {AccountModule} from "../pages/account/account.module";
         ModelModule,
         VehicleModule,
         AccountModule,
+        ClientModule,
         HeaderComponent,
         MenuLateralComponent
     ],

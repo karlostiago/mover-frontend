@@ -6,13 +6,15 @@ import {CurrencyFormatPtBrDirective} from "./directive/CurrencyFormatPtBrDirecti
 import {OnlyNumberDirective} from "./directive/OnlyNumberDirective";
 import {DateFormatPtBrDirecitve} from "./directive/DateFormatPtBrDirecitve";
 import {DecimalFormatDirective} from "./directive/DecimalFormatDirective";
+import {MaskCpfDirective} from "./directive/MaskCpfDirective";
 
 @NgModule({
     declarations: [
         CurrencyFormatPtBrDirective,
         OnlyNumberDirective,
         DateFormatPtBrDirecitve,
-        DecimalFormatDirective
+        DecimalFormatDirective,
+        MaskCpfDirective
     ],
     exports: [
         ToastModule,
@@ -20,6 +22,7 @@ import {DecimalFormatDirective} from "./directive/DecimalFormatDirective";
         OnlyNumberDirective,
         DateFormatPtBrDirecitve,
         DecimalFormatDirective,
+        MaskCpfDirective
     ],
     imports: [
         CommonModule

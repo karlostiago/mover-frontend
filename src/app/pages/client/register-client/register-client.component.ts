@@ -4,17 +4,16 @@ import {AbstractRegister} from "../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
 import {AlertService} from "../../../../service/AlertService";
 import {AccountEntity} from "../../../../entity/AccountEntity";
-import {AccountService} from "../account.service";
-import {environment} from "../../../../environments/environment";
+import {ClientService} from "../client.service";
 import {FileUpload} from "primeng/fileupload";
 import {BankIconEntity} from "../../../../entity/BankIconEntity";
 
 @Component({
-  selector: 'app-register-account',
-  templateUrl: './register-account.component.html',
-  styleUrls: ['./register-account.component.css']
+  selector: 'app-register-client',
+  templateUrl: './register-client.component.html',
+  styleUrls: ['./register-client.component.css']
 })
-export class RegisterAccountComponent extends AbstractRegister implements OnInit {
+export class RegisterClientComponent extends AbstractRegister implements OnInit {
 
     account = new AccountEntity();
     icons = new Array<BankIconEntity>();
@@ -23,7 +22,7 @@ export class RegisterAccountComponent extends AbstractRegister implements OnInit
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
-                private accountService: AccountService) {
+                private accountService: ClientService) {
         super(activatedRoute);
     }
 
@@ -53,20 +52,11 @@ export class RegisterAccountComponent extends AbstractRegister implements OnInit
         }
     }
 
-    override cancel(form: NgForm) {
-        form.resetForm({
-            active: true,
-            initialBalance: 0,
-            caution: false
-        });
-    }
-
     private save(form: NgForm) {
         this.accountService.save(this.account).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
             form.resetForm({
                 active: true,
-                initialBalance: 0,
                 caution: false
             });
         });

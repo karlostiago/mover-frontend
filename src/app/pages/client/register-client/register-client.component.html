@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="row align-items-center">
                 <div class="col-12 col-md-6">
-                    <h1 class="title">Contas</h1>
+                    <h1 class="title">Clientes</h1>
                 </div>
             </div>
         </div>
@@ -54,12 +54,12 @@
                                         required>
                                 <ng-template let-icon pTemplate="item">
                                     <div class="flex align-items-center gap-2">
-                                        <img src="{{ icon['image'] }}" style="width: 3rem;"  alt="icon" /> <span style="margin-left: 5px;"> {{ icon['prefix'] }} {{ icon['bankName'] }} </span>
+                                        <img src="{{ icon['image'] }}" style="width: 3rem"  alt="icon" /> <span> {{ icon['bankName'] }} </span>
                                     </div>
                                 </ng-template>
                                 <ng-template let-selected pTemplate="selectedItem">
                                     <div class="flex align-items-center gap-2">
-                                        <img src="{{ selected['image'] }}" style="width: 3rem; position: relative; bottom: 0.8125rem;" alt="icon" /> <span style="position: relative; bottom: 0.75rem; margin-left: 5px;"> {{ selected['prefix'] }} {{ selected['bankName'] }} </span>
+                                        <img src="{{ selected['image'] }}" style="width: 3rem; position: relative; bottom: 0.8125rem;" alt="icon" /> <span style="position: relative; bottom: 0.75rem;"> {{ selected['bankName'] }} </span>
                                     </div>
                                 </ng-template>
                             </p-dropdown>
@@ -95,7 +95,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !account['codeIcon']">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

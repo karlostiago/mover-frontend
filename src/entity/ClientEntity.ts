@@ -1,10 +1,20 @@
-export class BrandEntity {
+export class ClientEntity {
     id: number = 0;
-    fullName: string = "";
-    rg: number = 0;
-    cpf: string;
+    name: string = "";
+    rg: number;
+    cpfCnpj: string;
+    homeNumber: number;
     motherName: string = "";
-    brasilianStateCode: number = 0;
-    typePersonCode: number = 0;
+    brazilianStateCode: number | null;
+    neighborhood: string;
+    publicPlace: string;
+    city: string;
+    complement: string;
+    typePersonCode: number;
+    birthDate: Date;
+    postalCode: number;
+    email: string;
+    telephone: string;
+    cellPhone: string;
     active: boolean = true;
 }

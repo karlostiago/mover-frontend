@@ -7,6 +7,10 @@ import {AccountEntity} from "../../../../entity/AccountEntity";
 import {ClientService} from "../client.service";
 import {FileUpload} from "primeng/fileupload";
 import {BankIconEntity} from "../../../../entity/BankIconEntity";
+import {ClientEntity} from "../../../../entity/ClientEntity";
+import {TypePersonEntity} from "../../../../entity/TypePersonEntity";
+import {BrazilianStatesEntity} from "../../../../entity/BrazilianStatesEntity";
+import {LoaderService} from "../../../core/loader/loader.service";
 
 @Component({
   selector: 'app-register-client',
@@ -15,6 +19,10 @@ import {BankIconEntity} from "../../../../entity/BankIconEntity";
 })
 export class RegisterClientComponent extends AbstractRegister implements OnInit {
 
+    client = new ClientEntity();
+    types = new Array<TypePersonEntity>();
+    brazilianStates = new Array<BrazilianStatesEntity>();
+
     account = new AccountEntity();
     icons = new Array<BankIconEntity>();
 
@@ -22,26 +30,62 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
-                private accountService: ClientService) {
+                private loaderService: LoaderService,
+                private clientService: ClientService) {
         super(activatedRoute);
     }
 
     async ngOnInit() {
-        await this.loadingIcons();
+        await this.loadingTypesPerson();
+        await this.loadingBrazilianStates();
 
         if (!this.registerNew) {
-            this.accountService.findById(this.id).then(response => {
-                console.log(response)
-                this.account = response;
+            this.clientService.findById(this.id).then(response => {
+                this.client = response;
             });
         }
     }
 
-    private async loadingIcons() {
-        const icons = await this.accountService.findAllIcons();
-        for (const icon of icons) {
-            this.icons.push(icon);
+    async onFindAddrees() {
+        this.loaderService.automatic = false;
+        if (this.client['postalCode']) {
+            this.clientService.findAddress(this.client['postalCode']).then(response => {
+                if (response) {
+                    this.client.brazilianStateCode = response.brazilianStateCode;
+                    this.client.city = response.city;
+                    this.client.neighborhood = response.neighborhood;
+                    this.client.publicPlace = response.publicPlace;
+                } else {
+                    this.client.city = "";
+                    this.client.neighborhood = "";
+                    this.client.publicPlace = "";
+                    this.client.brazilianStateCode = null;
+                }
+            });
         }
+        this.loaderService.automatic = true;
+    }
+
+    private async loadingTypesPerson() {
+        const types = await this.clientService.findAllTypes();
+        for (const type of types) {
+            this.types.push(type);
+        }
+        this.client['typePersonCode'] = 1;
+    }
+
+    private async loadingBrazilianStates() {
+        const states = await this.clientService.findAllBrazilianStates();
+        for (const state of states) {
+            this.brazilianStates.push(state);
+        }
+    }
+
+    private async loadingIcons() {
+        // const icons = await this.accountService.findAllIcons();
+        // for (const icon of icons) {
+        //     this.icons.push(icon);
+        // }
     }
 
     saveOrUpdate(form: NgForm) {
@@ -53,7 +97,7 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
     }
 
     private save(form: NgForm) {
-        this.accountService.save(this.account).then(() => {
+        this.clientService.save(this.client).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
             form.resetForm({
                 active: true,
@@ -63,7 +107,7 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
     }
 
     private update() {
-        this.accountService.update(this.account.id, this.account).then(() => {
+        this.clientService.update(this.account.id, this.client).then(() => {
             this.alertService.success("Registro atualizado com sucesso.");
         });
     }

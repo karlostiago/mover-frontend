@@ -4,27 +4,39 @@ import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../core/handler/ErrorHandler";
 import {AccountEntity} from "../../../entity/AccountEntity";
 import {BankIconEntity} from "../../../entity/BankIconEntity";
+import {TypePersonEntity} from "../../../entity/TypePersonEntity";
+import {BrazilianStatesEntity} from "../../../entity/BrazilianStatesEntity";
+import {ClientEntity} from "../../../entity/ClientEntity";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClientService extends BaseService<AccountEntity> {
+export class ClientService extends BaseService<ClientEntity> {
 
     constructor(override httpClient: HttpClient,  override errorHandler: ErrorHandler) {
         super(httpClient, errorHandler);
     }
 
     protected pathURL(): string {
-        return "accounts";
+        return "v2/clients";
     }
 
-    async findAllIcons(): Promise<Array<BankIconEntity>> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/icons`, this.options());
+    async findAllTypes(): Promise<Array<TypePersonEntity>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/types-person`, this.options());
+        return this.toPromise(request);
+    }
+
+    async findAllBrazilianStates(): Promise<Array<BrazilianStatesEntity>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/brazilian-states`, this.options());
+        return this.toPromise(request);
+    }
+
+    async findAddress(postalCode: number): Promise<ClientEntity> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/addrees/${postalCode}`, this.options());
         return this.toPromise(request);
     }
 
     async findBy(search: string): Promise<Array<AccountEntity>> {
-        console.log(search)
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/filterBy?search=${search}`, this.options());
         return this.toPromise(request);
     }

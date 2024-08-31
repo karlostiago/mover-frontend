@@ -2,18 +2,18 @@ import {Directive, ElementRef, forwardRef, HostListener, Renderer2} from "@angul
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 
 @Directive({
-    selector: '[appMaskCpf]',
+    selector: '[appMaskCnpj]',
     providers: [{
         provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => MaskCpfDirective),
+        useExisting: forwardRef(() => MaskCnpjDirective),
         multi: true
     }]
 })
-export class MaskCpfDirective {
+export class MaskCnpjDirective {
     onChange = (value: string) => {};
     onTouched = () => {};
 
-    private readonly maxLength: number = 14;
+    private readonly maxLength: number = 18;
 
     constructor(private el: ElementRef, private renderer: Renderer2) {}
 
@@ -55,9 +55,10 @@ export class MaskCpfDirective {
         if (!value) {
             return '';
         }
-        value = value.replace(/^(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
-        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+        value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+        value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+        value = value.replace(/(\d{4})(\d)/, '$1-$2');
         return value;
     }
 

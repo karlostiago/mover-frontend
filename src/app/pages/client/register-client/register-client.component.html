@@ -26,51 +26,120 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-5 col-sm-12">
-                            <label class="form-label"> Descrição da conta *:</label>
-                            <input pInputText class="form-control" name="bankName" id="bankName" [(ngModel)]="account['name']" [required]="true">
-                        </div>
-
-                        <div class="col-md-4 col-sm-12">
-                            <label class="form-label"> Número da conta e dígito *:</label>
-                            <input pInputText class="form-control" name="number" id="number" appOnlyNumber [maxlength]="10" [(ngModel)]="account['number']" [required]="true">
-                        </div>
-
-                        <div class="col-md-3 col-sm-12">
-                            <label class="form-label"> Saldo inicial *:</label>
-                            <input pInputText class="form-control" name="initialBalance" id="initialBalance" [(ngModel)]="account['initialBalance']" appCurrencyFormatPtBr [required]="true">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4 col-sm-12">
-                            <label class="form-label"> Ícone *:</label>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label"> Tipo pessoa *:</label>
                             <p-dropdown styleClass="w-100" name="icon" id="icon" [showClear]="false"
-                                        [options]="icons"
-                                        [(ngModel)]="account['codeIcon']"
+                                        [options]="types"
+                                        [(ngModel)]="client['typePersonCode']"
                                         placeholder="Selecione"
-                                        optionLabel="code"
+                                        optionLabel="description"
                                         optionValue="code"
                                         required>
-                                <ng-template let-icon pTemplate="item">
-                                    <div class="flex align-items-center gap-2">
-                                        <img src="{{ icon['image'] }}" style="width: 3rem"  alt="icon" /> <span> {{ icon['bankName'] }} </span>
-                                    </div>
+                                <ng-template let-typePerson pTemplate="item">
+                                    {{ typePerson['description'] }}
                                 </ng-template>
                                 <ng-template let-selected pTemplate="selectedItem">
-                                    <div class="flex align-items-center gap-2">
-                                        <img src="{{ selected['image'] }}" style="width: 3rem; position: relative; bottom: 0.8125rem;" alt="icon" /> <span style="position: relative; bottom: 0.75rem;"> {{ selected['bankName'] }} </span>
-                                    </div>
+                                    {{ selected['description'] }}
                                 </ng-template>
                             </p-dropdown>
                         </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> {{ client['typePersonCode'] == 1 ? 'Nome completo' : 'Razão Social' }} *:</label>
+                            <input pInputText class="form-control" name="name" id="name" [(ngModel)]="client['name']" [required]="false" [maxlength]="70">
+                        </div>
+
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label"> {{ client['typePersonCode'] == 1 ? 'CPF' : 'CNPJ' }} *:</label>
+                            <input pInputText class="form-control" name="cpf" id="cpf" appMaskCpf [(ngModel)]="client['cpfCnpj']" [required]="false" *ngIf="client['typePersonCode'] === 1" />
+                            <input pInputText class="form-control" name="cnpj" id="cnpj" appMaskCnpj [(ngModel)]="client['cpfCnpj']" [required]="false" *ngIf="client['typePersonCode'] === 2" />
+                        </div>
+
+                        <div class="col-md-2 col-sm-12" *ngIf="client['typePersonCode'] == 1">
+                            <label class="form-label"> RG *:</label>
+                            <input pInputText class="form-control" name="rg" id="rg" [(ngModel)]="client['rg']" [required]="false" [maxlength]="70" />
+                        </div>
+
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label"> {{ client['typePersonCode'] == 1 ? 'Data de nascimento' : 'Data de abertura' }} *:</label>
+                            <input pInputText class="form-control" name="dateBirth" id="dateBirth" appDateFormatPtBr [(ngModel)]="client['birthDate']" [required]="false" />
+                        </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-2">
-                            <label class="form-label">Caução:</label>
-                            <p-inputSwitch name="caution" id="caution" styleClass="form-control"
-                                           [(ngModel)]="account['caution']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                        <div class="col-md-12 col-sm-12">
+                            <label class="form-label"> Nome da mãe *:</label>
+                            <input pInputText class="form-control" name="motherName" id="motherName" [(ngModel)]="client['motherName']" [required]="true">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1 col-sm-12">
+                            <label class="form-label"> Cep *:</label>
+                            <input pInputText class="form-control" name="postalCode" id="postalCode" [(ngModel)]="client['postalCode']" appOnlyNumber [maxlength]="8"
+                                   [required]="true" (change)="onFindAddrees()">
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Endereço *:</label>
+                            <input pInputText class="form-control" name="publicPlace" id="publicPlace" [(ngModel)]="client['publicPlace']" [required]="true" />
+                        </div>
+
+                        <div class="col-md-1 col-sm-12">
+                            <label class="form-label"> Número *:</label>
+                            <input pInputText class="form-control" name="homeNumber" appOnlyNumber id="homeNumber" [(ngModel)]="client['homeNumber']" [required]="true" />
+                        </div>
+
+                        <div class="col-md-3 col-sm-12">
+                            <label class="form-label"> Bairro *:</label>
+                            <input pInputText class="form-control" name="neighborhood" id="neighborhood" [(ngModel)]="client['neighborhood']" [required]="true" />
+                        </div>
+
+                        <div class="col-md-3 col-sm-12">
+                            <label class="form-label"> Cidade *:</label>
+                            <input pInputText class="form-control" name="city" id="city" [(ngModel)]="client['city']" [required]="true" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12">
+                            <label class="form-label"> Estado *:</label>
+                            <p-dropdown styleClass="w-100" name="state" id="state" [showClear]="false"
+                                        [options]="brazilianStates"
+                                        [(ngModel)]="client['brazilianStateCode']"
+                                        placeholder="Selecione"
+                                        optionLabel="description"
+                                        optionValue="code"
+                                        required>
+                                <ng-template let-state pTemplate="item">
+                                    {{ state['description'] }}
+                                </ng-template>
+                                <ng-template let-selected pTemplate="selectedItem">
+                                    {{ selected['description'] }}
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+
+                        <div class="col-md-9 col-sm-12">
+                            <label class="form-label"> Complemento :</label>
+                            <input pInputText class="form-control" name="complement" id="complement" [(ngModel)]="client['complement']" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> E-mail *:</label>
+                            <input pInputText class="form-control" name="email" id="email" [(ngModel)]="client['email']" [required]="true" />
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Telefone fixo :</label>
+                            <input pInputText class="form-control" name="telephone" id="telephone" appMaskTelephone [maxlength]="14" [(ngModel)]="client['telephone']" />
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Telefone celular *:</label>
+                            <input pInputText class="form-control" name="cellPhone" id="cellPhone" appMaskTelephone [(ngModel)]="client['cellPhone']" [required]="true" />
                         </div>
                     </div>
 
@@ -82,16 +151,6 @@
                         </div>
                     </div>
 
-                    <br />
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p class="alert alert-info">
-                                <i class="fa-solid fa-check"></i>
-                                Quando não encontrar o ícone da instituição bancária desejado, pode selecionar o ícone <strong>Banco genérico</strong>.
-                            </p>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="card-footer">

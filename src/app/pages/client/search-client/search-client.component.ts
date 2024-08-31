@@ -28,7 +28,7 @@ export class SearchClientComponent implements OnInit {
         await this.loadingIcons();
         console.log(this.icons);
         this.accountService.findAll().then(response => {
-            this.accounts = response;
+            // this.accounts = response;
         });
     }
 
@@ -56,9 +56,9 @@ export class SearchClientComponent implements OnInit {
     }
 
     private async loadingIcons() {
-        const icons = await this.accountService.findAllIcons();
-        for (const icon of icons) {
-            this.icons.push(icon);
-        }
+        // const icons = await this.accountService.findAllIcons();
+        // for (const icon of icons) {
+        //     this.icons.push(icon);
+        // }
     }
 }

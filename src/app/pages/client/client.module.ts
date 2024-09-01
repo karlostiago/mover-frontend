@@ -11,11 +11,14 @@ import {SharedModule} from "../../../shared/SharedModule";
 import {FileUploadModule} from "primeng/fileupload";
 import {SearchClientComponent} from "./search-client/search-client.component";
 import {RegisterClientComponent} from "./register-client/register-client.component";
+import {DialogAddressComponent} from "./dialog-address/dialog-address.component";
+import {DialogModule} from "primeng/dialog";
 
 @NgModule({
     declarations: [
         RegisterClientComponent,
-        SearchClientComponent
+        SearchClientComponent,
+        DialogAddressComponent
     ],
     exports: [
         RegisterClientComponent,
@@ -33,7 +36,8 @@ import {RegisterClientComponent} from "./register-client/register-client.compone
         DropdownModule,
         SharedModule,
         FileUploadModule,
-        NgOptimizedImage
+        NgOptimizedImage,
+        DialogModule
     ]
 })
 export class ClientModule { }

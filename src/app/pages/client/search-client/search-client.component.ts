@@ -4,7 +4,8 @@ import {Table} from "primeng/table";
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../service/AlertService";
 import {ClientService} from "../client.service";
-import {BankIconEntity} from "../../../../entity/BankIconEntity";
+import {ClientEntity} from "../../../../entity/ClientEntity";
+import {DialogAddressComponent} from "../dialog-address/dialog-address.component";
 
 @Component({
   selector: 'app-search-client',
@@ -12,23 +13,21 @@ import {BankIconEntity} from "../../../../entity/BankIconEntity";
   styleUrls: ['./search-client.component.css']
 })
 export class SearchClientComponent implements OnInit {
-    accounts = new Array<AccountEntity>();
-    icons = new Array<BankIconEntity>();
+    clients = new Array<ClientEntity>();
 
     searchFilter: string = "";
 
     @ViewChild("table") table: Table | undefined;
+    @ViewChild("dialogAddress") dialogAddress: DialogAddressComponent;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
-                private accountService: ClientService) {
+                private clientService: ClientService) {
     }
 
     async ngOnInit() {
-        await this.loadingIcons();
-        console.log(this.icons);
-        this.accountService.findAll().then(response => {
-            // this.accounts = response;
+        this.clientService.findAll().then(response => {
+            this.clients = response;
         });
     }
 
@@ -42,17 +41,21 @@ export class SearchClientComponent implements OnInit {
     }
 
     delete(id: number) {
-        this.accountService.delete(id).then(() => {
-            this.accounts = this.accounts.filter(a => a.id !== id);
+        this.clientService.delete(id).then(() => {
+            this.clients = this.clients.filter(a => a.id !== id);
             this.alertService.success("Registro deletado com sucesso.");
         });
     }
 
+    showDialogAddress(client: ClientEntity) {
+        this.dialogAddress.showDialog(client);
+    }
+
     filterBy() {
-        this.accountService.findBy(this.searchFilter).then(response => {
-            this.accounts = response;
-            this.table?.reset();
-        })
+        // this.clientService.findBy(this.searchFilter).then(response => {
+        //     this.clients = response;
+        //     this.table?.reset();
+        // })
     }
 
     private async loadingIcons() {

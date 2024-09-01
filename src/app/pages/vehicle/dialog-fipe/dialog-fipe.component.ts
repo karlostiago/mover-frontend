@@ -20,7 +20,7 @@ export class DialogFipeComponent implements OnInit {
 
     }
 
-    async showDialogFipe(vehicleId: number) {
+    async showDialog(vehicleId: number) {
         this.visible = true;
         this.summaries = new Array<SummaryFipeEntity>();
         await this.fipeService.findByVehicleId(vehicleId).then(response => {

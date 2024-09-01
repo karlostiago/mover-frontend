@@ -49,71 +49,67 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table [value]="accounts" [paginator]="accounts.length > 10" [rows]="10"
+                    <p-table #table [value]="clients" [paginator]="clients.length > 10" [rows]="10"
                              responsiveLayout="stack" [breakpoint]="'960px'" styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
 
                         <ng-template pTemplate="header">
-                            <tr *ngIf="accounts.length > 0">
+                            <tr *ngIf="clients.length > 0">
                                 <th class="text-center">NOME</th>
                                 <th class="text-left">RG</th>
                                 <th class="text-center">CPF</th>
                                 <th class="text-center">DATA NASCIMENTO</th>
                                 <th class="text-center">E-MAIL</th>
-                                <th class="text-center">ENDEREÇO</th>
                                 <th class="text-center">CONTATO</th>
+                                <th class="text-center">ENDEREÇO</th>
                                 <th class="text-center">ATIVO</th>
                                 <th class="text-center">AÇÕES</th>
                             </tr>
                         </ng-template>
 
-                        <ng-template pTemplate="body" let-account>
+                        <ng-template pTemplate="body" let-client>
                             <tr>
                                 <td class="text-center">
                                     <span class="p-column-title">NOME</span>
-                                    <img src="{{ account['imageIcon'] }}" style="width: 2rem"  alt="icon" />
+                                    {{ client['name'] }}
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">RG</span>
-                                    {{ account['name'] }}
+                                    {{ client['rg'] }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">CPF</span>
-                                    {{ account['number'] }}
+                                    {{ client['cpfCnpj'] | cpfMask }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">DATA NASCIMENTO</span>
-                                    {{ account['initialBalance'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                                    {{ client['birthDate'] }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">E-MAIL</span>
-                                    <span class=" {{ account['caution'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                        {{ account["caution"] === true ? 'Sim' : 'Não' }}
-                                    </span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">ENDEREÇO</span>
-                                    <span class=" {{ account['caution'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                        {{ account["caution"] === true ? 'Sim' : 'Não' }}
-                                    </span>
+                                    {{ client['email'] }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">CONTATO</span>
-                                    <span class=" {{ account['caution'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                        {{ account["caution"] === true ? 'Sim' : 'Não' }}
-                                    </span>
+                                    {{ client['cellPhone'] | phoneMask }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">ENDEREÇO</span>
+                                    <p-button [link]="true" (click)="showDialogAddress(client)">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </p-button>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>
-                                    <span class=" {{ account['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                        {{ account["active"] === true ? 'Sim' : 'Não' }}
+                                    <span class=" {{ client['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                        {{ client["active"] === true ? 'Sim' : 'Não' }}
                                     </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÕES</span>
-                                    <p-button [link]="true"  (click)="confirmationDelete(account)">
+                                    <p-button [link]="true"  (click)="confirmationDelete(client)">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </p-button>
-                                    <p-button [link]="true" [routerLink]="['/update/clients/', account.id]">
+                                    <p-button [link]="true" [routerLink]="['/update/clients/', client.id]">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </p-button>
                                 </td>
@@ -128,6 +124,7 @@
                             </tr>
                         </ng-template>
                     </p-table>
+                    <app-dialog-address #dialogAddress></app-dialog-address>
                 </div>
             </div>
         </div>

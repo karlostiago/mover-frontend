@@ -1,0 +1,56 @@
+<p-dialog header="Informações de endereço" [modal]="true"  [(visible)]="visible" [draggable]="true" [baseZIndex]="100000">
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <p-table [value]="clients" responsiveLayout="stack" [breakpoint]="'1390px'"
+                     styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+                <ng-template pTemplate="header">
+                    <tr *ngIf="clients.length > 0">
+                        <th class="text-left">LOGRADOURO</th>
+                        <th class="text-center">NÚMERO</th>
+                        <th class="text-left">BAIRRO</th>
+                        <th class="text-center">CIDADE</th>
+                        <th class="text-center">UF</th>
+                        <th class="text-center">CEP</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-client>
+                    <tr style="background: #ebebeb;">
+                        <td class="text-center">
+                            <span class="p-column-title">LOGRADOURO</span>
+                            {{ client['publicPlace'] }}
+                        </td>
+                        <td class="text-center">
+                            <span class="p-column-title">NÚMERO</span>
+                            {{ client['number'] }}
+                        </td>
+                        <td class="text-center">
+                            <span class="p-column-title">BAIRRO</span>
+                            {{ client['neighborhood'] }}
+                        </td>
+                        <td class="text-center">
+                            <span class="p-column-title">CIDADE</span>
+                            {{ client['city'] }}
+                        </td>
+                        <td class="text-center">
+                            <span class="p-column-title">UF</span>
+                            {{ client['uf'] }}
+                        </td>
+                        <td class="text-center">
+                            <span class="p-column-title">CEP</span>
+                            {{ client['postalCode'] }}
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="5" style="text-align: center;">
+                            Nenhum registro encontrado.
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</p-dialog>

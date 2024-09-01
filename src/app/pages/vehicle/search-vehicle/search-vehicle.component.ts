@@ -55,6 +55,6 @@ export class SearchVehicleComponent implements OnInit {
     }
 
     showDialogFipe(vehicleId: number) {
-        this.dialogFipe.showDialogFipe(vehicleId);
+        this.dialogFipe.showDialog(vehicleId);
     }
 }

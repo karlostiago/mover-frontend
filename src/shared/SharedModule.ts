@@ -9,6 +9,8 @@ import {DecimalFormatDirective} from "./directive/DecimalFormatDirective";
 import {MaskCpfDirective} from "./directive/MaskCpfDirective";
 import {MaskCnpjDirective} from "./directive/MaskCnpjDirective";
 import {MaskTelephoneDirective} from "./directive/MaskTelephoneDirective";
+import {CpfMaskPipe} from "./pipe/CpfMaskPipe";
+import {PhoneMaskPipe} from "./pipe/PhoneMaskPipe";
 
 @NgModule({
     declarations: [
@@ -18,7 +20,9 @@ import {MaskTelephoneDirective} from "./directive/MaskTelephoneDirective";
         DecimalFormatDirective,
         MaskCpfDirective,
         MaskCnpjDirective,
-        MaskTelephoneDirective
+        MaskTelephoneDirective,
+        CpfMaskPipe,
+        PhoneMaskPipe
     ],
     exports: [
         ToastModule,
@@ -28,7 +32,9 @@ import {MaskTelephoneDirective} from "./directive/MaskTelephoneDirective";
         DecimalFormatDirective,
         MaskCpfDirective,
         MaskCnpjDirective,
-        MaskTelephoneDirective
+        MaskTelephoneDirective,
+        CpfMaskPipe,
+        PhoneMaskPipe
     ],
     imports: [
         CommonModule

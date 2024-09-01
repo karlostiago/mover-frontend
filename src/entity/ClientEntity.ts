@@ -3,7 +3,7 @@ export class ClientEntity {
     name: string = "";
     rg: number;
     cpfCnpj: string;
-    homeNumber: number;
+    number: number;
     motherName: string = "";
     brazilianStateCode: number | null;
     neighborhood: string;
@@ -16,5 +16,6 @@ export class ClientEntity {
     email: string;
     telephone: string;
     cellPhone: string;
+    uf: string;
     active: boolean = true;
 }

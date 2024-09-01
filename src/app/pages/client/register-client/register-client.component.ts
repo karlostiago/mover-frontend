@@ -66,6 +66,13 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
         this.loaderService.automatic = true;
     }
 
+    override cancel(form: NgForm) {
+        form.resetForm({
+            active: true,
+            typePerson: 1
+        });
+    }
+
     private async loadingTypesPerson() {
         const types = await this.clientService.findAllTypes();
         for (const type of types) {

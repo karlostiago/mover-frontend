@@ -18,9 +18,6 @@ export class CurrencyFormatPtBrDirective {
     @HostListener('input', ['$event']) onInputChange(event: any) {
         let value = this.el.nativeElement.value;
         value = value.replace(/[^0-9]/g, '');
-        if (value.length > 0 && value.charAt(0) === '0') {
-            value = value.substring(1);
-        }
 
         if (value.length > 2) {
             value = value.slice(0, value.length - 2) + ',' + value.slice(value.length - 2);

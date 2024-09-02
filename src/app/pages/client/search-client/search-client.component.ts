@@ -52,16 +52,9 @@ export class SearchClientComponent implements OnInit {
     }
 
     filterBy() {
-        // this.clientService.findBy(this.searchFilter).then(response => {
-        //     this.clients = response;
-        //     this.table?.reset();
-        // })
-    }
-
-    private async loadingIcons() {
-        // const icons = await this.accountService.findAllIcons();
-        // for (const icon of icons) {
-        //     this.icons.push(icon);
-        // }
+        this.clientService.findBy(this.searchFilter).then(response => {
+            this.clients = response;
+            this.table?.reset();
+        })
     }
 }

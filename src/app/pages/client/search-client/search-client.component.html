@@ -54,11 +54,11 @@
 
                         <ng-template pTemplate="header">
                             <tr *ngIf="clients.length > 0">
-                                <th class="text-center">NOME</th>
+                                <th class="text-left">NOME</th>
                                 <th class="text-left">RG</th>
                                 <th class="text-center">CPF</th>
                                 <th class="text-center">DATA NASCIMENTO</th>
-                                <th class="text-center">E-MAIL</th>
+                                <th class="text-left">E-MAIL</th>
                                 <th class="text-center">CONTATO</th>
                                 <th class="text-center">ENDEREÇO</th>
                                 <th class="text-center">ATIVO</th>
@@ -68,7 +68,7 @@
 
                         <ng-template pTemplate="body" let-client>
                             <tr>
-                                <td class="text-center">
+                                <td class="text-left">
                                     <span class="p-column-title">NOME</span>
                                     {{ client['name'] }}
                                 </td>
@@ -84,7 +84,7 @@
                                     <span class="p-column-title">DATA NASCIMENTO</span>
                                     {{ client['birthDate'] }}
                                 </td>
-                                <td class="text-center">
+                                <td class="text-left">
                                     <span class="p-column-title">E-MAIL</span>
                                     {{ client['email'] }}
                                 </td>

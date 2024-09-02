@@ -17,8 +17,10 @@
                 <ng-template pTemplate="body" let-client>
                     <tr style="background: #ebebeb;">
                         <td class="text-center">
-                            <span class="p-column-title">LOGRADOURO</span>
-                            {{ client['publicPlace'] }}
+                            <span class="p-column-title">LOGRAD.</span>
+                            <span class="text-limited-15">
+                                {{ client['publicPlace'] }}
+                            </span>
                         </td>
                         <td class="text-center">
                             <span class="p-column-title">NÚMERO</span>
@@ -26,7 +28,9 @@
                         </td>
                         <td class="text-center">
                             <span class="p-column-title">BAIRRO</span>
-                            {{ client['neighborhood'] }}
+                            <span class="text-limited-15">
+                                {{ client['neighborhood'] }}
+                            </span>
                         </td>
                         <td class="text-center">
                             <span class="p-column-title">CIDADE</span>

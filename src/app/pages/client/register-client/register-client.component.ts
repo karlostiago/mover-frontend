@@ -6,7 +6,6 @@ import {AlertService} from "../../../../service/AlertService";
 import {AccountEntity} from "../../../../entity/AccountEntity";
 import {ClientService} from "../client.service";
 import {FileUpload} from "primeng/fileupload";
-import {BankIconEntity} from "../../../../entity/BankIconEntity";
 import {ClientEntity} from "../../../../entity/ClientEntity";
 import {TypePersonEntity} from "../../../../entity/TypePersonEntity";
 import {BrazilianStatesEntity} from "../../../../entity/BrazilianStatesEntity";
@@ -24,7 +23,6 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
     brazilianStates = new Array<BrazilianStatesEntity>();
 
     account = new AccountEntity();
-    icons = new Array<BankIconEntity>();
 
     @ViewChild("fileUpload") fileUpload: FileUpload | undefined;
 
@@ -88,15 +86,8 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
         }
     }
 
-    private async loadingIcons() {
-        // const icons = await this.accountService.findAllIcons();
-        // for (const icon of icons) {
-        //     this.icons.push(icon);
-        // }
-    }
-
     saveOrUpdate(form: NgForm) {
-        if (this.account.id) {
+        if (this.client.id) {
             this.update();
         } else {
             this.save(form);
@@ -108,13 +99,13 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
             this.alertService.success("Registro cadastrado com sucesso.");
             form.resetForm({
                 active: true,
-                caution: false
+                typePerson: 1
             });
         });
     }
 
     private update() {
-        this.clientService.update(this.account.id, this.client).then(() => {
+        this.clientService.update(this.client.id, this.client).then(() => {
             this.alertService.success("Registro atualizado com sucesso.");
         });
     }

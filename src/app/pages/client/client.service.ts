@@ -36,7 +36,7 @@ export class ClientService extends BaseService<ClientEntity> {
         return this.toPromise(request);
     }
 
-    async findBy(search: string): Promise<Array<AccountEntity>> {
+    async findBy(search: string): Promise<Array<ClientEntity>> {
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/filterBy?search=${search}`, this.options());
         return this.toPromise(request);
     }

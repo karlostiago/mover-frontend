@@ -19,6 +19,16 @@ export class CurrencyFormatPtBrDirective {
         let value = this.el.nativeElement.value;
         value = value.replace(/[^0-9]/g, '');
 
+        if (value === '' || value === '0') {
+            this.el.nativeElement.value = '0,00';
+            this.onChange(0);
+            return;
+        }
+
+        if (value.length > 0 && value.charAt(0) === '0') {
+            value = value.substring(1);
+        }
+
         if (value.length > 2) {
             value = value.slice(0, value.length - 2) + ',' + value.slice(value.length - 2);
         } else if (value.length === 2) {

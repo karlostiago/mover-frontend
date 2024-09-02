@@ -46,23 +46,23 @@
 
                         <div class="col-md-4 col-sm-12">
                             <label class="form-label"> {{ client['typePersonCode'] == 1 ? 'Nome completo' : 'Razão Social' }} *:</label>
-                            <input pInputText class="form-control" name="name" id="name" [(ngModel)]="client['name']" [required]="false" [maxlength]="70" />
+                            <input pInputText class="form-control" name="name" id="name" [(ngModel)]="client['name']" [required]="true" [maxlength]="70" />
                         </div>
 
                         <div class="col-md-2 col-sm-12">
                             <label class="form-label"> {{ client['typePersonCode'] == 1 ? 'CPF' : 'CNPJ' }} *:</label>
-                            <input pInputText class="form-control" name="cpf" id="cpf" appMaskCpf [(ngModel)]="client['cpfCnpj']" [required]="false" *ngIf="client['typePersonCode'] === 1" />
-                            <input pInputText class="form-control" name="cnpj" id="cnpj" appMaskCnpj [(ngModel)]="client['cpfCnpj']" [required]="false" *ngIf="client['typePersonCode'] === 2" />
+                            <input pInputText class="form-control" name="cpf" id="cpf" appMaskCpf [(ngModel)]="client['cpfCnpj']" [required]="true" *ngIf="client['typePersonCode'] === 1" />
+                            <input pInputText class="form-control" name="cnpj" id="cnpj" appMaskCnpj [(ngModel)]="client['cpfCnpj']" [required]="true" *ngIf="client['typePersonCode'] === 2" />
                         </div>
 
                         <div class="col-md-2 col-sm-12" *ngIf="client['typePersonCode'] == 1">
                             <label class="form-label"> RG *:</label>
-                            <input pInputText class="form-control" name="rg" id="rg" [(ngModel)]="client['rg']" [required]="false" [maxlength]="70" />
+                            <input pInputText class="form-control" name="rg" id="rg" [(ngModel)]="client['rg']" [required]="true" [maxlength]="70" />
                         </div>
 
                         <div class="col-md-2 col-sm-12">
                             <label class="form-label"> {{ client['typePersonCode'] == 1 ? 'Data de nascimento' : 'Data de abertura' }} *:</label>
-                            <input pInputText class="form-control" name="dateBirth" id="dateBirth" appDateFormatPtBr [(ngModel)]="client['birthDate']" [required]="false" />
+                            <input pInputText class="form-control" name="dateBirth" id="dateBirth" appDateFormatPtBr [(ngModel)]="client['birthDate']" [required]="true" />
                         </div>
                     </div>
 
@@ -104,7 +104,7 @@
                     <div class="row">
                         <div class="col-md-3 col-sm-12">
                             <label class="form-label"> Estado *:</label>
-                            <p-dropdown styleClass="w-100" name="state" id="state" [showClear]="false"
+                            <p-dropdown styleClass="w-100" name="state" id="state" [showClear]="true"
                                         [options]="brazilianStates"
                                         [(ngModel)]="client['brazilianStateCode']"
                                         placeholder="Selecione"

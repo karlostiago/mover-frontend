@@ -241,6 +241,7 @@ a.btn:active {
 .p-dropdown .p-dropdown-label.p-placeholder {
     color: rgba(0, 0, 0, 0.54);
     font-weight: 300;
+    margin-top: -1px;
 }
 
 .p-dropdown .p-dropdown-label, .p-dropdown-item {
@@ -249,7 +250,7 @@ a.btn:active {
 }
 
 .p-dropdown .p-inputtext {
-    height: 2.8125rem;
+    height: 2.688rem;
 }
 
 @media (max-width: 768px) {

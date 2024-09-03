@@ -2,8 +2,6 @@ import {Injectable} from '@angular/core';
 import {BaseService} from "../../../abstract/BaseService";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../core/handler/ErrorHandler";
-import {AccountEntity} from "../../../entity/AccountEntity";
-import {BankIconEntity} from "../../../entity/BankIconEntity";
 import {TypePersonEntity} from "../../../entity/TypePersonEntity";
 import {BrazilianStatesEntity} from "../../../entity/BrazilianStatesEntity";
 import {ClientEntity} from "../../../entity/ClientEntity";
@@ -18,7 +16,7 @@ export class ClientService extends BaseService<ClientEntity> {
     }
 
     protected pathURL(): string {
-        return "v2/clients";
+        return "clients";
     }
 
     async findAllTypes(): Promise<Array<TypePersonEntity>> {

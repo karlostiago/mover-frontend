@@ -20,7 +20,7 @@ thead, th {
 }
 
 body, input, textarea, button, td, thead, .p-button-label {
-    font-size: 0.875rem!important;
+    font-size: 0.75rem!important;
 }
 
 .p-menuitem-link {
@@ -174,7 +174,7 @@ input {
 a.btn {
     color: #757575;
     font-weight: 300;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
 }
 
 a.btn:active {
@@ -204,7 +204,7 @@ a.btn:active {
 
 .p-dialog.p-confirm-dialog .p-confirm-dialog-message {
     margin-left: inherit;
-    font-size: .875rem;
+    font-size: .75rem;
 }
 
 /**

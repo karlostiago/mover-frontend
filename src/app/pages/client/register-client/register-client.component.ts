@@ -3,7 +3,6 @@ import {NgForm} from "@angular/forms";
 import {AbstractRegister} from "../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
 import {AlertService} from "../../../../service/AlertService";
-import {AccountEntity} from "../../../../entity/AccountEntity";
 import {ClientService} from "../client.service";
 import {FileUpload} from "primeng/fileupload";
 import {ClientEntity} from "../../../../entity/ClientEntity";
@@ -21,8 +20,6 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
     client = new ClientEntity();
     types = new Array<TypePersonEntity>();
     brazilianStates = new Array<BrazilianStatesEntity>();
-
-    account = new AccountEntity();
 
     @ViewChild("fileUpload") fileUpload: FileUpload | undefined;
 

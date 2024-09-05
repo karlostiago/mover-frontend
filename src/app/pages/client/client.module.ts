@@ -18,7 +18,7 @@ import {DialogModule} from "primeng/dialog";
     declarations: [
         RegisterClientComponent,
         SearchClientComponent,
-        DialogAddressComponent
+        // DialogAddressComponent
     ],
     exports: [
         RegisterClientComponent,
@@ -37,7 +37,7 @@ import {DialogModule} from "primeng/dialog";
         SharedModule,
         FileUploadModule,
         NgOptimizedImage,
-        DialogModule
+        // DialogModule
     ]
 })
 export class ClientModule { }

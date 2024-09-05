@@ -1,4 +1,4 @@
-<p-dialog header="Informações de endereço" [modal]="true"  [(visible)]="visible" [draggable]="true" [baseZIndex]="100000">
+<p-dialog header="Informações de endereço" [modal]="true"  [(visible)]="visible" [draggable]="false" [baseZIndex]="100000" #dialogAddress>
     <div class="row g-3">
         <div class="col-md-12 mb-10">
             <p-table [value]="clients" responsiveLayout="stack" [breakpoint]="'1390px'"

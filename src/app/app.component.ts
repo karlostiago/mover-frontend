@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {DialogFipeComponent} from "./pages/vehicle/dialog-fipe/dialog-fipe.component";
-import {DialogService} from "../shared/service/DialogService";
+import {GlobalDialogService} from "../shared/service/GlobalDialogService";
+import {GlobalDialogComponent} from "../shared/dialog/global-dialog.component";
 
 @Component({
   selector: 'app-root',
@@ -10,11 +10,11 @@ import {DialogService} from "../shared/service/DialogService";
 export class AppComponent implements AfterViewInit {
     title = 'mover';
 
-    @ViewChild(DialogFipeComponent) dialogFipe: DialogFipeComponent;
+    @ViewChild(GlobalDialogComponent) globalDialog: GlobalDialogComponent;
 
-    constructor(private dialogService: DialogService) { }
+    constructor(private globalDialogService: GlobalDialogService) { }
 
     ngAfterViewInit(): void {
-        this.dialogService.registerDialogFipe(this.dialogFipe);
+        this.globalDialogService.register(this.globalDialog);
     }
 }

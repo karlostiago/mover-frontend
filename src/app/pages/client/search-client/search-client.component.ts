@@ -5,7 +5,7 @@ import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../service/AlertService";
 import {ClientService} from "../client.service";
 import {ClientEntity} from "../../../../entity/ClientEntity";
-import {DialogAddressComponent} from "../dialog-address/dialog-address.component";
+import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
 
 @Component({
   selector: 'app-search-client',
@@ -18,10 +18,10 @@ export class SearchClientComponent implements OnInit {
     searchFilter: string = "";
 
     @ViewChild("table") table: Table | undefined;
-    @ViewChild("dialogAddress") dialogAddress: DialogAddressComponent;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
+                private globalDialogService: GlobalDialogService,
                 private clientService: ClientService) {
     }
 
@@ -48,7 +48,7 @@ export class SearchClientComponent implements OnInit {
     }
 
     showDialogAddress(client: ClientEntity) {
-        this.dialogAddress.showDialog(client);
+        this.globalDialogService.openDialog(TypeDialog.ADDRESS, client);
     }
 
     filterBy() {

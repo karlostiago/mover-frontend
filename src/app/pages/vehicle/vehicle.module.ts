@@ -10,19 +10,16 @@ import {TableModule} from "primeng/table";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {DropdownModule} from "primeng/dropdown";
 import {DialogModule} from "primeng/dialog";
-import {DialogFipeComponent} from "./dialog-fipe/dialog-fipe.component";
 import {SharedModule} from "../../../shared/SharedModule";
 
 @NgModule({
     declarations: [
         RegisterVehicleComponent,
-        SearchVehicleComponent,
-        DialogFipeComponent
+        SearchVehicleComponent
     ],
     exports: [
         RegisterVehicleComponent,
-        SearchVehicleComponent,
-        DialogFipeComponent
+        SearchVehicleComponent
     ],
     imports: [
         CommonModule,

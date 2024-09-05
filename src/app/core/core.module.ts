@@ -10,6 +10,7 @@ import {ModelModule} from "../pages/model/model.module";
 import {VehicleModule} from "../pages/vehicle/vehicle.module";
 import {AccountModule} from "../pages/account/account.module";
 import {ClientModule} from "../pages/client/client.module";
+import {GlobalDialogModule} from "../../shared/dialog/global-dialog.module";
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import {ClientModule} from "../pages/client/client.module";
         MenuLateralComponent
     ],
     exports: [
+        GlobalDialogModule,
         DashboardModule,
         BrandModule,
         ModelModule,

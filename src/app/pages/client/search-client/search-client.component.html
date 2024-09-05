@@ -55,7 +55,7 @@
                         <ng-template pTemplate="header">
                             <tr *ngIf="clients.length > 0">
                                 <th class="text-left">NOME</th>
-                                <th class="text-center">CPF</th>
+                                <th class="text-center">CPF / CNPJ</th>
                                 <th class="text-center">DATA NASCIMENTO</th>
                                 <th class="text-left">E-MAIL</th>
                                 <th class="text-center">CONTATO</th>
@@ -72,7 +72,7 @@
                                     {{ client['name'] }}
                                 </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">CPF</span>
+                                    <span class="p-column-title">CPF / CNPJ</span>
                                     {{ client['cpfCnpj'] | cpfMask }}
                                 </td>
                                 <td class="text-center">

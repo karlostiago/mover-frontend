@@ -42,7 +42,7 @@
                         </td>
                         <td class="text-center">
                             <span class="p-column-title">CEP</span>
-                            {{ client['postalCode'] }}
+                            {{ client['postalCode'] | cepMask }}
                         </td>
                     </tr>
                 </ng-template>

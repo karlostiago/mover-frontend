@@ -33,7 +33,7 @@ export class SearchClientComponent implements OnInit {
 
     confirmationDelete(account: AccountEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir a Cliente?`,
+            message: `Tem certeza que deseja excluir o Cliente?`,
             accept: () => {
                 this.delete(account.id);
             }

@@ -19,7 +19,7 @@ thead, th {
     font-weight: 400;
 }
 
-body, input, textarea, button, td, thead, .p-button-label {
+body, input, textarea, button, td, thead, .p-button-label, span {
     font-size: 0.75rem!important;
 }
 

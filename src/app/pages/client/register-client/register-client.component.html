@@ -74,13 +74,13 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-1 col-sm-12">
+                        <div class="col-md-2 col-sm-12">
                             <label class="form-label"> Cep *:</label>
-                            <input pInputText class="form-control" name="postalCode" id="postalCode" [(ngModel)]="client['postalCode']" appOnlyNumber [maxlength]="8"
+                            <input pInputText class="form-control" name="postalCode" id="postalCode" [(ngModel)]="client['postalCode']" appMaskCep appOnlyNumber
                                    [required]="true" (change)="onFindAddrees()" />
                         </div>
 
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-3 col-sm-12">
                             <label class="form-label"> Endereço *:</label>
                             <input pInputText class="form-control" name="publicPlace" id="publicPlace" [(ngModel)]="client['publicPlace']" [required]="true" />
                         </div>

@@ -5,7 +5,7 @@ import {VehicleService} from "../vehicle.service";
 import {VehicleEntity} from "../../../../entity/VehicleEntity";
 import {Table} from "primeng/table";
 import {DialogFipeComponent} from "../dialog-fipe/dialog-fipe.component";
-// import {DialogFipeComponent} from "../dialog-fipe/dialog-fipe.component";
+import {DialogService} from "../../../../shared/service/DialogService";
 
 @Component({
   selector: 'app-search-vehicle',
@@ -22,6 +22,7 @@ export class SearchVehicleComponent implements OnInit {
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
+                private dialogService: DialogService,
                 private vehicleService: VehicleService) {
     }
 

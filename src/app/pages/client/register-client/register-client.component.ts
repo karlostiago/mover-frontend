@@ -64,6 +64,7 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
     }
 
     override cancel(form: NgForm) {
+        this.client.contacts = new Array<ContactEntity>();
         form.resetForm({
             active: true,
             typePerson: 1

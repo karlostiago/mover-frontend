@@ -9,6 +9,8 @@ import {ClientEntity} from "../../../../entity/ClientEntity";
 import {TypePersonEntity} from "../../../../entity/TypePersonEntity";
 import {BrazilianStatesEntity} from "../../../../entity/BrazilianStatesEntity";
 import {LoaderService} from "../../../core/loader/loader.service";
+import {ContactEntity} from "../../../../entity/ContactEntity";
+import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
 
 @Component({
   selector: 'app-register-client',
@@ -26,6 +28,7 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 private loaderService: LoaderService,
+                private globalDialogService: GlobalDialogService,
                 private clientService: ClientService) {
         super(activatedRoute);
     }
@@ -33,7 +36,6 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
     async ngOnInit() {
         await this.loadingTypesPerson();
         await this.loadingBrazilianStates();
-
         if (!this.registerNew) {
             this.clientService.findById(this.id).then(response => {
                 this.client = response;
@@ -68,6 +70,22 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
         });
     }
 
+    saveOrUpdate(form: NgForm) {
+        if (this.client.id) {
+            this.update();
+        } else {
+            this.save(form);
+        }
+    }
+
+    openDialogContact() {
+        this.globalDialogService.openDialog(TypeDialog.CONTACT, this.client);
+    }
+
+    deleteContact(contact: ContactEntity) {
+        this.client.contacts = this.client.contacts.filter(c => c.id !== contact.id);
+    }
+
     private async loadingTypesPerson() {
         const types = await this.clientService.findAllTypes();
         for (const type of types) {
@@ -83,16 +101,9 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
         }
     }
 
-    saveOrUpdate(form: NgForm) {
-        if (this.client.id) {
-            this.update();
-        } else {
-            this.save(form);
-        }
-    }
-
     private save(form: NgForm) {
         this.clientService.save(this.client).then(() => {
+            this.client.contacts = new Array<ContactEntity>();
             this.alertService.success("Registro cadastrado com sucesso.");
             form.resetForm({
                 active: true,

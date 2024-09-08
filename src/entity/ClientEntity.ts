@@ -1,3 +1,5 @@
+import {ContactEntity} from "./ContactEntity";
+
 export class ClientEntity {
     id: number = 0;
     name: string = "";
@@ -18,4 +20,5 @@ export class ClientEntity {
     cellPhone: string;
     uf: string;
     active: boolean = true;
+    contacts = new Array<ContactEntity>();
 }

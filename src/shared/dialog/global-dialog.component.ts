@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {DialogAddressComponent} from "../../app/pages/client/dialog-address/dialog-address.component";
 import {DialogFipeComponent} from "../../app/pages/vehicle/dialog-fipe/dialog-fipe.component";
 import {TypeDialog} from "../service/GlobalDialogService";
+import {DialogContactComponent} from "../../app/pages/client/dialog-contact/dialog-contact.component";
 
 @Component({
   selector: 'app-global-dialog',
@@ -14,6 +15,8 @@ export class GlobalDialogComponent implements OnInit {
 
     @ViewChild(DialogFipeComponent) dialogFipe: DialogFipeComponent;
 
+    @ViewChild(DialogContactComponent) dialogContact: DialogContactComponent;
+
     ngOnInit() { }
 
     open(typeDialog: TypeDialog, data?: any) {
@@ -22,6 +25,9 @@ export class GlobalDialogComponent implements OnInit {
         }
         else if (typeDialog === TypeDialog.FIPE) {
             this.dialogFipe.showDialog(data);
+        }
+        else if (typeDialog === TypeDialog.CONTACT) {
+            this.dialogContact.showDialog(data);
         }
     }
 }

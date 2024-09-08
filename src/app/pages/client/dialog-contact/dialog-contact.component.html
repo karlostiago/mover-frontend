@@ -1,0 +1,36 @@
+<p-dialog header="Adicionar contato de referência" [modal]="true"  [(visible)]="visible" [style]="{ width: '25rem' }" [draggable]="false" [baseZIndex]="100000">
+    <form autocomplete="off" #form="ngForm">
+        <div class="row g-3">
+            <div class="col-md-12 mb-10" style="margin-top: -1.125rem; margin-bottom: -0.9375rem; padding-left: 0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="form-label"> Nome completo *:</label>
+                                <input pInputText class="form-control" name="namefull" id="namefull" [required]="true" [(ngModel)]="referenceContact['name']" />
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label"> Telefone celular *:</label>
+                                <input pInputText class="form-control" name="phone" id="phone" appMaskTelephone [required]="true" [(ngModel)]="referenceContact['telephone']" />
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label"> Grau de parentesco *:</label>
+                                <input pInputText class="form-control" name="degreeKinship" id="degreeKinship" [required]="true" [(ngModel)]="referenceContact['degreeKinship']" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button pButton type="button" class="p-button-success p-button-sm" (click)="save()" [disabled]="!form.valid">
+                            <i class="fa-solid fa-save m-1"></i>
+                            Salvar
+                        </button>
+                        <button pButton type="button" class="p-button-danger p-button-sm ms-2" (click)="visible = !visible">
+                            <i class="fa-solid fa-remove m-1"></i>
+                            Fechar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</p-dialog>

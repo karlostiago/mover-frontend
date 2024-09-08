@@ -3,7 +3,8 @@ import {GlobalDialogComponent} from "../dialog/global-dialog.component";
 
 export enum TypeDialog {
     ADDRESS,
-    FIPE
+    FIPE,
+    CONTACT
 }
 
 @Injectable({

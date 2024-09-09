@@ -13,7 +13,7 @@ export class AlertService {
     }
 
     error(message: string) {
-        this.build(message, 'error', 'Error');
+        this.build(message, 'error', 'Ops!');
     }
 
     warning(message: string) {

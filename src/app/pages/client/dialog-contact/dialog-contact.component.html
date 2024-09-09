@@ -7,20 +7,20 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label class="form-label"> Nome completo *:</label>
-                                <input pInputText class="form-control" name="namefull" id="namefull" [required]="true" [(ngModel)]="referenceContact['name']" />
+                                <input pInputText class="form-control" name="namefull" id="namefull" [required]="true" [(ngModel)]="contact['name']" />
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label"> Telefone celular *:</label>
-                                <input pInputText class="form-control" name="phone" id="phone" appMaskTelephone [required]="true" [(ngModel)]="referenceContact['telephone']" />
+                                <label class="form-label"> Telefone *:</label>
+                                <input pInputText class="form-control" name="phone" id="phone" appMaskTelephone [required]="true" [(ngModel)]="contact['telephone']" />
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label"> Grau de parentesco *:</label>
-                                <input pInputText class="form-control" name="degreeKinship" id="degreeKinship" [required]="true" [(ngModel)]="referenceContact['degreeKinship']" />
+                                <input pInputText class="form-control" name="degreeKinship" id="degreeKinship" [required]="true" [(ngModel)]="contact['degreeKinship']" />
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button pButton type="button" class="p-button-success p-button-sm" (click)="save()" [disabled]="!form.valid">
+                        <button pButton type="button" class="p-button-success p-button-sm" (click)="saveOrUpdate()" [disabled]="!form.valid">
                             <i class="fa-solid fa-save m-1"></i>
                             Salvar
                         </button>

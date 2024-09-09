@@ -212,6 +212,9 @@
                                         <p-button [link]="true" (onClick)="deleteContact(contact)">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </p-button>
+                                        <p-button [link]="true" (onClick)="updateOpenDialogContact(contact)">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </p-button>
                                     </td>
                                 </tr>
                             </ng-template>
@@ -228,7 +231,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || client.contacts.length == 0">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

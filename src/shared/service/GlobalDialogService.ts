@@ -18,9 +18,14 @@ export class GlobalDialogService {
         this.globalDialog = globalDialog;
     }
 
-    openDialog(typeDialog: TypeDialog, data?: any) {
+    /**
+     * @param typeDialog
+     * @param source
+     * @param target usado para atualizar registro
+     */
+    openDialog(typeDialog: TypeDialog, source?: any, target?: any) {
         if (this.globalDialog) {
-            this.globalDialog.open(typeDialog, data);
+            this.globalDialog.open(typeDialog, source, target);
         }
     }
 }

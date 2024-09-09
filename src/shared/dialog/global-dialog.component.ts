@@ -19,15 +19,15 @@ export class GlobalDialogComponent implements OnInit {
 
     ngOnInit() { }
 
-    open(typeDialog: TypeDialog, data?: any) {
+    open(typeDialog: TypeDialog, source?: any, target?: any) {
         if (typeDialog === TypeDialog.ADDRESS) {
-            this.dialogAddress.showDialog(data);
+            this.dialogAddress.showDialog(source);
         }
         else if (typeDialog === TypeDialog.FIPE) {
-            this.dialogFipe.showDialog(data);
+            this.dialogFipe.showDialog(source);
         }
         else if (typeDialog === TypeDialog.CONTACT) {
-            this.dialogContact.showDialog(data);
+            this.dialogContact.showDialog(source, target);
         }
     }
 }

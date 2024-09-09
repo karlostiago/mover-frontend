@@ -1,10 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AbstractRegister} from "../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
 import {AlertService} from "../../../../service/AlertService";
 import {ClientService} from "../client.service";
-import {FileUpload} from "primeng/fileupload";
 import {ClientEntity} from "../../../../entity/ClientEntity";
 import {TypePersonEntity} from "../../../../entity/TypePersonEntity";
 import {BrazilianStatesEntity} from "../../../../entity/BrazilianStatesEntity";
@@ -22,8 +21,6 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
     client = new ClientEntity();
     types = new Array<TypePersonEntity>();
     brazilianStates = new Array<BrazilianStatesEntity>();
-
-    @ViewChild("fileUpload") fileUpload: FileUpload | undefined;
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
@@ -85,6 +82,10 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
 
     deleteContact(contact: ContactEntity) {
         this.client.contacts = this.client.contacts.filter(c => c.id !== contact.id);
+    }
+
+    updateOpenDialogContact(contact: ContactEntity) {
+        this.globalDialogService.openDialog(TypeDialog.CONTACT, this.client, contact);
     }
 
     private async loadingTypesPerson() {

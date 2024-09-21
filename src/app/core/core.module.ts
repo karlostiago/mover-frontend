@@ -11,6 +11,7 @@ import {VehicleModule} from "../pages/vehicle/vehicle.module";
 import {AccountModule} from "../pages/account/account.module";
 import {ClientModule} from "../pages/client/client.module";
 import {GlobalDialogModule} from "../../shared/dialog/global-dialog.module";
+import {ConfigurationModule} from "../pages/configuration/configuration.module";
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import {GlobalDialogModule} from "../../shared/dialog/global-dialog.module";
         VehicleModule,
         AccountModule,
         ClientModule,
+        ConfigurationModule,
         HeaderComponent,
         MenuLateralComponent
     ],

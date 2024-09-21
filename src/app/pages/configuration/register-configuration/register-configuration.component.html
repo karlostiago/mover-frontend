@@ -1,0 +1,77 @@
+<form autocomplete="off" class="fade-in" #form="ngForm" (ngSubmit)="saveOrUpdate(form)">
+    <div class="row g-3">
+        <div class="col-12">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-6">
+                    <h1 class="title">Configurações</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-header">
+                    <h4> {{ isNewRegister() ? 'Cadastrar' : 'Atualizar' }}</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-10">
+                            <small class="float-end">Campos com ( * ) são obrigatórios.</small>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="form-label"> Tipo *:</label>
+                            <p-dropdown styleClass="w-100" name="typeValue" id="typeValue" placeholder="Selecione"
+                                        optionLabel="description" optionValue="code" [(ngModel)]="selectedType"
+                                        [options]="typesValue" required="true" />
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="form-label"> Chave *:</label>
+                            <input pInputText class="form-control" name="key" id="key" [required]="true" [(ngModel)]="configuration['key']" (ngModelChange)="configuration['key'] = replaceSpaceWithUnderscore(configuration['key'])" [maxlength]="100" />
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="form-label"> Valor *:</label>
+                            <input pInputText class="form-control" name="valueDecimal" id="valueDecimal" appDecimalFormat [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 1 " />
+                            <input pInputText class="form-control" name="valuePercent" id="valuePercent" appCurrencyFormatPtBr [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 2 " />
+                            <input pInputText class="form-control" name="valueDate" id="valueDate" appDateFormatPtBr [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 3 " />
+                            <input pInputText class="form-control" name="valueCurrency" id="valueCurrency" appCurrencyFormatPtBr [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 4 " />
+                            <input pInputText class="form-control" name="valueNumber" id="valueNumber" appOnlyNumber [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 5 " />
+                            <input pInputText class="form-control" name="valueText" id="valueText" [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 0 || selectedType === 6 " />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">Ativo:</label>
+                            <p-inputSwitch name="active" id="active" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"
+                                   [(ngModel)]="configuration['active']"></p-inputSwitch>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid">
+                        <i class="fa-solid fa-save m-1"></i>
+                        Salvar
+                    </button>
+                    <button pButton type="button" (click)="cancel(form)" class="p-button-danger p-button-sm ms-2" [disabled]="!isNewRegister()">
+                        <i class="fa-solid fa-remove m-1"></i>
+                        Cancelar
+                    </button>
+                    <a class="btn" style="float: right; margin-top: 5px;" routerLink="/search/configurations">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -9,7 +9,7 @@ export class CpfMaskPipe implements PipeTransform{
         let cpf = value.toString();
 
         if (cpf.length !== 11) {
-            return cpf; // Retorna o valor original se não tiver 11 dígitos
+            return cpf;
         }
         return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
     }

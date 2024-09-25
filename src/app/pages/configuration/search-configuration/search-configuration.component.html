@@ -49,40 +49,48 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table [value]="models" [paginator]="models.length > 10" [rows]="10"
+                    <p-table #table [value]="configurations" [paginator]="configurations.length > 10" [rows]="10"
                              responsiveLayout="stack" [breakpoint]="'960px'" styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
 
                         <ng-template pTemplate="header">
-                            <tr *ngIf="models.length > 0">
-                                <th class="text-left">MARCA</th>
-                                <th class="text-center w-75">DESCRIÇÃO</th>
+                            <tr *ngIf="configurations.length > 0">
+                                <th class="text-left">CHAVE</th>
+                                <th class="text-center">TIPO</th>
+                                <th class="text-center">VALOR</th>
                                 <th class="text-center">ATIVO</th>
                                 <th class="text-center">AÇÕES</th>
                             </tr>
                         </ng-template>
 
-                        <ng-template pTemplate="body" let-model>
+                        <ng-template pTemplate="body" let-configuration>
                             <tr>
                                 <td class="text-left">
-                                    <span class="p-column-title">MARCA</span>
-                                    {{ model['brandName'] }}
+                                    <span class="p-column-title">CHAVE</span>
+                                    {{ configuration['key'] }}
                                 </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">DESCRIÇÃO</span>
-                                    {{ model['name'] }}
+                                    <span class="p-column-title">TIPO</span>
+                                    {{ getTypeDescriptionValue(configuration['typeValue']) }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">VALOR</span>
+                                    <span *ngIf="configuration['typeValue'] === '1'">{{ configuration['value'] | currency:'BRL':'':'1.2-2':'pt-BR' }}</span>
+                                    <span *ngIf="configuration['typeValue'] === '2'">{{ configuration['value'] * 0.01 | percent:'1.2-2':'pt-BR' }}</span>
+                                    <span *ngIf="configuration['typeValue'] === '4'">{{ configuration['value'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
+                                    <span *ngIf="configuration['typeValue'] === '5' || configuration['typeValue'] === '6' || configuration['typeValue'] === '3'">{{ configuration['value'] }}</span>
                                 </td>
                                 <td class="text-center w-5">
                                     <span class="p-column-title">ATIVO</span>
-                                    <span class=" {{ model['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                        {{ model["active"] === true ? 'Sim' : 'Não' }}
+                                    <span class=" {{ configuration['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                        {{ configuration["active"] === true ? 'Sim' : 'Não' }}
                                     </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÕES</span>
-                                    <p-button [link]="true"  (click)="confirmationDelete(model)">
+                                    <p-button [link]="true"  (click)="confirmationDelete(configuration)">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </p-button>
-                                    <p-button [link]="true" [routerLink]="['/update/models/', model.id]">
+                                    <p-button [link]="true" [routerLink]="['/update/configurations/', configuration.id]">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </p-button>
                                 </td>
@@ -91,7 +99,7 @@
 
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td colspan="6" style="text-align: center;">
+                                <td colspan="5" style="text-align: center;">
                                     Nenhum registro encontrado.
                                 </td>
                             </tr>

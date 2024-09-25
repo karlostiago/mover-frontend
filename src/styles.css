@@ -138,6 +138,10 @@ input {
     padding: 12px 28px 12px 12px !important;
 }
 
+input[readonly] {
+    cursor: no-drop !important;
+}
+
 /**
  * ---------------------------------------------------------
  *      Configuração de estilos dos texts

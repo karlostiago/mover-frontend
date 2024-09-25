@@ -56,7 +56,10 @@ export class CurrencyFormatPtBrDirective {
     }
 
     writeValue(value: any): void {
-        if (value !== undefined && value !== null) {
+        if (value) {
+            if (typeof(value) === 'string') {
+                value = parseFloat(value);
+            }
             let stringValue = value.toFixed(2).replace('.', ',');
             stringValue = stringValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
             this.el.nativeElement.value = `${stringValue}`;

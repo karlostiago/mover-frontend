@@ -35,17 +35,18 @@
 
                         <div class="col-md-5">
                             <label class="form-label"> Chave *:</label>
-                            <input pInputText class="form-control" name="key" id="key" [required]="true" [(ngModel)]="configuration['key']" (ngModelChange)="configuration['key'] = replaceSpaceWithUnderscore(configuration['key'])" [maxlength]="100" />
+                            <input pInputText class="form-control" name="key" id="key" [required]="true" [(ngModel)]="configuration['key']" (ngModelChange)="configuration['key'] = replaceSpaceWithUnderscore(configuration['key'])" [maxlength]="100"
+                                [readOnly]="isMandatoryKey()" />
                         </div>
 
                         <div class="col-md-5">
                             <label class="form-label"> Valor *:</label>
-                            <input pInputText class="form-control" name="valueDecimal" id="valueDecimal" appDecimalFormat [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 1 " />
+                            <input pInputText class="form-control" name="valueDecimal" id="valueDecimal" appCurrencyFormatPtBr [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 1 " />
                             <input pInputText class="form-control" name="valuePercent" id="valuePercent" appCurrencyFormatPtBr [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 2 " />
                             <input pInputText class="form-control" name="valueDate" id="valueDate" appDateFormatPtBr [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 3 " />
                             <input pInputText class="form-control" name="valueCurrency" id="valueCurrency" appCurrencyFormatPtBr [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 4 " />
                             <input pInputText class="form-control" name="valueNumber" id="valueNumber" appOnlyNumber [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 5 " />
-                            <input pInputText class="form-control" name="valueText" id="valueText" [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 0 || selectedType === 6 " />
+                            <input pInputText class="form-control" name="valueText" id="valueText" [required]="true" [(ngModel)]="configuration['value']" [maxlength]="100" *ngIf="selectedType === 0 || selectedType === 6 " disabled="{{ selectedType === 0 ? 'true' : 'false' }}" />
                         </div>
                     </div>
 

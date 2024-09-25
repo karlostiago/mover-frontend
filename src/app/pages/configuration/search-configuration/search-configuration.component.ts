@@ -4,6 +4,8 @@ import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../service/AlertService";
 import {ConfigurationService} from "../configuration.service";
 import {ModelEntity} from "../../../../entity/ModelEntity";
+import {ConfigurationEntity} from "../../../../entity/ConfigurationEntity";
+import {TypeValueEntity} from "../../../../entity/TypeValueEntity";
 
 @Component({
   selector: 'app-search-configuration',
@@ -12,27 +14,28 @@ import {ModelEntity} from "../../../../entity/ModelEntity";
 })
 export class SearchConfigurationComponent implements OnInit {
     models = new Array<ModelEntity>();
+    typesValue = new Array<TypeValueEntity>();
+    configurations = new Array<ConfigurationEntity>();
 
     searchFilter: string = "";
-    yearManufactureFilter: string = "";
-    yearModelFilter: string = "";
 
     @ViewChild("table") table: Table | undefined;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
-                private modelService: ConfigurationService) {
+                private configurationService: ConfigurationService) {
     }
 
     ngOnInit(): void {
-        this.modelService.findAll().then(response => {
-            // this.models = response;
+        this.loadingTypes();
+        this.configurationService.findAll().then(response => {
+            this.configurations = response;
         });
     }
 
     confirmationDelete(model: ModelEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir o Modelo?`,
+            message: `Tem certeza que deseja excluir a Configuração?`,
             accept: () => {
                 this.delete(model.id);
             }
@@ -40,16 +43,26 @@ export class SearchConfigurationComponent implements OnInit {
     }
 
     delete(id: number) {
-        this.modelService.delete(id).then(() => {
-            this.models = this.models.filter(m => m.id !== id);
+        this.configurationService.delete(id).then(() => {
+            this.configurations = this.configurations.filter(m => m.id !== id);
             this.alertService.success("Registro deletado com sucesso.");
         });
     }
 
     filterBy() {
-        this.modelService.findBy(this.searchFilter).then(response => {
-            // this.models = response;
+        this.configurationService.findBy(this.searchFilter).then(response => {
+            this.configurations = response;
             this.table?.reset();
         })
+    }
+
+    getTypeDescriptionValue(code: string) {
+        return this.typesValue.filter(t => t.code === parseInt(code))[0].description;
+    }
+
+    private loadingTypes() {
+        this.configurationService.findAllTypesValue().then(response => {
+            this.typesValue = response;
+        });
     }
 }

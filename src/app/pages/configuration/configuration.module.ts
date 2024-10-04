@@ -10,6 +10,7 @@ import {TableModule} from "primeng/table";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {DropdownModule} from "primeng/dropdown";
 import {SharedModule} from "../../../shared/SharedModule";
+import {CardModule} from "../card/card.module";
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import {SharedModule} from "../../../shared/SharedModule";
         Button,
         InputSwitchModule,
         DropdownModule,
-        SharedModule
+        SharedModule,
+        CardModule
     ]
 })
 export class ConfigurationModule { }

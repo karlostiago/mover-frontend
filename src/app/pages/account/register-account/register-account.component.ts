@@ -5,7 +5,6 @@ import {ActivatedRoute} from "@angular/router";
 import {AlertService} from "../../../../service/AlertService";
 import {AccountEntity} from "../../../../entity/AccountEntity";
 import {AccountService} from "../account.service";
-import {environment} from "../../../../environments/environment";
 import {FileUpload} from "primeng/fileupload";
 import {BankIconEntity} from "../../../../entity/BankIconEntity";
 

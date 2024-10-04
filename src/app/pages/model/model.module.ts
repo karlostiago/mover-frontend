@@ -9,6 +9,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {TableModule} from "primeng/table";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {DropdownModule} from "primeng/dropdown";
+import {CardModule} from "../card/card.module";
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import {DropdownModule} from "primeng/dropdown";
         TableModule,
         Button,
         InputSwitchModule,
-        DropdownModule
+        DropdownModule,
+        CardModule
     ]
 })
 export class ModelModule { }

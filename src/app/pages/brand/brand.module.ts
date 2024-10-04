@@ -12,6 +12,7 @@ import {BrandRoutingModule} from "./brand-routing.module";
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
 import {FileUploadModule} from "primeng/fileupload";
+import {CardModule} from "../card/card.module";
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import {FileUploadModule} from "primeng/fileupload";
         Button,
         DropdownModule,
         FormsModule,
-        FileUploadModule
+        FileUploadModule,
+        CardModule
     ]
 })
 export class BrandModule { }

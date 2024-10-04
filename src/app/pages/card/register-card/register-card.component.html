@@ -1,0 +1,127 @@
+<form autocomplete="off" class="fade-in" #form="ngForm" (ngSubmit)="saveOrUpdate(form)">
+    <app-title name="Cartões"></app-title>
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-header">
+                    <h4> {{ isNewRegister() ? 'Cadastrar' : 'Atualizar' }}</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-10">
+                            <small class="float-end">Campos com ( * ) são obrigatórios.</small>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Nome *:</label>
+                            <input pInputText class="form-control" name="bankName" id="bankName" [(ngModel)]="card['name']" required="true" />
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Limite *:</label>
+                            <input pInputText class="form-control" name="limit" id="limit" [(ngModel)]="card['limit']" appCurrencyFormatPtBr [required]="true" />
+                        </div>
+
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label"> Dia do fechamento *:</label>
+                            <input pInputText class="form-control" name="closingDay" id="closingDay" [(ngModel)]="card['closingDay']" appNumberRange required="true" />
+                        </div>
+
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label"> Dia do vencimento *:</label>
+                            <input pInputText class="form-control" name="dueDate" id="dueDate" [(ngModel)]="card['dueDate']" required="true" appNumberRange />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label"> Conta *:</label>
+                            <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione"
+                                        [options]="accounts" optionValue="id" [(ngModel)]="this.card['accountId']" (onChange)="onChangeAccount()">
+                                <ng-template let-account pTemplate="item">
+                                    {{ account['name'] }} / {{ account['number'] }}
+                                </ng-template>
+                                <ng-template let-selected pTemplate="selectedItem">
+                                    {{ selected['name'] }} / {{ selected['number'] }}
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Ícone *:</label>
+                            <p-dropdown styleClass="w-100" name="icon" id="icon" [showClear]="false"
+                                        [options]="icons"
+                                        [(ngModel)]="card['codeIcon']"
+                                        placeholder="Selecione"
+                                        optionLabel="code"
+                                        optionValue="code"
+                                        required>
+                                <ng-template let-icon pTemplate="item">
+                                    <div class="flex align-items-center gap-2">
+                                        <img src="{{ icon['image'] }}" style="width: 3rem;"  alt="icon" /> <span style="margin-left: 5px;"> {{ icon['prefix'] }} {{ icon['bankName'] }} </span>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-selected pTemplate="selectedItem">
+                                    <div class="flex align-items-center gap-2">
+                                        <img src="{{ selected['image'] }}" style="width: 3rem; position: relative; bottom: 0.8125rem;" alt="icon" /> <span style="position: relative; bottom: 0.75rem; margin-left: 5px;"> {{ selected['prefix'] }} {{ selected['bankName'] }} </span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Tipo *:</label>
+                            <p-dropdown styleClass="w-100" name="type" id="type" placeholder="Selecione"
+                                        [options]="typesEnum" [(ngModel)]="card['type']" (onChange)="onChangeType()">
+                                <ng-template let-type pTemplate="item">
+                                    {{ type }}
+                                </ng-template>
+                                <ng-template let-selected pTemplate="selectedItem">
+                                    {{ selected }}
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="form-label">Ativo:</label>
+                            <p-inputSwitch name="active" id="active" styleClass="form-control"
+                                           [(ngModel)]="card['active']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="alert alert-info">
+                                <i class="fa-solid fa-check"></i>
+                                Quando não encontrar o ícone da instituição bancária desejado, pode selecionar o ícone <strong>Banco Genérico</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !card['codeIcon'] || !card['type']">
+                        <i class="fa-solid fa-save m-1"></i>
+                        Salvar
+                    </button>
+                    <button pButton type="button" (click)="cancel(form)" class="p-button-danger p-button-sm ms-2" [disabled]="!isNewRegister()">
+                        <i class="fa-solid fa-remove m-1"></i>
+                        Cancelar
+                    </button>
+                    <a class="btn" style="float: right; margin-top: 5px;" routerLink="/search/cards">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

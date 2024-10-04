@@ -13,6 +13,7 @@ import {SearchClientComponent} from "./search-client/search-client.component";
 import {RegisterClientComponent} from "./register-client/register-client.component";
 import {DialogAddressComponent} from "./dialog-address/dialog-address.component";
 import {DialogModule} from "primeng/dialog";
+import {CardModule} from "../card/card.module";
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import {DialogModule} from "primeng/dialog";
         SharedModule,
         FileUploadModule,
         NgOptimizedImage,
+        CardModule,
         // DialogModule
     ]
 })

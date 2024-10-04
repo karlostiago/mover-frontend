@@ -9,11 +9,10 @@ import {InputSwitchModule} from "primeng/inputswitch";
 import {DropdownModule} from "primeng/dropdown";
 import {RegisterAccountComponent} from "./register-account/register-account.component";
 import {SearchAccountComponent} from "./search-account/search-account.component";
-import {CoreModule} from "../../core/core.module";
-import {CurrencyFormatPtBrDirective} from "../../../shared/directive/CurrencyFormatPtBrDirective";
 import {SharedModule} from "../../../shared/SharedModule";
 import {FileUploadModule} from "primeng/fileupload";
 import {FieldsetModule} from "primeng/fieldset";
+import {CardModule} from "../card/card.module";
 
 @NgModule({
     declarations: [
@@ -37,7 +36,8 @@ import {FieldsetModule} from "primeng/fieldset";
         SharedModule,
         FileUploadModule,
         NgOptimizedImage,
-        FieldsetModule
+        FieldsetModule,
+        CardModule
     ]
 })
 export class AccountModule { }

@@ -12,6 +12,7 @@ import {AccountModule} from "../pages/account/account.module";
 import {ClientModule} from "../pages/client/client.module";
 import {GlobalDialogModule} from "../../shared/dialog/global-dialog.module";
 import {ConfigurationModule} from "../pages/configuration/configuration.module";
+import {CardModule} from "../pages/card/card.module";
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import {ConfigurationModule} from "../pages/configuration/configuration.module";
         AccountModule,
         ClientModule,
         ConfigurationModule,
+        CardModule,
         HeaderComponent,
         MenuLateralComponent
     ],

@@ -142,6 +142,9 @@ input[readonly] {
     cursor: no-drop !important;
 }
 
+.dropdown-no-drop > .p-dropdown .p-inputtext {
+    cursor: no-drop!important;
+}
 /**
  * ---------------------------------------------------------
  *      Configuração de estilos dos texts
@@ -253,6 +256,7 @@ a.btn:active {
 .p-dropdown .p-dropdown-label, .p-dropdown-item {
     font-family: 'Ubuntu', sans-serif!important;
     font-weight: 300!important;
+    font-size: .75rem;
 }
 
 .p-dropdown .p-inputtext {

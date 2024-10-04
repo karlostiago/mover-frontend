@@ -62,6 +62,10 @@ export class RegisterConfigurationComponent extends AbstractRegister implements 
         return false;
     }
 
+    clearValue() {
+        this.configuration.value = '';
+    }
+
     override cancel(form: NgForm) {
         form.resetForm({
             active: true,

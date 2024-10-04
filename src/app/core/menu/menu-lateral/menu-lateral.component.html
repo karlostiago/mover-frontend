@@ -17,6 +17,7 @@
             <i class="fa-regular fa-newspaper"></i>
             <a href="#"> Operacional </a>
             <ul>
+                <li routerLink="/search/cards"> <span> Cartões </span> </li>
                 <li routerLink="/search/clients"> <span> Clientes </span> </li>
                 <li routerLink="/search/accounts"> <span> Contas </span> </li>
                 <li routerLink="/search/configurations"> <span> Configurações </span> </li>
@@ -71,6 +72,6 @@
 
     <div class="footer mt-auto">
         <span class="{{ running ? 'badge bg-success' : 'badge bg-danger' }}"> {{ productionEnviroment ? 'PRD' : 'DSV' }} </span> <br />
-        <small> Versão: {{ version }}_Release </small>
+        <small> build :: {{ version }} </small>
     </div>
 </aside>

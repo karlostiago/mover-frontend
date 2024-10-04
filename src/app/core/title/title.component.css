@@ -1,0 +1,37 @@
+header {
+    position: fixed;
+    width: 100%;
+}
+
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.divisor {
+    margin-right: auto;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+}
+
+.info span {
+    margin-left: 10px;
+}
+
+.separator {
+    color: var(--gray-400);
+}
+
+.info-username {
+    font-size: 0.875rem;
+}

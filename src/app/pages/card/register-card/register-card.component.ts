@@ -51,8 +51,8 @@ export class RegisterCardComponent extends AbstractRegister implements OnInit {
     }
 
     onChangeType() {
-        if (this.card.type) {
-            this.card.type = this.card.type === TypeCardEnum.CREDIT ? "CREDIT" : "DEBIT";
+        if (this.card.cardType) {
+            this.card.cardType = this.card.cardType === TypeCardEnum.CREDIT ? "CREDIT" : "DEBIT";
         }
     }
 

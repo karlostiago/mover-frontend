@@ -7,6 +7,6 @@ export class CardEntity {
     limit: number = 0;
     closingDay: number;
     dueDate: number;
-    type: string = "";
+    cardType: string = "";
     active: boolean = true;
 }

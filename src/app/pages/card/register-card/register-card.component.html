@@ -76,7 +76,7 @@
                         <div class="col-md-4 col-sm-12">
                             <label class="form-label"> Tipo *:</label>
                             <p-dropdown styleClass="w-100" name="type" id="type" placeholder="Selecione"
-                                        [options]="typesEnum" [(ngModel)]="card['type']" (onChange)="onChangeType()">
+                                        [options]="typesEnum" [(ngModel)]="card['cardType']" (onChange)="onChangeType()">
                                 <ng-template let-type pTemplate="item">
                                     {{ type }}
                                 </ng-template>
@@ -109,7 +109,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !card['codeIcon'] || !card['type']">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !card['codeIcon'] || !card['cardType']">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

@@ -50,7 +50,7 @@ export class SearchCardComponent implements OnInit {
 
     filterBy() {
         this.cardService.findBy(this.searchFilter).then(response => {
-            this.accounts = response;
+            this.cards = response;
             this.table?.reset();
         })
     }

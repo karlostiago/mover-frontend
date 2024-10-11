@@ -17,13 +17,11 @@ import {TitleComponent} from "../../core/title/title.component";
 @NgModule({
     declarations: [
         RegisterCardComponent,
-        SearchCardComponent,
-        TitleComponent
+        SearchCardComponent
     ],
     exports: [
         RegisterCardComponent,
-        SearchCardComponent,
-        TitleComponent
+        SearchCardComponent
     ],
     imports: [
         CommonModule,

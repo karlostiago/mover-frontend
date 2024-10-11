@@ -1,28 +1,29 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ModelRoutingModule} from "./model-routing.module";
-import {RegisterModelComponent} from "./register-model/register-model.component";
-import {SearchModelComponent} from "./search-model/search-model.component";
+import {CategoryRoutingModule} from "./category-routing.module";
+import {RegisterCategoryComponent} from "./register-category/register-category.component";
+import {SearchCategoryComponent} from "./search-category/search-category.component";
 import {FormsModule} from "@angular/forms";
 import {Button, ButtonDirective} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {TableModule} from "primeng/table";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {DropdownModule} from "primeng/dropdown";
+import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../../shared/SharedModule";
 
 @NgModule({
     declarations: [
-        RegisterModelComponent,
-        SearchModelComponent
+        RegisterCategoryComponent,
+        SearchCategoryComponent
     ],
     exports: [
-        RegisterModelComponent,
-        SearchModelComponent
+        RegisterCategoryComponent,
+        SearchCategoryComponent
     ],
     imports: [
         CommonModule,
-        ModelRoutingModule,
+        CategoryRoutingModule,
         FormsModule,
         ButtonDirective,
         InputTextModule,
@@ -30,7 +31,8 @@ import {SharedModule} from "../../../shared/SharedModule";
         Button,
         InputSwitchModule,
         DropdownModule,
+        DialogModule,
         SharedModule
     ]
 })
-export class ModelModule { }
+export class CategoryModule { }

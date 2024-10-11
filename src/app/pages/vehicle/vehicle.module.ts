@@ -11,7 +11,6 @@ import {InputSwitchModule} from "primeng/inputswitch";
 import {DropdownModule} from "primeng/dropdown";
 import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../../shared/SharedModule";
-import {CardModule} from "../card/card.module";
 
 @NgModule({
     declarations: [
@@ -33,8 +32,7 @@ import {CardModule} from "../card/card.module";
         InputSwitchModule,
         DropdownModule,
         DialogModule,
-        SharedModule,
-        CardModule
+        SharedModule
     ]
 })
 export class VehicleModule { }

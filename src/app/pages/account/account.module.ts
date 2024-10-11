@@ -12,7 +12,6 @@ import {SearchAccountComponent} from "./search-account/search-account.component"
 import {SharedModule} from "../../../shared/SharedModule";
 import {FileUploadModule} from "primeng/fileupload";
 import {FieldsetModule} from "primeng/fieldset";
-import {CardModule} from "../card/card.module";
 
 @NgModule({
     declarations: [
@@ -36,8 +35,7 @@ import {CardModule} from "../card/card.module";
         SharedModule,
         FileUploadModule,
         NgOptimizedImage,
-        FieldsetModule,
-        CardModule
+        FieldsetModule
     ]
 })
 export class AccountModule { }

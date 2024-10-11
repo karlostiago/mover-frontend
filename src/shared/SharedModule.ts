@@ -14,6 +14,7 @@ import {PhoneMaskPipe} from "./pipe/PhoneMaskPipe";
 import {MaskCepDirective} from "./directive/MaskCepDirective";
 import {CepMaskPipe} from "./pipe/CepMaskPipe";
 import {NumberRangeDirective} from "./directive/NumberRangeDirective";
+import {TitleComponent} from "../app/core/title/title.component";
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import {NumberRangeDirective} from "./directive/NumberRangeDirective";
         PhoneMaskPipe,
         MaskCepDirective,
         CepMaskPipe,
-        NumberRangeDirective
+        NumberRangeDirective,
+        TitleComponent
     ],
     exports: [
         ToastModule,
@@ -43,7 +45,8 @@ import {NumberRangeDirective} from "./directive/NumberRangeDirective";
         PhoneMaskPipe,
         MaskCepDirective,
         CepMaskPipe,
-        NumberRangeDirective
+        NumberRangeDirective,
+        TitleComponent
     ],
     imports: [
         CommonModule

@@ -1,28 +1,29 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ModelRoutingModule} from "./model-routing.module";
-import {RegisterModelComponent} from "./register-model/register-model.component";
-import {SearchModelComponent} from "./search-model/search-model.component";
+import {SubcategoryRoutingModule} from "./subcategory-routing.module";
+import {RegisterSubcategoryComponent} from "./register-subcategory/register-subcategory.component";
+import {SearchSubcategoryComponent} from "./search-subcategory/search-subcategory.component";
 import {FormsModule} from "@angular/forms";
 import {Button, ButtonDirective} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {TableModule} from "primeng/table";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {DropdownModule} from "primeng/dropdown";
+import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../../shared/SharedModule";
 
 @NgModule({
     declarations: [
-        RegisterModelComponent,
-        SearchModelComponent
+        RegisterSubcategoryComponent,
+        SearchSubcategoryComponent
     ],
     exports: [
-        RegisterModelComponent,
-        SearchModelComponent
+        RegisterSubcategoryComponent,
+        SearchSubcategoryComponent
     ],
     imports: [
         CommonModule,
-        ModelRoutingModule,
+        SubcategoryRoutingModule,
         FormsModule,
         ButtonDirective,
         InputTextModule,
@@ -30,7 +31,8 @@ import {SharedModule} from "../../../shared/SharedModule";
         Button,
         InputSwitchModule,
         DropdownModule,
+        DialogModule,
         SharedModule
     ]
 })
-export class ModelModule { }
+export class SubcategoryModule { }

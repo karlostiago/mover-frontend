@@ -13,6 +13,8 @@ import {ClientModule} from "../pages/client/client.module";
 import {GlobalDialogModule} from "../../shared/dialog/global-dialog.module";
 import {ConfigurationModule} from "../pages/configuration/configuration.module";
 import {CardModule} from "../pages/card/card.module";
+import {CategoryModule} from "../pages/category/category.module";
+import {SubcategoryModule} from "../pages/subcategory/subcategory.module";
 
 @NgModule({
     declarations: [
@@ -28,6 +30,8 @@ import {CardModule} from "../pages/card/card.module";
         AccountModule,
         ClientModule,
         ConfigurationModule,
+        CategoryModule,
+        SubcategoryModule,
         CardModule,
         HeaderComponent,
         MenuLateralComponent

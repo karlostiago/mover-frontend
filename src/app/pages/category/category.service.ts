@@ -27,4 +27,9 @@ export class CategoryService extends BaseService<CategoryEntity> {
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/types`, this.options());
         return this.toPromise(request);
     }
+
+    async findCategoryByTypes(type: string): Promise<Array<CategoryEntity>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/find-type-category?type=${type}`, this.options());
+        return this.toPromise(request);
+    }
 }

@@ -34,7 +34,7 @@ export class RegisterCardComponent extends AbstractRegister implements OnInit {
     async ngOnInit() {
         await this.loadingIcons();
         await this.loadingAccounts();
-        this.loadingTypes();
+        this.defaultType();
         if (!this.registerNew) {
             this.cardService.findById(this.id).then(response => {
                 this.card = response;
@@ -47,12 +47,6 @@ export class RegisterCardComponent extends AbstractRegister implements OnInit {
             this.update();
         } else {
             this.save(form);
-        }
-    }
-
-    onChangeType() {
-        if (this.card.cardType) {
-            this.card.cardType = this.card.cardType === TypeCardEnum.CREDIT ? "CREDIT" : "DEBIT";
         }
     }
 
@@ -88,10 +82,8 @@ export class RegisterCardComponent extends AbstractRegister implements OnInit {
         });
     }
 
-    private loadingTypes() {
-        for (const value of Object.values(TypeCardEnum)) {
-            this.typesEnum.push(value);
-        }
+    private defaultType() {
+        this.card.cardType = 'CREDIT_DEBIT';
     }
 
     private async loadingIcons() {

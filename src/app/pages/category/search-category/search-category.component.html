@@ -44,8 +44,8 @@
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
                         <ng-template pTemplate="header">
                             <tr *ngIf="categories.length > 0">
+                                <th class="text-left">TIPO</th>
                                 <th class="text-left">NOME</th>
-                                <th class="text-center">TIPO</th>
                                 <th class="text-center">ATIVO</th>
                                 <th class="text-center">AÇÕES</th>
                             </tr>
@@ -54,14 +54,14 @@
                         <ng-template pTemplate="body" let-category>
                             <tr>
                                 <td class="text-left">
-                                    <span class="p-column-title">NOME</span>
-                                    {{ category['description'] }}
-                                </td>
-                                <td class="text-center">
                                     <span class="p-column-title">TIPO</span>
                                     <span class="text-limited-15">
                                         {{ category['type'] }}
                                     </span>
+                                </td>
+                                <td class="text-left">
+                                    <span class="p-column-title">NOME</span>
+                                    {{ category['description'] }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>

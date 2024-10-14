@@ -7,6 +7,7 @@ import {SubCategoryService} from "../subcategory.service";
 import {CategoryEntity} from "../../../../entity/CategoryEntity";
 import {SubCategoryEntity} from "../../../../entity/SubCategoryEntity";
 import {CategoryService} from "../../category/category.service";
+import {CategoryTypeEntity} from "../../../../entity/CategoryTypeEntity";
 
 @Component({
   selector: 'app-register-subcategory',
@@ -17,6 +18,7 @@ export class RegisterSubcategoryComponent extends AbstractRegister implements On
 
     subcategory = new SubCategoryEntity();
     categories = new Array<CategoryEntity>();
+    categoryTypes = new Array<CategoryTypeEntity>();
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
@@ -26,10 +28,11 @@ export class RegisterSubcategoryComponent extends AbstractRegister implements On
     }
 
     ngOnInit(): void {
-        this.loadingCategories();
+        this.loadingCategoryTypes();
         if (!this.registerNew) {
             this.subCategoryService.findById(this.id).then(response => {
                 this.subcategory = response;
+                this.onChangeCategoryByTypes();
             });
         }
     }
@@ -42,6 +45,11 @@ export class RegisterSubcategoryComponent extends AbstractRegister implements On
         }
     }
 
+    onChangeCategoryByTypes() {
+        this.categoryService.findCategoryByTypes(this.subcategory.categoryType).then(response => {
+            this.categories = response;
+        });
+    }
 
     private save(form: NgForm) {
         this.subCategoryService.save(this.subcategory).then(() => {
@@ -58,9 +66,9 @@ export class RegisterSubcategoryComponent extends AbstractRegister implements On
         });
     }
 
-    private loadingCategories() {
-        this.categoryService.findAll().then(response => {
-            this.categories = response;
+    private loadingCategoryTypes() {
+        this.categoryService.findAllTypes().then(response => {
+            this.categoryTypes = response;
         });
     }
 }

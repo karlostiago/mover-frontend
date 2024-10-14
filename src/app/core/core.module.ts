@@ -15,6 +15,7 @@ import {ConfigurationModule} from "../pages/configuration/configuration.module";
 import {CardModule} from "../pages/card/card.module";
 import {CategoryModule} from "../pages/category/category.module";
 import {SubcategoryModule} from "../pages/subcategory/subcategory.module";
+import {PartnerModule} from "../pages/partner/partner.module";
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import {SubcategoryModule} from "../pages/subcategory/subcategory.module";
         CategoryModule,
         SubcategoryModule,
         CardModule,
+        PartnerModule,
         HeaderComponent,
         MenuLateralComponent
     ],

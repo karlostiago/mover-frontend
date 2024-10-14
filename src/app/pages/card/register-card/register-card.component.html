@@ -72,20 +72,6 @@
                                 </ng-template>
                             </p-dropdown>
                         </div>
-
-                        <div class="col-md-4 col-sm-12">
-                            <label class="form-label"> Tipo *:</label>
-                            <p-dropdown styleClass="w-100" name="type" id="type" placeholder="Selecione"
-                                        [options]="typesEnum" [(ngModel)]="card['cardType']" (onChange)="onChangeType()">
-                                <ng-template let-type pTemplate="item">
-                                    {{ type }}
-                                </ng-template>
-                                <ng-template let-selected pTemplate="selectedItem">
-                                    {{ selected }}
-                                </ng-template>
-                            </p-dropdown>
-                        </div>
-
                     </div>
 
                     <div class="row">

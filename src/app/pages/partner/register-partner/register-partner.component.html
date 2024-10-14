@@ -1,5 +1,5 @@
 <form autocomplete="off" class="fade-in" #form="ngForm" (ngSubmit)="saveOrUpdate(form)">
-    <app-title name="Subcategorias"></app-title>
+    <app-title name="Sócios"></app-title>
 
     <div class="row g-3">
         <div class="col-md-12 mb-10">
@@ -16,29 +16,24 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">
-                            <label class="form-label"> Tipo Categoria *:</label>
-                            <p-dropdown styleClass="w-100" name="type" id="type" placeholder="Selecione"
-                                        optionLabel="description" optionValue="description" [(ngModel)]="this.subcategory['categoryType']"
-                                        [options]="categoryTypes" required="true" (onChange)="onChangeCategoryByTypes()" />
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label"> Categoria *:</label>
-                            <p-dropdown styleClass="w-100" name="category" id="category" placeholder="Selecione"
-                                        optionLabel="description" optionValue="id" [(ngModel)]="this.subcategory['categoryId']"
-                                        [options]="categories" required="true" [disabled]="!this.subcategory['categoryType']" />
-                        </div>
-                        <div class="col-md-5">
+                        <div class="col-md-12">
                             <label class="form-label"> Nome *:</label>
-                            <input pInputText class="form-control" name="description" id="description" [(ngModel)]="subcategory['description']" [required]="true" />
+                            <input pInputText class="form-control" name="name" id="name" [(ngModel)]="partner['name']" [required]="true" [maxlength]="100" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label"> E-mail *:</label>
+                            <input pInputText class="form-control" name="email" id="email" [(ngModel)]="partner['email']" [required]="true" [maxlength]="100" />
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-12">
                             <label class="form-label">Ativo:</label>
-                            <p-inputSwitch name="active" id="active" styleClass="form-control"
-                                           [(ngModel)]="subcategory['active']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                            <p-inputSwitch name="active" id="active" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"
+                                           [(ngModel)]="partner['active']"></p-inputSwitch>
                         </div>
                     </div>
                 </div>
@@ -52,7 +47,7 @@
                         <i class="fa-solid fa-remove m-1"></i>
                         Cancelar
                     </button>
-                    <a class="btn" style="float: right; margin-top: 5px;" routerLink="/search/subcategories">
+                    <a class="btn" style="float: right; margin-top: 5px;" routerLink="/search/partners">
                         Voltar
                     </a>
                 </div>

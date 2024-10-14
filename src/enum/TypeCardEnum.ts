@@ -1,4 +1,5 @@
 export enum TypeCardEnum {
     CREDIT = "CRÉDITO",
-    DEBIT = "DÉBITO"
+    DEBIT = "DÉBITO",
+    CREDIT_DEBIT = "CRÉDITO / DÉBITO"
 }

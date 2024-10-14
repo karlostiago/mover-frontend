@@ -16,15 +16,15 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-8">
-                            <label class="form-label"> Nome *:</label>
-                            <input pInputText class="form-control" name="description" id="description" [(ngModel)]="category['description']" [required]="true" />
-                        </div>
                         <div class="col-md-4">
                             <label class="form-label"> Tipo Categoria *:</label>
                             <p-dropdown styleClass="w-100" name="type" id="type" placeholder="Selecione"
                                         optionLabel="description" optionValue="description" [(ngModel)]="this.category['type']"
                                         [options]="categoryTypes" required="true" />
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label"> Nome *:</label>
+                            <input pInputText class="form-control" name="description" id="description" [(ngModel)]="category['description']" [required]="true" />
                         </div>
                     </div>
 

@@ -18,5 +18,6 @@ export class VehicleEntity {
     color: string;
     situation: string;
     fuelType: string | null;
+    fullname: string;
     active: boolean = true;
 }

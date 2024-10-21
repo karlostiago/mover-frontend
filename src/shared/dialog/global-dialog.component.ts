@@ -3,6 +3,9 @@ import {DialogAddressComponent} from "../../app/pages/client/dialog-address/dial
 import {DialogFipeComponent} from "../../app/pages/vehicle/dialog-fipe/dialog-fipe.component";
 import {TypeDialog} from "../service/GlobalDialogService";
 import {DialogContactComponent} from "../../app/pages/client/dialog-contact/dialog-contact.component";
+import {
+    DialogTerminateContractComponent
+} from "../../app/pages/contract/dialog-terminate-contract/dialog-terminate-contract.component";
 
 @Component({
   selector: 'app-global-dialog',
@@ -17,6 +20,8 @@ export class GlobalDialogComponent implements OnInit {
 
     @ViewChild(DialogContactComponent) dialogContact: DialogContactComponent;
 
+    @ViewChild(DialogTerminateContractComponent) dialogTerminateContract: DialogTerminateContractComponent;
+
     ngOnInit() { }
 
     open(typeDialog: TypeDialog, source?: any, target?: any) {
@@ -28,6 +33,9 @@ export class GlobalDialogComponent implements OnInit {
         }
         else if (typeDialog === TypeDialog.CONTACT) {
             this.dialogContact.showDialog(source, target);
+        }
+        else if (typeDialog === TypeDialog.TERMINATE_CONTRACT) {
+            this.dialogTerminateContract.showDialog(source);
         }
     }
 }

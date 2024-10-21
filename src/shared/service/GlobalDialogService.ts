@@ -4,7 +4,8 @@ import {GlobalDialogComponent} from "../dialog/global-dialog.component";
 export enum TypeDialog {
     ADDRESS,
     FIPE,
-    CONTACT
+    CONTACT,
+    TERMINATE_CONTRACT
 }
 
 @Injectable({

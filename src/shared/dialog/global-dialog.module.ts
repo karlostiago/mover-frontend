@@ -11,13 +11,19 @@ import {InputTextModule} from "primeng/inputtext";
 import {ButtonDirective} from "primeng/button";
 import {FormsModule} from "@angular/forms";
 import {PaginatorModule} from "primeng/paginator";
+import {
+    DialogTerminateContractComponent
+} from "../../app/pages/contract/dialog-terminate-contract/dialog-terminate-contract.component";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {InputSwitchModule} from "primeng/inputswitch";
 
 @NgModule({
     declarations: [
         GlobalDialogComponent,
         DialogAddressComponent,
         DialogFipeComponent,
-        DialogContactComponent
+        DialogContactComponent,
+        DialogTerminateContractComponent
     ],
     exports: [
         DialogAddressComponent,
@@ -33,7 +39,9 @@ import {PaginatorModule} from "primeng/paginator";
         InputTextModule,
         ButtonDirective,
         FormsModule,
-        PaginatorModule
+        PaginatorModule,
+        InputTextareaModule,
+        InputSwitchModule
     ]
 })
 export class GlobalDialogModule { }

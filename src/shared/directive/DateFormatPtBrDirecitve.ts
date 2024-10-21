@@ -49,7 +49,11 @@ export class DateFormatPtBrDirecitve {
         }
     }
 
-    private formatDate(value: string): string {
+    private formatDate(value: any): string {
+        if (value instanceof Date) {
+            value = value.toLocaleDateString('pt-BR');
+        }
+
         value = value.replace(/\D/g, '');
 
         if (value.length > 2) {

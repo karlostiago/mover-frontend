@@ -194,6 +194,10 @@ a.btn:active {
  *      Configuração de estilos dos dialogs
  * ---------------------------------------------------------
  */
+.p-dialog {
+    min-width: 30% !important;
+}
+
 .p-dialog .p-dialog-header {
     background: #2c3e50 !important;
     color: #fff;
@@ -253,7 +257,7 @@ a.btn:active {
     margin-top: -1px;
 }
 
-.p-dropdown .p-dropdown-label, .p-dropdown-item {
+.p-dropdown .p-dropdown-label, .p-dropdown-item, .p-dropdown-empty-message {
     font-family: 'Ubuntu', sans-serif!important;
     font-weight: 300!important;
     font-size: .75rem;
@@ -288,5 +292,10 @@ a.btn:active {
 
 .p-toast {
     font-size: .75rem !important;
+}
+
+textarea {
+    width: 100%;
+    resize: none;
 }
 

@@ -171,6 +171,8 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
 
     private loadingYearsOfManufactureAndModels() {
         const currentYear = new Date().getFullYear();
+        this.years.push(currentYear + 1);
+
         for (let year = 0; year < 100; year++ ) {
             this.years.push(currentYear - year);
         }

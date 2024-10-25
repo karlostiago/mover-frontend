@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SummaryFipeEntity} from "../../../../entity/SummaryFipeEntity";
 import {ContractEntity} from "../../../../entity/ContractEntity";
 import {NgForm} from "@angular/forms";
 import {ContractService} from "../contract.service";
+import {AlertService} from "../../../../service/AlertService";
 
 @Component({
   selector: 'app-dialog-terminate-contract',
@@ -15,9 +15,8 @@ export class DialogTerminateContractComponent implements OnInit {
 
     contract = new ContractEntity();
 
-    summaries: Array<SummaryFipeEntity> = [];
-
-    constructor(private contractService: ContractService) {
+    constructor(private contractService: ContractService,
+                private alertService: AlertService,) {
     }
 
     ngOnInit(): void {
@@ -29,9 +28,12 @@ export class DialogTerminateContractComponent implements OnInit {
         this.contract.friendlyTermination = true;
     }
 
-    saveOrUpdate(form: NgForm) {
-        this.contractService.close(this.contract).then(response => {
-            console.log('encerrado com sucesso.')
-        })
+    async saveOrUpdate(form: NgForm) {
+        this.contract.situation = 'ENCERRADO';
+        this.contract.active = false;
+        this.contract.endDate = new Date();
+        this.visible = false;
+        this.alertService.success("Contrato encerrado com sucesso.");
+        this.contractService.close(this.contract).then(() => { });
     }
 }

@@ -6,7 +6,6 @@ import {AlertService} from "../../../../service/AlertService";
 import {ClientService} from "../client.service";
 import {ClientEntity} from "../../../../entity/ClientEntity";
 import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
-import {ContactEntity} from "../../../../entity/ContactEntity";
 
 @Component({
   selector: 'app-search-client',

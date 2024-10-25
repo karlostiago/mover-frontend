@@ -43,7 +43,7 @@ export class ContractService extends BaseService<ContractEntity> {
         return this.toPromise(request);
     }
 
-    async close(contract: ContractEntity) {
+    async close(contract: ContractEntity): Promise<ContractEntity> {
         const request = this.httpClient.put(`${this.baseURL}/${this.pathURL()}/${contract.id}/close`, JSON.stringify(contract), this.options());
         return this.toPromise(request);
     }

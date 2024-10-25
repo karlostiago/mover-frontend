@@ -89,7 +89,7 @@
                     <div class="row" *ngIf="contract['situation'] === 'ENCERRADO'">
                         <div class="col-md-12">
                             <label class="form-label"> Motivo *:</label><br/>
-                            <textarea rows="5" pInputTextarea [(ngModel)]="contract['reason']"></textarea>
+                            <textarea rows="5" id="reason" name="reason" pInputTextarea [(ngModel)]="contract['reason']"></textarea>
                         </div>
                     </div>
 

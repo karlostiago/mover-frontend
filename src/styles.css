@@ -39,7 +39,7 @@ a {
     color: inherit;
 }
 
-input {
+input, textarea {
     text-transform: uppercase;
 }
 

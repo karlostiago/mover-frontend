@@ -38,4 +38,9 @@ export class ClientService extends BaseService<ClientEntity> {
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/filterBy?search=${search}`, this.options());
         return this.toPromise(request);
     }
+
+    async onlyAvailable(): Promise<Array<ClientEntity>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/only-available`, this.options());
+        return this.toPromise(request);
+    }
 }

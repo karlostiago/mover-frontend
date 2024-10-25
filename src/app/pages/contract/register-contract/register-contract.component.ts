@@ -36,19 +36,20 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
     }
 
     async ngOnInit() {
-        await this.loadingOnlyActiveClients();
-        await this.loadingAvailableVehicles();
-
         await this.loadingSituations();
         await this.loadingPaymentFrequencies();
         await this.loadingDaysOfWeek();
 
         if (!this.registerNew) {
+            await this.loadingAllClients();
+            await this.loadingAllVehicles();
             this.contractService.findById(this.id).then(response => {
                 this.contract = response;
             });
         } else {
             this.generatedNewContract();
+            await this.loadingOnlyActiveClients();
+            await this.loadingAvailableVehicles();
         }
     }
 
@@ -75,16 +76,13 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
         });
     }
 
-    private save(form: NgForm) {
+    private async save(form: NgForm) {
         this.contractService.save(this.contract).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
+            this.loadingOnlyActiveClients();
+            this.loadingAvailableVehicles();
             this.generatedNewContract();
-            form.resetForm({
-                initialDate: this.contract.initialDate,
-                situation: this.contract.situation,
-                paymentFrequency: this.contract.paymentFrequency,
-                active: true
-            });
+            this.cancel(form);
         });
     }
 
@@ -112,6 +110,18 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
         });
     }
 
+    private async loadingAllVehicles() {
+        this.vehicleService.findAll().then(response => {
+            this.vehicles = response;
+        });
+    }
+
+    private async loadingAllClients() {
+        this.clientService.findAll().then(response => {
+            this.clients = response;
+        });
+    }
+
     private async loadingAvailableVehicles() {
         this.vehicleService.findAll().then(response => {
             this.vehicles = response.filter( v => v.situation === 'DISPONÍVEL');
@@ -119,7 +129,7 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
     }
 
     private async loadingOnlyActiveClients() {
-        this.clientService.findAll().then(response => {
+        this.clientService.onlyAvailable().then(response => {
             this.clients = response.filter(r => r.active);
         });
     }

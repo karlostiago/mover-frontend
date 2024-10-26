@@ -20,13 +20,15 @@
                             <label class="form-label"> Tipo Categoria *:</label>
                             <p-dropdown styleClass="w-100" name="type" id="type" placeholder="Selecione"
                                         optionLabel="description" optionValue="description" [(ngModel)]="this.subcategory['categoryType']"
-                                        [options]="categoryTypes" required="true" (onChange)="onChangeCategoryByTypes()" />
+                                        [options]="categoryTypes" required="true" (onChange)="onChangeCategoryByTypes()"
+                                        emptyMessage="Nenhum tipo categoria encontrado"/>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label"> Categoria *:</label>
                             <p-dropdown styleClass="w-100" name="category" id="category" placeholder="Selecione"
                                         optionLabel="description" optionValue="id" [(ngModel)]="this.subcategory['categoryId']"
-                                        [options]="categories" required="true" [disabled]="!this.subcategory['categoryType']" />
+                                        [options]="categories" required="true" [disabled]="!this.subcategory['categoryType']"
+                                        emptyMessage="Nenhuma categoria encontrada" />
                         </div>
                         <div class="col-md-5">
                             <label class="form-label"> Nome *:</label>

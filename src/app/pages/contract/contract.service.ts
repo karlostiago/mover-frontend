@@ -19,7 +19,7 @@ export class ContractService extends BaseService<ContractEntity> {
     }
 
     async findBy(search: string): Promise<Array<ContractEntity>> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/findBy?search=${search}`, this.options());
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/filterBy?search=${search}`, this.options());
         return this.toPromise(request);
     }
 

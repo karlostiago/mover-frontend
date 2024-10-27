@@ -123,8 +123,8 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
     }
 
     private async loadingAvailableVehicles() {
-        this.vehicleService.findAll().then(response => {
-            this.vehicles = response.filter( v => v.situation === 'DISPONÍVEL');
+        this.vehicleService.onlyAvailable().then(response => {
+            this.vehicles = response.filter( v => v.active);
         });
     }
 

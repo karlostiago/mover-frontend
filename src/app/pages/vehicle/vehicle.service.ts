@@ -33,4 +33,9 @@ export class VehicleService extends BaseService<VehicleEntity> {
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/situation`, this.options());
         return this.toPromise(request);
     }
+
+    async onlyAvailable(): Promise<Array<VehicleEntity>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/only-available`, this.options());
+        return this.toPromise(request);
+    }
 }

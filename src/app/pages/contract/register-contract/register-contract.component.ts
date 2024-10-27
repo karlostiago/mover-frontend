@@ -62,7 +62,9 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
     }
 
     override cancel(form: NgForm) {
+        this.generatedNewContract();
         form.resetForm({
+            number: this.contract.number,
             initialDate: this.contract.initialDate,
             situation: this.contract.situation,
             paymentFrequency: this.contract.paymentFrequency,

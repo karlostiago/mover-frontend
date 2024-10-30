@@ -4,7 +4,7 @@ import {AlertService} from "../../../../service/AlertService";
 import {MaintenanceService} from "../maintenance.service";
 import {Table} from "primeng/table";
 import {ContractEntity} from "../../../../entity/ContractEntity";
-import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
+import {MaintenanceEntity} from "../../../../entity/MaintenanceEntity";
 
 @Component({
   selector: 'app-search-maintenance',
@@ -13,30 +13,25 @@ import {GlobalDialogService, TypeDialog} from "../../../../shared/service/Global
 })
 export class SearchMaintenanceComponent implements OnInit {
 
-    contracts = new Array<ContractEntity>();
+    maintenances = new Array<MaintenanceEntity>();
     searchFilter: string = "";
 
     @ViewChild("table") table: Table | undefined;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
-                private globalDialogService: GlobalDialogService,
-                private contractService: MaintenanceService) {
+                private maintenanceService: MaintenanceService) {
     }
 
     ngOnInit(): void {
-        this.contractService.findAll().then(response => {
-            // this.contracts = response;
+        this.maintenanceService.findAll().then(response => {
+            this.maintenances = response;
         });
-    }
-
-    close(contract: ContractEntity) {
-        this.globalDialogService.openDialog(TypeDialog.TERMINATE_CONTRACT, contract);
     }
 
     confirmationDelete(contract: ContractEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir esse Contrato?`,
+            message: `Tem certeza que deseja excluir essa Manutenção?`,
             accept: () => {
                 this.delete(contract.id);
             }
@@ -44,15 +39,15 @@ export class SearchMaintenanceComponent implements OnInit {
     }
 
     delete(id: number) {
-        this.contractService.delete(id).then(() => {
-            this.contracts = this.contracts.filter(v => v.id !== id);
+        this.maintenanceService.delete(id).then(() => {
+            this.maintenances = this.maintenances.filter(v => v.id !== id);
             this.alertService.success("Registro deletado com sucesso.");
         });
     }
 
     filterBy() {
-        this.contractService.findBy(this.searchFilter).then(response => {
-            // this.contracts = response;
+        this.maintenanceService.findBy(this.searchFilter).then(response => {
+            this.maintenances = response;
             this.table?.reset();
         });
     }

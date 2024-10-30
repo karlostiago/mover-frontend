@@ -6,12 +6,12 @@ import {AlertService} from "../../../../service/AlertService";
 import {MaintenanceService} from "../maintenance.service";
 import {VehicleEntity} from "../../../../entity/VehicleEntity";
 import {VehicleService} from "../../vehicle/vehicle.service";
-import {ClientService} from "../../client/client.service";
 import {MaintenanceEntity} from "../../../../entity/MaintenanceEntity";
 import {AccountEntity} from "../../../../entity/AccountEntity";
 import {AccountService} from "../../account/account.service";
 import {CardEntity} from "../../../../entity/CardEntity";
 import {CardService} from "../../card/card.service";
+import {MaintenanceTypeEntity} from "../../../../entity/MaintenanceTypeEntity";
 
 @Component({
   selector: 'app-register-maintenance',
@@ -24,22 +24,21 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
     accounts = new Array<AccountEntity>();
     cards = new Array<CardEntity>();
     vehicles = new Array<VehicleEntity>();
+    types = new Array<MaintenanceTypeEntity>();
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 private accountService: AccountService,
                 private cardService: CardService,
                 private maintenanceService: MaintenanceService,
-
-                private contractService: MaintenanceService,
-                private vehicleService: VehicleService,
-                private clientService: ClientService) {
+                private vehicleService: VehicleService) {
         super(activatedRoute);
     }
 
     async ngOnInit() {
         await this.loadingAllAccounts();
         await this.loadingAllVehicles();
+        await this.loadingAllTypes();
 
         if (!this.registerNew) {
             this.maintenanceService.findById(this.id).then(response => {
@@ -91,6 +90,12 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
     private async loadingAllAccounts() {
         this.accountService.findAll().then(response => {
             this.accounts = response;
+        });
+    }
+
+    private async loadingAllTypes() {
+        this.maintenanceService.findAllTypes().then(response => {
+            this.types = response;
         });
     }
 }

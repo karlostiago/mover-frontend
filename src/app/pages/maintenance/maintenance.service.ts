@@ -3,6 +3,7 @@ import {BaseService} from "../../../abstract/BaseService";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../core/handler/ErrorHandler";
 import {MaintenanceEntity} from "../../../entity/MaintenanceEntity";
+import {MaintenanceTypeEntity} from "../../../entity/MaintenanceTypeEntity";
 
 @Injectable({
   providedIn: 'root'
@@ -22,4 +23,8 @@ export class MaintenanceService extends BaseService<MaintenanceEntity> {
         return this.toPromise(request);
     }
 
+    async findAllTypes(): Promise<Array<MaintenanceTypeEntity>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/types`, this.options());
+        return this.toPromise(request);
+    }
 }

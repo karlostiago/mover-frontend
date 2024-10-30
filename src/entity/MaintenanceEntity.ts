@@ -1,6 +1,7 @@
 export class MaintenanceEntity {
     id: number = 0;
     vehicleId: number;
+    vehicleName: string;
     accountId: number;
     cardId: number;
     date: Date = new Date();

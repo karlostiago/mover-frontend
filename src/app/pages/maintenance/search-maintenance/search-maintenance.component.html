@@ -39,71 +39,65 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table [value]="contracts" [paginator]="contracts.length > 10" [rows]="10"
+                    <p-table #table [value]="maintenances" [paginator]="maintenances.length > 10" [rows]="10"
                              responsiveLayout="stack" [breakpoint]="'1300px'"
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
                         <ng-template pTemplate="header">
-                            <tr *ngIf="contracts.length > 0">
-                                <th class="text-center">NÚMERO</th>
+                            <tr *ngIf="maintenances.length > 0">
+                                <th class="text-center">DATA</th>
                                 <th class="text-left">VEÍCULO</th>
-                                <th class="text-left">CLIENTE</th>
-                                <th class="text-center">FORMA PAGAMENTO</th>
-                                <th class="text-center">VR. CAUÇÃO</th>
-                                <th class="text-center">VR. RECORRENTE</th>
-                                <th class="text-center">SITUAÇÃO</th>
+                                <th class="text-center">KM</th>
+                                <th class="text-left">ESTABELECIMENTO</th>
+                                <th class="text-left">TIPO</th>
+                                <th class="text-center">VALOR</th>
                                 <th class="text-center">ATIVO</th>
                                 <th class="text-center">AÇÕES</th>
                             </tr>
                         </ng-template>
 
-                        <ng-template pTemplate="body" let-contract>
+                        <ng-template pTemplate="body" let-maintenance>
                             <tr>
                                 <td class="text-center">
-                                    <span class="p-column-title">NÚMERO</span>
-                                    {{ contract['number'] }}
+                                    <span class="p-column-title">DATA</span>
+                                    {{ maintenance['date'] }}
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">VEÍCULO</span>
-                                    {{ contract['vehicleName'] }}
+                                    {{ maintenance['vehicleName'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">KM</span>
+                                    {{ maintenance['mileage'] | number }}
                                 </td>
                                 <td class="text-left">
-                                    <span class="p-column-title">CLIENTE</span>
+                                    <span class="p-column-title">ESTABELECIMENTO</span>
                                     <span class="text-limited-15">
-                                        {{ contract['clientName'] }}
+                                        {{ maintenance['establishment'] }}
+                                    </span>
+                                </td>
+                                <td class="text-left">
+                                    <span class="p-column-title">TIPO</span>
+                                    <span class="text-limited-15">
+                                        {{ maintenance['type'] }}
                                     </span>
                                 </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">FORMA PAG.</span>
-                                    {{ contract['paymentFrequency'] }} / {{ contract['paymentDay'] }}
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">VR. CAUÇÃO</span>
-                                    {{ contract['depositAmount'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">VR. RECORRENTE</span>
-                                    {{ contract['recurrenceValue'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">SITUAÇÃO</span>
-                                    {{ contract['situation'] }}
+                                    <span class="p-column-title">VALOR</span>
+                                    {{ maintenance['value'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>
-                                    <span class=" {{ contract['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                        {{ contract["active"] === true ? 'Sim' : 'Não' }}
+                                    <span class=" {{ maintenance['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                        {{ maintenance["active"] === true ? 'Sim' : 'Não' }}
                                     </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
-                                    <p-button [link]="true" (click)="confirmationDelete(contract)" >
+                                    <p-button [link]="true" (click)="confirmationDelete(maintenance)" >
                                         <i class="fa-regular fa-trash-can"></i>
                                     </p-button>
-                                    <p-button [link]="true" [routerLink]="['/update/maintenance/', contract.id]">
+                                    <p-button [link]="true" [routerLink]="['/update/maintenance/', maintenance.id]">
                                         <i class="fa-regular fa-pen-to-square"></i>
-                                    </p-button>
-                                    <p-button [link]="true" (click)="close(contract)" >
-                                        <i class="far fa-file-excel"></i>
                                     </p-button>
                                 </td>
                             </tr>

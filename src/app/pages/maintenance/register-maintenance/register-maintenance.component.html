@@ -52,7 +52,9 @@
                         </div>
                         <div class="col-md-3">
                             <label class="form-label"> Tipo *:</label>
-                            <input pInputText class="form-control" name="type" id="type" [(ngModel)]="maintenance['type']" [required]="true" />
+                            <p-dropdown styleClass="w-100" name="type" id="type" placeholder="Selecione"
+                                        optionLabel="description" optionValue="description" [(ngModel)]="this.maintenance['type']"
+                                        [options]="types" required="true" />
                         </div>
                     </div>
 

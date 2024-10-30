@@ -127,7 +127,7 @@ input, textarea {
  *      Configuração de estilos dos inputs
  * ---------------------------------------------------------
  */
-.p-inputtext:enabled:focus {
+.p-inputtext:enabled:focus, .p-inputtext:enabled:hover {
     outline: 0 none;
     outline-offset: 0;
     box-shadow: none !important;

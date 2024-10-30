@@ -12,7 +12,6 @@ import {DropdownModule} from "primeng/dropdown";
 import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../../shared/SharedModule";
 import {InputTextareaModule} from "primeng/inputtextarea";
-import {SpeedDialModule} from "primeng/speeddial";
 
 @NgModule({
     declarations: [
@@ -35,8 +34,7 @@ import {SpeedDialModule} from "primeng/speeddial";
         DropdownModule,
         DialogModule,
         SharedModule,
-        InputTextareaModule,
-        SpeedDialModule
+        InputTextareaModule
     ]
 })
 export class MaintenanceModule { }

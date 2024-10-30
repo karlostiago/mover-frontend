@@ -1,0 +1,124 @@
+<form autocomplete="off" class="fade-in">
+    <app-title name="Manutenções"></app-title>
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label"> Pesquisar:</label>
+                            <input pInputText class="form-control" name="search" id="search" [(ngModel)]="searchFilter" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-6 col-xs-6 text-md-start">
+                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()">
+                                <i class="fa-solid fa-magnifying-glass m-1"></i>
+                                Pesquisar
+                            </button>
+                        </div>
+                        <div class="col-6 col-xs-6 text-md-end">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/register/maintenance/new">
+                                <i class="fa-solid fa-plus m-1"></i>
+                                Novo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-body">
+                    <p-table #table [value]="contracts" [paginator]="contracts.length > 10" [rows]="10"
+                             responsiveLayout="stack" [breakpoint]="'1300px'"
+                             styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+                        <ng-template pTemplate="header">
+                            <tr *ngIf="contracts.length > 0">
+                                <th class="text-center">NÚMERO</th>
+                                <th class="text-left">VEÍCULO</th>
+                                <th class="text-left">CLIENTE</th>
+                                <th class="text-center">FORMA PAGAMENTO</th>
+                                <th class="text-center">VR. CAUÇÃO</th>
+                                <th class="text-center">VR. RECORRENTE</th>
+                                <th class="text-center">SITUAÇÃO</th>
+                                <th class="text-center">ATIVO</th>
+                                <th class="text-center">AÇÕES</th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-contract>
+                            <tr>
+                                <td class="text-center">
+                                    <span class="p-column-title">NÚMERO</span>
+                                    {{ contract['number'] }}
+                                </td>
+                                <td class="text-left">
+                                    <span class="p-column-title">VEÍCULO</span>
+                                    {{ contract['vehicleName'] }}
+                                </td>
+                                <td class="text-left">
+                                    <span class="p-column-title">CLIENTE</span>
+                                    <span class="text-limited-15">
+                                        {{ contract['clientName'] }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">FORMA PAG.</span>
+                                    {{ contract['paymentFrequency'] }} / {{ contract['paymentDay'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">VR. CAUÇÃO</span>
+                                    {{ contract['depositAmount'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">VR. RECORRENTE</span>
+                                    {{ contract['recurrenceValue'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">SITUAÇÃO</span>
+                                    {{ contract['situation'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">ATIVO</span>
+                                    <span class=" {{ contract['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                        {{ contract["active"] === true ? 'Sim' : 'Não' }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">AÇÔES</span>
+                                    <p-button [link]="true" (click)="confirmationDelete(contract)" >
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </p-button>
+                                    <p-button [link]="true" [routerLink]="['/update/maintenance/', contract.id]">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </p-button>
+                                    <p-button [link]="true" (click)="close(contract)" >
+                                        <i class="far fa-file-excel"></i>
+                                    </p-button>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="4" style="text-align: center;">
+                                    Nenhum registro encontrado.
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

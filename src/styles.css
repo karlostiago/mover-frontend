@@ -27,7 +27,7 @@ body, input, textarea, button, td, thead, .p-button-label, span, .form-label {
     text-decoration: none !important;
 }
 
-label, h1, p, h4, small, input, thead, th, td, .p-button-label {
+label, h1, p, h4, small, input, thead, th, td, .p-button-label, textarea {
     color: rgba(0, 0, 0, 0.54) !important;
 }
 

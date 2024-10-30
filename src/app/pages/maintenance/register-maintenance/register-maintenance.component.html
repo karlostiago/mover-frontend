@@ -1,0 +1,98 @@
+<form autocomplete="off" class="fade-in" #form="ngForm" (ngSubmit)="saveOrUpdate(form)">
+    <app-title name="Manutenções"></app-title>
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-header">
+                    <h4> {{ isNewRegister() ? 'Cadastrar' : 'Atualizar' }}</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-10">
+                            <small class="float-end">Campos com ( * ) são obrigatórios.</small>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="form-label"> Veículo *:</label>
+                            <p-dropdown styleClass="w-100" name="vehicle" id="vehicle" placeholder="Selecione"
+                                        optionLabel="fullname" optionValue="id" [(ngModel)]="this.maintenance['vehicleId']"
+                                        [options]="vehicles" required="true" />
+                        </div>
+                        <div class="col-md-7">
+                            <label class="form-label"> Estabelecimento *:</label>
+                            <input pInputText class="form-control" name="establishment" id="establishment" [(ngModel)]="maintenance['establishment']" [required]="true" />
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label"> Data *:</label>
+                            <input pInputText class="form-control" name="date" id="date" [(ngModel)]="maintenance['date']" appDateFormatPtBr [required]="true" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="form-label"> Conta *:</label>
+                            <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione"
+                                        optionLabel="name" optionValue="id" [(ngModel)]="this.maintenance['accountId']"
+                                        [options]="accounts" required="true" (onChange)="onChanceCard()" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label"> Cartão :</label>
+                            <p-dropdown styleClass="w-100" name="card" id="card" placeholder="Selecione"
+                                        optionLabel="name" optionValue="id" [(ngModel)]="this.maintenance['cardId']"
+                                        [options]="cards" [disabled]="!this.maintenance['accountId']"
+                                        emptyMessage="Nenhum cartão disponível"/>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label"> Km *:</label>
+                            <input pInputText class="form-control" name="mileage" id="mileage" [(ngModel)]="maintenance['mileage']" appDecimalFormat [required]="true" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label"> Tipo *:</label>
+                            <input pInputText class="form-control" name="type" id="type" [(ngModel)]="maintenance['type']" [required]="true" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label"> Detalhe *:</label><br/>
+                            <textarea rows="5" id="detail" name="detail" pInputTextarea [(ngModel)]="maintenance['detail']"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label"> Valor *:</label>
+                            <input pInputText class="form-control" name="value" id="value" [(ngModel)]="maintenance['value']" appCurrencyFormatPtBr [required]="true" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">Ativo:</label>
+                            <p-inputSwitch name="active" id="active" styleClass="form-control"
+                                           [(ngModel)]="maintenance['active']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid">
+                        <i class="fa-solid fa-save m-1"></i>
+                        Salvar
+                    </button>
+                    <button pButton type="button" (click)="cancel(form)" class="p-button-danger p-button-sm ms-2" [disabled]="!isNewRegister()">
+                        <i class="fa-solid fa-remove m-1"></i>
+                        Cancelar
+                    </button>
+                    <a class="btn" style="float: right; margin-top: 5px;" routerLink="/search/maintenance">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

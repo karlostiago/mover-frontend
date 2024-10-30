@@ -8,7 +8,6 @@ import {CardService} from "../card.service";
 import {FileUpload} from "primeng/fileupload";
 import {BankIconEntity} from "../../../../entity/BankIconEntity";
 import {CardEntity} from "../../../../entity/CardEntity";
-import {TypeCardEnum} from "../../../../enum/TypeCardEnum";
 import {AccountService} from "../../account/account.service";
 
 @Component({
@@ -20,7 +19,6 @@ export class RegisterCardComponent extends AbstractRegister implements OnInit {
     card = new CardEntity();
     icons = new Array<BankIconEntity>();
     accounts = new Array<AccountEntity>();
-    typesEnum = new Array<string>();
 
     @ViewChild("fileUpload") fileUpload: FileUpload | undefined;
 

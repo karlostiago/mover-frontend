@@ -17,6 +17,7 @@ import {CategoryModule} from "../pages/category/category.module";
 import {SubcategoryModule} from "../pages/subcategory/subcategory.module";
 import {PartnerModule} from "../pages/partner/partner.module";
 import {ContractModule} from "../pages/contract/contract.module";
+import {MaintenanceModule} from "../pages/maintenance/maintenance.module";
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import {ContractModule} from "../pages/contract/contract.module";
         CardModule,
         PartnerModule,
         ContractModule,
+        MaintenanceModule,
         HeaderComponent,
         MenuLateralComponent
     ],

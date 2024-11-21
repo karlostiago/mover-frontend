@@ -18,6 +18,8 @@ import {SubcategoryModule} from "../pages/subcategory/subcategory.module";
 import {PartnerModule} from "../pages/partner/partner.module";
 import {ContractModule} from "../pages/contract/contract.module";
 import {MaintenanceModule} from "../pages/maintenance/maintenance.module";
+import {HistoryfipeModule} from "../pages/historyfipe/historyfipe.module";
+import {TransactionModule} from "../pages/transaction/transaction.module";
 
 @NgModule({
     declarations: [
@@ -39,6 +41,8 @@ import {MaintenanceModule} from "../pages/maintenance/maintenance.module";
         PartnerModule,
         ContractModule,
         MaintenanceModule,
+        HistoryfipeModule,
+        TransactionModule,
         HeaderComponent,
         MenuLateralComponent
     ],

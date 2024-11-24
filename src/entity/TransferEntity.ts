@@ -1,20 +1,17 @@
-export class TransactionEntity {
+export class TransferEntity {
     id: number = 0;
     description: string = "";
     subcategoryId: number = 0;
     installments: number = 0;
     period: string;
     paymentType: string;
-    categoryType: string;
     dueDate: Date;
     paymentDate: Date | null;
     totalValue: number = 0;
     calculedValue: number = 0;
-    cardId: number = 0;
-    accountId: number = 0;
+    sourceAccountId: number = 0;
     destinationAccountId: number = 0;
-    vehicleId: number = 0;
-    contractId: number = 0;
+    transactionId: number = 0;
     active: boolean = true;
     paid: boolean = false;
 }

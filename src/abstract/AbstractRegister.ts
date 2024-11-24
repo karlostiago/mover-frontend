@@ -22,4 +22,8 @@ export abstract class AbstractRegister  {
             active: true,
         });
     }
+
+    protected validDate(date: Date) {
+        return !date.toString().includes('1800')
+    }
 }

@@ -17,25 +17,52 @@
 
                     <div class="row">
                         <div class="col-md-3">
-                            <label class="form-label"> Tipo lançamento *:</label>
+                            <label class="form-label"> Tipo categoria *:</label>
                             <p-dropdown styleClass="w-100" name="typeCategory" id="typeCategory" placeholder="Selecione"
-                                        [options]="transactionTypes" emptyMessage="Nenhuma tipo lançamento encontrado"
-                                        optionValue="description" optionLabel="description" required="true" [(ngModel)]="transaction['transactionType']"
+                                        [options]="categoryTypes" emptyMessage="Nenhuma tipo lançamento encontrado"
+                                        optionValue="description" optionLabel="description" required="true" [(ngModel)]="transaction['categoryType']"
                                         (onChange)="findCategories()"/>
                         </div>
                         <div class="col-md-3">
                             <label class="form-label"> Categoria *:</label>
                             <p-dropdown styleClass="w-100" name="subcategory" id="subcategory" placeholder="Selecione"
                                         [options]="groupCategories" optionLabel="label" [group]="true" emptyMessage="Nenhuma subcategoria encontrada" required="true" [(ngModel)]="transaction['subcategoryId']"
-                                        [filter]="true" [disabled]="!transaction['transactionType']" />
+                                        [filter]="true" [disabled]="!transaction['categoryType']" />
                         </div>
                         <div class="col-md-6">
                             <label class="form-label"> Descrição *:</label>
-                            <input pInputText class="form-control" name="description" id="description" [required]="true" />
+                            <input pInputText class="form-control" name="description" id="description" [required]="true" [(ngModel)]="transaction['description']" />
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" *ngIf="transaction.categoryType === 'TRANSFERÊNCIA'">
+                        <div class="col-md-3">
+                            <label class="form-label"> Saiu da conta *:</label>
+                            <p-dropdown styleClass="w-100" name="sourceAccount" id="sourceAccount" placeholder="Selecione"
+                                        optionLabel="name" optionValue="id" [(ngModel)]="transaction['accountId']"
+                                        [options]="accounts" required="true" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label"> Entrou na conta *:</label>
+                            <p-dropdown styleClass="w-100" name="destinationAccount" id="destinationAccount" placeholder="Selecione"
+                                        optionLabel="name" optionValue="id" [(ngModel)]="transaction['destinationAccountId']"
+                                        [options]="accounts" required="true" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label"> Valor *:</label>
+                            <input pInputText class="form-control" name="transferValue" id="transferValue" [(ngModel)]="transaction['totalValue']" appCurrencyFormatPtBr [required]="true" />
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label"> Data Vencimento *:</label>
+                            <input pInputText class="form-control" name="transferDuedate" id="transferDuedate" [(ngModel)]="transaction['dueDate']" appDateFormatPtBr [required]="true" />
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label"> Data Pagamento :</label>
+                            <input pInputText class="form-control" name="transferPaymentDate" id="transferPaymentDate" [(ngModel)]="transaction['paymentDate']" appDateFormatPtBr />
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="transaction.categoryType !== 'TRANSFERÊNCIA'">
                         <div class="col-md-3">
                             <label class="form-label"> Veículo :</label>
                             <p-dropdown styleClass="w-100" name="vehicle" id="vehicle" placeholder="Selecione"
@@ -63,7 +90,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" *ngIf="transaction.categoryType !== 'TRANSFERÊNCIA'">
                         <div class="col-md-3 col-sm-12">
                             <label class="form-label"> Valor *:</label>
                             <input pInputText class="form-control" name="value" id="value" [(ngModel)]="transaction['totalValue']" appCurrencyFormatPtBr [required]="true" />
@@ -74,7 +101,7 @@
                         </div>
                         <div class="col-md-3">
                             <label class="form-label"> Data Pagamento :</label>
-                            <input pInputText class="form-control" name="paymentDate" id="paymentDate" [(ngModel)]="transaction['paymentDate']" appDateFormatPtBr [required]="true" />
+                            <input pInputText class="form-control" name="paymentDate" id="paymentDate" [(ngModel)]="transaction['paymentDate']" appDateFormatPtBr />
                         </div>
                     </div>
 
@@ -86,20 +113,6 @@
                         </div>
                     </div>
                 </div>
-
-<!--                <div class="card-footer">-->
-<!--                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid">-->
-<!--                        <i class="fa-solid fa-save m-1"></i>-->
-<!--                        Salvar-->
-<!--                    </button>-->
-<!--                    <button pButton type="button" (click)="cancel(form)" class="p-button-danger p-button-sm ms-2" [disabled]="!isNewRegister()">-->
-<!--                        <i class="fa-solid fa-remove m-1"></i>-->
-<!--                        Cancelar-->
-<!--                    </button>-->
-<!--                    <a class="btn" style="float: right; margin-top: 5px;" routerLink="/search/transactions">-->
-<!--                        Voltar-->
-<!--                    </a>-->
-<!--                </div>-->
             </div>
         </div>
     </div>
@@ -112,7 +125,6 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-
                     <div class="row">
                         <div class="col-md-3">
                             <label class="form-label"> Tipo pagamento :</label>
@@ -127,14 +139,27 @@
                         <div class="col-md-3">
                             <label class="form-label"> Número de parcelas :</label>
                             <p-dropdown styleClass="w-100" name="installments" id="installments" placeholder="Selecione" [options]="installments" [(ngModel)]="transaction['installments']"
-                                emptyMessage="Nenhuma parcela encontrada"/>
+                                emptyMessage="Nenhuma parcela encontrada" [filter]="true"/>
                         </div>
 
                         <div class="col-md-3">
                             <label class="form-label"> Valor calculado :</label>
-                            <input pInputText class="form-control" name="calculatedValue " id="calculatedValue" appCurrencyFormatPtBr [(ngModel)]="transaction['calculedValue']" />
+                            <input pInputText class="form-control" name="calculatedValue " id="calculatedValue" appCurrencyFormatPtBr [(ngModel)]="transaction['calculedValue']" [readonly]="true" />
                         </div>
                     </div>
+                </div>
+                <div class="card-footer">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!formValid()">
+                        <i class="fa-solid fa-save m-1"></i>
+                        Salvar
+                    </button>
+                    <button pButton type="button" (click)="cancel(form)" class="p-button-danger p-button-sm ms-2" [disabled]="!isNewRegister()">
+                        <i class="fa-solid fa-remove m-1"></i>
+                        Cancelar
+                    </button>
+                    <a class="btn" style="float: right; margin-top: 5px;" routerLink="/search/transactions">
+                        Voltar
+                    </a>
                 </div>
             </div>
         </div>

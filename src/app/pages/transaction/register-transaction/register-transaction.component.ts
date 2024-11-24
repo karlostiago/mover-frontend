@@ -21,6 +21,7 @@ import {TypeTransactionEnum} from "../../../../enum/TypeTransactionEnum";
 import {PeriodTransactionEnum} from "../../../../enum/PeriodTransactionEnum";
 import {SelectItemGroup} from "primeng/api";
 import {CategoryTypeEntity} from "../../../../entity/CategoryTypeEntity";
+import {LoaderService} from "../../../core/loader/loader.service";
 
 @Component({
   selector: 'app-register-transaction',
@@ -36,7 +37,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     contracts = new Array<ContractEntity>();
     categories = new Array<CategoryEntity>();
     subcategories = new Array<SubCategoryEntity>();
-    transactionTypes = new Array<CategoryTypeEntity>();
+    categoryTypes = new Array<CategoryTypeEntity>();
 
     typesEnum = new Array<any>();
     periodEnum = new Array<any>();
@@ -52,7 +53,8 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
                 private vehicleService: VehicleService,
                 private contractService: ContractService,
                 private categoryService: CategoryService,
-                private subcategoryService: SubCategoryService) {
+                private subcategoryService: SubCategoryService,
+                private loadService: LoaderService) {
         super(activatedRoute);
     }
 
@@ -83,8 +85,10 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     }
 
     onChanceCard() {
+        this.loadService.automatic = false;
         this.cardService.findAll().then(response => {
             this.cards = response.filter(c => c.accountId === this.transaction['accountId']);
+            this.loadService.automatic = true;
         });
     }
 
@@ -102,22 +106,35 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     override cancel(form: NgForm) {
         form.resetForm({
-            date: new Date(),
-            active: true
+            duedate: new Date(),
+            active: true,
+            paid: false
         });
     }
 
     async findCategories() {
+        this.loadService.automatic = false;
         const response = await this.categoryService.findAll();
-        this.groupCategories = response.filter(category => category.type === this.transaction.transactionType).map(category => ({
+        this.groupCategories = response.filter(category => category.type === this.transaction.categoryType).map(category => ({
             value: category.id,
             label: `${category.description}`,
             items: this.findSubcategories(category.id, this.subcategories)
         }));
+        this.loadService.automatic = true;
     }
 
     processPayment() {
         this.transaction.paymentDate = this.transaction.paid ? new Date() : null;
+    }
+
+    formValid() {
+        if (this.transaction.categoryType === 'TRANSFERÊNCIA') {
+            return !!(this.transaction.subcategoryId && this.transaction.description &&
+                this.transaction.accountId && this.transaction.destinationAccountId
+                && this.transaction.totalValue && this.validDate(this.transaction.dueDate));
+        }
+        return this.transaction.subcategoryId && this.transaction.description &&
+            this.transaction.accountId && this.transaction.totalValue && this.validDate(this.transaction.dueDate);
     }
 
     private findSubcategories(categoryId: number, subcategories: Array<SubCategoryEntity>) {
@@ -149,7 +166,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     private async loadingTransactionTypes() {
         this.categoryService.findAllTypes().then(response => {
-            this.transactionTypes = response;
+            this.categoryTypes = response;
         });
     }
 

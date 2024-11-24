@@ -100,7 +100,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
             }));
         } else {
             this.installments = [];
-            this.transaction['installments'] = 0;
+            this.transaction['installment'] = 0;
         }
     }
 
@@ -135,6 +135,16 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         }
         return this.transaction.subcategoryId && this.transaction.description &&
             this.transaction.accountId && this.transaction.totalValue && this.validDate(this.transaction.dueDate);
+    }
+
+    calculatesInstallmentValue() {
+        const hasValue = this.transaction.totalValue && this.transaction.totalValue > 0;
+        const hasInstallment = this.transaction.installment && this.transaction.installment > 1;
+        if (hasValue == 0) {
+            this.transaction.installmentValue = 0;
+        } else if (hasValue && hasInstallment) {
+            this.transaction.installmentValue = this.transaction.totalValue / this.transaction.installment;
+        }
     }
 
     private findSubcategories(categoryId: number, subcategories: Array<SubCategoryEntity>) {

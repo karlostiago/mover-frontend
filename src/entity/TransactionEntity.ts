@@ -2,7 +2,7 @@ export class TransactionEntity {
     id: number = 0;
     description: string = "";
     subcategoryId: number = 0;
-    installments: number = 0;
+    installment: number = 0;
     period: string;
     paymentType: string;
     categoryType: string;

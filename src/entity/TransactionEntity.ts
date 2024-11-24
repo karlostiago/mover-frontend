@@ -9,7 +9,7 @@ export class TransactionEntity {
     dueDate: Date;
     paymentDate: Date | null;
     totalValue: number = 0;
-    calculedValue: number = 0;
+    installmentValue: number = 0;
     cardId: number = 0;
     accountId: number = 0;
     destinationAccountId: number = 0;

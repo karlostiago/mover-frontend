@@ -26,7 +26,7 @@
                         <div class="col-md-3">
                             <label class="form-label"> Categoria *:</label>
                             <p-dropdown styleClass="w-100" name="subcategory" id="subcategory" placeholder="Selecione"
-                                        [options]="groupCategories" optionLabel="label" [group]="true" emptyMessage="Nenhuma subcategoria encontrada" required="true" [(ngModel)]="transaction['subcategoryId']"
+                                        [options]="groupCategories" optionLabel="label" optionValue="value" [group]="true" emptyMessage="Nenhuma subcategoria encontrada" required="true" [(ngModel)]="transaction['subcategoryId']"
                                         [filter]="true" [disabled]="!transaction['categoryType']" />
                         </div>
                         <div class="col-md-6">
@@ -134,8 +134,8 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label class="form-label"> Período :</label>
-                            <p-dropdown styleClass="w-100" name="period" id="period" placeholder="Selecione" [options]="periodEnum" [(ngModel)]="transaction['period']" />
+                            <label class="form-label"> Frequência :</label>
+                            <p-dropdown styleClass="w-100" name="frequency" id="frequency" placeholder="Selecione" [options]="frequencyEnum" [(ngModel)]="transaction['frequency']" />
                         </div>
 
                         <div class="col-md-3">

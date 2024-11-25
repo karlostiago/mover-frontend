@@ -24,6 +24,6 @@ export abstract class AbstractRegister  {
     }
 
     protected validDate(date: Date) {
-        return !date.toString().includes('1800')
+        return date && !date.toString().includes('1800')
     }
 }

@@ -3,7 +3,7 @@ export class TransactionEntity {
     description: string = "";
     subcategoryId: number = 0;
     installment: number = 0;
-    period: string;
+    frequency: string;
     paymentType: string;
     categoryType: string;
     dueDate: Date;

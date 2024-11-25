@@ -17,8 +17,8 @@ import {CategoryService} from "../../category/category.service";
 import {SubCategoryEntity} from "../../../../entity/SubCategoryEntity";
 import {SubCategoryService} from "../../subcategory/subcategory.service";
 import {TransactionEntity} from "../../../../entity/TransactionEntity";
-import {TypeTransactionEnum} from "../../../../enum/TypeTransactionEnum";
-import {PeriodTransactionEnum} from "../../../../enum/PeriodTransactionEnum";
+import {TransactionTypeEnum} from "../../../../enum/TransactionTypeEnum";
+import {FrequencyTransactionEnum} from "../../../../enum/FrequencyTransactionEnum";
 import {SelectItemGroup} from "primeng/api";
 import {CategoryTypeEntity} from "../../../../entity/CategoryTypeEntity";
 import {LoaderService} from "../../../core/loader/loader.service";
@@ -40,7 +40,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     categoryTypes = new Array<CategoryTypeEntity>();
 
     typesEnum = new Array<any>();
-    periodEnum = new Array<any>();
+    frequencyEnum = new Array<any>();
     installments= new Array<any>();
 
     groupCategories: SelectItemGroup[];
@@ -157,7 +157,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     }
 
     private resetInstallment() {
-        this.transaction.period = '';
+        this.transaction.frequency = '';
         this.transaction.paymentType = '';
         this.transaction.installment = 0;
         this.transaction.installmentValue = 0;
@@ -178,6 +178,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     }
 
     private async save(form: NgForm) {
+        console.log(this.transaction.subcategoryId)
         this.transactionService.save(this.transaction).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
             this.cancel(form);
@@ -197,14 +198,14 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     }
 
     private async loadingPeriodTransaction() {
-        this.periodEnum = Object.entries(PeriodTransactionEnum).map(([key, value]) => ({
+        this.frequencyEnum = Object.entries(FrequencyTransactionEnum).map(([key, value]) => ({
             label: value,
             value: key
         }));
     }
 
     private async loadingTypeTransaction() {
-        this.typesEnum = Object.entries(TypeTransactionEnum).map(([key, value]) => ({
+        this.typesEnum = Object.entries(TransactionTypeEnum).map(([key, value]) => ({
             label: value,
             value: key
         }));

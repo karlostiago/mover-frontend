@@ -121,6 +121,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
             items: this.findSubcategories(category.id, this.subcategories)
         }));
         this.loadService.automatic = true;
+        this.resetInstallment();
     }
 
     processPayment() {
@@ -128,13 +129,14 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     }
 
     formValid() {
+        const validDate = this.validDate(this.transaction.dueDate);
         if (this.transaction.categoryType === 'TRANSFERÊNCIA') {
             return !!(this.transaction.subcategoryId && this.transaction.description &&
                 this.transaction.accountId && this.transaction.destinationAccountId
-                && this.transaction.totalValue && this.validDate(this.transaction.dueDate));
+                && this.transaction.totalValue && validDate);
         }
         return this.transaction.subcategoryId && this.transaction.description &&
-            this.transaction.accountId && this.transaction.totalValue && this.validDate(this.transaction.dueDate);
+            this.transaction.accountId && this.transaction.totalValue && validDate;
     }
 
     calculatesInstallmentValue() {
@@ -145,6 +147,13 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         } else if (hasValue && hasInstallment) {
             this.transaction.installmentValue = this.transaction.totalValue / this.transaction.installment;
         }
+    }
+
+    private resetInstallment() {
+        this.transaction.period = '';
+        this.transaction.paymentType = '';
+        this.transaction.installment = 0;
+        this.transaction.installmentValue = 0;
     }
 
     private findSubcategories(categoryId: number, subcategories: Array<SubCategoryEntity>) {

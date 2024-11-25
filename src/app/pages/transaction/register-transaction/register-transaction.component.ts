@@ -149,6 +149,13 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         }
     }
 
+    equalsAccount() {
+        if (this.transaction.accountId === this.transaction.destinationAccountId) {
+            this.alertService.error("Não é permitido realizar uma transferência para a mesma conta.");
+            return;
+        }
+    }
+
     private resetInstallment() {
         this.transaction.period = '';
         this.transaction.paymentType = '';

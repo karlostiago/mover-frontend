@@ -40,13 +40,13 @@
                             <label class="form-label"> Saiu da conta *:</label>
                             <p-dropdown styleClass="w-100" name="sourceAccount" id="sourceAccount" placeholder="Selecione"
                                         optionLabel="name" optionValue="id" [(ngModel)]="transaction['accountId']"
-                                        [options]="accounts" required="true" />
+                                        [options]="accounts" required="true" (onChange)="equalsAccount()" />
                         </div>
                         <div class="col-md-3">
                             <label class="form-label"> Entrou na conta *:</label>
                             <p-dropdown styleClass="w-100" name="destinationAccount" id="destinationAccount" placeholder="Selecione"
                                         optionLabel="name" optionValue="id" [(ngModel)]="transaction['destinationAccountId']"
-                                        [options]="accounts" required="true" />
+                                        [options]="accounts" required="true" (onChange)="equalsAccount()" />
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="form-label"> Valor *:</label>

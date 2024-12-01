@@ -26,7 +26,6 @@ export class SearchAccountComponent implements OnInit {
 
     async ngOnInit() {
         await this.loadingIcons();
-        console.log(this.icons);
         this.accountService.findAll().then(response => {
             this.accounts = response;
         });

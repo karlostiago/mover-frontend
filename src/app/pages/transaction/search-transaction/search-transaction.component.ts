@@ -4,7 +4,7 @@ import {AlertService} from "../../../../service/AlertService";
 import {TransactionService} from "../transaction.service";
 import {Table} from "primeng/table";
 import {ContractEntity} from "../../../../entity/ContractEntity";
-import {MaintenanceEntity} from "../../../../entity/MaintenanceEntity";
+import {TransactionEntity} from "../../../../entity/TransactionEntity";
 
 @Component({
   selector: 'app-search-transaction',
@@ -13,25 +13,23 @@ import {MaintenanceEntity} from "../../../../entity/MaintenanceEntity";
 })
 export class SearchTransactionComponent implements OnInit {
 
-    maintenances = new Array<MaintenanceEntity>();
+    transactions = new Array<TransactionEntity>();
     searchFilter: string = "";
 
     @ViewChild("table") table: Table | undefined;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
-                private maintenanceService: TransactionService) {
+                private transactionService: TransactionService) {
     }
 
     ngOnInit(): void {
-        this.maintenanceService.findAll().then(response => {
-            // this.maintenances = response;
-        });
+        this.findAll();
     }
 
     confirmationDelete(contract: ContractEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir essa Manutenção?`,
+            message: `Tem certeza que deseja excluir essa Lançamento?`,
             accept: () => {
                 this.delete(contract.id);
             }
@@ -39,16 +37,34 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     delete(id: number) {
-        this.maintenanceService.delete(id).then(() => {
-            this.maintenances = this.maintenances.filter(v => v.id !== id);
+        this.transactionService.delete(id).then(() => {
+            this.transactions = this.transactions.filter(t => t.id !== id);
             this.alertService.success("Registro deletado com sucesso.");
         });
     }
 
-    filterBy() {
-        this.maintenanceService.findBy(this.searchFilter).then(response => {
-            // this.maintenances = response;
+    pay(transaction: TransactionEntity) {
+        this.transactionService.pay(transaction.id).then(() => {
+            this.alertService.success("Lançamento efetivado com sucesso.");
+            this.findAll();
             this.table?.reset();
+        });
+    }
+
+    refund(transaction: TransactionEntity) {
+        this.alertService.success("Lançamento estornado com sucesso.");
+    }
+
+    filterBy() {
+        this.transactionService.findBy(this.searchFilter).then(response => {
+            this.transactions = response;
+            this.table?.reset();
+        });
+    }
+
+    private findAll() {
+        this.transactionService.findAll().then(response => {
+            this.transactions = response;
         });
     }
 }

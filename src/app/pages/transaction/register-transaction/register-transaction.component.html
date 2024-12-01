@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label"> Descrição *:</label>
-                            <input pInputText class="form-control" name="description" id="description" [required]="true" [(ngModel)]="transaction['description']" />
+                            <input pInputText class="form-control" name="description" id="description" [required]="true" [(ngModel)]="transaction['description']" [maxlength]="70" />
                         </div>
                     </div>
 
@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="form-label"> Valor *:</label>
-                            <input pInputText class="form-control" name="transferTotalValue" id="transferTotalValue" [(ngModel)]="transaction['totalValue']" appCurrencyFormatPtBr [required]="true"
+                            <input pInputText class="form-control" name="transferTotalValue" id="transferTotalValue" [(ngModel)]="transaction['value']" appCurrencyFormatPtBr [required]="true"
                                    (keyup)="calculatesInstallmentValue()" />
                         </div>
                         <div class="col-md-2">
@@ -94,7 +94,7 @@
                     <div class="row" *ngIf="transaction.categoryType !== 'TRANSFERÊNCIA'">
                         <div class="col-md-3 col-sm-12">
                             <label class="form-label"> Valor *:</label>
-                            <input pInputText class="form-control" name="totalValue" id="totalValue" [(ngModel)]="transaction['totalValue']" appCurrencyFormatPtBr [required]="true"
+                            <input pInputText class="form-control" name="totalValue" id="totalValue" [(ngModel)]="transaction['value']" appCurrencyFormatPtBr [required]="true"
                                    (keyup)="calculatesInstallmentValue()" />
                         </div>
                         <div class="col-md-3">

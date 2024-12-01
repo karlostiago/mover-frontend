@@ -22,8 +22,9 @@ export class TransactionService extends BaseService<TransactionEntity> {
         return this.toPromise(request);
     }
 
-    async findAllTypes(): Promise<Array<TransactionEntity>> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/types`, this.options());
+    async pay(id: number): Promise<TransactionEntity> {
+        const request = this.httpClient.put(`${this.baseURL}/${this.pathURL()}/${id}/pay`, this.options());
         return this.toPromise(request);
     }
+
 }

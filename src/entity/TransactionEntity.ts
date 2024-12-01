@@ -6,9 +6,11 @@ export class TransactionEntity {
     frequency: string;
     paymentType: string;
     categoryType: string;
+    category: string;
+    subcategory: string;
     dueDate: Date;
     paymentDate: Date | null;
-    totalValue: number = 0;
+    value: number = 0;
     installmentValue: number = 0;
     cardId: number = 0;
     accountId: number = 0;
@@ -17,4 +19,5 @@ export class TransactionEntity {
     contractId: number = 0;
     active: boolean = true;
     paid: boolean = false;
+    transactionType: string;
 }

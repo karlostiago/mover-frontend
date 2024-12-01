@@ -106,9 +106,11 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     override cancel(form: NgForm) {
         form.resetForm({
+            transferDuedate: new Date(),
             duedate: new Date(),
             active: true,
-            paid: false
+            paid: false,
+            installments: 0
         });
     }
 
@@ -122,6 +124,8 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         }));
         this.loadService.automatic = true;
         this.resetInstallment();
+
+        console.log(this.transaction.categoryType, response);
     }
 
     processPayment() {
@@ -133,19 +137,19 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         if (this.transaction.categoryType === 'TRANSFERÊNCIA') {
             return !!(this.transaction.subcategoryId && this.transaction.description &&
                 this.transaction.accountId && this.transaction.destinationAccountId
-                && this.transaction.totalValue && validDate);
+                && this.transaction.value && validDate);
         }
         return this.transaction.subcategoryId && this.transaction.description &&
-            this.transaction.accountId && this.transaction.totalValue && validDate;
+            this.transaction.accountId && this.transaction.value && validDate;
     }
 
     calculatesInstallmentValue() {
-        const hasValue = this.transaction.totalValue && this.transaction.totalValue > 0;
+        const hasValue = this.transaction.value && this.transaction.value > 0;
         const hasInstallment = this.transaction.installment && this.transaction.installment > 1;
         if (hasValue == 0) {
             this.transaction.installmentValue = 0;
         } else if (hasValue && hasInstallment) {
-            this.transaction.installmentValue = this.transaction.totalValue / this.transaction.installment;
+            this.transaction.installmentValue = this.transaction.value / this.transaction.installment;
         }
     }
 
@@ -178,11 +182,11 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     }
 
     private async save(form: NgForm) {
-        console.log(this.transaction.subcategoryId)
         this.transactionService.save(this.transaction).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
+            this.transaction = new TransactionEntity();
             this.cancel(form);
-        })
+        });
     }
 
     private update() {

@@ -3,6 +3,7 @@ import {BaseService} from "../../../abstract/BaseService";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../core/handler/ErrorHandler";
 import {TransactionEntity} from "../../../entity/TransactionEntity";
+import {BalanceEntity} from "../../../entity/BalanceEntity";
 
 @Injectable({
   providedIn: 'root'
@@ -27,4 +28,13 @@ export class TransactionService extends BaseService<TransactionEntity> {
         return this.toPromise(request);
     }
 
+    async refund(id: number): Promise<TransactionEntity> {
+        const request = this.httpClient.put(`${this.baseURL}/${this.pathURL()}/${id}/refund`, this.options());
+        return this.toPromise(request);
+    }
+
+    async balance(): Promise<BalanceEntity> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/balances`, this.options());
+        return this.toPromise(request);
+    }
 }

@@ -36,6 +36,37 @@
     <br />
 
     <div class="row g-3">
+        <div class="col-md-4 col-sm-12 mb-10">
+            <div class="card">
+                <div class="card-header">
+                    <label>Saldo em conta corrente</label>
+                    <h5>{{ balance['currentAccount'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12 mb-10">
+            <div class="card">
+                <div class="card-header">
+                    <label>Saldo em conta caução</label>
+                    <h5>{{ balance['escrowAccount'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12 mb-10">
+            <div class="card">
+                <div class="card-header">
+                    <label>Saldo em cartão crédito</label>
+                    <h5>R$ 0,00</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row g-3">
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
@@ -44,6 +75,7 @@
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
                         <ng-template pTemplate="header">
                             <tr *ngIf="transactions.length > 0">
+                                <th class="text-center"></th>
                                 <th class="text-center">DATA</th>
                                 <th class="text-left">DESCRIÇÃO</th>
                                 <th class="text-left">CATEGORIA</th>
@@ -55,15 +87,18 @@
 
                         <ng-template pTemplate="body" let-transaction>
                             <tr>
-                                <td class="text-center {{ transaction['transactionType'] === 'DÉBITO' ? 'text-danger' : '' }}">
+                                <td class="text-center" style="width: .625rem">
+                                    <img src="{{ transaction['icon'] }}" style="width: 2rem; border-radius: 8px;"  alt="icon" />
+                                </td>
+                                <td class="text-center">
                                     <span class="p-column-title">DATA </span>
                                     {{ transaction['paid'] ? transaction['paymentDate'] : transaction['dueDate'] }}
                                 </td>
-                                <td class="text-left {{ transaction['transactionType'] === 'DÉBITO' ? 'text-danger' : '' }} ">
+                                <td class="text-left">
                                     <span class="p-column-title">DESCRIÇÃO</span>
                                     {{ transaction['description'].toUpperCase() }}
                                 </td>
-                                <td class="text-left {{ transaction['transactionType'] === 'DÉBITO' ? 'text-danger' : '' }} " style="width: 400px">
+                                <td class="text-left" style="width: 400px">
                                     <span class="p-column-title">CATEGORIA</span>
                                     {{ transaction['subcategory'] }}
                                 </td>
@@ -71,7 +106,7 @@
                                     <span class="p-column-title">VALOR</span>
                                     {{ transaction['value'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                                 </td>
-                                <td class="text-center {{ transaction['transactionType'] === 'DÉBITO' ? 'text-danger' : '' }} ">
+                                <td class="text-center">
                                     <span class="p-column-title">EFETIVADO</span>
                                     <a (click)="transaction['paid'] ? refund(transaction) : pay(transaction)" style="cursor: pointer">
                                         <span class=" {{ transaction['paid'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
@@ -84,7 +119,7 @@
                                     <p-button [link]="true" (click)="confirmationDelete(transaction)" >
                                         <i class="fa-regular fa-trash-can"></i>
                                     </p-button>
-                                    <p-button [link]="true" [routerLink]="['/update/transactions/', transaction.id]">
+                                    <p-button [link]="true" (click)="confirmationDelete(transaction)">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </p-button>
                                 </td>

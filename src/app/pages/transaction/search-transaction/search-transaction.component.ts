@@ -5,6 +5,7 @@ import {TransactionService} from "../transaction.service";
 import {Table} from "primeng/table";
 import {ContractEntity} from "../../../../entity/ContractEntity";
 import {TransactionEntity} from "../../../../entity/TransactionEntity";
+import {BalanceEntity} from "../../../../entity/BalanceEntity";
 
 @Component({
   selector: 'app-search-transaction',
@@ -14,6 +15,8 @@ import {TransactionEntity} from "../../../../entity/TransactionEntity";
 export class SearchTransactionComponent implements OnInit {
 
     transactions = new Array<TransactionEntity>();
+    balance = new BalanceEntity();
+
     searchFilter: string = "";
 
     @ViewChild("table") table: Table | undefined;
@@ -25,15 +28,17 @@ export class SearchTransactionComponent implements OnInit {
 
     ngOnInit(): void {
         this.findAll();
+        this.updateBalance();
     }
 
     confirmationDelete(contract: ContractEntity) {
-        this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir essa Lançamento?`,
-            accept: () => {
-                this.delete(contract.id);
-            }
-        })
+        this.alertService.info("Essa funcionalidade está em desenvolvimento.");
+        // this.confirmationService.confirm({
+        //     message: `Tem certeza que deseja excluir essa Lançamento?`,
+        //     accept: () => {
+        //         this.delete(contract.id);
+        //     }
+        // })
     }
 
     delete(id: number) {
@@ -47,12 +52,18 @@ export class SearchTransactionComponent implements OnInit {
         this.transactionService.pay(transaction.id).then(() => {
             this.alertService.success("Lançamento efetivado com sucesso.");
             this.findAll();
+            this.updateBalance();
             this.table?.reset();
         });
     }
 
     refund(transaction: TransactionEntity) {
-        this.alertService.success("Lançamento estornado com sucesso.");
+        this.transactionService.refund(transaction.id).then(() => {
+            this.alertService.success("Lançamento estornado com sucesso.");
+            this.findAll();
+            this.updateBalance();
+            this.table?.reset();
+        });
     }
 
     filterBy() {
@@ -60,6 +71,12 @@ export class SearchTransactionComponent implements OnInit {
             this.transactions = response;
             this.table?.reset();
         });
+    }
+
+    private updateBalance() {
+        this.transactionService.balance().then(response => {
+            this.balance = response;
+        })
     }
 
     private findAll() {

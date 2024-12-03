@@ -1,5 +1,6 @@
 export class TransactionEntity {
     id: number = 0;
+    icon: string = "";
     description: string = "";
     subcategoryId: number = 0;
     installment: number = 0;

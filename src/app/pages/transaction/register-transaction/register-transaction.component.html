@@ -47,42 +47,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <br/>
-
-    <app-title name="Parcelamento"></app-title>
-
-    <div class="row g-3">
-        <div class="col-md-12 mb-10">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label class="form-label"> Tipo parcelamento :</label>
-                            <p-dropdown styleClass="w-100" name="type" id="type" placeholder="Selecione" [options]="typesEnum" [(ngModel)]="transaction['paymentType']" (onChange)="loadingInstallments()" />
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label"> Frequência :</label>
-                            <p-dropdown styleClass="w-100" name="frequency" id="frequency" placeholder="Selecione" [options]="frequencyEnum" [(ngModel)]="transaction['frequency']" />
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label"> Número de parcelas :</label>
-                            <p-dropdown styleClass="w-100" name="installments" id="installments" placeholder="Selecione" [options]="installments" [(ngModel)]="transaction['installment']"
-                                emptyMessage="Nenhuma parcela encontrada" [filter]="true"
-                                (onChange)="calculatesInstallmentValue()"/>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label"> Valor da parcela :</label>
-                            <input pInputText class="form-control" name="installmentValue " id="installmentValue" appCurrencyFormatPtBr [(ngModel)]="transaction['installmentValue']" [readonly]="true" />
-                        </div>
-                    </div>
-                </div>
                 <div class="card-footer">
                     <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!formValid()">
                         <i class="fa-solid fa-save m-1"></i>
@@ -92,9 +57,57 @@
                         <i class="fa-solid fa-remove m-1"></i>
                         Cancelar
                     </button>
+                    <button pButton type="button" class="p-button-contrast p-button-sm ms-2" *ngIf="!enableInstallments" (click)="enableInstallments = !enableInstallments">
+                        <i class="fa-solid fa-repeat m-1"></i>
+                        {{ enableInstallments ? 'Desab.' : 'Hab.' }} parcelamento
+                    </button>
                     <a class="btn" style="float: right; margin-top: 5px;" routerLink="/search/transactions">
                         Voltar
                     </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+
+    <div *ngIf="enableInstallments">
+        <app-title name="Parcelamento"></app-title>
+
+        <div class="row g-3">
+            <div class="col-md-12 mb-10">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="form-label"> Tipo parcelamento :</label>
+                                <p-dropdown styleClass="w-100" name="type" id="type" placeholder="Selecione" [options]="typesEnum" [(ngModel)]="transaction['paymentType']" (onChange)="loadingInstallments()" />
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="form-label"> Frequência :</label>
+                                <p-dropdown styleClass="w-100" name="frequency" id="frequency" placeholder="Selecione" [options]="frequencyEnum" [(ngModel)]="transaction['frequency']" />
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="form-label"> Número de parcelas :</label>
+                                <p-dropdown styleClass="w-100" name="installments" id="installments" placeholder="Selecione" [options]="installments" [(ngModel)]="transaction['installment']"
+                                            emptyMessage="Nenhuma parcela encontrada" [filter]="true"
+                                            (onChange)="calculatesInstallmentValue()"/>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="form-label"> Valor da parcela :</label>
+                                <input pInputText class="form-control" name="installmentValue " id="installmentValue" appCurrencyFormatPtBr [(ngModel)]="transaction['installmentValue']" [readonly]="true" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button pButton type="button" class="p-button-contrast p-button-sm" (click)="enableInstallments = !enableInstallments">
+                            <i class="fa-solid fa-repeat m-1"></i>
+                            {{ enableInstallments ? 'Desab.' : 'Hab.' }} parcelamento
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

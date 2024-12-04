@@ -33,6 +33,8 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     groupCategories: SelectItemGroup[];
 
+    enableInstallments: boolean = false;
+
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 private transactionService: TransactionService,

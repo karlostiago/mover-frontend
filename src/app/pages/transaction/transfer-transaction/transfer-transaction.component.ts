@@ -13,6 +13,8 @@ import {BaseTransaction} from "../../../../abstract/BaseTransaction";
 export class TransferTransactionComponent extends BaseTransaction implements OnInit {
 
     accounts = new Array<AccountEntity>();
+    debitAccounts = new Array<AccountEntity>();
+    creditAccounts = new Array<AccountEntity>();
 
     @Input() transaction: TransactionEntity;
 
@@ -23,14 +25,17 @@ export class TransferTransactionComponent extends BaseTransaction implements OnI
 
     async ngOnInit() {
         await this.accountService.findAll().then(response => {
+            this.debitAccounts = response;
+            this.creditAccounts = response;
             this.accounts = response;
         });
     }
 
-    equalsAccount() {
-        if (this.transaction.accountId === this.transaction.destinationAccountId) {
-            this.alertService.error("Não é permitido realizar uma transferência para a mesma conta.");
-            return;
+    removeAccount(id: number, debit: boolean) {
+        if (debit) {
+            this.creditAccounts = this.accounts.filter(c => c.id !== id);
+        } else {
+            this.debitAccounts = this.accounts.filter(c => c.id !== id);
         }
     }
 }

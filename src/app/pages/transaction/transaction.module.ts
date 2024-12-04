@@ -12,11 +12,19 @@ import {DropdownModule} from "primeng/dropdown";
 import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../../shared/SharedModule";
 import {InputTextareaModule} from "primeng/inputtextarea";
+import {TransferTransactionComponent} from "./transfer-transaction/transfer-transaction.component";
+import {
+    CorporateCapitalTransactionComponent
+} from "./corporate-capital-transaction/corporate-capital-transaction.component";
+import {CommonTransactionComponent} from "./common-transaction/common-transaction.component";
 
 @NgModule({
     declarations: [
         RegisterTransactionComponent,
-        SearchTransactionComponent
+        SearchTransactionComponent,
+        TransferTransactionComponent,
+        CorporateCapitalTransactionComponent,
+        CommonTransactionComponent
     ],
     exports: [
         RegisterTransactionComponent,

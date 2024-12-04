@@ -4,20 +4,12 @@ import {AbstractRegister} from "../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
 import {AlertService} from "../../../../service/AlertService";
 import {TransactionService} from "../transaction.service";
-import {VehicleEntity} from "../../../../entity/VehicleEntity";
-import {VehicleService} from "../../vehicle/vehicle.service";
-import {AccountEntity} from "../../../../entity/AccountEntity";
-import {AccountService} from "../../account/account.service";
-import {CardEntity} from "../../../../entity/CardEntity";
-import {CardService} from "../../card/card.service";
-import {ContractService} from "../../contract/contract.service";
-import {ContractEntity} from "../../../../entity/ContractEntity";
 import {CategoryEntity} from "../../../../entity/CategoryEntity";
 import {CategoryService} from "../../category/category.service";
 import {SubCategoryEntity} from "../../../../entity/SubCategoryEntity";
 import {SubCategoryService} from "../../subcategory/subcategory.service";
 import {TransactionEntity} from "../../../../entity/TransactionEntity";
-import {TransactionTypeEnum} from "../../../../enum/TransactionTypeEnum";
+import {InstallmentTypeEnum} from "../../../../enum/InstallmentTypeEnum";
 import {FrequencyTransactionEnum} from "../../../../enum/FrequencyTransactionEnum";
 import {SelectItemGroup} from "primeng/api";
 import {CategoryTypeEntity} from "../../../../entity/CategoryTypeEntity";
@@ -31,10 +23,6 @@ import {LoaderService} from "../../../core/loader/loader.service";
 export class RegisterTransactionComponent extends AbstractRegister implements OnInit {
 
     transaction = new TransactionEntity();
-    accounts = new Array<AccountEntity>();
-    cards = new Array<CardEntity>();
-    vehicles = new Array<VehicleEntity>();
-    contracts = new Array<ContractEntity>();
     categories = new Array<CategoryEntity>();
     subcategories = new Array<SubCategoryEntity>();
     categoryTypes = new Array<CategoryTypeEntity>();
@@ -47,11 +35,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
-                private accountService: AccountService,
-                private cardService: CardService,
                 private transactionService: TransactionService,
-                private vehicleService: VehicleService,
-                private contractService: ContractService,
                 private categoryService: CategoryService,
                 private subcategoryService: SubCategoryService,
                 private loadService: LoaderService) {
@@ -60,11 +44,8 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     async ngOnInit() {
         await this.loadingAllSubcategory();
-        await this.loadingAllAccounts();
-        await this.loadingAllVehicles();
-        await this.loadingAllContracts();
-        await this.loadingTypeTransaction();
-        await this.loadingPeriodTransaction();
+        await this.loadingInstallmentType();
+        await this.loadingFrequencyransaction();
         await this.loadingTransactionTypes();
 
         this.transaction.dueDate = new Date();
@@ -84,14 +65,6 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         }
     }
 
-    onChanceCard() {
-        this.loadService.automatic = false;
-        this.cardService.findAll().then(response => {
-            this.cards = response.filter(c => c.accountId === this.transaction['accountId']);
-            this.loadService.automatic = true;
-        });
-    }
-
     loadingInstallments() {
         if (this.transaction.paymentType === 'IN_INSTALLMENTS') {
             this.installments = Array.from({ length: 399 }, (_, i) => i + 2).map(number => ({
@@ -106,12 +79,15 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     override cancel(form: NgForm) {
         form.resetForm({
-            transferDuedate: new Date(),
-            duedate: new Date(),
-            active: true,
             paid: false,
-            installments: 0
         });
+        this.transaction.value = 0;
+        this.transaction.paymentDate = null;
+        this.transaction.accountId = 0;
+        this.transaction.partnerId = 0;
+        this.transaction.contractId = 0;
+        this.transaction.cardId = 0;
+        this.transaction.dueDate = new Date();
     }
 
     async findCategories() {
@@ -139,6 +115,11 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
                 this.transaction.accountId && this.transaction.destinationAccountId
                 && this.transaction.value && validDate);
         }
+        if (this.transaction.categoryType === 'CAPITAL SOCIETÁRIO') {
+            return !!(this.transaction.subcategoryId && this.transaction.description &&
+                this.transaction.accountId && this.transaction.partnerId
+                && this.transaction.value && validDate);
+        }
         return this.transaction.subcategoryId && this.transaction.description &&
             this.transaction.accountId && this.transaction.value && validDate;
     }
@@ -150,13 +131,6 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
             this.transaction.installmentValue = 0;
         } else if (hasValue && hasInstallment) {
             this.transaction.installmentValue = this.transaction.value / this.transaction.installment;
-        }
-    }
-
-    equalsAccount() {
-        if (this.transaction.accountId === this.transaction.destinationAccountId) {
-            this.alertService.error("Não é permitido realizar uma transferência para a mesma conta.");
-            return;
         }
     }
 
@@ -201,35 +175,17 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         });
     }
 
-    private async loadingPeriodTransaction() {
+    private async loadingFrequencyransaction() {
         this.frequencyEnum = Object.entries(FrequencyTransactionEnum).map(([key, value]) => ({
             label: value,
             value: key
         }));
     }
 
-    private async loadingTypeTransaction() {
-        this.typesEnum = Object.entries(TransactionTypeEnum).map(([key, value]) => ({
+    private async loadingInstallmentType() {
+        this.typesEnum = Object.entries(InstallmentTypeEnum).map(([key, value]) => ({
             label: value,
             value: key
         }));
-    }
-
-    private async loadingAllContracts() {
-        this.contractService.findAll().then(response => {
-            this.contracts = response;
-        });
-    }
-
-    private async loadingAllVehicles() {
-        this.vehicleService.findAll().then(response => {
-            this.vehicles = response;
-        });
-    }
-
-    private async loadingAllAccounts() {
-        this.accountService.findAll().then(response => {
-            this.accounts = response;
-        });
     }
 }

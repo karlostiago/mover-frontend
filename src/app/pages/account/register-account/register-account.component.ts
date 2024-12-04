@@ -31,7 +31,6 @@ export class RegisterAccountComponent extends AbstractRegister implements OnInit
 
         if (!this.registerNew) {
             this.accountService.findById(this.id).then(response => {
-                console.log(response)
                 this.account = response;
             });
         }

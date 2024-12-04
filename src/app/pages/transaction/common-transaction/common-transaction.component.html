@@ -1,0 +1,43 @@
+<div class="row" *ngIf="transaction.categoryType !== 'TRANSFERÊNCIA' && transaction.categoryType !== 'CAPITAL SOCIETÁRIO'">
+    <div class="col-md-3">
+        <label class="form-label"> Veículo :</label>
+        <p-dropdown styleClass="w-100" name="vehicle" id="vehicle" placeholder="Selecione"
+                    optionLabel="fullname" optionValue="id" [(ngModel)]="transaction['vehicleId']"
+                    [options]="vehicles" required="true" [filter]="true" />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label"> Número de contrato :</label>
+        <p-dropdown styleClass="w-100" name="contract" id="contract" placeholder="Selecione"
+                    optionLabel="number" optionValue="id" [(ngModel)]="transaction['contractId']"
+                    [options]="contracts" emptyMessage="Nenhum número de contrato encontrado"/>
+    </div>
+    <div class="col-md-3">
+        <label class="form-label"> Conta *:</label>
+        <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione"
+                    optionLabel="name" optionValue="id" [(ngModel)]="transaction['accountId']"
+                    [options]="accounts" required="true" (onChange)="onChanceCard()" />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label"> Cartão :</label>
+        <p-dropdown styleClass="w-100" name="card" id="card" placeholder="Selecione"
+                    optionLabel="name" optionValue="id" [(ngModel)]="transaction['cardId']"
+                    [options]="cards" [disabled]="!transaction['accountId']"
+                    emptyMessage="Nenhum cartão disponível"/>
+    </div>
+</div>
+
+<div class="row" *ngIf="transaction.categoryType !== 'TRANSFERÊNCIA' && transaction.categoryType !== 'CAPITAL SOCIETÁRIO'">
+    <div class="col-md-3 col-sm-12">
+        <label class="form-label"> Valor *:</label>
+        <input pInputText class="form-control" name="value" id="value" [(ngModel)]="transaction['value']" appCurrencyFormatPtBr [required]="true"
+               (keyup)="calculatesInstallmentValue(transaction)" />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label"> Data Vencimento *:</label>
+        <input pInputText class="form-control" name="dueDate" id="dueDate" [(ngModel)]="transaction['dueDate']" appDateFormatPtBr [required]="true" />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label"> Data Pagamento :</label>
+        <input pInputText class="form-control" name="paymentDate" id="paymentDate" [(ngModel)]="transaction['paymentDate']" appDateFormatPtBr />
+    </div>
+</div>

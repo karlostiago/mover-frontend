@@ -18,6 +18,7 @@ export class TransactionEntity {
     destinationAccountId: number = 0;
     vehicleId: number = 0;
     contractId: number = 0;
+    partnerId: number = 0;
     active: boolean = true;
     paid: boolean = false;
     transactionType: string;

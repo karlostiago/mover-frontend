@@ -6,6 +6,7 @@ import {DialogContactComponent} from "../../app/pages/client/dialog-contact/dial
 import {
     DialogTerminateContractComponent
 } from "../../app/pages/contract/dialog-terminate-contract/dialog-terminate-contract.component";
+import {DialogSubcategoryComponent} from "../../app/pages/category/dialog-subcategory/dialog-subcategory.component";
 
 @Component({
   selector: 'app-global-dialog',
@@ -22,6 +23,8 @@ export class GlobalDialogComponent implements OnInit {
 
     @ViewChild(DialogTerminateContractComponent) dialogTerminateContract: DialogTerminateContractComponent;
 
+    @ViewChild(DialogSubcategoryComponent) dialogSubcategoryComponent: DialogSubcategoryComponent;
+
     ngOnInit() { }
 
     open(typeDialog: TypeDialog, source?: any, target?: any) {
@@ -36,6 +39,9 @@ export class GlobalDialogComponent implements OnInit {
         }
         else if (typeDialog === TypeDialog.TERMINATE_CONTRACT) {
             this.dialogTerminateContract.showDialog(source);
+        }
+        else if (typeDialog === TypeDialog.SUB_CATEGORY) {
+            this.dialogSubcategoryComponent.showDialog(source, target);
         }
     }
 }

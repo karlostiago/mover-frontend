@@ -6,6 +6,9 @@ import {AlertService} from "../../../../service/AlertService";
 import {CategoryService} from "../category.service";
 import {CategoryEntity} from "../../../../entity/CategoryEntity";
 import {CategoryTypeEntity} from "../../../../entity/CategoryTypeEntity";
+import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
+import {SubCategoryEntity} from "../../../../entity/SubCategoryEntity";
+import {ContactEntity} from "../../../../entity/ContactEntity";
 
 @Component({
   selector: 'app-register-category',
@@ -19,6 +22,7 @@ export class RegisterCategoryComponent extends AbstractRegister implements OnIni
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
+                private globalDialogService: GlobalDialogService,
                 private categoryService: CategoryService) {
         super(activatedRoute);
     }
@@ -40,10 +44,22 @@ export class RegisterCategoryComponent extends AbstractRegister implements OnIni
         }
     }
 
+    deleteSubcategory(subcategory: SubCategoryEntity) {
+        this.category.subcategories = this.category.subcategories.filter(s => s.id !== subcategory.id);
+    }
+
+    openDialogSubcategory() {
+        this.globalDialogService.openDialog(TypeDialog.SUB_CATEGORY, this.category);
+    }
+
+    updateOpenDialogSubcategory(subcategory: SubCategoryEntity) {
+        this.globalDialogService.openDialog(TypeDialog.SUB_CATEGORY, this.category, subcategory);
+    }
 
     private save(form: NgForm) {
         this.categoryService.save(this.category).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
+            this.category.subcategories = new Array<SubCategoryEntity>();
             form.resetForm({
                 active: true
             });

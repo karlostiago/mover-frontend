@@ -5,7 +5,8 @@ export enum TypeDialog {
     ADDRESS,
     FIPE,
     CONTACT,
-    TERMINATE_CONTRACT
+    TERMINATE_CONTRACT,
+    SUB_CATEGORY
 }
 
 @Injectable({

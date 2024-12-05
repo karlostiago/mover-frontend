@@ -70,13 +70,17 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table [value]="transactions" [paginator]="transactions.length > 10" [rows]="10"
-                             responsiveLayout="stack" [breakpoint]="'1300px'"
-                             styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+                    <p-table #table [value]="transactions" responsiveLayout="stack" [breakpoint]="'1300px'"
+                             styleClass="p-datatable-striped p-datatable p-datatable-gridlines"
+                             scrollHeight="1400px"
+                             sortMode="single"
+                             sortField="date"
+                             [scrollable]="false"
+                             rowGroupMode="subheader"
+                             groupRowsBy="date">
                         <ng-template pTemplate="header">
                             <tr *ngIf="transactions.length > 0">
                                 <th class="text-center"></th>
-                                <th class="text-center">DATA</th>
                                 <th class="text-left">DESCRIÇÃO</th>
                                 <th class="text-left">CATEGORIA</th>
                                 <th class="text-center">VALOR</th>
@@ -85,14 +89,18 @@
                             </tr>
                         </ng-template>
 
+                        <ng-template pTemplate="groupheader" let-transaction let-rowIndex="rowIndex">
+                            <tr pRowGroupHeader>
+                                <td colspan="6">
+                                    <strong style="font-size: 1rem;"> {{ transaction['date'] }} </strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+
                         <ng-template pTemplate="body" let-transaction>
                             <tr>
                                 <td class="text-center" style="width: .625rem">
                                     <img src="{{ transaction['icon'] }}" style="width: 2rem; border-radius: 8px;"  alt="icon" />
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">DATA </span>
-                                    {{ transaction['paid'] ? transaction['paymentDate'] : transaction['dueDate'] }}
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">DESCRIÇÃO</span>

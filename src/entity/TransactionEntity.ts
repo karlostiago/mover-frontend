@@ -9,6 +9,7 @@ export class TransactionEntity {
     categoryType: string;
     category: string;
     subcategory: string;
+    date: Date;
     dueDate: Date;
     paymentDate: Date | null;
     value: number = 0;

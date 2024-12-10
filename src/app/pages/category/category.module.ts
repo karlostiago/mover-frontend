@@ -11,6 +11,7 @@ import {InputSwitchModule} from "primeng/inputswitch";
 import {DropdownModule} from "primeng/dropdown";
 import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../../shared/SharedModule";
+import {Ripple} from "primeng/ripple";
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import {SharedModule} from "../../../shared/SharedModule";
         InputSwitchModule,
         DropdownModule,
         DialogModule,
-        SharedModule
+        SharedModule,
+        Ripple
     ]
 })
 export class CategoryModule { }

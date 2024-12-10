@@ -8,7 +8,7 @@ import {CategoryEntity} from "../../../../entity/CategoryEntity";
 import {CategoryTypeEntity} from "../../../../entity/CategoryTypeEntity";
 import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
 import {SubCategoryEntity} from "../../../../entity/SubCategoryEntity";
-import {ContactEntity} from "../../../../entity/ContactEntity";
+import {SubCategoryService} from "../../subcategory/subcategory.service";
 
 @Component({
   selector: 'app-register-category',
@@ -23,6 +23,7 @@ export class RegisterCategoryComponent extends AbstractRegister implements OnIni
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 private globalDialogService: GlobalDialogService,
+                private subcategoryService: SubCategoryService,
                 private categoryService: CategoryService) {
         super(activatedRoute);
     }
@@ -49,11 +50,11 @@ export class RegisterCategoryComponent extends AbstractRegister implements OnIni
     }
 
     openDialogSubcategory() {
-        this.globalDialogService.openDialog(TypeDialog.SUB_CATEGORY, this.category);
+        this.globalDialogService.openDialog(TypeDialog.SUBCATEGORY, this.category);
     }
 
     updateOpenDialogSubcategory(subcategory: SubCategoryEntity) {
-        this.globalDialogService.openDialog(TypeDialog.SUB_CATEGORY, this.category, subcategory);
+        this.globalDialogService.openDialog(TypeDialog.SUBCATEGORY, this.category, subcategory);
     }
 
     private save(form: NgForm) {

@@ -51,7 +51,7 @@ export class RegisterCardComponent extends AbstractRegister implements OnInit {
     onChangeAccount() {
         if (this.card['accountId']) {
             const account = this.accounts.filter(c => c.id === this.card['accountId'])[0];
-            this.card['codeIcon'] = account.codeIcon;
+            // this.card['codeIcon'] = account.codeIcon;
         }
     }
 

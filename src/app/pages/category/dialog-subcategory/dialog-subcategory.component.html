@@ -1,4 +1,4 @@
-<p-dialog header="Adicionar uma subcategoria" [modal]="true"  [(visible)]="visible" [style]="{ width: '25rem' }" [draggable]="false" [baseZIndex]="100000">
+<p-dialog header="{{ subcategory.id > 0 ? 'Atualizar' : 'Adicionar' }} uma subcategoria" [modal]="true"  [(visible)]="visible" [style]="{ width: '25rem' }" [draggable]="false" [baseZIndex]="100000">
     <form autocomplete="off" #form="ngForm">
         <div class="row g-3">
             <div class="col-md-12 mb-10" style="margin-top: -1.125rem; margin-bottom: -0.9375rem; padding-left: 0">

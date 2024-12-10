@@ -4,6 +4,7 @@ import {AlertService} from "../../../../service/AlertService";
 import {CategoryService} from "../category.service";
 import {Table} from "primeng/table";
 import {CategoryEntity} from "../../../../entity/CategoryEntity";
+import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
 
 @Component({
   selector: 'app-search-category',
@@ -12,6 +13,7 @@ import {CategoryEntity} from "../../../../entity/CategoryEntity";
 })
 export class SearchCategoryComponent implements OnInit {
 
+    category: CategoryEntity;
     categories = new Array<CategoryEntity>();
     searchFilter: string = "";
 
@@ -19,6 +21,7 @@ export class SearchCategoryComponent implements OnInit {
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
+                private globalDialogService: GlobalDialogService,
                 private categoryService: CategoryService) {
     }
 
@@ -37,6 +40,15 @@ export class SearchCategoryComponent implements OnInit {
         })
     }
 
+    async openDialogListSubcategory(categoryId: number) {
+        await this.loadgingSubcategories(categoryId);
+        if (this.category.subcategories.length == 0) {
+            this.alertService.error("Nenhuma subcategoria encontrada.");
+        } else {
+            this.globalDialogService.openDialog(TypeDialog.LIST_SUBCATEGORY, this.category);
+        }
+    }
+
     delete(id: number) {
         this.categoryService.delete(id).then(() => {
             this.categories = this.categories.filter(v => v.id !== id);
@@ -48,6 +60,12 @@ export class SearchCategoryComponent implements OnInit {
         this.categoryService.findBy(this.searchFilter).then(response => {
             this.categories = response;
             this.table?.reset();
+        });
+    }
+
+    private async loadgingSubcategories(categoryId: number) {
+        await this.categoryService.findById(categoryId).then(response => {
+            this.category = response;
         });
     }
 }

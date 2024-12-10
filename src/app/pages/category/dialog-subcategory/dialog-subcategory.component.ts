@@ -49,7 +49,7 @@ export class DialogSubcategoryComponent implements OnInit {
 
     private exists() {
         for (const subcategory of this.category.subcategories) {
-            if (subcategory.description === this.subcategory.description) {
+            if (this.normalize(subcategory.description) === this.normalize(this.subcategory.description)) {
                 this.alertService.error("Já existe uma subcategoria com a descrição informada.");
                 throw Error();
             }
@@ -62,5 +62,10 @@ export class DialogSubcategoryComponent implements OnInit {
 
     private generatedId(subcategories: Array<SubCategoryEntity>) {
         return subcategories.length == 0 ? 1 : subcategories[subcategories.length - 1].id + 1;
+    }
+
+    private normalize(str: string) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            .toUpperCase();
     }
 }

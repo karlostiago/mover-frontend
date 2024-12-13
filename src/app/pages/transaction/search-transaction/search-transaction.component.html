@@ -110,7 +110,7 @@
                                     <span class="p-column-title">CATEGORIA</span>
                                     {{ transaction['subcategory'] }}
                                 </td>
-                                <td class="text-right {{ transaction['transactionType'] === 'DÉBITO' ? 'text-danger' : '' }} ">
+                                <td class="text-right {{ transaction['categoryType'] !== 'TRANSFERÊNCIA' && transaction['transactionType'] === 'DÉBITO' ? 'text-danger' : '' }} ">
                                     <span class="p-column-title">VALOR</span>
                                     {{ transaction['value'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                                 </td>
@@ -127,7 +127,7 @@
                                     <p-button [link]="true" (click)="confirmationDelete(transaction)" >
                                         <i class="fa-regular fa-trash-can"></i>
                                     </p-button>
-                                    <p-button [link]="true" (click)="confirmationDelete(transaction)">
+                                    <p-button [link]="true" [routerLink]="['/update/transactions/', transaction.id]">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </p-button>
                                 </td>

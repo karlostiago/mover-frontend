@@ -55,6 +55,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         if (!this.registerNew) {
             this.transactionService.findById(this.id).then(response => {
                 this.transaction = response;
+                this.findCategories();
             });
         }
     }
@@ -102,12 +103,14 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         }));
         this.loadService.automatic = true;
         this.resetInstallment();
-
-        console.log(this.transaction.categoryType, response);
     }
 
     processPayment() {
-        this.transaction.paymentDate = this.transaction.paid ? new Date() : null;
+        this.transaction.paymentDate = null;
+        if (this.transaction.paid) {
+            const nowDate = new Date();
+            this.transaction.paymentDate = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate());
+        }
     }
 
     formValid() {

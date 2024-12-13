@@ -32,19 +32,19 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     confirmationDelete(contract: ContractEntity) {
-        this.alertService.info("Essa funcionalidade está em desenvolvimento.");
-        // this.confirmationService.confirm({
-        //     message: `Tem certeza que deseja excluir essa Lançamento?`,
-        //     accept: () => {
-        //         this.delete(contract.id);
-        //     }
-        // })
+        this.confirmationService.confirm({
+            message: `Tem certeza que deseja excluir essa Lançamento?`,
+            accept: () => {
+                this.delete(contract.id);
+            }
+        });
     }
 
     delete(id: number) {
         this.transactionService.delete(id).then(() => {
             this.transactions = this.transactions.filter(t => t.id !== id);
             this.alertService.success("Registro deletado com sucesso.");
+            this.updateBalance();
         });
     }
 

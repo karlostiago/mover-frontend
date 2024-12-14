@@ -1,21 +1,22 @@
 <div class="row" *ngIf="transaction.categoryType !== 'TRANSFERÊNCIA' && transaction.categoryType !== 'CAPITAL SOCIETÁRIO'">
     <div class="col-md-3">
-        <label class="form-label"> Veículo :</label>
+        <label class="form-label"> Veículo:</label>
         <p-dropdown styleClass="w-100" name="vehicle" id="vehicle" placeholder="Selecione"
                     optionLabel="fullname" optionValue="id" [(ngModel)]="transaction['vehicleId']"
-                    [options]="vehicles" required="true" [filter]="true" />
+                    [options]="vehicles" required="true" [filter]="true" (onChange)="onChangeContract()" />
     </div>
     <div class="col-md-3">
         <label class="form-label"> Número de contrato :</label>
         <p-dropdown styleClass="w-100" name="contract" id="contract" placeholder="Selecione"
                     optionLabel="number" optionValue="id" [(ngModel)]="transaction['contractId']"
-                    [options]="contracts" emptyMessage="Nenhum número de contrato encontrado"/>
+                    [options]="contracts" [disabled]="!transaction['vehicleId']"
+                    emptyMessage="Nenhum número de contrato encontrado"/>
     </div>
     <div class="col-md-3">
         <label class="form-label"> Conta *:</label>
         <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione"
                     optionLabel="name" optionValue="id" [(ngModel)]="transaction['accountId']"
-                    [options]="accounts" required="true" (onChange)="onChanceCard()" />
+                    [options]="accounts" required="true" (onChange)="onChangeCard()" />
     </div>
     <div class="col-md-3">
         <label class="form-label"> Cartão :</label>

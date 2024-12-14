@@ -90,6 +90,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         this.transaction.partnerId = 0;
         this.transaction.contractId = 0;
         this.transaction.cardId = 0;
+        this.transaction.vehicleId = 0;
         this.transaction.dueDate = new Date();
     }
 

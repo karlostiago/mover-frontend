@@ -10,6 +10,13 @@
                                 <input pInputText class="form-control" name="description" id="description" [required]="true" [(ngModel)]="subcategory['description']" />
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="form-label">Ativo:</label>
+                                <p-inputSwitch name="active" id="active" styleClass="form-control"
+                                               [(ngModel)]="subcategory['active']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-footer">
                         <button pButton type="button" class="p-button-success p-button-sm" (click)="saveOrUpdate()" [disabled]="!form.valid">

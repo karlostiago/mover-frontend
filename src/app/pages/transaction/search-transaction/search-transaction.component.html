@@ -58,7 +58,7 @@
             <div class="card">
                 <div class="card-header">
                     <label>Saldo em cartão crédito</label>
-                    <h5>R$ 0,00</h5>
+                    <h5 class="{{ balance['creditCard'] < 0 ? 'text-danger' : '' }}">{{ balance['creditCard'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
                 </div>
             </div>
         </div>

@@ -4,7 +4,6 @@ import {AlertService} from "../../../../service/AlertService";
 import {CategoryService} from "../category.service";
 import {Table} from "primeng/table";
 import {CategoryEntity} from "../../../../entity/CategoryEntity";
-import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
 
 @Component({
   selector: 'app-search-category',
@@ -21,7 +20,6 @@ export class SearchCategoryComponent implements OnInit {
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
-                private globalDialogService: GlobalDialogService,
                 private categoryService: CategoryService) {
     }
 
@@ -38,15 +36,6 @@ export class SearchCategoryComponent implements OnInit {
                 this.delete(category.id);
             }
         })
-    }
-
-    async openDialogListSubcategory(categoryId: number) {
-        await this.loadgingSubcategories(categoryId);
-        if (this.category.subcategories.length == 0) {
-            this.alertService.error("Nenhuma subcategoria encontrada.");
-        } else {
-            this.globalDialogService.openDialog(TypeDialog.LIST_SUBCATEGORY, this.category);
-        }
     }
 
     delete(id: number) {

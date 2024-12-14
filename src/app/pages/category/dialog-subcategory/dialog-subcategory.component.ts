@@ -4,7 +4,7 @@ import {CategoryEntity} from "../../../../entity/CategoryEntity";
 import {SubCategoryEntity} from "../../../../entity/SubCategoryEntity";
 
 @Component({
-  selector: 'app-dialog-subcategory-contact',
+  selector: 'app-dialog-subcategory',
   templateUrl: './dialog-subcategory.component.html',
   styleUrls: ['./dialog-subcategory.component.css']
 })
@@ -36,6 +36,14 @@ export class DialogSubcategoryComponent implements OnInit {
 
     private save() {
         const subcategories = this.category.subcategories;
+
+        if (subcategories.length !== 0) {
+            const index = subcategories.findIndex(s => s.id === this.subcategory.id);
+            if (index !== -1) {
+                this.category.subcategories.splice(index, 1);
+            }
+        }
+
         this.subcategory.id = this.generatedId(subcategories);
         this.category.subcategories.push(this.subcategory);
     }
@@ -49,7 +57,8 @@ export class DialogSubcategoryComponent implements OnInit {
 
     private exists() {
         for (const subcategory of this.category.subcategories) {
-            if (this.normalize(subcategory.description) === this.normalize(this.subcategory.description)) {
+        if (subcategory.id !== this.subcategory.id
+                    && this.normalize(subcategory.description) === this.normalize(this.subcategory.description)) {
                 this.alertService.error("Já existe uma subcategoria com a descrição informada.");
                 throw Error();
             }

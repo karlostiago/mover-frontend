@@ -41,28 +41,12 @@
                 <div class="card-body">
                     <p-table #table [value]="categories"
                              responsiveLayout="stack" [breakpoint]="'1300px'"
-                             styleClass="p-datatable-striped p-datatable p-datatable-gridlines"
-                             scrollHeight="1400px"
-                             sortMode="single"
-                             sortField="type"
-                             [scrollable]="false"
-                             rowGroupMode="subheader"
-                             groupRowsBy="type"
-                            >
+                             styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
                         <ng-template pTemplate="header">
                             <tr *ngIf="categories.length > 0">
                                 <th class="text-left">NOME</th>
-                                <th class="text-center">VER. SUBCATEGORIA</th>
                                 <th class="text-center">ATIVO</th>
                                 <th class="text-center">AÇÕES</th>
-                            </tr>
-                        </ng-template>
-
-                        <ng-template pTemplate="groupheader" let-category>
-                            <tr pRowGroupHeader>
-                                <td colspan="6">
-                                    <strong style="font-size: 1rem;"> {{ category['type'] }} </strong>
-                                </td>
                             </tr>
                         </ng-template>
 
@@ -70,13 +54,10 @@
                             <tr>
                                 <td class="text-left">
                                     <span class="p-column-title">NOME</span>
-                                    {{ category['description'] }}
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">VER. SUBCATEGORIA</span>
-                                    <p-button [link]="true" (click)="openDialogListSubcategory(category.id)" >
-                                        <i class="fa-solid fa-eye-slash"></i>
-                                    </p-button>
+                                    <small class="badge text-bg-secondary"> {{ category['type'] }} </small> {{ category['description'] }}
+                                    <ul class="list-group" *ngFor="let subcategory of category['subcategories']">
+                                        <li class="list-group-item"> <i class="fa-solid fa-grip m-1"> </i> {{ subcategory['description'] }}</li>
+                                    </ul>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>
@@ -98,7 +79,7 @@
 
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td colspan="4" style="text-align: center;">
+                                <td colspan="3" style="text-align: center;">
                                     Nenhum registro encontrado.
                                 </td>
                             </tr>

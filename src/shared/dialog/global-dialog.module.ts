@@ -17,9 +17,6 @@ import {
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {DialogSubcategoryComponent} from "../../app/pages/category/dialog-subcategory/dialog-subcategory.component";
-import {
-    DialogListSubcategoryComponent
-} from "../../app/pages/category/dialog-list-subcategory/dialog-list-subcategory.component";
 
 @NgModule({
     declarations: [
@@ -28,16 +25,14 @@ import {
         DialogFipeComponent,
         DialogContactComponent,
         DialogTerminateContractComponent,
-        DialogSubcategoryComponent,
-        DialogListSubcategoryComponent
+        DialogSubcategoryComponent
     ],
     exports: [
         DialogAddressComponent,
         GlobalDialogComponent,
         DialogFipeComponent,
         DialogContactComponent,
-        DialogSubcategoryComponent,
-        DialogListSubcategoryComponent
+        DialogSubcategoryComponent
     ],
     imports: [
         CommonModule,

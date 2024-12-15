@@ -86,9 +86,11 @@
                                         </td>
                                         <td class="text-center">
                                             <span class="p-column-title">ATIVO</span>
-                                            <span class=" {{ subcategory['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                                {{ subcategory["active"] === true ? 'Sim' : 'Não' }}
-                                            </span>
+                                            <a (click)="activeOrDesactive(subcategory)" style="cursor: pointer">
+                                                <span class=" {{ subcategory['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                                    {{ subcategory["active"] === true ? 'Sim' : 'Não' }}
+                                                </span>
+                                            </a>
                                         </td>
                                         <td class="text-center">
                                             <span class="p-column-title">AÇÕES</span>

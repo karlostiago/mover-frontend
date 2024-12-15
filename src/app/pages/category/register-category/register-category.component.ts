@@ -57,6 +57,10 @@ export class RegisterCategoryComponent extends AbstractRegister implements OnIni
         this.globalDialogService.openDialog(TypeDialog.SUBCATEGORY, this.category, subcategory);
     }
 
+    activeOrDesactive(subcategory: SubCategoryEntity) {
+        subcategory.active = !subcategory.active;
+    }
+
     private save(form: NgForm) {
         this.categoryService.save(this.category).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");

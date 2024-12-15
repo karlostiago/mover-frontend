@@ -73,6 +73,7 @@
                                 <ng-template pTemplate="header">
                                     <tr *ngIf="category.subcategories.length > 0">
                                         <th class="text-left">DESCRIÇÃO</th>
+                                        <th class="text-center">ATIVO</th>
                                         <th class="text-center">AÇÕES</th>
                                     </tr>
                                 </ng-template>
@@ -82,6 +83,12 @@
                                         <td class="text-left">
                                             <span class="p-column-title">DESCRIÇÃO</span>
                                             {{ subcategory['description'].toUpperCase() }}
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="p-column-title">ATIVO</span>
+                                            <span class=" {{ subcategory['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                                {{ subcategory["active"] === true ? 'Sim' : 'Não' }}
+                                            </span>
                                         </td>
                                         <td class="text-center">
                                             <span class="p-column-title">AÇÕES</span>

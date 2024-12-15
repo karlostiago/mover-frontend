@@ -30,7 +30,7 @@ export class DialogSubcategoryComponent implements OnInit {
 
     saveOrUpdate() {
         this.exists();
-        this.category.id === 0 ? this.save() : this.update(this.subcategory);
+        this.category.id === 0 ? this.save() : this.update();
         this.visible = false;
     }
 
@@ -48,11 +48,9 @@ export class DialogSubcategoryComponent implements OnInit {
         this.category.subcategories.push(this.subcategory);
     }
 
-    private update(subcategory: SubCategoryEntity) {
-        const subcategories = this.category.subcategories;
-        this.delete(subcategory);
-        subcategory.id = this.generatedId(subcategories);
-        this.category.subcategories.push(subcategory);
+    private update() {
+        this.delete(this.subcategory);
+        this.category.subcategories.push(this.subcategory);
     }
 
     private exists() {

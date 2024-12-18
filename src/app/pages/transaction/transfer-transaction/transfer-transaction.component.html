@@ -3,13 +3,15 @@
         <label class="form-label"> Saiu da conta *:</label>
         <p-dropdown styleClass="w-100" name="sourceAccount" id="sourceAccount" placeholder="Selecione"
                     optionLabel="name" optionValue="id" [(ngModel)]="transaction['accountId']"
-                    [options]="debitAccounts" required="true" (onChange)="removeAccount(transaction.accountId, true)" />
+                    [options]="debitAccounts" required="true" (onChange)="removeAccount(transaction.accountId, true)"
+                    emptyMessage="Nenhuma conta encontrada"/>
     </div>
     <div class="col-md-3">
         <label class="form-label"> Entrou na conta *:</label>
         <p-dropdown styleClass="w-100" name="destinationAccount" id="destinationAccount" placeholder="Selecione"
                     optionLabel="name" optionValue="id" [(ngModel)]="transaction['destinationAccountId']"
-                    [options]="creditAccounts" required="true" (onChange)="removeAccount(transaction.destinationAccountId, false)" />
+                    [options]="creditAccounts" required="true" (onChange)="removeAccount(transaction.destinationAccountId, false)"
+                    emptyMessage="Nenhuma conta encontrada"/>
     </div>
     <div class="col-md-2 col-sm-12">
         <label class="form-label"> Valor *:</label>

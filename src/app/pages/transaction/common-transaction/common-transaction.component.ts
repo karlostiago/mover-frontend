@@ -10,7 +10,6 @@ import {LoaderService} from "../../../core/loader/loader.service";
 import {CardService} from "../../card/card.service";
 import {VehicleService} from "../../vehicle/vehicle.service";
 import {ContractService} from "../../contract/contract.service";
-import {AlertService} from "../../../../service/AlertService";
 
 @Component({
   selector: 'app-common-transaction',
@@ -28,7 +27,6 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
 
     constructor(private accountService: AccountService,
                 private cardService: CardService,
-                private alertService: AlertService,
                 private contractService: ContractService,
                 private vehicleService: VehicleService,
                 private loadService: LoaderService) {
@@ -39,6 +37,9 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
         await this.loadingAccounts();
         await this.loadingVehicles();
         await this.loadingContracts();
+
+        this.onChangeContract();
+        this.onChangeCard();
     }
 
     onChangeCard() {

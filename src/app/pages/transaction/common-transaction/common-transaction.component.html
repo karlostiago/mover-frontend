@@ -3,7 +3,8 @@
         <label class="form-label"> Veículo:</label>
         <p-dropdown styleClass="w-100" name="vehicle" id="vehicle" placeholder="Selecione"
                     optionLabel="fullname" optionValue="id" [(ngModel)]="transaction['vehicleId']"
-                    [options]="vehicles" required="true" [filter]="true" (onChange)="onChangeContract()" />
+                    [options]="vehicles" required="true" [filter]="true" (onChange)="onChangeContract()"
+                    emptyMessage="Nenhum veículo encontrado"/>
     </div>
     <div class="col-md-3">
         <label class="form-label"> Número de contrato :</label>

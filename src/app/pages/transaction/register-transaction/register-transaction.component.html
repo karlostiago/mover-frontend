@@ -19,14 +19,16 @@
                         <div class="col-md-3">
                             <label class="form-label"> Tipo categoria *:</label>
                             <p-dropdown styleClass="w-100" name="typeCategory" id="typeCategory" placeholder="Selecione"
-                                        [options]="categoryTypes" emptyMessage="Nenhuma tipo lançamento encontrado"
+                                        [options]="categoryTypes"
+                                        emptyMessage="Nenhuma tipo lançamento encontrado"
                                         optionValue="description" optionLabel="description" required="true" [(ngModel)]="transaction['categoryType']"
                                         (onChange)="findCategories()"/>
                         </div>
                         <div class="col-md-3">
                             <label class="form-label"> Categoria *:</label>
                             <p-dropdown styleClass="w-100" name="subcategory" id="subcategory" placeholder="Selecione"
-                                        [options]="groupCategories" optionLabel="label" optionValue="value" [group]="true" emptyMessage="Nenhuma subcategoria encontrada" required="true" [(ngModel)]="transaction['subcategoryId']"
+                                        [options]="groupCategories" optionLabel="label" optionValue="value" [group]="true"
+                                        emptyMessage="Nenhuma subcategoria encontrada" required="true" [(ngModel)]="transaction['subcategoryId']"
                                         [filter]="true" [disabled]="!transaction['categoryType']" />
                         </div>
                         <div class="col-md-6">

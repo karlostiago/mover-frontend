@@ -3,13 +3,15 @@
         <label class="form-label"> Sócio *:</label>
         <p-dropdown styleClass="w-100" name="partner" id="partner" placeholder="Selecione"
                     optionLabel="name" optionValue="id" [(ngModel)]="transaction['partnerId']"
-                    [options]="partners" required="true" />
+                    [options]="partners" required="true"
+                    emptyMessage="Nenhum sócio encontrado" />
     </div>
     <div class="col-md-3">
         <label class="form-label"> Conta *:</label>
         <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione"
                     optionLabel="name" optionValue="id" [(ngModel)]="transaction['accountId']"
-                    [options]="accounts" required="true" />
+                    [options]="accounts" required="true"
+                    emptyMessage="Nenhuma conta encontrada"/>
     </div>
     <div class="col-md-2 col-sm-12">
         <label class="form-label"> Valor *:</label>

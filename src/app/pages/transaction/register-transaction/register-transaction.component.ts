@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AbstractRegister} from "../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
@@ -35,6 +35,8 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     enableInstallments: boolean = false;
 
+    edit: boolean;
+
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 private transactionService: TransactionService,
@@ -53,10 +55,13 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         this.transaction.dueDate = new Date();
 
         if (!this.registerNew) {
+            this.edit = true;
             this.transactionService.findById(this.id).then(response => {
                 this.transaction = response;
                 this.findCategories();
             });
+        } else {
+            this.edit = false;
         }
     }
 

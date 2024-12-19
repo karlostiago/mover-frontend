@@ -24,6 +24,7 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     cards = new Array<CardEntity>();
 
     @Input() transaction: TransactionEntity;
+    @Input() updateForm: boolean;
 
     constructor(private accountService: AccountService,
                 private cardService: CardService,
@@ -38,8 +39,10 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
         await this.loadingVehicles();
         await this.loadingContracts();
 
-        this.onChangeContract();
-        this.onChangeCard();
+        if (this.updateForm) {
+            this.onChangeContract();
+            this.onChangeCard();
+        }
     }
 
     onChangeCard() {

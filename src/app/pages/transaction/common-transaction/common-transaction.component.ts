@@ -48,7 +48,8 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     onChangeCard() {
         this.loadService.automatic = false;
         this.cardService.findAll().then(response => {
-            this.cards = response.filter(c => c.accountId === this.transaction['accountId']);
+            // @ts-ignore
+            this.cards = [{ id: 0, name: 'Selecione'}, ...response.filter(c => c.accountId === this.transaction['accountId'])];
             this.loadService.automatic = true;
         });
     }
@@ -56,20 +57,23 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     onChangeContract() {
         this.loadService.automatic = false;
         this.loadingContracts().then(response => {
-            this.contracts = response.filter(c => c.vehicleId === this.transaction['vehicleId']);
+            // @ts-ignore
+            this.contracts = [{ id: 0, number: 'Selecione' }, ...response.filter(c => c.vehicleId === this.transaction['vehicleId'])];
             this.loadService.automatic = true;
         })
     }
 
     private async loadingAccounts() {
         this.accountService.findAll().then(response => {
-            this.accounts = response;
+            // @ts-ignore
+            this.accounts = [{ id: 0, name: 'Selecione'}, ...response];
         });
     }
 
     private async loadingVehicles() {
         this.vehicleService.findAll().then(response => {
-            this.vehicles = response;
+            // @ts-ignore
+            this.vehicles = [{ id: 0, fullname: 'Selecione'}, ...response];
         });
     }
 

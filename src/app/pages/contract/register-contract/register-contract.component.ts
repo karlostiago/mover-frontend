@@ -96,43 +96,50 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
 
     private async loadingPaymentFrequencies() {
         this.contractService.findAllPaymentFrequencies().then(response => {
-            this.paymentFrenquencies = response;
+            // @ts-ignore
+            this.paymentFrenquencies = [{ description: 0, description: 'Selecione' }, ...response];
         });
     }
 
     private async loadingDaysOfWeek() {
         this.contractService.findAllDaysOfWeek().then(response => {
-            this.daysOfWeek = response;
+            // @ts-ignore
+            this.daysOfWeek = [{ description: 0, description: 'Selecione' }, ...response];
         });
     }
 
     private async loadingSituations() {
         this.contractService.findAllSituations().then(response => {
-            this.situations = response;
+            // @ts-ignore
+            this.situations = [{ code: 0, description: 'Selecione' }, ...response];
         });
     }
 
     private async loadingAllVehicles() {
         this.vehicleService.findAll().then(response => {
-            this.vehicles = response;
+            // @ts-ignore
+            this.vehicles = [{ id: 0, fullname: 'Selecione' }, ...response];
         });
     }
 
     private async loadingAllClients() {
         this.clientService.findAll().then(response => {
-            this.clients = response;
+            // @ts-ignore
+            this.clients = [{ id: 0, name: 'Selecione' }, ...response];
         });
     }
 
     private async loadingAvailableVehicles() {
         this.vehicleService.onlyAvailable().then(response => {
-            this.vehicles = response.filter( v => v.active);
+            // @ts-ignore
+            this.vehicles = [{ id: 0, fullname: 'Selecione' }, ...response.filter( v => v.active)];
         });
     }
 
     private async loadingOnlyActiveClients() {
         this.clientService.onlyAvailable().then(response => {
-            this.clients = response.filter(r => r.active);
+            // @ts-ignore
+            this.clients = [{ id: 0, name: 'Selecione' }, ...response.filter(r => r.active)];
         });
     }
 }

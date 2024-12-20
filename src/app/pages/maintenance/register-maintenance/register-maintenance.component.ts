@@ -43,6 +43,7 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
         if (!this.registerNew) {
             this.maintenanceService.findById(this.id).then(response => {
                 this.maintenance = response;
+                this.onChanceCard();
             });
         }
     }
@@ -57,7 +58,9 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
 
     onChanceCard() {
         this.cardService.findAll().then(response => {
-            this.cards = response.filter(c => c.accountId === this.maintenance['accountId']);
+            const cards = response.filter(c => c.accountId === this.maintenance['accountId']);
+            // @ts-ignore
+            this.cards = [{ id: 0, name: 'Selecione' }, ...cards];
         });
     }
 
@@ -83,19 +86,22 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
 
     private async loadingAllVehicles() {
         this.vehicleService.findAll().then(response => {
-            this.vehicles = response;
+            // @ts-ignore
+            this.vehicles = [{ id: 0, fullname: 'Selecione' }, ...response];
         });
     }
 
     private async loadingAllAccounts() {
         this.accountService.findAll().then(response => {
-            this.accounts = response;
+            // @ts-ignore
+            this.accounts = [{ id: 0, name: 'Selecione' }, ...response];
         });
     }
 
     private async loadingAllTypes() {
         this.maintenanceService.findAllTypes().then(response => {
-            this.types = response;
+            // @ts-ignore
+            this.types = [{ description: 0, description: 'Selecione' }, ...response];
         });
     }
 }

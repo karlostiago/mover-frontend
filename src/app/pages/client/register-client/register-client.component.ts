@@ -98,6 +98,8 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
 
     private async loadingBrazilianStates() {
         const states = await this.clientService.findAllBrazilianStates();
+        this.brazilianStates.push({ code: 0, description: 'Selecione' });
+
         for (const state of states) {
             this.brazilianStates.push(state);
         }

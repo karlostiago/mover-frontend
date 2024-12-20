@@ -70,10 +70,12 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
 
     onChangeFindModel() {
         if (this.vehicle.brandId) {
+            this.blockSelectedModel = false;
             this.modelService.findByBrandId(this.vehicle.brandId).then(response => {
                 this.models = response;
-                this.blockSelectedModel = false;
             });
+        } else {
+            this.blockSelectedModel = true;
         }
     }
 
@@ -142,13 +144,14 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
 
     private loadingBrands() {
         this.brandService.findAll().then(response => {
-            this.brands = response;
+            // @ts-ignore
+            this.brands = [{ id: 0, name: 'Selecione' }, ...response];
         });
     }
 
     private loadingFuelTypes() {
         this.vehicleService.findAllFuelTypes().then(response => {
-            this.fuelTypes = response;
+            this.fuelTypes = [{ code: 0, description: 'Selecione' }, ...response];
         });
     }
 
@@ -160,7 +163,7 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
 
     private loadingSituation() {
         this.vehicleService.findAllSituation().then(response => {
-            this.situations = response;
+            this.situations = [{ code: 0, description: 'Selecione' }, ...response];
         })
     }
 

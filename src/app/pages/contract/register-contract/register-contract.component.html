@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-md-3">
                             <label class="form-label"> Veículo *:</label>
-                            <p-dropdown styleClass="w-100" name="category" id="category" placeholder="Selecione"
+                            <p-dropdown styleClass="w-100" name="vehicle" id="vehicle" placeholder="Selecione"
                                         optionLabel="fullname" optionValue="id" [(ngModel)]="this.contract['vehicleId']"
                                         [options]="vehicles" required="true" [disabled]="!this.contract['clientId']"
                                         emptyMessage="Nenhum veículo disponível"/>

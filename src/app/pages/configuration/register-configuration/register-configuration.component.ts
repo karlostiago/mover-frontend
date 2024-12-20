@@ -91,7 +91,7 @@ export class RegisterConfigurationComponent extends AbstractRegister implements 
 
     private loadingTypes() {
         this.configurationService.findAllTypesValue().then(response => {
-            this.typesValue = response;
+            this.typesValue = [{ code: 0, description: 'Selecione' }, ...response];
         });
     }
 }

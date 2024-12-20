@@ -162,7 +162,8 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     private async loadingAllSubcategory() {
         this.subcategoryService.findAll().then(response => {
-            this.subcategories = response;
+            // @ts-ignore
+            this.subcategories = [{ id: 0, description: 'Selecione' }, ...response];
         });
     }
 
@@ -182,21 +183,23 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     private async loadingTransactionTypes() {
         this.categoryService.findAllTypes().then(response => {
-            this.categoryTypes = response;
+            this.categoryTypes = [{ code: 0, description: 'Selecione' }, ...response];
         });
     }
 
     private async loadingFrequencyransaction() {
-        this.frequencyEnum = Object.entries(FrequencyTransactionEnum).map(([key, value]) => ({
+        const frequencies = Object.entries(FrequencyTransactionEnum).map(([key, value]) => ({
             label: value,
             value: key
         }));
+        this.frequencyEnum = [{ value: 0, label: 'Selecione' }, ...frequencies];
     }
 
     private async loadingInstallmentType() {
-        this.typesEnum = Object.entries(InstallmentTypeEnum).map(([key, value]) => ({
+        const types = Object.entries(InstallmentTypeEnum).map(([key, value]) => ({
             label: value,
             value: key
         }));
+        this.typesEnum = [{ value: 0, label: 'Selecione' }, ...types];
     }
 }

@@ -30,13 +30,15 @@ export class CorporateCapitalTransactionComponent extends BaseTransaction implem
 
     private async loadingAccount() {
         this.accountService.findAll().then(response => {
-            this.accounts = response;
+            // @ts-ignore
+            this.accounts = [{ id: 0, name: 'Selecione' }, ...response];
         });
     }
 
     private async loadingPartners() {
         this.partnerService.findAll().then(response => {
-            this.partners = response;
+            // @ts-ignore
+            this.partners = [{ id: 0, name: 'Selecione' }, ...response];
         });
     }
 }

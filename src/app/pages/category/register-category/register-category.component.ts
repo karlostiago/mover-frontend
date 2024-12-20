@@ -79,7 +79,7 @@ export class RegisterCategoryComponent extends AbstractRegister implements OnIni
 
     private loadingFuelTypes() {
         this.categoryService.findAllTypes().then(response => {
-            this.categoryTypes = response;
+            this.categoryTypes = [{ code: 0, description: 'Selecione'}, ...response];
         });
     }
 }

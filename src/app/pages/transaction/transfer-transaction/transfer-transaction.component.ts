@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TransactionEntity} from "../../../../entity/TransactionEntity";
 import {AccountEntity} from "../../../../entity/AccountEntity";
-import {AlertService} from "../../../../service/AlertService";
 import {AccountService} from "../../account/account.service";
 import {BaseTransaction} from "../../../../abstract/BaseTransaction";
 
@@ -18,16 +17,18 @@ export class TransferTransactionComponent extends BaseTransaction implements OnI
 
     @Input() transaction: TransactionEntity;
 
-    constructor(private accountService: AccountService,
-        private alertService: AlertService) {
+    constructor(private accountService: AccountService) {
         super();
     }
 
     async ngOnInit() {
         await this.accountService.findAll().then(response => {
-            this.debitAccounts = response;
-            this.creditAccounts = response;
-            this.accounts = response;
+            // @ts-ignore
+            this.debitAccounts = [ { id: 0, name: 'Selecione' }, ...response ];
+            // @ts-ignore
+            this.creditAccounts = [ { id: 0, name: 'Selecione' }, ...response ];
+            // @ts-ignore
+            this.accounts = [ { id: 0, name: 'Selecione' }, ...response ];
         });
     }
 

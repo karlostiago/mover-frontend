@@ -43,10 +43,10 @@
                             <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione"
                                         [options]="accounts" optionValue="id" [(ngModel)]="this.card['accountId']" (onChange)="onChangeAccount()">
                                 <ng-template let-account pTemplate="item">
-                                    {{ account['name'] }} / {{ account['number'] }}
+                                    {{ account['name'] }} {{ account['number'] > 0 ?  '/' + account['number'] : '' }}
                                 </ng-template>
                                 <ng-template let-selected pTemplate="selectedItem">
-                                    {{ selected['name'] }} / {{ selected['number'] }}
+                                    {{ selected['name'] }} {{ selected['number'] > 0 ?  '/' + selected['number'] : '' }}
                                 </ng-template>
                             </p-dropdown>
                         </div>

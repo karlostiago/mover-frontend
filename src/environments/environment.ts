@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
     apiUrl: 'http://localhost:8082/mover/api',
-    version: '1.0.5-8'
+    version: '1.0.6-0'
 }

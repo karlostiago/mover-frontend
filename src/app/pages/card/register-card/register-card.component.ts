@@ -93,6 +93,9 @@ export class RegisterCardComponent extends AbstractRegister implements OnInit {
 
     private async loadingAccounts() {
         const accounts = await this.accountService.findAll();
+        // @ts-ignore
+        this.accounts.push({ id: 0, name: 'Selecione' });
+
         for (const account of accounts) {
             this.accounts.push(account);
         }

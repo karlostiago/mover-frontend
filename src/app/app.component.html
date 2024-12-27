@@ -14,16 +14,18 @@
 
     <p-confirmDialog header="Confirmação" icon="pi pi-exclamation-triangle" #confirmDialog>
         <p-footer>
-            <button type="button" pButton icon="pi pi-check" class="p-button-contrast p-button-sm"
-                    (click)="confirmDialog.accept()">
-                Sim
-            </button>
-            <button type="button" pButton icon="pi pi-times" class="p-button-danger p-button-outlined p-button-sm ms-2"
-                    (click)="confirmDialog.reject()">
-                Não
-            </button>
+            <ng-container *ngTemplateOutlet="defaultButtons"></ng-container>
         </p-footer>
     </p-confirmDialog>
+
+    <ng-template #defaultButtons>
+        <button type="button" pButton icon="pi pi-check" class="p-button-contrast p-button-sm" (click)="confirmDialog.accept()">
+            Sim
+        </button>
+        <button type="button" pButton icon="pi pi-times" class="p-button-danger p-button-outlined p-button-sm ms-2" (click)="confirmDialog.reject()">
+            Não
+        </button>
+    </ng-template>
 
     <app-global-dialog></app-global-dialog>
 </div>

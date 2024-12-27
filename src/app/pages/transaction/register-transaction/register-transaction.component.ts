@@ -14,6 +14,7 @@ import {FrequencyTransactionEnum} from "../../../../enum/FrequencyTransactionEnu
 import {SelectItemGroup} from "primeng/api";
 import {CategoryTypeEntity} from "../../../../entity/CategoryTypeEntity";
 import {LoaderService} from "../../../core/loader/loader.service";
+import {DateHelpers} from "../../../../shared/DateHelpers";
 
 @Component({
   selector: 'app-register-transaction',
@@ -52,7 +53,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         await this.loadingFrequencyransaction();
         await this.loadingTransactionTypes();
 
-        this.transaction.dueDate = new Date();
+        this.transaction.dueDate = DateHelpers.toUTC(new Date());
 
         if (!this.registerNew) {
             this.edit = true;
@@ -114,8 +115,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     processPayment() {
         this.transaction.paymentDate = null;
         if (this.transaction.paid) {
-            const nowDate = new Date();
-            this.transaction.paymentDate = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate());
+            this.transaction.paymentDate = DateHelpers.toUTC(new Date());
         }
     }
 

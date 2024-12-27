@@ -67,7 +67,7 @@
             <div class="card">
                 <div class="card-header">
                     <label>Balanço geral</label>
-                    <h5 class="{{ balance['generalBalance'] < 0 ? 'text-danger' : '' }}">{{ balance['generalBalance'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                    <h5 class="{{ balance['generalBalance'] < 0 ? 'text-danger' : '' }}">{{ NumberHelpers.invertSignalWhenNegative(balance['generalBalance']) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
                 </div>
             </div>
         </div>
@@ -121,7 +121,7 @@
                                 </td>
                                 <td class="text-right {{ transaction['categoryType'] !== 'TRANSFERÊNCIA' && transaction['transactionType'] === 'DÉBITO' ? 'text-danger' : '' }} ">
                                     <span class="p-column-title">VALOR</span>
-                                    {{ transaction['value'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                                    {{ NumberHelpers.invertSignalWhenNegative(transaction['value']) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">EFETIVADO</span>
@@ -156,3 +156,29 @@
         </div>
     </div>
 </form>
+
+<p-dialog header="Confirmação" [modal]="true" [(visible)]="visible" [draggable]="false" [baseZIndex]="100000">
+    <div class="row g-3">
+        <div class="col-md-12 mb-10" style="position: relative; margin-top: -10px;">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <span style="padding: 0; color: #4b5563"> Tem certeza que deseja excluir o Lançamento? </span>
+                    </div>
+                </div>
+                <div class="card-footer" style="padding-bottom: 0; border: 0 !important; background: transparent;">
+                    <div class="footer-content" style="float: right; position: relative; left: 1.25rem;">
+                        <button pButton type="button" class="p-button-danger p-button-sm ms-2" (click)="deleteOnlyThis()">
+                            <i class="fa-solid fa-remove m-1"></i>
+                            Excluir apenas este
+                        </button>
+                        <button pButton type="button" class="p-button-danger p-button-outlined p-button-sm ms-2" (click)="deleteThisAndNext()">
+                            <i class="fa-solid fa-remove m-1"></i>
+                            Excluir este e os próximos
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-dialog>

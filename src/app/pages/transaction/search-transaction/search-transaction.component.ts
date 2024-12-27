@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../service/AlertService";
 import {TransactionService} from "../transaction.service";
@@ -6,6 +6,7 @@ import {Table} from "primeng/table";
 import {ContractEntity} from "../../../../entity/ContractEntity";
 import {TransactionEntity} from "../../../../entity/TransactionEntity";
 import {BalanceEntity} from "../../../../entity/BalanceEntity";
+import {NumberHelpers} from "../../../../shared/NumberHelpers";
 
 @Component({
   selector: 'app-search-transaction',
@@ -19,7 +20,11 @@ export class SearchTransactionComponent implements OnInit {
 
     searchFilter: string = "";
 
+    visible = false;
+
     @ViewChild("table") table: Table | undefined;
+
+    selectedTransaction: TransactionEntity;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
@@ -31,21 +36,23 @@ export class SearchTransactionComponent implements OnInit {
         this.updateBalance();
     }
 
-    confirmationDelete(contract: ContractEntity) {
-        this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir essa Lançamento?`,
-            accept: () => {
-                this.delete(contract.id);
-            }
+    confirmationDelete(transaction: TransactionEntity) {
+        this.selectedTransaction = transaction;
+        this.visible = true;
+    }
+
+    deleteOnlyThis() {
+        this.transactionService.delete(this.selectedTransaction.id).then(() => {
+            this.transactions = this.transactions.filter(t => t.id !== this.selectedTransaction.id);
+            this.alertService.success("Lançamento excluido com sucesso.");
+            this.updateBalance();
+            this.visible = false;
         });
     }
 
-    delete(id: number) {
-        this.transactionService.delete(id).then(() => {
-            this.transactions = this.transactions.filter(t => t.id !== id);
-            this.alertService.success("Registro deletado com sucesso.");
-            this.updateBalance();
-        });
+    deleteThisAndNext() {
+        this.visible = false;
+        this.alertService.success("Lançamentos excluídos com sucesso.");
     }
 
     pay(transaction: TransactionEntity) {
@@ -84,4 +91,6 @@ export class SearchTransactionComponent implements OnInit {
             this.transactions = response;
         });
     }
+
+    protected readonly NumberHelpers = NumberHelpers;
 }

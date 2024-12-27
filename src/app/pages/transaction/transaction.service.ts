@@ -37,4 +37,9 @@ export class TransactionService extends BaseService<TransactionEntity> {
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/balances`, this.options());
         return this.toPromise(request);
     }
+
+    async remove(id: number, deleteOnlyThis: boolean) {
+        const request = this.httpClient.delete(`${this.baseURL}/${this.pathURL()}/remove/${id}?deleteOnlyThis=${deleteOnlyThis}`, this.options());
+        return this.toPromise(request);
+    }
 }

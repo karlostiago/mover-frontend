@@ -59,7 +59,7 @@
                         <i class="fa-solid fa-remove m-1"></i>
                         Cancelar
                     </button>
-                    <button pButton type="button" class="p-button-contrast p-button-sm ms-2" *ngIf="!enableInstallments" (click)="enableInstallments = !enableInstallments">
+                    <button pButton type="button" class="p-button-contrast p-button-sm ms-2" *ngIf="!enableInstallments && isNewRegister()" (click)="enableInstallments = !enableInstallments">
                         <i class="fa-solid fa-repeat m-1"></i>
                         {{ enableInstallments ? 'Desab.' : 'Hab.' }} parcelamento
                     </button>

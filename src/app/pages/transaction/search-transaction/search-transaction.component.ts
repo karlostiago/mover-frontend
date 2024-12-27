@@ -42,7 +42,7 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     deleteOnlyThis() {
-        this.transactionService.delete(this.selectedTransaction.id).then(() => {
+        this.transactionService.remove(this.selectedTransaction.id, true).then(() => {
             this.transactions = this.transactions.filter(t => t.id !== this.selectedTransaction.id);
             this.alertService.success("Lançamento excluido com sucesso.");
             this.updateBalance();
@@ -51,8 +51,12 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     deleteThisAndNext() {
-        this.visible = false;
-        this.alertService.success("Lançamentos excluídos com sucesso.");
+        this.transactionService.remove(this.selectedTransaction.id, false).then(() => {
+            this.transactions = this.transactions.filter(t => t.installment < this.selectedTransaction.installment);
+            this.alertService.success("Lançamentos excluídos com sucesso.");
+            this.updateBalance();
+            this.visible = false;
+        });
     }
 
     pay(transaction: TransactionEntity) {

@@ -81,7 +81,7 @@
                 <div class="card-body">
                     <p-table #table [value]="transactions" responsiveLayout="stack" [breakpoint]="'1300px'"
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines"
-                             scrollHeight="1400px"
+                             scrollHeight="400px"
                              sortMode="single"
                              sortField="date"
                              [scrollable]="false"
@@ -163,7 +163,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <span style="padding: 0; color: #4b5563"> Tem certeza que deseja excluir o Lançamento? </span>
+                        <span style="padding: 0; color: #4b5563"> Tem certeza que deseja excluir o Lançamento {{ description }} ? </span>
                     </div>
                 </div>
                 <div class="card-footer" style="padding-bottom: 0; border: 0 !important; background: transparent;">

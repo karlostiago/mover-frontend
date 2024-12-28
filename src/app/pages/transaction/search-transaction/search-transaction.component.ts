@@ -1,9 +1,7 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {ConfirmationService} from "primeng/api";
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AlertService} from "../../../../service/AlertService";
 import {TransactionService} from "../transaction.service";
 import {Table} from "primeng/table";
-import {ContractEntity} from "../../../../entity/ContractEntity";
 import {TransactionEntity} from "../../../../entity/TransactionEntity";
 import {BalanceEntity} from "../../../../entity/BalanceEntity";
 import {NumberHelpers} from "../../../../shared/NumberHelpers";
@@ -26,8 +24,7 @@ export class SearchTransactionComponent implements OnInit {
 
     selectedTransaction: TransactionEntity;
 
-    constructor(private confirmationService: ConfirmationService,
-                private alertService: AlertService,
+    constructor(private alertService: AlertService,
                 private transactionService: TransactionService) {
     }
 
@@ -43,19 +40,15 @@ export class SearchTransactionComponent implements OnInit {
 
     deleteOnlyThis() {
         this.transactionService.remove(this.selectedTransaction.id, true).then(() => {
-            this.transactions = this.transactions.filter(t => t.id !== this.selectedTransaction.id);
+            this.updateTransactions();
             this.alertService.success("Lançamento excluido com sucesso.");
-            this.updateBalance();
-            this.visible = false;
         });
     }
 
     deleteThisAndNext() {
         this.transactionService.remove(this.selectedTransaction.id, false).then(() => {
-            this.transactions = this.transactions.filter(t => t.installment < this.selectedTransaction.installment);
+            this.updateTransactions();
             this.alertService.success("Lançamentos excluídos com sucesso.");
-            this.updateBalance();
-            this.visible = false;
         });
     }
 
@@ -82,6 +75,17 @@ export class SearchTransactionComponent implements OnInit {
             this.transactions = response;
             this.table?.reset();
         });
+    }
+
+    get description() {
+        return this.selectedTransaction ? this.selectedTransaction.description : '';
+    }
+
+    private updateTransactions() {
+        this.findAll();
+        this.updateBalance();
+        this.table?.reset();
+        this.visible = false;
     }
 
     private updateBalance() {

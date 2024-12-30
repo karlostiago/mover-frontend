@@ -17,6 +17,8 @@ import {
     CorporateCapitalTransactionComponent
 } from "./corporate-capital-transaction/corporate-capital-transaction.component";
 import {CommonTransactionComponent} from "./common-transaction/common-transaction.component";
+import {CalendarModule} from "primeng/calendar";
+import {MultiSelectModule} from "primeng/multiselect";
 
 @NgModule({
     declarations: [
@@ -42,7 +44,9 @@ import {CommonTransactionComponent} from "./common-transaction/common-transactio
         DropdownModule,
         DialogModule,
         SharedModule,
-        InputTextareaModule
+        InputTextareaModule,
+        CalendarModule,
+        MultiSelectModule
     ]
 })
 export class TransactionModule { }

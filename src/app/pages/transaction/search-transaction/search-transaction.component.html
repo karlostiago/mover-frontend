@@ -6,8 +6,18 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <label class="form-label"> Pesquisar:</label>
+                        <div class="col-md-2 col-xs-12">
+                            <label class="form-label"> Período: </label> <br/>
+                            <p-calendar id="period" name="period" view="month" dateFormat="mm/yy" [readonlyInput]="true" inputStyleClass="cursor-pointer"
+                                [(ngModel)]="periodoFilter" [showButtonBar]="false" (onSelect)="filterBy()" />
+                        </div>
+                        <div class="col-md-3 col-xs-12">
+                            <label class="form-label"> Conta: </label> <br/>
+                            <p-multiSelect id="account" name="account" [showHeader]="false" emptyMessage="Nenhuma conta encontrada."
+                                [options]="accounts" optionLabel="name" [(ngModel)]="selectedAccounts" />
+                        </div>
+                        <div class="col-md-7">
+                            <label class="form-label"> Pesquisar: </label>
                             <input pInputText class="form-control" name="search" id="search" [(ngModel)]="searchFilter" />
                         </div>
                     </div>

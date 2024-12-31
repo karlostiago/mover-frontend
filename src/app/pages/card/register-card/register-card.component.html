@@ -41,7 +41,7 @@
                         <div class="col-md-4">
                             <label class="form-label"> Conta *:</label>
                             <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione"
-                                        [options]="accounts" optionValue="id" [(ngModel)]="this.card['accountId']" (onChange)="onChangeAccount()">
+                                        [options]="accounts" optionValue="id" [(ngModel)]="this.card['accountId']" (onChange)="onChangeAccount()" [required]="true">
                                 <ng-template let-account pTemplate="item">
                                     {{ account['name'] }} {{ account['number'] > 0 ?  '/' + account['number'] : '' }}
                                 </ng-template>
@@ -59,7 +59,7 @@
                                         placeholder="Selecione"
                                         optionLabel="code"
                                         optionValue="code"
-                                        required>
+                                        [required]="true">
                                 <ng-template let-icon pTemplate="item">
                                     <div class="flex align-items-center gap-2">
                                         <img src="{{ icon['image'] }}" style="width: 2.1rem; border-radius: 30%" *ngIf="icon['code'] > 0"  alt="icon" />
@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !card['codeIcon'] || !card['cardType']">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !card['codeIcon'] || !card['accountId']">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

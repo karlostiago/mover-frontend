@@ -49,9 +49,10 @@ export class RegisterCardComponent extends AbstractRegister implements OnInit {
     }
 
     onChangeAccount() {
+        this.card['codeIcon'] = 0;
         if (this.card['accountId']) {
             const account = this.accounts.filter(c => c.id === this.card['accountId'])[0];
-            // this.card['codeIcon'] = account.codeIcon;
+            this.card['codeIcon'] = account.codeIcon;
         }
     }
 
@@ -86,6 +87,9 @@ export class RegisterCardComponent extends AbstractRegister implements OnInit {
 
     private async loadingIcons() {
         const icons = await this.accountService.findAllIcons();
+        // @ts-ignore
+        this.icons.push({ code: 0, bankName: 'Selecione' });
+        
         for (const icon of icons) {
             this.icons.push(icon);
         }

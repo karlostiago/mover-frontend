@@ -97,14 +97,14 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
     private async loadingPaymentFrequencies() {
         this.contractService.findAllPaymentFrequencies().then(response => {
             // @ts-ignore
-            this.paymentFrenquencies = [{ description: 0, description: 'Selecione' }, ...response];
+            this.paymentFrenquencies = [{ code: 0, description: 'Selecione' }, ...response];
         });
     }
 
     private async loadingDaysOfWeek() {
         this.contractService.findAllDaysOfWeek().then(response => {
             // @ts-ignore
-            this.daysOfWeek = [{ description: 0, description: 'Selecione' }, ...response];
+            this.daysOfWeek = [{ code: 0, description: 'Selecione' }, ...response];
         });
     }
 

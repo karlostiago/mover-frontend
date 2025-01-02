@@ -24,6 +24,6 @@
     </div>
     <div class="col-md-2">
         <label class="form-label"> Data Pagamento :</label>
-        <input pInputText class="form-control" name="paymentDate" id="paymentDate" (keyup)="updatePaid(transaction)" [(ngModel)]="transaction['paymentDate']" appDateFormatPtBr />
+        <input pInputText class="form-control" name="paymentDate" id="paymentDate" (change)="updatePaid(transaction)" [(ngModel)]="transaction['paymentDate']" appDateFormatPtBr />
     </div>
 </div>

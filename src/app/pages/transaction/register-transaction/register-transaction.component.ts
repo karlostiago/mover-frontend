@@ -53,8 +53,6 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         await this.loadingFrequencyransaction();
         await this.loadingTransactionTypes();
 
-        this.transaction.dueDate = DateHelpers.toUTC(new Date());
-
         if (!this.registerNew) {
             this.edit = true;
             this.transactionService.findById(this.id).then(response => {
@@ -98,7 +96,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         this.transaction.cardId = 0;
         this.transaction.vehicleId = 0;
         this.enableInstallments = false;
-        this.transaction.dueDate = new Date();
+        this.transaction.dueDate = null;
     }
 
     async findCategories() {

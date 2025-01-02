@@ -10,7 +10,7 @@ export class TransactionEntity {
     category: string;
     subcategory: string;
     date: Date;
-    dueDate: Date;
+    dueDate: Date | null;
     paymentDate: Date | null;
     value: number = 0;
     installmentValue: number = 0;

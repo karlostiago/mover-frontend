@@ -23,7 +23,8 @@ export abstract class AbstractRegister  {
         });
     }
 
-    protected validDate(date: Date) {
+    protected validDate(date: Date | null) {
+        if (date === null) return null;
         return date && !date.toString().includes('1800')
     }
 }

@@ -32,7 +32,7 @@ export class SearchTransactionComponent implements OnInit {
     selectedTransaction: TransactionEntity;
 
     private page = 1;
-    remainingPages: number;
+    remainingPages: number = -1;
 
     constructor(private alertService: AlertService,
                 private accountServce: AccountService,
@@ -97,7 +97,11 @@ export class SearchTransactionComponent implements OnInit {
         this.page = 1;
         this.transactionService.findBy(this.createFilters()).then(response => {
             this.transactions = response;
-            this.remainingPages = response[0].remainingPages;
+            if (response.length > 0) {
+                this.remainingPages = response[0].remainingPages;
+            } else {
+                this.remainingPages = -1;
+            }
         });
     }
 
@@ -119,7 +123,11 @@ export class SearchTransactionComponent implements OnInit {
         this.page = this.page + 1;
         this.transactionService.findBy(this.createFilters()).then(response => {
             this.transactions = [...this.transactions, ...response];
-            this.remainingPages = response[0].remainingPages;
+            if (response.length > 0) {
+                this.remainingPages = response[0].remainingPages;
+            } else {
+                this.remainingPages = -1;
+            }
         });
     }
 

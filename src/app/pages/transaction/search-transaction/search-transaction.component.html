@@ -107,17 +107,17 @@
                             </tr>
                         </ng-template>
 
-                        <ng-template pTemplate="groupfooter" let-transaction>
-                            <tr>
-                                <td colspan="4" class="text-right">
-                                    <strong> Total: </strong>
-                                    <span class="{{ calculatedSubTotal(transaction).isNegative ? 'text-danger' : '' }}">
-                                        {{ calculatedSubTotal(transaction).subtotal | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-                                    </span>
-                                </td>
-                                <td colspan="2"></td>
-                            </tr>
-                        </ng-template>
+<!--                        <ng-template pTemplate="groupfooter" let-transaction>-->
+<!--                            <tr>-->
+<!--                                <td colspan="4" class="text-right">-->
+<!--                                    <strong> Total: </strong>-->
+<!--                                    <span class="{{ calculatedSubTotal(transaction).isNegative ? 'text-danger' : '' }}">-->
+<!--                                        {{ calculatedSubTotal(transaction).subtotal | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}-->
+<!--                                    </span>-->
+<!--                                </td>-->
+<!--                                <td colspan="2"></td>-->
+<!--                            </tr>-->
+<!--                        </ng-template>-->
 
                         <ng-template pTemplate="groupheader" let-transaction>
                             <tr pRowGroupHeader>
@@ -173,6 +173,15 @@
                         </ng-template>
                     </p-table>
                 </div>
+            </div>
+
+            <br />
+
+            <div class="col-md-12 mb-10 text-center">
+                <button pButton type="button" class="p-button-contrast p-button-sm ms-2" [disabled]="remainingPages <= 0" (click)="showMore()">
+                    <i class="fa-solid fa-rotate-right m-1"></i>
+                    Mostrar mais...
+                </button>
             </div>
         </div>
     </div>

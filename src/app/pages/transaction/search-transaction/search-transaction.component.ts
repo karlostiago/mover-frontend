@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AlertService} from "../../../../service/AlertService";
 import {TransactionService} from "../transaction.service";
 import {Table} from "primeng/table";
@@ -30,6 +30,9 @@ export class SearchTransactionComponent implements OnInit {
     @ViewChild("table") table: Table | undefined;
 
     selectedTransaction: TransactionEntity;
+
+    private page = 1;
+    remainingPages: number;
 
     constructor(private alertService: AlertService,
                 private accountServce: AccountService,
@@ -91,9 +94,10 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     filterBy() {
+        this.page = 1;
         this.transactionService.findBy(this.createFilters()).then(response => {
             this.transactions = response;
-            this.table?.reset();
+            this.remainingPages = response[0].remainingPages;
         });
     }
 
@@ -101,20 +105,22 @@ export class SearchTransactionComponent implements OnInit {
         const subtotal = this.transactions.reduce((subtotal, tr) => {
             const isSameDueDate = tr.dueDate === transaction.dueDate;
             const isPaid = tr.paid;
-
-            // Somar ou subtrair o valor dependendo das condições
             const value = tr.value;
             if ((isSameDueDate && !isPaid) || isPaid) {
                 subtotal += value;
             }
-
             return subtotal;
         }, 0);
-
-        // Verificar se o subtotal é negativo
         const isNegative = subtotal < 0;
-
         return { subtotal, isNegative };
+    }
+
+    showMore() {
+        this.page = this.page + 1;
+        this.transactionService.findBy(this.createFilters()).then(response => {
+            this.transactions = [...this.transactions, ...response];
+            this.remainingPages = response[0].remainingPages;
+        });
     }
 
     get description() {
@@ -122,7 +128,7 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     private createFilters() {
-        const filters = new Array(3);
+        const filters = new Array(4);
 
         if (this.periodoFilter) {
             filters[0] = DateHelpers.getMonthAndYear(this.periodoFilter);
@@ -133,6 +139,8 @@ export class SearchTransactionComponent implements OnInit {
         if(this.searchFilter) {
             filters[2] = this.searchFilter;
         }
+
+        filters[3] = this.page;
 
         return filters.join(';');
     }

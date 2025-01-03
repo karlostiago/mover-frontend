@@ -23,4 +23,5 @@ export class TransactionEntity {
     active: boolean = true;
     paid: boolean = false;
     transactionType: string;
+    remainingPages: number;
 }

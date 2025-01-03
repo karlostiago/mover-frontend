@@ -15,9 +15,7 @@ import {MaskCepDirective} from "./directive/MaskCepDirective";
 import {CepMaskPipe} from "./pipe/CepMaskPipe";
 import {NumberRangeDirective} from "./directive/NumberRangeDirective";
 import {TitleComponent} from "../app/core/title/title.component";
-import {
-    DialogTerminateContractComponent
-} from "../app/pages/contract/dialog-terminate-contract/dialog-terminate-contract.component";
+import {StickTableHeader} from "./directive/StickTableHeaderDirective";
 
 @NgModule({
     declarations: [
@@ -33,7 +31,8 @@ import {
         MaskCepDirective,
         CepMaskPipe,
         NumberRangeDirective,
-        TitleComponent
+        TitleComponent,
+        StickTableHeader
     ],
     exports: [
         ToastModule,
@@ -49,7 +48,8 @@ import {
         MaskCepDirective,
         CepMaskPipe,
         NumberRangeDirective,
-        TitleComponent
+        TitleComponent,
+        StickTableHeader
     ],
     imports: [
         CommonModule

@@ -8,6 +8,7 @@ import {NumberHelpers} from "../../../../shared/NumberHelpers";
 import {DateHelpers} from "../../../../shared/DateHelpers";
 import {AccountService} from "../../account/account.service";
 import {AccountEntity} from "../../../../entity/AccountEntity";
+import {ConfirmationService} from "primeng/api";
 
 @Component({
   selector: 'app-search-transaction',
@@ -32,6 +33,7 @@ export class SearchTransactionComponent implements OnInit {
 
     constructor(private alertService: AlertService,
                 private accountServce: AccountService,
+                private confirmationService: ConfirmationService,
                 private transactionService: TransactionService) {
     }
 
@@ -44,7 +46,16 @@ export class SearchTransactionComponent implements OnInit {
 
     confirmationDelete(transaction: TransactionEntity) {
         this.selectedTransaction = transaction;
-        this.visible = true;
+        if (transaction.installment === 0) {
+            this.confirmationService.confirm({
+                message: `Tem certeza que deseja excluir o Lançamento ${this.description}`,
+                accept: () => {
+                    this.deleteOnlyThis();
+                }
+            })
+        } else {
+            this.visible = true;
+        }
     }
 
     deleteOnlyThis() {
@@ -84,6 +95,26 @@ export class SearchTransactionComponent implements OnInit {
             this.transactions = response;
             this.table?.reset();
         });
+    }
+
+    calculatedSubTotal(transaction: TransactionEntity): { subtotal: number, isNegative: boolean } {
+        const subtotal = this.transactions.reduce((subtotal, tr) => {
+            const isSameDueDate = tr.dueDate === transaction.dueDate;
+            const isPaid = tr.paid;
+
+            // Somar ou subtrair o valor dependendo das condições
+            const value = tr.value;
+            if ((isSameDueDate && !isPaid) || isPaid) {
+                subtotal += value;
+            }
+
+            return subtotal;
+        }, 0);
+
+        // Verificar se o subtotal é negativo
+        const isNegative = subtotal < 0;
+
+        return { subtotal, isNegative };
     }
 
     get description() {

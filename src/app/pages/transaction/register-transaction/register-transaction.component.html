@@ -91,9 +91,9 @@
                                 <p-dropdown styleClass="w-100" name="frequency" id="frequency" placeholder="Selecione" [options]="frequencyEnum" [(ngModel)]="transaction['frequency']" />
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-3" *ngIf="transaction['paymentType'] === 'IN_INSTALLMENTS'">
                                 <label class="form-label"> Número de parcelas :</label>
-                                <p-dropdown styleClass="w-100" name="installments" id="installments" placeholder="Selecione" [readonly]="transaction['paymentType'] === 'FIXED'" [options]="installments" [(ngModel)]="transaction['installment']"
+                                <p-dropdown styleClass="w-100" name="installments" id="installments" placeholder="Selecione" [options]="installments" [(ngModel)]="transaction['installment']"
                                             emptyMessage="Nenhuma parcela encontrada" [filter]="true"
                                             (onChange)="calculatesInstallmentValue()"/>
                             </div>

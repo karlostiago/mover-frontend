@@ -74,13 +74,21 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     loadingInstallments() {
         if (this.transaction.paymentType === 'IN_INSTALLMENTS') {
+            this.transaction['installmentValue'] = 0;
+            this.transaction['installment'] = 0;
             this.installments = Array.from({ length: 399 }, (_, i) => i + 2).map(number => ({
                 label: number.toString(),
                 value: number
             }));
-        } else {
+        }
+        else if (this.transaction.paymentType === 'FIXED') {
+            this.transaction['installmentValue'] = this.transaction['value'];
+        }
+        else {
             this.installments = [];
             this.transaction['installment'] = 0;
+            this.transaction['installmentValue'] = 0;
+            this.transaction['frequency'] = "";
         }
     }
 

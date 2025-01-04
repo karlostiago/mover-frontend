@@ -1,0 +1,25 @@
+<p-dialog header="Confirmação" [modal]="true" [(visible)]="visible" [draggable]="false">
+    <div class="row g-3">
+        <div class="col-md-12 mb-10" style="position: relative; margin-top: -10px;">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <span style="text-align: center; padding: 0; color: #4b5563"> Tem certeza que deseja excluir o Lançamento {{ description }} ? </span>
+                    </div>
+                </div>
+                <div class="card-footer" style="padding-bottom: 0; border: 0 !important; background: transparent;">
+                    <div class="footer-content" style="float: right; position: relative; left: 1.25rem;">
+                        <button pButton type="button" class="p-button-danger p-button-sm ms-2" (click)="deleteOnlyThis()">
+                            <i class="fa-solid fa-remove m-1"></i>
+                            Excluir apenas este
+                        </button>
+                        <button pButton type="button" class="p-button-danger p-button-outlined p-button-sm ms-2" (click)="deleteThisAndNext()">
+                            <i class="fa-solid fa-remove m-1"></i>
+                            Excluir este e os próximos
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-dialog>

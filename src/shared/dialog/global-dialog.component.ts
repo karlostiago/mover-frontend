@@ -7,6 +7,12 @@ import {
     DialogTerminateContractComponent
 } from "../../app/pages/contract/dialog-terminate-contract/dialog-terminate-contract.component";
 import {DialogSubcategoryComponent} from "../../app/pages/category/dialog-subcategory/dialog-subcategory.component";
+import {
+    DialogDeleteTransactionComponent
+} from "../../app/pages/transaction/dialog-delete-transaction/dialog-delete-transaction.component";
+import {
+    DialogConfirmationPaymentComponent
+} from "../../app/pages/transaction/dialog-confirmation-payment/dialog-confirmation-payment.component";
 
 @Component({
   selector: 'app-global-dialog',
@@ -25,23 +31,29 @@ export class GlobalDialogComponent implements OnInit {
 
     @ViewChild(DialogSubcategoryComponent) dialogSubcategoryComponent: DialogSubcategoryComponent;
 
+    @ViewChild(DialogDeleteTransactionComponent) dialogDeleteTransactionComponent: DialogDeleteTransactionComponent;
+
+    @ViewChild(DialogConfirmationPaymentComponent) dialogConfirmationPaymentComponent: DialogConfirmationPaymentComponent;
+
     ngOnInit() { }
 
     open(typeDialog: TypeDialog, source?: any, target?: any) {
-        if (typeDialog === TypeDialog.ADDRESS) {
-            this.dialogAddress.showDialog(source);
-        }
-        else if (typeDialog === TypeDialog.FIPE) {
-            this.dialogFipe.showDialog(source);
-        }
-        else if (typeDialog === TypeDialog.CONTACT) {
-            this.dialogContact.showDialog(source, target);
-        }
-        else if (typeDialog === TypeDialog.TERMINATE_CONTRACT) {
-            this.dialogTerminateContract.showDialog(source);
-        }
-        else if (typeDialog === TypeDialog.SUBCATEGORY) {
-            this.dialogSubcategoryComponent.showDialog(source, target);
+        const dialogMap: Record<TypeDialog, (source?: any, target?: any) => void> = {
+            [TypeDialog.ADDRESS]: this.dialogAddress.showDialog.bind(this.dialogAddress),
+            [TypeDialog.FIPE]: this.dialogFipe.showDialog.bind(this.dialogFipe),
+            [TypeDialog.CONTACT]: this.dialogContact.showDialog.bind(this.dialogContact),
+            [TypeDialog.TERMINATE_CONTRACT]: this.dialogTerminateContract.showDialog.bind(this.dialogTerminateContract),
+            [TypeDialog.SUBCATEGORY]: this.dialogSubcategoryComponent.showDialog.bind(this.dialogSubcategoryComponent),
+            [TypeDialog.DELETE_TRANSACTION]: this.dialogDeleteTransactionComponent.showDialog.bind(this.dialogDeleteTransactionComponent),
+            [TypeDialog.CONFIRMATION_PAYMENT_TRANSATION]: this.dialogConfirmationPaymentComponent.showDialog.bind(this.dialogConfirmationPaymentComponent),
+        };
+
+        const dialogFunction = dialogMap[typeDialog];
+
+        if (dialogFunction) {
+            dialogFunction(source, target);
+        } else {
+            console.warn(`Dialog type ${typeDialog} is not handled.`);
         }
     }
 }

@@ -19,6 +19,7 @@ import {
 import {CommonTransactionComponent} from "./common-transaction/common-transaction.component";
 import {CalendarModule} from "primeng/calendar";
 import {MultiSelectModule} from "primeng/multiselect";
+import {GlobalDialogModule} from "../../../shared/dialog/global-dialog.module";
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import {MultiSelectModule} from "primeng/multiselect";
         SharedModule,
         InputTextareaModule,
         CalendarModule,
-        MultiSelectModule
+        MultiSelectModule,
+        GlobalDialogModule
     ]
 })
 export class TransactionModule { }

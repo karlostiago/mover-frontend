@@ -6,7 +6,9 @@ export enum TypeDialog {
     FIPE,
     CONTACT,
     TERMINATE_CONTRACT,
-    SUBCATEGORY
+    SUBCATEGORY,
+    DELETE_TRANSACTION,
+    CONFIRMATION_PAYMENT_TRANSATION
 }
 
 @Injectable({

@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../core/handler/ErrorHandler";
 import {TransactionEntity} from "../../../entity/TransactionEntity";
 import {BalanceEntity} from "../../../entity/BalanceEntity";
+import {DateHelpers} from "../../../shared/DateHelpers";
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,8 @@ export class TransactionService extends BaseService<TransactionEntity> {
         return this.toPromise(request);
     }
 
-    async pay(id: number): Promise<TransactionEntity> {
-        const request = this.httpClient.put(`${this.baseURL}/${this.pathURL()}/${id}/pay`, this.options());
+    async pay(id: number, paymentDate: Date): Promise<TransactionEntity> {
+        const request = this.httpClient.put(`${this.baseURL}/${this.pathURL()}/${id}/pay/${DateHelpers.toISOToString(paymentDate)}`, this.options());
         return this.toPromise(request);
     }
 

@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AlertService} from "../../../../service/AlertService";
 import {TransactionService} from "../transaction.service";
-import {Table} from "primeng/table";
 import {TransactionEntity} from "../../../../entity/TransactionEntity";
 import {BalanceEntity} from "../../../../entity/BalanceEntity";
 import {NumberHelpers} from "../../../../shared/NumberHelpers";
@@ -9,6 +8,8 @@ import {DateHelpers} from "../../../../shared/DateHelpers";
 import {AccountService} from "../../account/account.service";
 import {AccountEntity} from "../../../../entity/AccountEntity";
 import {ConfirmationService} from "primeng/api";
+import {DialogDeleteTransactionComponent} from "../dialog-delete-transaction/dialog-delete-transaction.component";
+import {DialogConfirmationPaymentComponent} from "../dialog-confirmation-payment/dialog-confirmation-payment.component";
 
 @Component({
   selector: 'app-search-transaction',
@@ -25,14 +26,14 @@ export class SearchTransactionComponent implements OnInit {
     searchFilter: string = "";
     periodoFilter: Date;
 
-    visible = false;
-
-    @ViewChild("table") table: Table | undefined;
-
     selectedTransaction: TransactionEntity;
 
-    private page = 1;
     remainingPages: number = -1;
+
+    private page = 1;
+
+    @ViewChild(DialogDeleteTransactionComponent) dialogDeleteTransaction: DialogDeleteTransactionComponent;
+    @ViewChild(DialogConfirmationPaymentComponent) dialogConfirmationPaymentComponent: DialogConfirmationPaymentComponent;
 
     constructor(private alertService: AlertService,
                 private accountServce: AccountService,
@@ -51,45 +52,31 @@ export class SearchTransactionComponent implements OnInit {
         this.selectedTransaction = transaction;
         if (transaction.installment === 0) {
             this.confirmationService.confirm({
-                message: `Tem certeza que deseja excluir o Lançamento ${this.description}`,
+                message: `Tem certeza que deseja excluir o Lançamento ${this.selectedTransaction.description}`,
                 accept: () => {
-                    this.deleteOnlyThis();
+                    this.delete();
                 }
             })
         } else {
-            this.visible = true;
+            this.dialogDeleteTransaction.showDialog(transaction);
         }
     }
 
-    deleteOnlyThis() {
+    delete() {
         this.transactionService.remove(this.selectedTransaction.id, true).then(() => {
             this.updateTransactions();
             this.alertService.success("Lançamento excluido com sucesso.");
         });
     }
 
-    deleteThisAndNext() {
-        this.transactionService.remove(this.selectedTransaction.id, false).then(() => {
-            this.updateTransactions();
-            this.alertService.success("Lançamentos excluídos com sucesso.");
-        });
-    }
-
-    pay(transaction: TransactionEntity) {
-        this.transactionService.pay(transaction.id).then(() => {
-            this.alertService.success("Lançamento efetivado com sucesso.");
-            this.filterBy();
-            this.updateBalance();
-            this.table?.reset();
-        });
+    confirmationPayment(transaction: TransactionEntity) {
+        this.dialogConfirmationPaymentComponent.showDialog(transaction);
     }
 
     refund(transaction: TransactionEntity) {
         this.transactionService.refund(transaction.id).then(() => {
             this.alertService.success("Lançamento estornado com sucesso.");
-            this.filterBy();
-            this.updateBalance();
-            this.table?.reset();
+            this.updateTransactions();
         });
     }
 
@@ -107,11 +94,9 @@ export class SearchTransactionComponent implements OnInit {
 
     calculatedSubTotal(transaction: TransactionEntity): { subtotal: number, isNegative: boolean } {
         const subtotal = this.transactions.reduce((subtotal, tr) => {
-            const isSameDueDate = tr.dueDate === transaction.dueDate;
-            const isPaid = tr.paid;
-            const value = tr.value;
-            if ((isSameDueDate && !isPaid) || isPaid) {
-                subtotal += value;
+            const isSameDate = tr.date === transaction.date;
+            if (isSameDate) {
+                subtotal += tr.value;
             }
             return subtotal;
         }, 0);
@@ -131,8 +116,9 @@ export class SearchTransactionComponent implements OnInit {
         });
     }
 
-    get description() {
-        return this.selectedTransaction ? this.selectedTransaction.description : '';
+    updateTransactions() {
+        this.filterBy();
+        this.updateBalance();
     }
 
     private createFilters() {
@@ -151,13 +137,6 @@ export class SearchTransactionComponent implements OnInit {
         filters[3] = this.page;
 
         return filters.join(';');
-    }
-
-    private updateTransactions() {
-        this.filterBy();
-        this.updateBalance();
-        this.table?.reset();
-        this.visible = false;
     }
 
     private updateBalance() {

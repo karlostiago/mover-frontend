@@ -1,0 +1,50 @@
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AlertService} from "../../../../service/AlertService";
+import {TransactionEntity} from "../../../../entity/TransactionEntity";
+import {TransactionService} from "../transaction.service";
+
+@Component({
+  selector: 'app-dialog-delete-transaction',
+  templateUrl: './dialog-delete-transaction.component.html',
+  styleUrls: ['./dialog-delete-transaction.component.css']
+})
+export class DialogDeleteTransactionComponent implements OnInit {
+
+    visible = false;
+    transaction = new TransactionEntity();
+
+    @Output() transactionDeleted = new EventEmitter<void>();
+
+    constructor(private alertService: AlertService,
+                private transactionService: TransactionService) {
+    }
+
+    ngOnInit(): void {
+
+    }
+
+    showDialog(transaction: TransactionEntity) {
+        this.visible = true;
+        this.transaction = transaction;
+    }
+
+    deleteOnlyThis() {
+        this.transactionService.remove(this.transaction.id, true).then(() => {
+            this.alertService.success("Lançamento excluido com sucesso.");
+            this.transactionDeleted.emit();
+            this.visible = false;
+        });
+    }
+
+    deleteThisAndNext() {
+        this.transactionService.remove(this.transaction.id, false).then(() => {
+            this.alertService.success("Lançamentos excluídos com sucesso.");
+            this.transactionDeleted.emit();
+            this.visible = false;
+        });
+    }
+
+    get description() {
+        return this.transaction ? this.transaction.description : '';
+    }
+}

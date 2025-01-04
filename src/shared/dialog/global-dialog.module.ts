@@ -17,6 +17,12 @@ import {
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {DialogSubcategoryComponent} from "../../app/pages/category/dialog-subcategory/dialog-subcategory.component";
+import {
+    DialogConfirmationPaymentComponent
+} from "../../app/pages/transaction/dialog-confirmation-payment/dialog-confirmation-payment.component";
+import {
+    DialogDeleteTransactionComponent
+} from "../../app/pages/transaction/dialog-delete-transaction/dialog-delete-transaction.component";
 
 @NgModule({
     declarations: [
@@ -25,14 +31,18 @@ import {DialogSubcategoryComponent} from "../../app/pages/category/dialog-subcat
         DialogFipeComponent,
         DialogContactComponent,
         DialogTerminateContractComponent,
-        DialogSubcategoryComponent
+        DialogSubcategoryComponent,
+        DialogConfirmationPaymentComponent,
+        DialogDeleteTransactionComponent
     ],
     exports: [
         DialogAddressComponent,
         GlobalDialogComponent,
         DialogFipeComponent,
         DialogContactComponent,
-        DialogSubcategoryComponent
+        DialogSubcategoryComponent,
+        DialogDeleteTransactionComponent,
+        DialogConfirmationPaymentComponent
     ],
     imports: [
         CommonModule,

@@ -89,7 +89,7 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table [value]="transactions" responsiveLayout="stack" [breakpoint]="'1300px'" appStickTableHeader
+                    <p-table [value]="transactions" responsiveLayout="stack" [breakpoint]="'1300px'" appStickTableHeader
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines"
                              sortMode="single"
                              sortField="date"
@@ -107,17 +107,17 @@
                             </tr>
                         </ng-template>
 
-<!--                        <ng-template pTemplate="groupfooter" let-transaction>-->
-<!--                            <tr>-->
-<!--                                <td colspan="4" class="text-right">-->
-<!--                                    <strong> Total: </strong>-->
-<!--                                    <span class="{{ calculatedSubTotal(transaction).isNegative ? 'text-danger' : '' }}">-->
-<!--                                        {{ calculatedSubTotal(transaction).subtotal | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}-->
-<!--                                    </span>-->
-<!--                                </td>-->
-<!--                                <td colspan="2"></td>-->
-<!--                            </tr>-->
-<!--                        </ng-template>-->
+                        <ng-template pTemplate="groupfooter" let-transaction>
+                            <tr>
+                                <td colspan="4" class="text-right">
+                                    <strong class="m-3"> Total: </strong>
+                                    <span class="{{ calculatedSubTotal(transaction).isNegative ? 'text-danger' : '' }}">
+                                        {{ NumberHelpers.invertSignalWhenNegative(calculatedSubTotal(transaction).subtotal) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                                    </span>
+                                </td>
+                                <td colspan="2"></td>
+                            </tr>
+                        </ng-template>
 
                         <ng-template pTemplate="groupheader" let-transaction>
                             <tr pRowGroupHeader>
@@ -146,7 +146,7 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">EFETIVADO</span>
-                                    <a (click)="transaction['paid'] ? refund(transaction) : pay(transaction)" style="cursor: pointer">
+                                    <a (click)="transaction['paid'] ? refund(transaction) : confirmationPayment(transaction)" style="cursor: pointer">
                                         <span class=" {{ transaction['paid'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
                                             {{ transaction["paid"] === true ? 'Sim' : 'Não' }}
                                         </span>
@@ -178,7 +178,7 @@
             <br />
 
             <div class="col-md-12 mb-10 text-center">
-                <button pButton type="button" class="p-button-contrast p-button-sm ms-2" [disabled]="remainingPages <= 0" (click)="showMore()">
+                <button pButton type="button" class="p-button-contrast p-button-sm ms-2" *ngIf="remainingPages > 0" (click)="showMore()">
                     <i class="fa-solid fa-rotate-right m-1"></i>
                     Mostrar mais...
                 </button>
@@ -187,28 +187,5 @@
     </div>
 </form>
 
-<p-dialog header="Confirmação" [modal]="true" [(visible)]="visible" [draggable]="false" [baseZIndex]="100000">
-    <div class="row g-3">
-        <div class="col-md-12 mb-10" style="position: relative; margin-top: -10px;">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <span style="padding: 0; color: #4b5563"> Tem certeza que deseja excluir o Lançamento {{ description }} ? </span>
-                    </div>
-                </div>
-                <div class="card-footer" style="padding-bottom: 0; border: 0 !important; background: transparent;">
-                    <div class="footer-content" style="float: right; position: relative; left: 1.25rem;">
-                        <button pButton type="button" class="p-button-danger p-button-sm ms-2" (click)="deleteOnlyThis()">
-                            <i class="fa-solid fa-remove m-1"></i>
-                            Excluir apenas este
-                        </button>
-                        <button pButton type="button" class="p-button-danger p-button-outlined p-button-sm ms-2" (click)="deleteThisAndNext()">
-                            <i class="fa-solid fa-remove m-1"></i>
-                            Excluir este e os próximos
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</p-dialog>
+<app-dialog-confirmation-payment (transactionPayment)="updateTransactions()"></app-dialog-confirmation-payment>
+<app-dialog-delete-transaction (transactionDeleted)="updateTransactions()"></app-dialog-delete-transaction>

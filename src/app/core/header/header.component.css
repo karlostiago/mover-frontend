@@ -1,6 +1,10 @@
-header {
-    position: fixed;
-    width: 100%;
+span.show-menu {
+    margin-left: 240px;
+    transition: margin-left 0.3s ease;
+}
+
+.navbar {
+    height: 3.75rem;
 }
 
 .navbar .container {

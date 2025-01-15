@@ -1,4 +1,4 @@
-<p-dialog header="Confirmar efetivação de pagamento " [modal]="true"  [(visible)]="visible" [style]="{ width: '25rem' }" [draggable]="false">
+<p-dialog header="Confirmar efetivação de pagamento " [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }" [draggable]="false">
     <form autocomplete="off" #form="ngForm">
         <div class="row g-3">
             <div class="col-md-12 mb-10" style="margin-top: -1.125rem; margin-bottom: -0.9375rem; padding-left: 0">
@@ -7,7 +7,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label class="form-label"> Data Pagamento :</label>
-                                <input pInputText class="form-control" name="paymentDate" id="paymentDate" [(ngModel)]="transaction['paymentDate']" appDateFormatPtBr [required]="true" />
+                                <p-calendar appendTo="body" name="paymentDate" id="paymentDate" [(ngModel)]="transaction['paymentDate']"
+                                            dateFormat="dd/mm/yy" tabindex="-1" [readonlyInput]="true" />
                             </div>
                         </div>
                     </div>

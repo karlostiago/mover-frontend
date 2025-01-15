@@ -1,53 +1,48 @@
-<aside>
+<aside style=" {{ showMenu ? 'margin-left: 0' : '' }}">
     <span class="logo">
         <div class="main-logo">
             <img ngSrc="assets/logo-mover.svg" height="85" width="202"/>
-        </div>
-
-        <div class="mobile-logo">
-            <img ngSrc="assets/m.svg" height="43" width="64"/>
         </div>
     </span>
     <ul class="sidebar">
         <li>
             <i class="fa-solid fa-gauge"></i>
-            <a routerLink="/dashboard/home"> Dashboard </a>
+            <a routerLink="/dashboard/home" (click)="showOrHideMenu()"> Dashboard </a>
         </li>
         <li>
             <i class="fa-solid fa-user"></i>
             <a href="#"> Meus Clientes </a>
             <ul>
-                <li routerLink="/search/clients"> <span> Clientes </span> </li>
-                <li routerLink="/search/contracts"> <span> Contratos </span> </li>
+                <li routerLink="/search/clients" (click)="showOrHideMenu()"> <span> Clientes </span> </li>
+                <li routerLink="/search/contracts" (click)="showOrHideMenu()"> <span> Contratos </span> </li>
             </ul>
         </li>
         <li>
             <i class="fa-solid fa-car"></i>
             <a href="#"> Minha Frota </a>
             <ul>
-                <li routerLink="/search/vehicles"> <span> Veículos </span> </li>
-                <li routerLink="/search/maintenance"> <span> Manutenções </span> </li>
+                <li routerLink="/search/vehicles" (click)="showOrHideMenu()"> <span> Veículos </span> </li>
+                <li routerLink="/search/maintenance" (click)="showOrHideMenu()"> <span> Manutenções </span> </li>
             </ul>
         </li>
         <li>
             <i class="fa-solid fa-sack-dollar"></i>
             <a href="#"> Meu Dinheiro </a>
             <ul>
-                <li routerLink="/search/transactions"> <span> Lançamentos </span> </li>
+                <li routerLink="/search/transactions" (click)="showOrHideMenu()"> <span> Lançamentos </span> </li>
             </ul>
         </li>
         <li>
             <i class="fa-solid fa-gear"></i>
             <a href="#"> Configurações </a>
             <ul>
-                <li routerLink="/search/accounts"> <span> Contas </span> </li>
-                <li routerLink="/search/cards"> <span> Cartões </span> </li>
-                <li routerLink="/search/categories"> <span> Categorias </span> </li>
-<!--                <li routerLink="/search/subcategories"> <span> Subcategorias </span> </li>-->
-                <li routerLink="/search/brands"> <span> Marcas </span> </li>
-                <li routerLink="/search/models"> <span> Modelos </span> </li>
-                <li routerLink="/search/partners"> <span> Sócios </span> </li>
-                <li routerLink="/search/configurations"> <span> Parâmetros </span> </li>
+                <li routerLink="/search/accounts" (click)="showOrHideMenu()"> <span> Contas </span> </li>
+                <li routerLink="/search/cards" (click)="showOrHideMenu()"> <span> Cartões </span> </li>
+                <li routerLink="/search/categories" (click)="showOrHideMenu()"> <span> Categorias </span> </li>
+                <li routerLink="/search/brands" (click)="showOrHideMenu()"> <span> Marcas </span> </li>
+                <li routerLink="/search/models" (click)="showOrHideMenu()"> <span> Modelos </span> </li>
+                <li routerLink="/search/partners" (click)="showOrHideMenu()"> <span> Sócios </span> </li>
+                <li routerLink="/search/configurations" (click)="showOrHideMenu()"> <span> Parâmetros </span> </li>
             </ul>
         </li>
         <li>

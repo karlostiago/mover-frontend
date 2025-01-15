@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {environment} from "../../../../environments/environment";
 import {HealthCheckService} from "../../../../service/HealthCheckService";
 
@@ -13,6 +13,9 @@ export class MenuLateralComponent implements OnInit {
     version: string = "";
     running: boolean = false;
 
+    @Input() showMenu: boolean;
+    @Output() hideMenu = new EventEmitter<boolean>;
+
     constructor(private healhCheckService: HealthCheckService) { }
 
     ngOnInit(): void {
@@ -22,5 +25,10 @@ export class MenuLateralComponent implements OnInit {
         this.healhCheckService.isRunning().then(response => {
             this.running = response.running;
         })
+    }
+
+    showOrHideMenu() {
+        this.showMenu = !this.showMenu;
+        this.hideMenu.emit(true);
     }
 }

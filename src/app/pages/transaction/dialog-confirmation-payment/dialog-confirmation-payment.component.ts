@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AlertService} from "../../../../service/AlertService";
 import {TransactionEntity} from "../../../../entity/TransactionEntity";
 import {TransactionService} from "../transaction.service";
+import {DateHelpers} from "../../../../shared/DateHelpers";
 
 @Component({
   selector: 'app-dialog-confirmation-payment',
@@ -27,6 +28,7 @@ export class DialogConfirmationPaymentComponent implements OnInit {
     showDialog(transaction: TransactionEntity) {
         this.visible = true;
         this.transaction = transaction;
+        this.transaction.paymentDate = DateHelpers.toDate(this.transaction.dueDate);
     }
 
     processPayment() {
@@ -40,6 +42,6 @@ export class DialogConfirmationPaymentComponent implements OnInit {
     }
 
     isValidPaymentDate() {
-        return !(this.transaction.paymentDate == null || this.transaction.paymentDate?.getFullYear() === 1800);
+        return !(this.transaction.paymentDate == null);
     }
 }

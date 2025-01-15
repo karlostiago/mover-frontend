@@ -64,7 +64,7 @@
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">MODELO</span>
-                                    <span class="text-limited-15">
+                                    <span class="text-limited-15" pTooltip="{{ vehicle['modelName'] }}">
                                         {{ vehicle['modelName'] }}
                                     </span>
                                 </td>
@@ -98,12 +98,14 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
-                                    <p-button [link]="true" (click)="confirmationDelete(vehicle)" >
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </p-button>
-                                    <p-button [link]="true" [routerLink]="['/update/vehicles/', vehicle.id]">
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </p-button>
+                                    <div class="card-actions">
+                                        <p-button [link]="true" (click)="confirmationDelete(vehicle)" >
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </p-button>
+                                        <p-button [link]="true" [routerLink]="['/update/vehicles/', vehicle.id]">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </p-button>
+                                    </div>
                                 </td>
                             </tr>
                         </ng-template>

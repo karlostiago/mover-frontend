@@ -63,23 +63,19 @@
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">VEÍCULO</span>
-                                    {{ maintenance['vehicleName'] }}
+                                    <span> {{ maintenance['vehicleName'] }} </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">KM</span>
-                                    {{ maintenance['mileage'] | number }}
+                                    <span> {{ maintenance['mileage'] | number }} </span>
                                 </td>
                                 <td class="text-left">
-                                    <span class="p-column-title">ESTABELECIMENTO</span>
-                                    <span class="text-limited-15">
-                                        {{ maintenance['establishment'] }}
-                                    </span>
+                                    <span class="p-column-title"> ESTABELECIMENTO </span>
+                                    <span> {{ maintenance['establishment'] }} </span>
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">TIPO</span>
-                                    <span class="text-limited-15">
-                                        {{ maintenance['type'] }}
-                                    </span>
+                                    <span> {{ maintenance['type'] }} </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">VALOR</span>
@@ -93,12 +89,14 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
-                                    <p-button [link]="true" (click)="confirmationDelete(maintenance)" >
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </p-button>
-                                    <p-button [link]="true" [routerLink]="['/update/maintenance/', maintenance.id]">
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </p-button>
+                                    <div class="card-actions">
+                                        <p-button [link]="true" (click)="confirmationDelete(maintenance)" >
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </p-button>
+                                        <p-button [link]="true" [routerLink]="['/update/maintenance/', maintenance.id]">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </p-button>
+                                    </div>
                                 </td>
                             </tr>
                         </ng-template>

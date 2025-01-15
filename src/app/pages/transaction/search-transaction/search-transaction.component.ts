@@ -84,6 +84,7 @@ export class SearchTransactionComponent implements OnInit {
         this.page = 1;
         this.transactionService.findBy(this.createFilters()).then(response => {
             this.transactions = response;
+            this.updateBalance();
             if (response.length > 0) {
                 this.remainingPages = response[0].remainingPages;
             } else {
@@ -121,6 +122,12 @@ export class SearchTransactionComponent implements OnInit {
         this.updateBalance();
     }
 
+    private updateBalance() {
+        this.transactionService.balance(this.createFilters()).then(response => {
+            this.balance = response;
+        })
+    }
+
     private createFilters() {
         const filters = new Array(4);
 
@@ -137,12 +144,6 @@ export class SearchTransactionComponent implements OnInit {
         filters[3] = this.page;
 
         return filters.join(';');
-    }
-
-    private updateBalance() {
-        this.transactionService.balance().then(response => {
-            this.balance = response;
-        })
     }
 
     private loadingAccounts() {

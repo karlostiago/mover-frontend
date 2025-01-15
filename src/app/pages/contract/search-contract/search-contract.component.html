@@ -96,15 +96,17 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
-                                    <p-button [link]="true" (click)="confirmationDelete(contract)" >
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </p-button>
-                                    <p-button [link]="true" [routerLink]="['/update/contracts/', contract.id]">
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </p-button>
-                                    <p-button [link]="true" (click)="close(contract)" >
-                                        <i class="far fa-file-excel"></i>
-                                    </p-button>
+                                    <div class="card-actions">
+                                        <p-button [link]="true" (click)="confirmationDelete(contract)" >
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </p-button>
+                                        <p-button [link]="true" [routerLink]="['/update/contracts/', contract.id]">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </p-button>
+                                        <p-button [link]="true" (click)="close(contract)" >
+                                            <i class="far fa-file-excel"></i>
+                                        </p-button>
+                                    </div>
                                 </td>
                             </tr>
                         </ng-template>

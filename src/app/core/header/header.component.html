@@ -1,6 +1,7 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand cursor-no_pointer">
+            <span class="navbar-toggler-icon cursor-pointer {{ showMenu ? 'show-menu' : '' }}" (click)="enableMenu()"></span>
             <span class="divisor"></span>
             <div class="info">
                 <span class="info-username">Carlos Tiago</span>
@@ -12,3 +13,5 @@
         </a>
     </div>
 </nav>
+
+<app-menu-lateral [showMenu]="this.showMenu" (hideMenu)="hideMenu()"></app-menu-lateral>

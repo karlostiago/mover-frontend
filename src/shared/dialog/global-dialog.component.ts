@@ -13,6 +13,9 @@ import {
 import {
     DialogConfirmationPaymentComponent
 } from "../../app/pages/transaction/dialog-confirmation-payment/dialog-confirmation-payment.component";
+import {
+    DialogUpdateFixedTransactionComponent
+} from "../../app/pages/transaction/dialog-update-transaction/dialog-update-fixed-transaction.component";
 
 @Component({
   selector: 'app-global-dialog',
@@ -35,6 +38,8 @@ export class GlobalDialogComponent implements OnInit {
 
     @ViewChild(DialogConfirmationPaymentComponent) dialogConfirmationPaymentComponent: DialogConfirmationPaymentComponent;
 
+    @ViewChild(DialogUpdateFixedTransactionComponent) dialogUpdateFixedTransactionComponent: DialogUpdateFixedTransactionComponent;
+
     ngOnInit() { }
 
     open(typeDialog: TypeDialog, source?: any, target?: any) {
@@ -46,6 +51,7 @@ export class GlobalDialogComponent implements OnInit {
             [TypeDialog.SUBCATEGORY]: this.dialogSubcategoryComponent.showDialog.bind(this.dialogSubcategoryComponent),
             [TypeDialog.DELETE_TRANSACTION]: this.dialogDeleteTransactionComponent.showDialog.bind(this.dialogDeleteTransactionComponent),
             [TypeDialog.CONFIRMATION_PAYMENT_TRANSATION]: this.dialogConfirmationPaymentComponent.showDialog.bind(this.dialogConfirmationPaymentComponent),
+            [TypeDialog.UPDATE_FIXED_TRANSACTION]: this.dialogUpdateFixedTransactionComponent.showDialog.bind(this.dialogUpdateFixedTransactionComponent)
         };
 
         const dialogFunction = dialogMap[typeDialog];

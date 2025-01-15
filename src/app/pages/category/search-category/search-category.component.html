@@ -44,7 +44,9 @@
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
                         <ng-template pTemplate="header">
                             <tr *ngIf="categories.length > 0">
+                                <th class="text-left">TIPO</th>
                                 <th class="text-left">NOME</th>
+                                <th class="text-left">SUBCATEGORIA</th>
                                 <th class="text-center">ATIVO</th>
                                 <th class="text-center">AÇÕES</th>
                             </tr>
@@ -53,10 +55,19 @@
                         <ng-template pTemplate="body" let-category>
                             <tr>
                                 <td class="text-left">
+                                    <span class="p-column-title">TIPO</span>
+                                    {{ category['type'] }}
+                                </td>
+                                <td class="text-left">
                                     <span class="p-column-title">NOME</span>
-                                    <small class="badge text-bg-secondary"> {{ category['type'] }} </small> {{ category['description'] }}
-                                    <ul class="list-group" *ngFor="let subcategory of category['subcategories']">
-                                        <li class="list-group-item"> <i class="fa-solid fa-grip m-1"> </i> {{ subcategory['description'] }}</li>
+                                    {{ category['description'] }}
+                                </td>
+                                <td class="text-left display-block" style="padding: 0">
+                                    <span class="p-column-title">SUBCATEGORIA</span>
+                                    <ul class="list-group">
+                                        <li class="list-group-item" *ngFor="let subcategory of category['subcategories']">
+                                            <i class="fa-solid fa-grip"> </i> {{ subcategory['description'] }}
+                                        </li>
                                     </ul>
                                 </td>
                                 <td class="text-center">
@@ -67,12 +78,14 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
-                                    <p-button [link]="true" (click)="confirmationDelete(category)" >
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </p-button>
-                                    <p-button [link]="true" [routerLink]="['/update/categories/', category.id]">
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </p-button>
+                                    <div class="card-actions">
+                                        <p-button [link]="true" (click)="confirmationDelete(category)" >
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </p-button>
+                                        <p-button [link]="true" [routerLink]="['/update/categories/', category.id]">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </p-button>
+                                    </div>
                                 </td>
                             </tr>
                         </ng-template>

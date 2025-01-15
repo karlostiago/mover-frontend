@@ -23,6 +23,10 @@ import {
 import {
     DialogDeleteTransactionComponent
 } from "../../app/pages/transaction/dialog-delete-transaction/dialog-delete-transaction.component";
+import {CalendarModule} from "primeng/calendar";
+import {
+    DialogUpdateFixedTransactionComponent
+} from "../../app/pages/transaction/dialog-update-transaction/dialog-update-fixed-transaction.component";
 
 @NgModule({
     declarations: [
@@ -33,7 +37,8 @@ import {
         DialogTerminateContractComponent,
         DialogSubcategoryComponent,
         DialogConfirmationPaymentComponent,
-        DialogDeleteTransactionComponent
+        DialogDeleteTransactionComponent,
+        DialogUpdateFixedTransactionComponent
     ],
     exports: [
         DialogAddressComponent,
@@ -54,7 +59,8 @@ import {
         FormsModule,
         PaginatorModule,
         InputTextareaModule,
-        InputSwitchModule
+        InputSwitchModule,
+        CalendarModule
     ]
 })
 export class GlobalDialogModule { }

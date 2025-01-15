@@ -2,7 +2,7 @@
 @import "primeng/resources/primeng.css";
 
 :host ::ng-deep .p-dialog {
-    z-index: 1050 !important; /* Ajuste o valor conforme necessário */
+    z-index: 1050 !important;
 }
 
 body {
@@ -11,7 +11,8 @@ body {
 }
 
 table, .p-button-label,
-.p-dropdown .p-dropdown-label.p-placeholder {
+.p-dropdown .p-dropdown-label.p-placeholder,
+.p-tooltip-text {
     font-family: 'Ubuntu', sans-serif!important;
 }
 
@@ -149,6 +150,10 @@ input, textarea {
 
 .cursor-pointer {
     cursor: pointer!important;
+}
+
+.cursor-no_pointer {
+    cursor: inherit!important;
 }
 
 .cursor-no_drop {
@@ -296,6 +301,18 @@ a.btn:active {
     .col-xs-6 {
         width: 50% !important;
     }
+    .display-block {
+        display: block !important;
+        padding: 0.55rem 1rem !important;
+    }
+    .p-column-title ~ span:not(.badge) {
+        text-align: right;
+
+        width: 15ch;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
 }
 
 /**
@@ -335,6 +352,7 @@ textarea {
     box-shadow: none !important;
     border-color: #dee2e6 !important;
 }
+
 /**
  * ---------------------------------------------------------
  *      Configuração de estilos mult-select
@@ -361,4 +379,17 @@ textarea {
 .p-multiselect-label {
     color: rgba(0, 0, 0, 0.54) !important;
     font-size: 0.75rem;
+}
+
+/**
+ * ---------------------------------------------------------
+ *      Configuração de estilos tooltip
+ * ---------------------------------------------------------
+ */
+.p-tooltip-text {
+    font-size: 0.75rem;
+}
+
+.p-tooltip {
+    z-index: 0!important;
 }

@@ -14,7 +14,6 @@ import {GlobalDialogModule} from "../../shared/dialog/global-dialog.module";
 import {ConfigurationModule} from "../pages/configuration/configuration.module";
 import {CardModule} from "../pages/card/card.module";
 import {CategoryModule} from "../pages/category/category.module";
-import {SubcategoryModule} from "../pages/subcategory/subcategory.module";
 import {PartnerModule} from "../pages/partner/partner.module";
 import {ContractModule} from "../pages/contract/contract.module";
 import {MaintenanceModule} from "../pages/maintenance/maintenance.module";
@@ -36,7 +35,6 @@ import {TransactionModule} from "../pages/transaction/transaction.module";
         ClientModule,
         ConfigurationModule,
         CategoryModule,
-        SubcategoryModule,
         CardModule,
         PartnerModule,
         ContractModule,

@@ -8,7 +8,7 @@ import {CategoryEntity} from "../../../../entity/CategoryEntity";
 import {CategoryTypeEntity} from "../../../../entity/CategoryTypeEntity";
 import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
 import {SubCategoryEntity} from "../../../../entity/SubCategoryEntity";
-import {SubCategoryService} from "../../subcategory/subcategory.service";
+import {SubCategoryService} from "../../transaction/subcategory.service";
 
 @Component({
   selector: 'app-register-category',

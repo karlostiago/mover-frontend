@@ -5,7 +5,16 @@ export class DateHelpers {
     }
 
     static toISOToString(date: Date) {
+        console.log(date);
         return date.toISOString().split('T')[0];
+    }
+
+    static toDate(dateString: any) {
+        if (typeof dateString === 'string') {
+            const [day, month, year] = dateString.split('/').map(Number);
+            return new Date(year, month - 1, day);
+        }
+        return dateString;
     }
 
     static getMonthAndYear(date: Date) {

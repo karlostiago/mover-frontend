@@ -94,12 +94,14 @@
                                         </td>
                                         <td class="text-center">
                                             <span class="p-column-title">AÇÕES</span>
-                                            <p-button [link]="true" (onClick)="deleteSubcategory(subcategory)">
-                                                <i class="fa-regular fa-trash-can"></i>
-                                            </p-button>
-                                            <p-button [link]="true" (onClick)="updateOpenDialogSubcategory(subcategory)">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </p-button>
+                                            <div class="card-actions">
+                                                <p-button [link]="true" (onClick)="deleteSubcategory(subcategory)">
+                                                    <i class="fa-regular fa-trash-can"></i>
+                                                </p-button>
+                                                <p-button [link]="true" (onClick)="updateOpenDialogSubcategory(subcategory)">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </p-button>
+                                            </div>
                                         </td>
                                     </tr>
                                 </ng-template>

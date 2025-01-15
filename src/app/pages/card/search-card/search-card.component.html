@@ -84,12 +84,14 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÕES</span>
-                                    <p-button [link]="true"  (click)="confirmationDelete(card)">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </p-button>
-                                    <p-button [link]="true" [routerLink]="['/update/cards/', card.id]">
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </p-button>
+                                    <div class="card-actions">
+                                        <p-button [link]="true" (click)="confirmationDelete(card)">
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </p-button>
+                                        <p-button [link]="true" [routerLink]="['/update/cards/', card.id]">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </p-button>
+                                    </div>
                                 </td>
                             </tr>
                         </ng-template>

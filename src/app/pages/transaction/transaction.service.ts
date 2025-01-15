@@ -34,8 +34,8 @@ export class TransactionService extends BaseService<TransactionEntity> {
         return this.toPromise(request);
     }
 
-    async balance(): Promise<BalanceEntity> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/balances`, this.options());
+    async balance(search: string): Promise<BalanceEntity> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/balances?search=${search}`, this.options());
         return this.toPromise(request);
     }
 

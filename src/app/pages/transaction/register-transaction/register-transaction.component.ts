@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AbstractRegister} from "../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
@@ -7,7 +7,7 @@ import {TransactionService} from "../transaction.service";
 import {CategoryEntity} from "../../../../entity/CategoryEntity";
 import {CategoryService} from "../../category/category.service";
 import {SubCategoryEntity} from "../../../../entity/SubCategoryEntity";
-import {SubCategoryService} from "../../subcategory/subcategory.service";
+import {SubCategoryService} from "../subcategory.service";
 import {TransactionEntity} from "../../../../entity/TransactionEntity";
 import {InstallmentTypeEnum} from "../../../../enum/InstallmentTypeEnum";
 import {FrequencyTransactionEnum} from "../../../../enum/FrequencyTransactionEnum";
@@ -15,6 +15,7 @@ import {SelectItemGroup} from "primeng/api";
 import {CategoryTypeEntity} from "../../../../entity/CategoryTypeEntity";
 import {LoaderService} from "../../../core/loader/loader.service";
 import {DateHelpers} from "../../../../shared/DateHelpers";
+import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
 
 @Component({
   selector: 'app-register-transaction',
@@ -37,12 +38,14 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     enableInstallments: boolean = false;
 
     edit: boolean;
+    visible: boolean;
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 private transactionService: TransactionService,
                 private categoryService: CategoryService,
                 private subcategoryService: SubCategoryService,
+                private globalDialogService: GlobalDialogService,
                 private loadService: LoaderService) {
         super(activatedRoute);
     }
@@ -116,7 +119,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
             items: this.findSubcategories(category.id, this.subcategories)
         }));
         this.loadService.automatic = true;
-        this.resetInstallment();
+        // this.resetInstallment();
     }
 
     processPayment() {
@@ -183,9 +186,9 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     }
 
     private update() {
-        this.transactionService.update(this.transaction.id, this.transaction).then(() => {
-            this.alertService.success("Registro atualizado com sucesso.");
-        });
+        if (this.transaction.paymentType === 'FIXED') {
+            this.globalDialogService.openDialog(TypeDialog.UPDATE_FIXED_TRANSACTION, this.transaction);
+        }
     }
 
     private async loadingTransactionTypes() {

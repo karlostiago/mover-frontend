@@ -24,6 +24,6 @@
 
 @media (max-width: 768px) {
     .content {
-        margin-left: 5.625rem;
+        margin-left: 0;
     }
 }

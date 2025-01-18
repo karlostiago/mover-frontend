@@ -9,11 +9,11 @@
                 </div>
                 <div class="card-footer" style="padding-bottom: 0; border: 0 !important; background: transparent;">
                     <div class="footer-content" style="float: right; position: relative; left: 1.25rem;">
-                        <button pButton type="button" class="p-button-success p-button-sm ms-2" (click)="updateOnlyThis()">
+                        <button pButton type="button" class="p-button-success p-button-sm ms-2" (click)="update()">
                             <i class="fa-solid fa-save m-1"></i>
                             Atualizar apenas este
                         </button>
-                        <button pButton type="button" class="p-button-success p-button-outlined p-button-sm ms-2" (click)="updateThisAndNext()">
+                        <button pButton type="button" class="p-button-success p-button-outlined p-button-sm ms-2" (click)="update(true)">
                             <i class="fa-solid fa-save m-1"></i>
                             Este e os próximos
                         </button>

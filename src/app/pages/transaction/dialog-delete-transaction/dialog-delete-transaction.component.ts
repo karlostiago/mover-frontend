@@ -28,20 +28,21 @@ export class DialogDeleteTransactionComponent implements OnInit {
         this.transaction = transaction;
     }
 
-    deleteOnlyThis() {
-        this.transactionService.remove(this.transaction.id, true).then(() => {
-            this.alertService.success("Lançamento excluido com sucesso.");
-            this.transactionDeleted.emit();
-            this.visible = false;
-        });
-    }
-
-    deleteThisAndNext() {
-        this.transactionService.remove(this.transaction.id, false).then(() => {
-            this.alertService.success("Lançamentos excluídos com sucesso.");
-            this.transactionDeleted.emit();
-            this.visible = false;
-        });
+    delete(batch: boolean = false) {
+        if (batch) {
+            this.transactionService.batchDelete(this.transaction.id).then(() => {
+                this.alertService.success("Lançamentos excluídos com sucesso.");
+                this.transactionDeleted.emit();
+                this.visible = false;
+            });
+        }
+        else {
+            this.transactionService.delete(this.transaction.id).then(() => {
+                this.alertService.success("Lançamento excluido com sucesso.");
+                this.transactionDeleted.emit();
+                this.visible = false;
+            });
+        }
     }
 
     get description() {

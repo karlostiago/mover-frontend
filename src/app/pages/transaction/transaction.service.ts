@@ -39,8 +39,13 @@ export class TransactionService extends BaseService<TransactionEntity> {
         return this.toPromise(request);
     }
 
-    async remove(id: number, deleteOnlyThis: boolean) {
-        const request = this.httpClient.delete(`${this.baseURL}/${this.pathURL()}/remove/${id}?deleteOnlyThis=${deleteOnlyThis}`, this.options());
+    async batchDelete(id: number) {
+        const request = this.httpClient.delete(`${this.baseURL}/${this.pathURL()}/batch-delete/${id}`, this.options());
+        return this.toPromise(request);
+    }
+
+    async batchUpdate(id: number, entity: TransactionEntity) {
+        const request = this.httpClient.put(`${this.baseURL}/${this.pathURL()}/batch-update/${id}`, JSON.stringify(entity), this.options());
         return this.toPromise(request);
     }
 }

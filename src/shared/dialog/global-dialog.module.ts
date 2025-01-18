@@ -25,8 +25,8 @@ import {
 } from "../../app/pages/transaction/dialog-delete-transaction/dialog-delete-transaction.component";
 import {CalendarModule} from "primeng/calendar";
 import {
-    DialogUpdateFixedTransactionComponent
-} from "../../app/pages/transaction/dialog-update-transaction/dialog-update-fixed-transaction.component";
+    DialogBatchUpdateTransactionComponent
+} from "../../app/pages/transaction/dialog-batch-update-transaction/dialog-batch-update-transaction.component";
 
 @NgModule({
     declarations: [
@@ -38,7 +38,7 @@ import {
         DialogSubcategoryComponent,
         DialogConfirmationPaymentComponent,
         DialogDeleteTransactionComponent,
-        DialogUpdateFixedTransactionComponent
+        DialogBatchUpdateTransactionComponent
     ],
     exports: [
         DialogAddressComponent,

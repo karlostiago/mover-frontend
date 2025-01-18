@@ -63,7 +63,7 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     delete() {
-        this.transactionService.remove(this.selectedTransaction.id, true).then(() => {
+        this.transactionService.delete(this.selectedTransaction.id).then(() => {
             this.updateTransactions();
             this.alertService.success("Lançamento excluido com sucesso.");
         });

@@ -22,7 +22,7 @@
                                         [options]="categoryTypes"
                                         emptyMessage="Nenhuma tipo lançamento encontrado"
                                         optionValue="description" optionLabel="description" required="true" [(ngModel)]="transaction['categoryType']"
-                                        (onChange)="findCategories()"/>
+                                        (onChange)="findCategories()" [disabled]="!isNewRegister()"/>
                         </div>
                         <div class="col-md-3">
                             <label class="form-label"> Categoria *:</label>

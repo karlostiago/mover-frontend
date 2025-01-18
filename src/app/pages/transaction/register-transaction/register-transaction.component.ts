@@ -186,8 +186,12 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     }
 
     private update() {
-        if (this.transaction.paymentType === 'FIXED') {
-            this.globalDialogService.openDialog(TypeDialog.UPDATE_FIXED_TRANSACTION, this.transaction);
+        if (this.transaction.paymentType === 'FIXED' || this.transaction.paymentType === 'IN_INSTALLMENTS') {
+            this.globalDialogService.openDialog(TypeDialog.BATCH_UPDATE_TRANSACTION, this.transaction);
+        } else {
+            this.transactionService.update(this.transaction.id, this.transaction).then(() => {
+                this.alertService.success("Registro atualizado com sucesso.");
+            });
         }
     }
 

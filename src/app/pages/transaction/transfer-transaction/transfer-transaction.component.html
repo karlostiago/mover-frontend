@@ -20,10 +20,12 @@
     </div>
     <div class="col-md-2">
         <label class="form-label"> Data Vencimento *:</label>
-        <input pInputText class="form-control" name="dueDate" id="dueDate" [(ngModel)]="transaction['dueDate']" appDateFormatPtBr [required]="true" />
+        <p-calendar appendTo="body" name="dueDate" id="dueDate" [(ngModel)]="transaction['dueDate']" [required]="true" dateFormat="dd/mm/yy"
+                    tabindex="-1" [readonlyInput]="true" />
     </div>
     <div class="col-md-2">
         <label class="form-label"> Data Pagamento :</label>
-        <input pInputText class="form-control" name="paymentDate" id="paymentDate" (change)="updatePaid(transaction)" [(ngModel)]="transaction['paymentDate']" appDateFormatPtBr />
+        <p-calendar appendTo="body" name="paymentDate" id="paymentDate" [(ngModel)]="transaction['paymentDate']" dateFormat="dd/mm/yy"
+                    tabindex="-1" [readonlyInput]="true" />
     </div>
 </div>

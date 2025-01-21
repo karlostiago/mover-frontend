@@ -107,17 +107,17 @@
                             </tr>
                         </ng-template>
 
-                        <ng-template pTemplate="groupfooter" let-transaction>
-                            <tr>
-                                <td colspan="4" class="text-right">
-                                    <strong class="m-3"> Total: </strong>
-                                    <span class="{{ calculatedSubTotal(transaction).isNegative ? 'text-danger' : '' }}">
-                                        {{ NumberHelpers.invertSignalWhenNegative(calculatedSubTotal(transaction).subtotal) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-                                    </span>
-                                </td>
-                                <td colspan="2"></td>
-                            </tr>
-                        </ng-template>
+<!--                        <ng-template pTemplate="groupfooter" let-transaction>-->
+<!--                            <tr>-->
+<!--                                <td colspan="4" class="text-right">-->
+<!--                                    <strong class="m-3"> Total: </strong>-->
+<!--                                    <span class="{{ calculatedSubTotal(transaction).isNegative ? 'text-danger' : '' }}">-->
+<!--                                        {{ NumberHelpers.invertSignalWhenNegative(calculatedSubTotal(transaction).subtotal) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}-->
+<!--                                    </span>-->
+<!--                                </td>-->
+<!--                                <td colspan="2"></td>-->
+<!--                            </tr>-->
+<!--                        </ng-template>-->
 
                         <ng-template pTemplate="groupheader" let-transaction>
                             <tr pRowGroupHeader>

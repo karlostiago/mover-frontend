@@ -119,7 +119,6 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
             items: this.findSubcategories(category.id, this.subcategories)
         }));
         this.loadService.automatic = true;
-        // this.resetInstallment();
     }
 
     processPayment() {

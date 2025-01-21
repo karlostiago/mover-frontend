@@ -76,7 +76,7 @@
         <div class="col-md-3 col-sm-12 mb-10">
             <div class="card">
                 <div class="card-header">
-                    <label>Balanço geral</label>
+                    <label>Balanço mensal</label>
                     <h5 class="{{ balance['generalBalance'] < 0 ? 'text-danger' : '' }}">{{ NumberHelpers.invertSignalWhenNegative(balance['generalBalance']) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
                 </div>
             </div>

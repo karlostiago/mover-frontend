@@ -10,6 +10,7 @@ import {AccountEntity} from "../../../../entity/AccountEntity";
 import {ConfirmationService} from "primeng/api";
 import {DialogDeleteTransactionComponent} from "../dialog-delete-transaction/dialog-delete-transaction.component";
 import {DialogConfirmationPaymentComponent} from "../dialog-confirmation-payment/dialog-confirmation-payment.component";
+import {BalanceService} from "../balance.service";
 
 @Component({
   selector: 'app-search-transaction',
@@ -38,6 +39,7 @@ export class SearchTransactionComponent implements OnInit {
     constructor(private alertService: AlertService,
                 private accountServce: AccountService,
                 private confirmationService: ConfirmationService,
+                private balanceService: BalanceService,
                 private transactionService: TransactionService) {
     }
 
@@ -123,7 +125,7 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     private updateBalance() {
-        this.transactionService.balance(this.createFilters()).then(response => {
+        this.balanceService.calculateBalances(this.createFilters()).then(response => {
             this.balance = response;
         })
     }

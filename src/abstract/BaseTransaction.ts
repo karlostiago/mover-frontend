@@ -15,8 +15,13 @@ export abstract class BaseTransaction {
     }
 
     updatePaid(transaction: TransactionEntity) {
-        transaction.paid = this.validPaymentDate(transaction.paymentDate);
-        transaction.paymentDate = transaction.paid ? transaction.paymentDate : null;
+        if (transaction.paymentDate == null) {
+            transaction.paid = false;
+            transaction.paymentDate = null;
+        } else {
+            transaction.paid = this.validPaymentDate(transaction.paymentDate);
+            transaction.paymentDate = transaction.paid ? transaction.paymentDate : null;
+        }
     }
 
     private validPaymentDate(date: any) {

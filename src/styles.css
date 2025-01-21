@@ -313,6 +313,9 @@ a.btn:active {
         white-space: nowrap;
         text-overflow: ellipsis;
     }
+    .p-datepicker table th > span {
+        padding-left: 1.06rem!important;
+    }
 }
 
 /**
@@ -350,6 +353,14 @@ textarea {
 
 .p-calendar:not(.p-calendar-disabled).p-focus > .p-inputtext {
     box-shadow: none !important;
+    border-color: #dee2e6 !important;
+}
+
+.p-datepicker table th > span {
+    padding-left: 1.06rem;
+}
+
+.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
     border-color: #dee2e6 !important;
 }
 

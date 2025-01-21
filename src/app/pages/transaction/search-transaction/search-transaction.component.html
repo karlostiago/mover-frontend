@@ -9,7 +9,7 @@
                         <div class="col-md-2 col-xs-12">
                             <label class="form-label"> Período: </label> <br/>
                             <p-calendar id="period" name="period" view="month" dateFormat="mm/yy" [readonlyInput]="true" inputStyleClass="cursor-pointer"
-                                [(ngModel)]="periodoFilter" [showButtonBar]="false" (onSelect)="filterBy()" />
+                                [(ngModel)]="periodoFilter" [showButtonBar]="false" (onSelect)="search()" />
                         </div>
                         <div class="col-md-3 col-xs-12">
                             <label class="form-label"> Conta: </label> <br/>
@@ -26,7 +26,7 @@
                 <div class="card-footer">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-6 col-xs-6 text-md-start">
-                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()">
+                            <button type="button" pButton class="p-button-success p-button-sm" (click)="search()">
                                 <i class="fa-solid fa-magnifying-glass m-1"></i>
                                 Pesquisar
                             </button>

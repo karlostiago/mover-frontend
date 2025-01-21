@@ -59,6 +59,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         if (!this.registerNew) {
             this.edit = true;
             this.transactionService.findById(this.id).then(response => {
+                localStorage.setItem("TRANSACTION_UPDATE", String(true));
                 this.transaction = response;
                 this.findCategories();
             });

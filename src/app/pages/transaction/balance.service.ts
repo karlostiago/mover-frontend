@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {BaseService} from "../../../abstract/BaseService";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../core/handler/ErrorHandler";
-import {TransactionEntity} from "../../../entity/TransactionEntity";
 import {BalanceEntity} from "../../../entity/BalanceEntity";
-import {DateHelpers} from "../../../shared/DateHelpers";
 
 @Injectable({
   providedIn: 'root'

@@ -22,4 +22,11 @@ export class DateHelpers {
         const year = date.getFullYear();
         return `${month}/${year}`;
     }
+
+    static parseMonthAndYearToDate(date: string) {
+        const day = 1;
+        const month = date.split('/')[0];
+        const year = date.split('/')[1];
+        return new Date(Number.parseInt(year), Number.parseInt(month) - 1, day);
+    }
 }

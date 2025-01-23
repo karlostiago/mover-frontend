@@ -1,0 +1,11 @@
+.list-group-item {
+    position: relative;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    background-color: inherit;
+    border: inherit;
+
+    padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+    padding-bottom: 0;
+}

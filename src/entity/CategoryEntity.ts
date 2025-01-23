@@ -6,4 +6,6 @@ export class CategoryEntity {
     type: string = "";
     active: boolean = true;
     subcategories = new Array<SubCategoryEntity>();
+
+    randomColor: string;
 }

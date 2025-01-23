@@ -12,11 +12,14 @@ import {DropdownModule} from "primeng/dropdown";
 import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../../shared/SharedModule";
 import {Ripple} from "primeng/ripple";
+import {TabViewModule} from "primeng/tabview";
+import {TableCategoryComponent} from "./table-category/table-category.component";
 
 @NgModule({
     declarations: [
         RegisterCategoryComponent,
-        SearchCategoryComponent
+        SearchCategoryComponent,
+        TableCategoryComponent
     ],
     exports: [
         RegisterCategoryComponent,
@@ -34,7 +37,8 @@ import {Ripple} from "primeng/ripple";
         DropdownModule,
         DialogModule,
         SharedModule,
-        Ripple
+        Ripple,
+        TabViewModule
     ]
 })
 export class CategoryModule { }

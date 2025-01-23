@@ -316,6 +316,21 @@ a.btn:active {
     .p-datepicker table th > span {
         padding-left: 1.06rem!important;
     }
+
+    .p-tabview .p-tabview-nav {
+        margin-top: -4px !important;
+    }
+
+    .p-tabview-nav {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: -81px;
+    }
+
+    .p-tabview-nav li {
+        flex: 1 1 100%;
+        text-align: left;
+    }
 }
 
 /**
@@ -403,4 +418,36 @@ textarea {
 
 .p-tooltip {
     z-index: 0!important;
+}
+
+/**
+ * ---------------------------------------------------------
+ *      Configuração de estilos tabview
+ * ---------------------------------------------------------
+ */
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    text-decoration: inherit!important;
+    font-family: 'Ubuntu', sans-serif!important;
+    color: rgba(0, 0, 0, 0.54) !important;
+    font-weight: 500;
+
+    border-width: 0 0 3px 0;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    border-color: #47b051;
+}
+
+.p-tabview .p-tabview-nav {
+    margin-top: 1px !important;
+    margin-left: -30px;
+}
+
+.p-tabview-nav {
+    display: flex;
+}
+
+.p-tabview-nav li {
+    flex: 1;
+    text-align: center;
 }

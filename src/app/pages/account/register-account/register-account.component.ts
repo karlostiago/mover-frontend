@@ -1,12 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AbstractRegister} from "../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
 import {AlertService} from "../../../../service/AlertService";
 import {AccountEntity} from "../../../../entity/AccountEntity";
 import {AccountService} from "../account.service";
-import {FileUpload} from "primeng/fileupload";
 import {BankIconEntity} from "../../../../entity/BankIconEntity";
+import {OptionEnum} from "../../../../enum/OptionEnum";
 
 @Component({
   selector: 'app-register-account',
@@ -16,9 +16,10 @@ import {BankIconEntity} from "../../../../entity/BankIconEntity";
 export class RegisterAccountComponent extends AbstractRegister implements OnInit {
 
     account = new AccountEntity();
-    icons = new Array<BankIconEntity>();
+    optionsEnum = new Array<string>();
+    selectedOption:  string | null = null;
 
-    @ViewChild("fileUpload") fileUpload: FileUpload | undefined;
+    iconSelected: BankIconEntity;
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
@@ -27,19 +28,14 @@ export class RegisterAccountComponent extends AbstractRegister implements OnInit
     }
 
     async ngOnInit() {
-        await this.loadingIcons();
+        this.loadingOptions();
 
         if (!this.registerNew) {
             this.accountService.findById(this.id).then(response => {
                 this.account = response;
+                this.iconSelected = new BankIconEntity(this.account.codeIcon, this.account.imageIcon);
+                this.selectedOption = this.account.caution ? OptionEnum.YES : OptionEnum.NO;
             });
-        }
-    }
-
-    private async loadingIcons() {
-        const icons = await this.accountService.findAllIcons();
-        for (const icon of icons) {
-            this.icons.push(icon);
         }
     }
 
@@ -48,6 +44,18 @@ export class RegisterAccountComponent extends AbstractRegister implements OnInit
             this.update();
         } else {
             this.save(form);
+        }
+    }
+
+    onChangeOption() {
+        if (this.selectedOption) {
+            this.account.caution = this.selectedOption === 'SIM';
+        }
+    }
+
+    selectedBankIcon(icon: BankIconEntity) {
+        if (icon) {
+            this.account.codeIcon = icon.code;
         }
     }
 
@@ -74,5 +82,12 @@ export class RegisterAccountComponent extends AbstractRegister implements OnInit
         this.accountService.update(this.account.id, this.account).then(() => {
             this.alertService.success("Registro atualizado com sucesso.");
         });
+    }
+
+    private loadingOptions() {
+        for (const value of Object.values(OptionEnum)) {
+            this.optionsEnum.push(value);
+        }
+        this.selectedOption = 'NÃO';
     }
 }

@@ -1,0 +1,6 @@
+<div class="icon-container" (click)="open()">
+    <div class="icon-image rounded">
+        <img *ngIf="hasSelectedIcon()" src="{{ iconSelected.urlImage }}" class="rounded mx-auto" alt="icon-image" />
+    </div>
+    <span class="icon-title"> {{ hasSelectedIcon() ? 'remover' : 'escolha um' }} icone </span>
+</div>

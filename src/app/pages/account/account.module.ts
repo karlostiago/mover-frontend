@@ -10,13 +10,14 @@ import {DropdownModule} from "primeng/dropdown";
 import {RegisterAccountComponent} from "./register-account/register-account.component";
 import {SearchAccountComponent} from "./search-account/search-account.component";
 import {SharedModule} from "../../../shared/SharedModule";
-import {FileUploadModule} from "primeng/fileupload";
-import {FieldsetModule} from "primeng/fieldset";
+import {DialogModule} from "primeng/dialog";
+import {SelectIconAccountComponent} from "./select-icon-account/select-icon-account.component";
 
 @NgModule({
     declarations: [
         RegisterAccountComponent,
-        SearchAccountComponent
+        SearchAccountComponent,
+        SelectIconAccountComponent
     ],
     exports: [
         RegisterAccountComponent,
@@ -33,9 +34,8 @@ import {FieldsetModule} from "primeng/fieldset";
         InputSwitchModule,
         DropdownModule,
         SharedModule,
-        FileUploadModule,
         NgOptimizedImage,
-        FieldsetModule
+        DialogModule
     ]
 })
 export class AccountModule { }

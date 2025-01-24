@@ -15,71 +15,39 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-5 col-sm-12">
-                            <label class="form-label"> Descrição da conta *:</label>
-                            <input pInputText class="form-control" name="bankName" id="bankName" [(ngModel)]="account['name']" [required]="true">
+                    <div class="row align-items-center">
+                        <div class="col-md-2 col-sm-12">
+                            <app-select-icon-account [account]="account" [iconSelected]="iconSelected" (selected)="selectedBankIcon($event)"></app-select-icon-account>
                         </div>
 
-                        <div class="col-md-4 col-sm-12">
-                            <label class="form-label"> Número da conta e dígito *:</label>
-                            <input pInputText class="form-control" name="number" id="number" appOnlyNumber [maxlength]="10" [(ngModel)]="account['number']" [required]="true">
-                        </div>
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <label class="form-label"> Descrição da conta *:</label>
+                                    <input pInputText class="form-control" name="bankName" id="bankName" [(ngModel)]="account['name']" [required]="true">
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <label class="form-label"> Número da conta e dígito *:</label>
+                                    <input pInputText class="form-control" name="number" id="number" appOnlyNumber [maxlength]="10" [(ngModel)]="account['number']" [required]="true">
+                                </div>
+                            </div>
 
-                        <div class="col-md-3 col-sm-12">
-                            <label class="form-label"> Saldo inicial *:</label>
-                            <input pInputText class="form-control" name="initialBalance" id="initialBalance" [(ngModel)]="account['initialBalance']" appCurrencyFormatPtBr [required]="true">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4 col-sm-12">
-                            <label class="form-label"> Ícone *:</label>
-                            <p-dropdown styleClass="w-100" name="icon" id="icon" [showClear]="false"
-                                        [options]="icons"
-                                        [(ngModel)]="account['codeIcon']"
-                                        placeholder="Selecione"
-                                        optionLabel="code"
-                                        optionValue="code"
-                                        required>
-                                <ng-template let-icon pTemplate="item">
-                                    <div class="flex align-items-center gap-2">
-                                        <img src="{{ icon['image'] }}" style="width: 3rem;"  alt="icon" /> <span style="margin-left: 5px;"> {{ icon['prefix'] }} {{ icon['bankName'] }} </span>
-                                    </div>
-                                </ng-template>
-                                <ng-template let-selected pTemplate="selectedItem">
-                                    <div class="flex align-items-center gap-2">
-                                        <img src="{{ selected['image'] }}" style="width: 3rem; position: relative; bottom: 0.6875rem;" alt="icon" /> <span style="position: relative; bottom: 0.75rem; margin-left: 5px;"> {{ selected['prefix'] }} {{ selected['bankName'] }} </span>
-                                    </div>
-                                </ng-template>
-                            </p-dropdown>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2">
-                            <label class="form-label">Caução:</label>
-                            <p-inputSwitch name="caution" id="caution" styleClass="form-control"
-                                           [(ngModel)]="account['caution']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2">
-                            <label class="form-label">Ativo:</label>
-                            <p-inputSwitch name="active" id="active" styleClass="form-control"
-                                           [(ngModel)]="account['active']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
-                        </div>
-                    </div>
-
-                    <br />
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p class="alert alert-info">
-                                <i class="fa-solid fa-check"></i>
-                                Quando não encontrar o ícone da instituição bancária desejado, pode selecionar o ícone <strong>Banco Genérico</strong>.
-                            </p>
+                            <div class="row mt-3">
+                                <div class="col-md-4 col-sm-12">
+                                    <label class="form-label"> É conta caução:</label>
+                                    <p-dropdown styleClass="w-100" name="caution" id="caution" placeholder="Selecione"
+                                                [options]="optionsEnum" [(ngModel)]="selectedOption" (onChange)="onChangeOption()"/>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <label class="form-label"> Saldo inicial *:</label>
+                                    <input pInputText class="form-control" name="initialBalance" id="initialBalance" [(ngModel)]="account['initialBalance']" appCurrencyFormatPtBr [required]="true">
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">Ativo:</label>
+                                    <p-inputSwitch name="active" id="active" styleClass="form-control"
+                                                   [(ngModel)]="account['active']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -97,6 +65,7 @@
                         Voltar
                     </a>
                 </div>
+
             </div>
         </div>
     </div>

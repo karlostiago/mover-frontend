@@ -63,18 +63,16 @@ export class RegisterAccountComponent extends AbstractRegister implements OnInit
         form.resetForm({
             active: true,
             initialBalance: 0,
-            caution: false
+            caution: 'NÃO'
         });
+        this.iconSelected = new BankIconEntity();
+        this.selectedOption = this.account.caution ? OptionEnum.YES : OptionEnum.NO;
     }
 
     private save(form: NgForm) {
         this.accountService.save(this.account).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
-            form.resetForm({
-                active: true,
-                initialBalance: 0,
-                caution: false
-            });
+            this.cancel(form);
         });
     }
 

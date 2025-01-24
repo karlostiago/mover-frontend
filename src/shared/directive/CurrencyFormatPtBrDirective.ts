@@ -51,7 +51,7 @@ export class CurrencyFormatPtBrDirective {
     @HostListener('focus', ['$event']) onFocus() {
         let value = this.el.nativeElement.value;
         if (value === '0,00') {
-            this.el.nativeElement.value = '';
+            this.el.nativeElement.value = '0,00';
         }
     }
 
@@ -64,7 +64,7 @@ export class CurrencyFormatPtBrDirective {
             stringValue = stringValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
             this.el.nativeElement.value = `${stringValue}`;
         } else {
-            this.el.nativeElement.value = '';
+            this.el.nativeElement.value = '0,00';
         }
     }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../service/AlertService";
 import {CategoryService} from "../category.service";
@@ -56,6 +56,7 @@ export class SearchCategoryComponent implements OnInit {
 
             if (!this.searchFilter) {
                 this.categoryTabView.activeIndex  = 0;
+                localStorage.setItem("CATEGORY_TAB_VIEW_CURRENT_INDEX", String(0));
             }
         });
     }

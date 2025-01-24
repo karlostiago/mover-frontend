@@ -76,11 +76,11 @@
                                     <span class="p-column-title">FORMA PAG.</span>
                                     {{ contract['paymentFrequency'] }} / {{ contract['paymentDay'] }}
                                 </td>
-                                <td class="text-center">
+                                <td class="text-right">
                                     <span class="p-column-title">VR. CAUÇÃO</span>
                                     {{ contract['depositAmount'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                                 </td>
-                                <td class="text-center">
+                                <td class="text-right">
                                     <span class="p-column-title">VR. RECORRENTE</span>
                                     {{ contract['recurrenceValue'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                                 </td>

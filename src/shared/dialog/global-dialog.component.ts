@@ -16,7 +16,12 @@ import {
 import {
     DialogBatchUpdateTransactionComponent
 } from "../../app/pages/transaction/dialog-batch-update-transaction/dialog-batch-update-transaction.component";
-import {DialogIconAccountComponent} from "../../app/core/components/select-icon-account/dialog-icon-account/dialog-icon-account.component";
+import {
+    DialogBankIconComponent
+} from "../../app/core/components/select-bank-icon/dialog-bank-icon/dialog-bank-icon.component";
+import {
+    DialogBrandIconComponent
+} from "../../app/core/components/select-brand-icon/dialog-brand-icon/dialog-brand-icon.component";
 
 @Component({
   selector: 'app-global-dialog',
@@ -41,7 +46,9 @@ export class GlobalDialogComponent implements OnInit {
 
     @ViewChild(DialogBatchUpdateTransactionComponent) dialogUpdateFixedTransactionComponent: DialogBatchUpdateTransactionComponent;
 
-    @ViewChild(DialogIconAccountComponent) dialogIconAccountComponent: DialogIconAccountComponent;
+    @ViewChild(DialogBankIconComponent) dialogBankIconComponent: DialogBankIconComponent;
+
+    @ViewChild(DialogBrandIconComponent) dialogBrandIconComponent: DialogBrandIconComponent;
 
     ngOnInit() { }
 
@@ -55,7 +62,8 @@ export class GlobalDialogComponent implements OnInit {
             [TypeDialog.DELETE_TRANSACTION]: this.dialogDeleteTransactionComponent.showDialog.bind(this.dialogDeleteTransactionComponent),
             [TypeDialog.CONFIRMATION_PAYMENT_TRANSATION]: this.dialogConfirmationPaymentComponent.showDialog.bind(this.dialogConfirmationPaymentComponent),
             [TypeDialog.BATCH_UPDATE_TRANSACTION]: this.dialogUpdateFixedTransactionComponent.showDialog.bind(this.dialogUpdateFixedTransactionComponent),
-            [TypeDialog.SELECTED_ICON_ACCOUNT]: this.dialogIconAccountComponent.showDialog.bind(this.dialogIconAccountComponent)
+            [TypeDialog.SELECT_BANK_ICON]: this.dialogBankIconComponent.showDialog.bind(this.dialogBankIconComponent),
+            [TypeDialog.SELECT_BRAND_ICON]: this.dialogBrandIconComponent.showDialog.bind(this.dialogBrandIconComponent)
         };
 
         const dialogFunction = dialogMap[typeDialog];

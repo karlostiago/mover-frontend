@@ -13,6 +13,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
 import {FileUploadModule} from "primeng/fileupload";
 import {SharedModule} from "../../../shared/SharedModule";
+import {SelectBrandIconModule} from "../../core/components/select-brand-icon/select-brand-icon.module";
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import {SharedModule} from "../../../shared/SharedModule";
         DropdownModule,
         FormsModule,
         FileUploadModule,
-        SharedModule
+        SharedModule,
+        SelectBrandIconModule
     ]
 })
 export class BrandModule { }

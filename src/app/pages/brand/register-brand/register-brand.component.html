@@ -15,74 +15,48 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="form-label"> Descrição *:</label>
-                            <input pInputText class="form-control" name="name" id="name" [(ngModel)]="brand['name']" [required]="true">
+                    <div class="row align-items-center">
+                        <div class="col-md-2 col-sm-12">
+                            <app-select-brand-icon [iconSelected]="iconSelected" [entity]="brand"></app-select-brand-icon>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label class="form-label"> Símbolo *:</label>
-                            <p-dropdown styleClass="w-100" name="symbol" id="symbol" [options]="symbols" [showClear]="false"
-                                        placeholder="Selecione"
-                                        optionLabel="id"
-                                        optionValue="id"
-                                        [(ngModel)]="selectedSymbolId"
-                                        required>
-                                <ng-template let-symbol pTemplate="item">
-                                    <div class="flex align-items-center gap-2">
-                                        <img src="data:image/png;base64, {{ symbol.imageBase64 }}" style="width: 3rem"  alt="symbol"/>
-                                    </div>
-                                </ng-template>
-                                <ng-template let-selected pTemplate="selectedItem">
-                                    <div class="flex align-items-center gap-2">
-                                        <img src="data:image/png;base64, {{ selected['imageBase64'] }}" style="width: 3rem; position: relative; bottom: 0.8125rem;"  alt="symbol"/>
-                                    </div>
-                                </ng-template>
-                            </p-dropdown>
-                        </div>
-                    </div>
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <label class="form-label"> Descrição *:</label>
+                                    <input pInputText class="form-control" name="name" id="name" [(ngModel)]="brand['name']" [required]="true">
+                                </div>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label class="form-label">Carregar novo símbolo:</label>
-                            <p-fileUpload
-                                #fileUpload
-                                mode="basic"
-                                url="{{ uploadURL }}"
-                                name="file"
-                                chooseLabel="Selecionar"
-                                chooseIcon="fa-solid fa-arrow-up-from-bracket"
-                                styleClass="form-control"
-                                accept="image/*"
-                                maxFileSize="1000000"
-                                [auto]="true"
-                                [disabled]="uploadSymbolDisabled()"
-                                (onBeforeUpload)="updateURL($event)"
-                                (onUpload)="uploadSuccess($event)"
-                                (onError)="uploadError($event)"
-                            />
-                        </div>
-                    </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6 col-sm-12">
+                                    <label class="form-label">Carregar novo símbolo:</label>
+                                    <p-fileUpload
+                                        #fileUpload
+                                        mode="basic"
+                                        url="{{ uploadURL }}"
+                                        name="file"
+                                        chooseLabel="Selecionar"
+                                        chooseIcon="fa-solid fa-arrow-up-from-bracket"
+                                        styleClass="form-control"
+                                        accept="image/*"
+                                        maxFileSize="1000000"
+                                        [auto]="true"
+                                        [disabled]="uploadSymbolDisabled()"
+                                        (onBeforeUpload)="updateURL($event)"
+                                        (onUpload)="uploadSuccess($event)"
+                                        (onError)="uploadError($event)"
+                                    />
+                                </div>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="form-label">Ativo:</label>
-                            <p-inputSwitch name="active" id="active" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"
-                                [(ngModel)]="brand['active']"></p-inputSwitch>
-                        </div>
-                    </div>
-
-                    <br />
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p class="alert alert-info">
-                                <i class="fa-solid fa-check"></i>
-                                Para submeter um novo símbolo é preciso que esteja no formato png e no tamanho 48x48.
-                            </p>
+                            <div class="row mt-3">
+                                <div class="col-md-2">
+                                    <label class="form-label">Ativo:</label>
+                                    <p-inputSwitch name="active" id="active" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"
+                                                   [(ngModel)]="brand['active']"></p-inputSwitch>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

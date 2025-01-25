@@ -10,7 +10,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {RegisterAccountComponent} from "./register-account/register-account.component";
 import {SearchAccountComponent} from "./search-account/search-account.component";
 import {SharedModule} from "../../../shared/SharedModule";
-import {SelectIconModule} from "../../core/components/select-icon-account/select-icon.module";
+import {SelectBankIconModule} from "../../core/components/select-bank-icon/select-bank-icon.module";
 
 @NgModule({
     declarations: [
@@ -32,7 +32,7 @@ import {SelectIconModule} from "../../core/components/select-icon-account/select
         InputSwitchModule,
         DropdownModule,
         SharedModule,
-        SelectIconModule
+        SelectBankIconModule
     ]
 })
 export class AccountModule { }

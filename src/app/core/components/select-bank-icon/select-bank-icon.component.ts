@@ -3,11 +3,11 @@ import {BankIconEntity} from "../../../../entity/BankIconEntity";
 import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
 
 @Component({
-  selector: 'app-select-icon',
-  templateUrl: './select-icon.component.html',
-  styleUrls: ['./select-icon.component.css']
+  selector: 'app-select-bank-icon',
+  templateUrl: './select-bank-icon.component.html',
+  styleUrls: ['./select-bank-icon.component.css']
 })
-export class SelectIconComponent implements OnInit {
+export class SelectBankIconComponent implements OnInit {
 
     @Input() entity: any;
     @Input() iconSelected: BankIconEntity
@@ -20,7 +20,7 @@ export class SelectIconComponent implements OnInit {
     }
 
     open() {
-        this.globalDialogService.openDialog(TypeDialog.SELECTED_ICON_ACCOUNT, this.iconSelected, this.entity);
+        this.globalDialogService.openDialog(TypeDialog.SELECT_BANK_ICON, this.iconSelected, this.entity);
     }
 
     hasSelectedIcon() {

@@ -27,7 +27,12 @@ import {CalendarModule} from "primeng/calendar";
 import {
     DialogBatchUpdateTransactionComponent
 } from "../../app/pages/transaction/dialog-batch-update-transaction/dialog-batch-update-transaction.component";
-import {DialogIconAccountComponent} from "../../app/core/components/select-icon-account/dialog-icon-account/dialog-icon-account.component";
+import {
+    DialogBankIconComponent
+} from "../../app/core/components/select-bank-icon/dialog-bank-icon/dialog-bank-icon.component";
+import {
+    DialogBrandIconComponent
+} from "../../app/core/components/select-brand-icon/dialog-brand-icon/dialog-brand-icon.component";
 
 @NgModule({
     declarations: [
@@ -40,7 +45,8 @@ import {DialogIconAccountComponent} from "../../app/core/components/select-icon-
         DialogConfirmationPaymentComponent,
         DialogDeleteTransactionComponent,
         DialogBatchUpdateTransactionComponent,
-        DialogIconAccountComponent
+        DialogBankIconComponent,
+        DialogBrandIconComponent
     ],
     exports: [
         DialogAddressComponent,

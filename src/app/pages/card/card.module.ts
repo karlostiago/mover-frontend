@@ -12,8 +12,7 @@ import {SearchCardComponent} from "./search-card/search-card.component";
 import {SharedModule} from "../../../shared/SharedModule";
 import {FileUploadModule} from "primeng/fileupload";
 import {FieldsetModule} from "primeng/fieldset";
-import {TitleComponent} from "../../core/title/title.component";
-import {SelectIconModule} from "../../core/components/select-icon-account/select-icon.module";
+import {SelectBankIconModule} from "../../core/components/select-bank-icon/select-bank-icon.module";
 
 @NgModule({
     declarations: [
@@ -38,7 +37,7 @@ import {SelectIconModule} from "../../core/components/select-icon-account/select
         FileUploadModule,
         NgOptimizedImage,
         FieldsetModule,
-        SelectIconModule
+        SelectBankIconModule
     ]
 })
 export class CardModule { }

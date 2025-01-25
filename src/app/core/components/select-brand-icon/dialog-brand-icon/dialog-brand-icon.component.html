@@ -1,0 +1,11 @@
+<p-dialog header="Selecione um ícone" [(visible)]="visible" [modal]="true" [draggable]="false" [style]="{ width: '25rem' }">
+    <div class="row">
+<!--        <div class="col-md-12">-->
+<!--            <p class="alert alert-info text-center">Se não encontrar o icone desejado, faça o upload do icone!</p>-->
+<!--        </div>-->
+        <div class="col-md-12 m-1 cursor-pointer" *ngFor="let icon of icons" (click)="select(icon)">
+            <img src="data:image/png;base64, {{ icon.imageBase64 }}" style="width: 3rem;"  alt="icon" />
+            <span style="margin-left: 5px;"> {{ icon['description'] }} </span>
+        </div>
+    </div>
+</p-dialog>

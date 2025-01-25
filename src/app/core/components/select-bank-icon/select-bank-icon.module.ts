@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SelectIconComponent} from "./select-icon.component";
+import {SelectBankIconComponent} from "./select-bank-icon.component";
 
 @NgModule({
     declarations: [
-        SelectIconComponent
+        SelectBankIconComponent
     ],
     exports: [
-        SelectIconComponent
+        SelectBankIconComponent
     ],
     imports: [
         CommonModule,
     ]
 })
-export class SelectIconModule { }
+export class SelectBankIconModule { }

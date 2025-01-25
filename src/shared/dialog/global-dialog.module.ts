@@ -27,7 +27,7 @@ import {CalendarModule} from "primeng/calendar";
 import {
     DialogBatchUpdateTransactionComponent
 } from "../../app/pages/transaction/dialog-batch-update-transaction/dialog-batch-update-transaction.component";
-import {DialogIconAccountComponent} from "../../app/pages/account/dialog-icon-account/dialog-icon-account.component";
+import {DialogIconAccountComponent} from "../../app/core/components/select-icon-account/dialog-icon-account/dialog-icon-account.component";
 
 @NgModule({
     declarations: [

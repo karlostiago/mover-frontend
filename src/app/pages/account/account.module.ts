@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {AccountRoutingModule} from "./account-routing.module";
 import {FormsModule} from "@angular/forms";
 import {Button, ButtonDirective} from "primeng/button";
@@ -10,14 +10,12 @@ import {DropdownModule} from "primeng/dropdown";
 import {RegisterAccountComponent} from "./register-account/register-account.component";
 import {SearchAccountComponent} from "./search-account/search-account.component";
 import {SharedModule} from "../../../shared/SharedModule";
-import {DialogModule} from "primeng/dialog";
-import {SelectIconAccountComponent} from "./select-icon-account/select-icon-account.component";
+import {SelectIconModule} from "../../core/components/select-icon-account/select-icon.module";
 
 @NgModule({
     declarations: [
         RegisterAccountComponent,
-        SearchAccountComponent,
-        SelectIconAccountComponent
+        SearchAccountComponent
     ],
     exports: [
         RegisterAccountComponent,
@@ -34,8 +32,7 @@ import {SelectIconAccountComponent} from "./select-icon-account/select-icon-acco
         InputSwitchModule,
         DropdownModule,
         SharedModule,
-        NgOptimizedImage,
-        DialogModule
+        SelectIconModule
     ]
 })
 export class AccountModule { }

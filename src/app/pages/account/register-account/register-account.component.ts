@@ -53,12 +53,6 @@ export class RegisterAccountComponent extends AbstractRegister implements OnInit
         }
     }
 
-    selectedBankIcon(icon: BankIconEntity) {
-        if (icon) {
-            this.account.codeIcon = icon.code;
-        }
-    }
-
     override cancel(form: NgForm) {
         form.resetForm({
             active: true,

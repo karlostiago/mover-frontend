@@ -13,6 +13,7 @@ import {SharedModule} from "../../../shared/SharedModule";
 import {FileUploadModule} from "primeng/fileupload";
 import {FieldsetModule} from "primeng/fieldset";
 import {TitleComponent} from "../../core/title/title.component";
+import {SelectIconModule} from "../../core/components/select-icon-account/select-icon.module";
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import {TitleComponent} from "../../core/title/title.component";
         SharedModule,
         FileUploadModule,
         NgOptimizedImage,
-        FieldsetModule
+        FieldsetModule,
+        SelectIconModule
     ]
 })
 export class CardModule { }

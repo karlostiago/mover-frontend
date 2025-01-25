@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {BankIconEntity} from "../../../../entity/BankIconEntity";
-import {AccountService} from "../account.service";
-import {AccountEntity} from "../../../../entity/AccountEntity";
+import {BankIconEntity} from "../../../../../entity/BankIconEntity";
+import {AccountService} from "../../../../pages/account/account.service";
 
 @Component({
   selector: 'app-dialog-icon-account',
@@ -11,11 +10,9 @@ import {AccountEntity} from "../../../../entity/AccountEntity";
 export class DialogIconAccountComponent implements OnInit {
 
     icons = new Array<BankIconEntity>();
-
     visible: boolean = false;
-
     iconSelected: BankIconEntity;
-    accountSelected: AccountEntity;
+    entitySelected: any;
 
     constructor(private accountService: AccountService) {
     }
@@ -23,8 +20,8 @@ export class DialogIconAccountComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    showDialog(icon: BankIconEntity, account: AccountEntity) {
-        this.accountSelected = account;
+    showDialog(icon: BankIconEntity, entity: any) {
+        this.entitySelected = entity;
         this.iconSelected = icon;
         this.resetIcon();
         this.loadingIcons();
@@ -34,16 +31,16 @@ export class DialogIconAccountComponent implements OnInit {
     select(icon: BankIconEntity) {
         this.iconSelected.code = icon.code;
         this.iconSelected.urlImage = icon.urlImage;
-        this.accountSelected.imageIcon = icon.urlImage;
-        this.accountSelected.codeIcon = icon.code;
+        this.entitySelected.imageIcon = icon.urlImage;
+        this.entitySelected.codeIcon = icon.code;
         this.visible = false;
     }
 
     private resetIcon() {
         this.iconSelected.code = 0;
         this.iconSelected.urlImage = '';
-        this.accountSelected.imageIcon = '';
-        this.accountSelected.codeIcon = 0;
+        this.entitySelected.imageIcon = '';
+        this.entitySelected.codeIcon = 0;
     }
 
     private loadingIcons() {

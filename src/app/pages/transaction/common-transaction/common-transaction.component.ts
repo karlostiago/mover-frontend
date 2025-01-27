@@ -64,20 +64,20 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     }
 
     private async loadingAccounts() {
-        this.accountService.findAll().then(response => {
+        await this.accountService.findAll().then(response => {
             // @ts-ignore
             this.accounts = [{ id: 0, name: 'Selecione'}, ...response];
         });
     }
 
     private async loadingVehicles() {
-        this.vehicleService.findAll().then(response => {
+        await this.vehicleService.findAll().then(response => {
             // @ts-ignore
             this.vehicles = [{ id: 0, fullname: 'Selecione'}, ...response];
         });
     }
 
     private async loadingContracts() {
-        return this.contractService.findAll();
+        return await this.contractService.findAll();
     }
 }

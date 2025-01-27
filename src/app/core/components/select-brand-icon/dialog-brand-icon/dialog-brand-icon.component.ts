@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {BankIconEntity} from "../../../../../entity/BankIconEntity";
 import {SymbolEntity} from "../../../../../entity/SymbolEntity";
 import {SymbolService} from "../../../../pages/brand/symbol.service";
 

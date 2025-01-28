@@ -15,8 +15,9 @@ aside {
 }
 
 .navbar-toggler-icon {
-    display: none;
+    display: block;
 }
+
 .mobile-logo {
     display: none;
 }
@@ -132,8 +133,25 @@ aside {
     margin-left: 15px;
 }
 
+.mv-toggle {
+    display: none;
+}
+
 @media (max-width: 768px) {
     aside {
-        margin-left: -250px;
+        margin-left: -100vw;
+    }
+    .sidebar > li:hover > ul,
+    .sidebar > li > ul {
+        width: 100vw;
+    }
+    .mv-toggle {
+        display: block;
+
+        font-size: 1.875rem !important;
+        color: #fff;
+        position: absolute;
+        right: 10px;
+        top: 45px;
     }
 }

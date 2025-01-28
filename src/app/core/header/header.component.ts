@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,13 +7,15 @@ import {Component, Input} from '@angular/core';
 })
 export class HeaderComponent {
 
-    @Input() showMenu: boolean;
+    showMenu: boolean;
 
-    enableMenu() {
-        this.showMenu = !this.showMenu;
+    open() {
+        this.showMenu = true;
+        document.body.classList.add('overflow-hidden');
     }
 
-    hideMenu() {
+    hide() {
         this.showMenu = false;
+        document.body.classList.remove('overflow-hidden');
     }
 }

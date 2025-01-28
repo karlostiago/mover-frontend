@@ -1,9 +1,11 @@
-<aside style=" {{ showMenu ? 'margin-left: 0' : '' }}">
+<aside style="{{ showMenu ? 'width: 100vw; margin-left: 0' : '' }}">
     <span class="logo">
         <div class="main-logo">
             <img ngSrc="assets/logo-mover.svg" height="85" width="202"/>
         </div>
     </span>
+    <span *ngIf="showMenu" class="fa-solid fa-sliders cursor-pointer mv-toggle" (click)="showOrHideMenu()"></span>
+
     <ul class="sidebar">
         <li>
             <i class="fa-solid fa-gauge"></i>

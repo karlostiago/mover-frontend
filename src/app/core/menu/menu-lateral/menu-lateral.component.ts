@@ -9,6 +9,9 @@ import {HealthCheckService} from "../../../../service/HealthCheckService";
 })
 export class MenuLateralComponent implements OnInit {
 
+    screenWidth: number = window.innerWidth;
+    resizeListener: any;
+
     productionEnviroment: boolean = false;
     version: string = "";
     running: boolean = false;
@@ -24,7 +27,18 @@ export class MenuLateralComponent implements OnInit {
 
         this.healhCheckService.isRunning().then(response => {
             this.running = response.running;
-        })
+        });
+
+        this.screenWidth = window.innerWidth;
+
+        this.resizeListener = () => {
+            this.screenWidth = window.innerWidth;
+            if (this.screenWidth <= 768) {
+                this.showMenu = false;
+            }
+        };
+
+        window.addEventListener('resize', this.resizeListener);
     }
 
     showOrHideMenu() {

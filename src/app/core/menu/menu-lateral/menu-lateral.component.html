@@ -1,4 +1,4 @@
-<aside style="{{ showMenu ? 'width: 100vw; margin-left: 0' : '' }}">
+<aside style="{{ showMenu ? 'margin-left: 0;' : '' }} {{ expendMenu ? 'width: 100vw;' : '' }}">
     <span class="logo">
         <div class="main-logo">
             <img ngSrc="assets/logo-mover.svg" height="85" width="202"/>
@@ -60,6 +60,6 @@
 
     <div class="footer mt-auto">
         <span class="{{ running ? 'badge bg-success' : 'badge bg-danger' }}"> {{ productionEnviroment ? 'PRD' : 'DSV' }} </span> <br />
-        <small> build :: {{ version }} </small>
+        <small> v{{ version }} </small>
     </div>
 </aside>

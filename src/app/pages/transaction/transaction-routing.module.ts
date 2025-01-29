@@ -5,17 +5,9 @@ import {RegisterTransactionComponent} from "./register-transaction/register-tran
 
 const rotas: Routes = [
     {
-        path: 'search/transactions',
+        path: '',
         component: SearchTransactionComponent
-    },
-    {
-        path: 'register/transactions/new',
-        component: RegisterTransactionComponent
-    },
-    {
-        path: 'update/transactions/:id',
-        component: RegisterTransactionComponent
-    },
+    }
 ]
 
 @NgModule({

@@ -5,17 +5,8 @@ import {SearchAccountComponent} from "./search-account/search-account.component"
 
 const rotas: Routes = [
     {
-        path: 'search/accounts',
-        component: SearchAccountComponent
-    },
-    {
-        path: 'register/accounts/new',
-        component: RegisterAccountComponent
-    },
-    {
-        path: 'update/accounts/:id',
-        component: RegisterAccountComponent
-    },
+        path: '', component: SearchAccountComponent
+    }
 ]
 
 @NgModule({

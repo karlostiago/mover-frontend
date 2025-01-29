@@ -28,12 +28,15 @@ import {SearchTransactionComponent} from "./pages/transaction/search-transaction
 import {RegisterTransactionComponent} from "./pages/transaction/register-transaction/register-transaction.component";
 import {SearchVehicleComponent} from "./pages/vehicle/search-vehicle/search-vehicle.component";
 import {RegisterVehicleComponent} from "./pages/vehicle/register-vehicle/register-vehicle.component";
+import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 
 const rotas: Routes = [
     {
         path: '',
         component: MainLayoutComponent,
         children: [
+            { path: 'dashboard', component: DashboardComponent },
+
             { path: 'clients', component: SearchClientComponent },
             { path: 'clients/new', component: RegisterClientComponent },
             { path: 'clients/:id', component: RegisterClientComponent },
@@ -58,9 +61,9 @@ const rotas: Routes = [
             { path: 'categories/new', component: RegisterCategoryComponent },
             { path: 'categories/:id', component: RegisterCategoryComponent },
 
-            { path: 'configurations', component: SearchConfigurationComponent },
-            { path: 'configurations/new', component: RegisterConfigurationComponent },
-            { path: 'configurations/:id', component: RegisterConfigurationComponent },
+            { path: 'parameters', component: SearchConfigurationComponent },
+            { path: 'parameters/new', component: RegisterConfigurationComponent },
+            { path: 'parameters/:id', component: RegisterConfigurationComponent },
 
             { path: 'maintenance', component: SearchMaintenanceComponent },
             { path: 'maintenance/new', component: RegisterMaintenanceComponent },

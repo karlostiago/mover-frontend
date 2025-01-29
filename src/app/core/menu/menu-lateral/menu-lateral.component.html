@@ -1,7 +1,7 @@
 <aside style="{{ showMenu ? 'margin-left: 0;' : '' }} {{ expendMenu ? 'width: 100vw;' : '' }}">
     <span class="logo">
         <div class="main-logo">
-            <img ngSrc="assets/logo-mover.svg" height="85" width="202"/>
+            <img ngSrc="assets/logo-mover.svg" height="85" width="202" alt="logo" priority />
         </div>
     </span>
     <span *ngIf="showMenu" class="fa-solid fa-sliders cursor-pointer mv-toggle" (click)="showOrHideMenu()"></span>
@@ -15,8 +15,8 @@
             <i class="fa-solid fa-user"></i>
             <a href="#"> Meus Clientes </a>
             <ul>
-                <li routerLink="/search/clients" (click)="showOrHideMenu()"> <span> Clientes </span> </li>
-                <li routerLink="/search/contracts" (click)="showOrHideMenu()"> <span> Contratos </span> </li>
+                <li routerLink="/clients" (click)="showOrHideMenu()"> <span> Clientes </span> </li>
+                <li routerLink="/contracts" (click)="showOrHideMenu()"> <span> Contratos </span> </li>
             </ul>
         </li>
         <li>

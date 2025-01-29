@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {BrandModule} from "../pages/brand/brand.module";
-import {HeaderComponent} from "./header/header.component";
-import {MenuLateralComponent} from "./menu/menu-lateral/menu-lateral.component";
 import {ConfirmationService} from "primeng/api";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {DashboardModule} from "../pages/dashboard/dashboard.module";
@@ -21,10 +19,7 @@ import {HistoryfipeModule} from "../pages/historyfipe/historyfipe.module";
 import {TransactionModule} from "../pages/transaction/transaction.module";
 
 @NgModule({
-    declarations: [
-        HeaderComponent,
-        MenuLateralComponent
-    ],
+    declarations: [ ],
     exports: [
         GlobalDialogModule,
         DashboardModule,
@@ -40,9 +35,7 @@ import {TransactionModule} from "../pages/transaction/transaction.module";
         ContractModule,
         MaintenanceModule,
         HistoryfipeModule,
-        TransactionModule,
-        HeaderComponent,
-        MenuLateralComponent
+        TransactionModule
     ],
     imports: [
         CommonModule,

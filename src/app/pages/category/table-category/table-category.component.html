@@ -14,13 +14,13 @@
         <tr>
             <td class="text-left">
                 <span class="p-column-title">NOME</span>
-                <i class="fa-solid fa-angles-right" [style]="getColors(category)"></i> {{ category['description'] }}
+                {{ category['description'] }}
             </td>
             <td class="text-left display-block" style="padding: 0">
                 <span class="p-column-title">SUBCATEGORIA</span>
                 <ul class="list-group">
                     <li class="list-group-item" *ngFor="let subcategory of category['subcategories']">
-                        <i class="fa-solid fa-circle" [style]="getColors(category)"> </i> {{ subcategory['description'] }}
+                        {{ subcategory['description'] }}
                     </li>
                 </ul>
             </td>

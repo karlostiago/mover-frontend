@@ -1,0 +1,23 @@
+@media (max-width: 768px) {
+    .card-footer > button {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .card-footer span {
+        text-align: center!important;
+    }
+
+    .card-footer .ms-2 {
+        margin-left: 0!important;
+    }
+
+    .card-footer {
+        text-align: center !important;
+    }
+
+    .card-footer > a {
+        float: inherit !important;
+        margin-bottom: 0;
+    }
+}

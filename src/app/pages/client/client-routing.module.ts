@@ -5,15 +5,15 @@ import {RegisterClientComponent} from "./register-client/register-client.compone
 
 const rotas: Routes = [
     {
-        path: 'search/clients',
+        path: 'clients',
         component: SearchClientComponent
     },
     {
-        path: 'register/clients/new',
+        path: 'clients/new',
         component: RegisterClientComponent
     },
     {
-        path: 'update/clients/:id',
+        path: 'clients/:id',
         component: RegisterClientComponent
     },
 ]

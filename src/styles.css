@@ -298,13 +298,16 @@ a.btn:active {
     .text-md-end {
         text-align: right !important;
     }
+
     .col-xs-6 {
         width: 50% !important;
     }
+
     .display-block {
         display: block !important;
         padding: 0.55rem 1rem !important;
     }
+
     .p-column-title ~ span:not(.badge) {
         text-align: right;
 
@@ -313,6 +316,7 @@ a.btn:active {
         white-space: nowrap;
         text-overflow: ellipsis;
     }
+
     .p-datepicker table th > span {
         padding-left: 1.06rem!important;
     }
@@ -434,6 +438,7 @@ textarea {
  *      Configuração de estilos tabview
  * ---------------------------------------------------------
  */
+
 .p-tabview .p-tabview-nav li .p-tabview-nav-link {
     text-decoration: inherit!important;
     font-family: 'Ubuntu', sans-serif!important;

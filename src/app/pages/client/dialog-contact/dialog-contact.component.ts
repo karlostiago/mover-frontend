@@ -23,6 +23,7 @@ export class DialogContactComponent implements OnInit {
     }
 
     showDialog(client: ClientEntity, contact: ContactEntity) {
+        console.log('caiu aqui')
         this.visible = true;
         this.client = client;
         this.contact = contact ? { ... contact} : new ContactEntity();

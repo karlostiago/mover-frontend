@@ -77,6 +77,7 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
     }
 
     openDialogContact() {
+        console.log('abrindo....', this.globalDialogService)
         this.globalDialogService.openDialog(TypeDialog.CONTACT, this.client);
     }
 

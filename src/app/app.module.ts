@@ -11,6 +11,7 @@ import {SharedModule} from "../shared/SharedModule";
 import {HttpClientModule} from "@angular/common/http";
 import {LoaderModule} from "./core/loader/loader.module";
 import localePt from '@angular/common/locales/pt';
+import {LayoutModule} from "./core/layout/layout.module";
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -28,7 +29,9 @@ registerLocaleData(localePt, 'pt-BR');
         CoreModule,
         SharedModule,
         ConfirmDialogModule,
-        LoaderModule
+        LoaderModule,
+
+        LayoutModule
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'pt-BR' }

@@ -64,7 +64,9 @@
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">VEÍCULO</span>
-                                    {{ contract['vehicleName'] }}
+                                    <span class="text-limited-15">
+                                        {{ contract['vehicleName'] }}
+                                    </span>
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">CLIENTE</span>
@@ -74,7 +76,7 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">FORMA PAG.</span>
-                                    {{ contract['paymentFrequency'] }} / {{ contract['paymentDay'] }}
+                                    {{ contract['paymentFrequency'] }} / {{ contract['paymentDay'].substring(0, 3) }}
                                 </td>
                                 <td class="text-right">
                                     <span class="p-column-title">VR. CAUÇÃO</span>

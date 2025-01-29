@@ -22,7 +22,7 @@
                             </button>
                         </div>
                         <div class="col-6 col-xs-6 text-md-end">
-                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/register/clients/new">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/clients/new">
                                 <i class="fa-solid fa-plus m-1"></i>
                                 Novo
                             </button>
@@ -95,7 +95,7 @@
                                         <p-button [link]="true" (click)="confirmationDelete(client)">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </p-button>
-                                        <p-button [link]="true" [routerLink]="['/update/clients/', client.id]">
+                                        <p-button [link]="true" [routerLink]="['/clients/', client.id]">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </p-button>
                                     </div>

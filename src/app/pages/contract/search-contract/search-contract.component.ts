@@ -36,7 +36,7 @@ export class SearchContractComponent implements OnInit {
 
     confirmationDelete(contract: ContractEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir esse Contrato?`,
+            message: `Tem certeza que deseja excluir o contrato de número ${contract['number']} para o cliente ${contract['clientName']}?`,
             accept: () => {
                 this.delete(contract.id);
             }

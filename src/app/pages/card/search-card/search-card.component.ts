@@ -34,7 +34,7 @@ export class SearchCardComponent implements OnInit {
 
     confirmationDelete(card: CardEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir o Cartão?`,
+            message: `Tem certeza que deseja excluir o cartão ${card['name']}?`,
             accept: () => {
                 this.delete(card.id);
             }

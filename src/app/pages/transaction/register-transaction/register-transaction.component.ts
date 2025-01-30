@@ -155,11 +155,12 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         }
     }
 
-    private resetInstallment() {
+    enableRepeat() {
         this.transaction.frequency = '';
         this.transaction.paymentType = '';
         this.transaction.installment = 0;
         this.transaction.installmentValue = 0;
+        this.enableInstallments = !this.enableInstallments;
     }
 
     private findSubcategories(categoryId: number, subcategories: Array<SubCategoryEntity>) {

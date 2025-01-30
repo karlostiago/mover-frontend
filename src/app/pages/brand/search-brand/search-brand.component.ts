@@ -31,7 +31,7 @@ export class SearchBrandComponent implements OnInit {
 
     confirmationDelete(brand: BrandEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir a Marca?`,
+            message: `Tem certeza que deseja excluir a marca ${brand['name']}?`,
             accept: () => {
                 this.delete(brand.id);
             }

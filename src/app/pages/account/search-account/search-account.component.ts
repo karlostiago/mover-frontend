@@ -33,7 +33,7 @@ export class SearchAccountComponent implements OnInit {
 
     confirmationDelete(account: AccountEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir a Conta?`,
+            message: `Tem certeza que deseja excluir a conta ${account['name']}?`,
             accept: () => {
                 this.delete(account.id);
             }

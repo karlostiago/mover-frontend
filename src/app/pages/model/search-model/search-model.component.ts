@@ -32,7 +32,7 @@ export class SearchModelComponent implements OnInit {
 
     confirmationDelete(model: ModelEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir o Modelo?`,
+            message: `Tem certeza que deseja excluir o modelo ${model['name']}?`,
             accept: () => {
                 this.delete(model.id);
             }

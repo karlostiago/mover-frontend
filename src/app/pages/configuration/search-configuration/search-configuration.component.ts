@@ -33,11 +33,11 @@ export class SearchConfigurationComponent implements OnInit {
         });
     }
 
-    confirmationDelete(model: ModelEntity) {
+    confirmationDelete(configuration: ConfigurationEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir a Configuração?`,
+            message: `Tem certeza que deseja excluir a configuração ${configuration['key']}?`,
             accept: () => {
-                this.delete(model.id);
+                this.delete(configuration.id);
             }
         })
     }

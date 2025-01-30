@@ -33,7 +33,7 @@ export class SearchVehicleComponent implements OnInit {
 
     confirmationDelete(vehicle: VehicleEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir o Veículo?`,
+            message: `Tem certeza que deseja excluir o veículo ${vehicle['fullname']}?`,
             accept: () => {
                 this.delete(vehicle.id);
             }

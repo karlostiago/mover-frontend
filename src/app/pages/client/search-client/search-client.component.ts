@@ -31,11 +31,11 @@ export class SearchClientComponent implements OnInit {
         });
     }
 
-    confirmationDelete(account: AccountEntity) {
+    confirmationDelete(client: ClientEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir o Cliente?`,
+            message: `Tem certeza que deseja excluir o cliente ${client['name']}?`,
             accept: () => {
-                this.delete(account.id);
+                this.delete(client.id);
             }
         })
     }

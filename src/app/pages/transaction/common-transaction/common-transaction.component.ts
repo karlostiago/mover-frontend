@@ -38,6 +38,7 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
         await this.loadingAccounts();
         await this.loadingVehicles();
         await this.loadingContracts();
+        await this.loadingCards();
 
         if (this.updateForm) {
             this.onChangeContract();
@@ -47,7 +48,7 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
 
     onChangeCard() {
         this.loadService.automatic = false;
-        this.cardService.findAll().then(response => {
+        this.loadingCards().then(response => {
             // @ts-ignore
             this.cards = [{ id: 0, name: 'Selecione'}, ...response.filter(c => c.accountId === this.transaction['accountId'])];
             this.loadService.automatic = true;
@@ -75,6 +76,10 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
             // @ts-ignore
             this.vehicles = [{ id: 0, fullname: 'Selecione'}, ...response];
         });
+    }
+
+    private async loadingCards() {
+        return await this.cardService.findAll();
     }
 
     private async loadingContracts() {

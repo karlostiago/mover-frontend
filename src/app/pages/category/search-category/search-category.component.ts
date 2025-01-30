@@ -34,7 +34,7 @@ export class SearchCategoryComponent implements OnInit {
 
     confirmationDelete(category: CategoryEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir esta Categoria ${category.description}?`,
+            message: `Tem certeza que deseja excluir esta categoria ${category.description}?`,
             accept: () => {
                 this.delete(category.id);
             }

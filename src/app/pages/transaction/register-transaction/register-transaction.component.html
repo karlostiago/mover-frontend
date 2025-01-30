@@ -59,9 +59,9 @@
                         <i class="fa-solid fa-remove m-1"></i>
                         Cancelar
                     </button>
-                    <button pButton type="button" class="p-button-contrast p-button-sm ms-2" *ngIf="!enableInstallments && isNewRegister()" (click)="enableInstallments = !enableInstallments">
+                    <button pButton type="button" class="p-button-contrast p-button-sm ms-2" *ngIf="!enableInstallments && isNewRegister()" [disabled]="!transaction['value']" (click)="enableRepeat()">
                         <i class="fa-solid fa-repeat m-1"></i>
-                        {{ enableInstallments ? 'Desab.' : 'Hab.' }} parcelamento
+                        {{ enableInstallments ? 'Desativa' : 'Ativa' }} repetição
                     </button>
                     <a class="btn" style="float: right; margin-top: 5px;" routerLink="/transactions">
                         Voltar
@@ -74,7 +74,7 @@
     <br/>
 
     <div *ngIf="enableInstallments">
-        <app-title name="Parcelamento"></app-title>
+        <app-title name="Repetição"></app-title>
 
         <div class="row g-3">
             <div class="col-md-12 mb-10">
@@ -82,12 +82,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3">
-                                <label class="form-label"> Tipo parcelamento :</label>
+                                <label class="form-label"> Tipo repetição :</label>
                                 <p-dropdown styleClass="w-100" name="type" id="type" placeholder="Selecione" [options]="typesEnum" [(ngModel)]="transaction['paymentType']" (onChange)="loadingInstallments()" />
                             </div>
 
                             <div class="col-md-3">
-                                <label class="form-label"> Frequência :</label>
+                                <label class="form-label"> Ciclo :</label>
                                 <p-dropdown styleClass="w-100" name="frequency" id="frequency" placeholder="Selecione" [options]="frequencyEnum" [(ngModel)]="transaction['frequency']" />
                             </div>
 
@@ -100,14 +100,15 @@
 
                             <div class="col-md-3">
                                 <label class="form-label"> Valor da parcela :</label>
-                                <input pInputText class="form-control" name="installmentValue " id="installmentValue" appCurrencyFormatPtBr [(ngModel)]="transaction['installmentValue']" [readonly]="true" />
+                                <input pInputText class="form-control" name="installmentValue " id="installmentValue" appCurrencyFormatPtBr [(ngModel)]="transaction['installmentValue']" [readonly]="true"
+                                    style="border: 0; font-size: 1.875rem!important; padding: 0!important; margin-top: -2px;" />
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
                         <button pButton type="button" class="p-button-contrast p-button-sm" (click)="enableInstallments = !enableInstallments">
                             <i class="fa-solid fa-repeat m-1"></i>
-                            {{ enableInstallments ? 'Desab.' : 'Hab.' }} parcelamento
+                            {{ enableInstallments ? 'Desativa' : 'Ativa' }} repetição
                         </button>
                     </div>
                 </div>

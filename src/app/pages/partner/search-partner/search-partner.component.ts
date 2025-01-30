@@ -29,11 +29,11 @@ export class SearchPartnerComponent implements OnInit {
         });
     }
 
-    confirmationDelete(account: AccountEntity) {
+    confirmationDelete(partner: PartnerEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir o Sócio?`,
+            message: `Tem certeza que deseja excluir o sócio ${partner['name']}?`,
             accept: () => {
-                this.delete(account.id);
+                this.delete(partner.id);
             }
         })
     }

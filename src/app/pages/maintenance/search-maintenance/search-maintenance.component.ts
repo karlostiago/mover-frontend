@@ -3,7 +3,6 @@ import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../service/AlertService";
 import {MaintenanceService} from "../maintenance.service";
 import {Table} from "primeng/table";
-import {ContractEntity} from "../../../../entity/ContractEntity";
 import {MaintenanceEntity} from "../../../../entity/MaintenanceEntity";
 
 @Component({
@@ -29,11 +28,11 @@ export class SearchMaintenanceComponent implements OnInit {
         });
     }
 
-    confirmationDelete(contract: ContractEntity) {
+    confirmationDelete(maintenance: MaintenanceEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir essa Manutenção?`,
+            message: `Tem certeza que deseja excluir essa manutenção para o veículo ${maintenance['vehicleName']}?`,
             accept: () => {
-                this.delete(contract.id);
+                this.delete(maintenance.id);
             }
         })
     }

@@ -22,7 +22,7 @@
                             </button>
                         </div>
                         <div class="col-6 col-xs-6 text-md-end">
-                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/register/vehicles/new">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/vehicles/new">
                                 <i class="fa-solid fa-plus m-1"></i>
                                 Novo
                             </button>
@@ -102,7 +102,7 @@
                                         <p-button [link]="true" (click)="confirmationDelete(vehicle)" >
                                             <i class="fa-regular fa-trash-can"></i>
                                         </p-button>
-                                        <p-button [link]="true" [routerLink]="['/update/vehicles/', vehicle.id]">
+                                        <p-button [link]="true" [routerLink]="['/vehicles/', vehicle.id]">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </p-button>
                                     </div>

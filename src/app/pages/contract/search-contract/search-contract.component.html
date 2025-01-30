@@ -22,7 +22,7 @@
                             </button>
                         </div>
                         <div class="col-6 col-xs-6 text-md-end">
-                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/register/contracts/new">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/contracts/new">
                                 <i class="fa-solid fa-plus m-1"></i>
                                 Novo
                             </button>
@@ -40,7 +40,7 @@
             <div class="card">
                 <div class="card-body">
                     <p-table #table [value]="contracts" [paginator]="contracts.length > 10" [rows]="10"
-                             responsiveLayout="stack" [breakpoint]="'1300px'"
+                             responsiveLayout="stack" [breakpoint]="'1480px'"
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
                         <ng-template pTemplate="header">
                             <tr *ngIf="contracts.length > 0">
@@ -102,7 +102,7 @@
                                         <p-button [link]="true" (click)="confirmationDelete(contract)" >
                                             <i class="fa-regular fa-trash-can"></i>
                                         </p-button>
-                                        <p-button [link]="true" [routerLink]="['/update/contracts/', contract.id]">
+                                        <p-button [link]="true" [routerLink]="['/contracts/', contract.id]">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </p-button>
                                         <p-button [link]="true" (click)="close(contract)" >

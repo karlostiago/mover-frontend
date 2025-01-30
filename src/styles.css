@@ -55,6 +55,16 @@ input, textarea {
     text-align: right !important;
 }
 
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-content > button {
+    margin-left: 5px;
+}
+
 /**
  * ---------------------------------------------------------
  *      Classes para aplicar o efeito de aparecimento gradual (fadeIn)
@@ -220,6 +230,10 @@ a.btn:active {
     min-width: 30% !important;
 }
 
+.p-dialog .p-dialog-footer {
+    text-align: center;
+}
+
 .p-dialog .p-dialog-header {
     background: #2c3e50 !important;
     color: #fff;
@@ -240,6 +254,13 @@ a.btn:active {
 .p-dialog.p-confirm-dialog .p-confirm-dialog-message {
     margin-left: inherit;
     font-size: .75rem;
+}
+
+.p-confirm-dialog .p-dialog-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 /**
@@ -336,9 +357,13 @@ a.btn:active {
         text-align: left;
     }
 
+    .footer-content {
+        display: inherit;
+    }
+
     .footer-content > button {
         width: 100%;
-        margin-left: -64px !important;
+        display: flow;
     }
 
     .footer-content button:first-child {

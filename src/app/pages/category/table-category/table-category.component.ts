@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CategoryEntity} from "../../../../entity/CategoryEntity";
-import {ColorRandom} from "../../../../shared/ColorRandom";
 
 @Component({
   selector: 'app-table-category',
@@ -9,28 +8,13 @@ import {ColorRandom} from "../../../../shared/ColorRandom";
 })
 export class TableCategoryComponent implements OnInit {
 
-    _categories = new Array<CategoryEntity>();
-
-    @Input() categoryType: string;
+    @Input() categories = new Array<CategoryEntity>();
 
     @Output() delete = new EventEmitter<CategoryEntity>();
 
-    @Input() set categories(values: Array<CategoryEntity>) {
-        this._categories = values.filter(c => c.type === this.categoryType);
-        this._categories.forEach(category => {
-            category['randomColor'] = ColorRandom.color();
-        });
-    }
-
-    ngOnInit(): void {
-
-    }
+    ngOnInit(): void { }
 
     confirmationDelete(category: CategoryEntity) {
         this.delete.emit(category);
-    }
-
-    getColors(category: CategoryEntity) {
-        return `color: var(${category['randomColor']});`;
     }
 }

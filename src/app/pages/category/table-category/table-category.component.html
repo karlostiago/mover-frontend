@@ -1,12 +1,25 @@
-<p-table [value]="_categories"
-         responsiveLayout="stack" [breakpoint]="'1300px'"
-         styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+<p-table [value]="categories"
+         responsiveLayout="stack"
+         [breakpoint]="'1300px'"
+         styleClass="p-datatable-striped p-datatable p-datatable-gridlines"
+         sortMode="single"
+         sortField="type"
+         groupRowsBy="originalType"
+         rowGroupMode="subheader">
     <ng-template pTemplate="header">
-        <tr *ngIf="_categories.length > 0">
+        <tr *ngIf="categories.length > 0">
             <th class="text-left">DESCRIÇÃO</th>
             <th class="text-left">SUBCATEGORIA</th>
             <th class="text-center">ATIVO</th>
             <th class="text-center">AÇÕES</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="groupheader" let-category>
+        <tr pRowGroupHeader>
+            <td colspan="4">
+                <strong style="font-size: 1rem;"> {{ category['type'] }} </strong>
+            </td>
         </tr>
     </ng-template>
 
@@ -16,7 +29,7 @@
                 <span class="p-column-title">NOME</span>
                 {{ category['description'] }}
             </td>
-            <td class="text-left display-block" style="padding: 0">
+            <td class="text-left">
                 <span class="p-column-title">SUBCATEGORIA</span>
                 <ul class="list-group">
                     <li class="list-group-item" *ngFor="let subcategory of category['subcategories']">
@@ -36,7 +49,7 @@
                     <p-button [link]="true" (click)="confirmationDelete(category)" >
                         <i class="fa-regular fa-trash-can"></i>
                     </p-button>
-                    <p-button [link]="true" [routerLink]="['/update/categories/', category.id]">
+                    <p-button [link]="true" [routerLink]="['/categories/', category.id]">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </p-button>
                 </div>

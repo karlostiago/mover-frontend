@@ -49,8 +49,12 @@ export class DialogSubcategoryComponent implements OnInit {
     }
 
     private update() {
-        this.delete(this.subcategory);
-        this.category.subcategories.push(this.subcategory);
+        if (this.subcategory.id > 0) {
+            this.delete(this.subcategory);
+            this.category.subcategories.push(this.subcategory);
+        } else {
+            this.save();
+        }
     }
 
     private exists() {

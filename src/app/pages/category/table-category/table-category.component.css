@@ -6,6 +6,15 @@
     background-color: inherit;
     border: inherit;
 
-    padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
-    padding-bottom: 0;
+    padding: 0;
+}
+
+@media (max-width: 1300px) {
+    .list-group {
+        align-items: flex-end!important;
+    }
+
+    .list-group-item {
+        padding: 0!important;
+    }
 }

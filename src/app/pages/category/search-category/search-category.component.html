@@ -39,32 +39,7 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-tabView [scrollable]="false" [activeIndex]="categoryTabView.activeIndex" (onChange)="onTabeChange($event)">
-                        <p-tabPanel header="RECEITA" [tabIndex]="0" [disabled]="categoryTabView.hasNotIncome">
-                            <app-table-category [categories]="categories"
-                                                [categoryType]="categoryTabView.income" (delete)="confirmationDelete($event)"></app-table-category>
-                        </p-tabPanel>
-
-                        <p-tabPanel header="DESPESA" [tabIndex]="1" [disabled]="categoryTabView.hasNotExpense">
-                            <app-table-category [categories]="categories"
-                                                [categoryType]="categoryTabView.expense" (delete)="confirmationDelete($event)"></app-table-category>
-                        </p-tabPanel>
-
-                        <p-tabPanel header="INVESTIMENTO" [tabIndex]="2" [disabled]="categoryTabView.hasNotInvestment">
-                            <app-table-category [categories]="categories"
-                                                [categoryType]="categoryTabView.investment" (delete)="confirmationDelete($event)"></app-table-category>
-                        </p-tabPanel>
-
-                        <p-tabPanel header="TRANSFERÊNCIA" [tabIndex]="3" [disabled]="categoryTabView.hasNotTransfer">
-                            <app-table-category [categories]="categories"
-                                                [categoryType]="categoryTabView.transfer" (delete)="confirmationDelete($event)"></app-table-category>
-                        </p-tabPanel>
-
-                        <p-tabPanel header="CAPITAL SOCIETÁRIO" [disabled]="categoryTabView.hasNotCorporateCapital">
-                            <app-table-category [categories]="categories"
-                                                [categoryType]="categoryTabView.corporateCapital" (delete)="confirmationDelete($event)"></app-table-category>
-                        </p-tabPanel>
-                    </p-tabView>
+                    <app-table-category [categories]="categories" (delete)="confirmationDelete($event)"></app-table-category>
                 </div>
             </div>
         </div>

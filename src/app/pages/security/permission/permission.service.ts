@@ -3,6 +3,7 @@ import {BaseService} from "../../../../abstract/BaseService";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../../core/handler/ErrorHandler";
 import {PartnerEntity} from "../../../../entity/PartnerEntity";
+import {FuncionalityEntity} from "../../../../entity/FuncionalityEntity";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,12 @@ export class PermissionService extends BaseService<PartnerEntity> {
     }
 
     protected pathURL(): string {
-        return "partners";
+        return "permissions";
+    }
+
+    async findAllFeatures(): Promise<Array<FuncionalityEntity>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/features`, this.options());
+        return this.toPromise(request);
     }
 
     async findBy(search: string): Promise<Array<PartnerEntity>> {

@@ -39,51 +39,48 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table [value]="partners" [paginator]="partners.length > 10" [rows]="10"
-                             responsiveLayout="stack" [breakpoint]="'960px'" styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+                    <p-table #table [value]="features"
+                             responsiveLayout="stack"
+                             [breakpoint]="'960px'"
+                             sortMode="single"
+                             sortField="codeMenu"
+                             groupRowsBy="codeMenu"
+                             rowGroupMode="subheader"
+                             styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
 
                         <ng-template pTemplate="header">
-                            <tr *ngIf="partners.length > 0">
+                            <tr *ngIf="features.length > 0">
                                 <th class="text-left">NOME</th>
-                                <th class="text-left">E-MAIL</th>
                                 <th class="text-center">ATIVO</th>
-                                <th class="text-center">AÇÕES</th>
                             </tr>
                         </ng-template>
 
-                        <ng-template pTemplate="body" let-partner>
+                        <ng-template pTemplate="groupheader" let-feature>
+                            <tr pRowGroupHeader>
+                                <td colspan="2">
+                                    <strong style="font-size: 1rem;"> {{ feature['menuName'] }} </strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-feature>
                             <tr>
                                 <td class="text-left">
                                     <span class="p-column-title">NOME</span>
-                                    {{ partner['name'] }}
-                                </td>
-                                <td class="text-left">
-                                    <span class="p-column-title">E-MAIL</span>
-                                    {{ partner['email'] }}
+                                    {{ feature['name'] }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>
-                                    <span class=" {{ partner['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                        {{ partner["active"] === true ? 'Sim' : 'Não' }}
+                                    <span class=" {{ feature['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                        {{ feature["active"] === true ? 'Sim' : 'Não' }}
                                     </span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">AÇÕES</span>
-                                    <div class="card-actions">
-                                        <p-button [link]="true" (click)="confirmationDelete(partner)">
-                                            <i class="fa-regular fa-trash-can"></i>
-                                        </p-button>
-                                        <p-button [link]="true" [routerLink]="['/permissions/', partner.id]">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </p-button>
-                                    </div>
                                 </td>
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td colspan="4" style="text-align: center;">
+                                <td colspan="3" style="text-align: center;">
                                     Nenhum registro encontrado.
                                 </td>
                             </tr>

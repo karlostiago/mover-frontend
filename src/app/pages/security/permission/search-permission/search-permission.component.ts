@@ -4,6 +4,7 @@ import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../../service/AlertService";
 import {PermissionService} from "../permission.service";
 import {PartnerEntity} from "../../../../../entity/PartnerEntity";
+import {FuncionalityEntity} from "../../../../../entity/FuncionalityEntity";
 
 @Component({
   selector: 'app-search-permission',
@@ -12,6 +13,7 @@ import {PartnerEntity} from "../../../../../entity/PartnerEntity";
 })
 export class SearchPermissionComponent implements OnInit {
     partners = new Array<PartnerEntity>();
+    features = new Array<FuncionalityEntity>();
 
     searchFilter: string = "";
 
@@ -23,8 +25,8 @@ export class SearchPermissionComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.permissionService.findAll().then(response => {
-            this.partners = response;
+        this.permissionService.findAllFeatures().then(response => {
+            this.features = response;
         });
     }
 

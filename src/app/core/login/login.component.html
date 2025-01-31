@@ -1,1 +1,29 @@
-<p>Login</p>
+<form autocomplete="off" ngForm="form">
+    <div class="d-flex align-items-center mb-3 pb-1">
+        <i class="fa-brands fa-maxcdn fa-2x me-3" style="color: #55885e;"></i>
+        <span class="h1 fw-bold mb-0">Mover Sistema de Frotas</span>
+    </div>
+
+    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Faça login com sua conta</h5>
+
+    <div data-mdb-input-init class="form-outline mb-4">
+        <label class="form-label" for="email">Email</label>
+        <input pInputText type="email" id="email" class="form-control form-control-lg" pAutoFocus />
+    </div>
+
+    <div data-mdb-input-init class="form-outline mb-4">
+        <label class="form-label" for="senha">Senha</label>
+        <input pInputText type="password" id="senha" class="form-control form-control-lg" />
+    </div>
+
+    <div class="pt-1 mb-4">
+        <button pButton class="btn btn-success btn-lg btn-block" type="button"
+            (click)="login()">Login</button>
+    </div>
+
+    <!--                                    <a class="small text-muted" href="#!">Forgot password?</a>-->
+    <!--                                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!"-->
+    <!--                                                                                                              style="color: #393f81;">Register here</a></p>-->
+    <!--                                    <a href="#!" class="small text-muted">Terms of use.</a>-->
+    <!--                                    <a href="#!" class="small text-muted">Privacy policy</a>-->
+</form>

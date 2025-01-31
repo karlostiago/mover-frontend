@@ -16,6 +16,7 @@ import {PartnerModule} from "../pages/partner/partner.module";
 import {ContractModule} from "../pages/contract/contract.module";
 import {MaintenanceModule} from "../pages/maintenance/maintenance.module";
 import {TransactionModule} from "../pages/transaction/transaction.module";
+import {SecurityModule} from "../pages/security/security.module";
 
 @NgModule({
     declarations: [ ],
@@ -33,7 +34,8 @@ import {TransactionModule} from "../pages/transaction/transaction.module";
         PartnerModule,
         ContractModule,
         MaintenanceModule,
-        TransactionModule
+        TransactionModule,
+        SecurityModule
     ],
     imports: [
         CommonModule,

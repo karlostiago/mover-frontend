@@ -51,10 +51,14 @@
             <i class="fa-solid fa-shield-halved"></i>
             <a href="#"> Segurança </a>
             <ul>
-                <li> <a href="#"> Usuário </a> </li>
-                <li> <a href="#"> Perfil </a> </li>
-                <li> <a href="#"> Permissões </a> </li>
+                <li routerLink="/users" (click)="showOrHideMenu()"> <span> Usuário </span> </li>
+                <li routerLink="/profiles" (click)="showOrHideMenu()"> <span> Perfil </span> </li>
+                <li routerLink="/permissions" (click)="showOrHideMenu()"> <span> Permissões </span> </li>
             </ul>
+        </li>
+        <li>
+            <i class="fa-solid fa-power-off"></i>
+            <a routerLink="/login" (click)="showOrHideMenu()"> Sair </a>
         </li>
     </ul>
 

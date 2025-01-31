@@ -25,6 +25,14 @@ import {SearchTransactionComponent} from "../pages/transaction/search-transactio
 import {RegisterTransactionComponent} from "../pages/transaction/register-transaction/register-transaction.component";
 import {SearchVehicleComponent} from "../pages/vehicle/search-vehicle/search-vehicle.component";
 import {RegisterVehicleComponent} from "../pages/vehicle/register-vehicle/register-vehicle.component";
+import {SearchUserComponent} from "../pages/security/user/search-user/search-user.component";
+import {RegisterUserComponent} from "../pages/security/user/register-user/register-user.component";
+import {SearchProfileComponent} from "../pages/security/profile/search-profile/search-profile.component";
+import {RegisterProfileComponent} from "../pages/security/profile/register-profile/register-profile.component";
+import {SearchPermissionComponent} from "../pages/security/permission/search-permission/search-permission.component";
+import {
+    RegisterPermissionComponent
+} from "../pages/security/permission/register-permission/register-permission.component";
 
 export const routers = [
     { path: '', component: DashboardComponent },
@@ -77,4 +85,16 @@ export const routers = [
     { path: 'vehicles', component: SearchVehicleComponent },
     { path: 'vehicles/new', component: RegisterVehicleComponent },
     { path: 'vehicles/:id', component: RegisterVehicleComponent },
+
+    { path: 'users', component: SearchUserComponent },
+    { path: 'users/new', component: RegisterUserComponent },
+    { path: 'users/:id', component: RegisterUserComponent },
+
+    { path: 'profiles', component: SearchProfileComponent },
+    { path: 'profiles/new', component: RegisterProfileComponent },
+    { path: 'profiles/:id', component: RegisterProfileComponent },
+
+    { path: 'permissions', component: SearchPermissionComponent },
+    { path: 'permissions/new', component: RegisterPermissionComponent },
+    { path: 'permissions/:id', component: RegisterPermissionComponent },
 ]

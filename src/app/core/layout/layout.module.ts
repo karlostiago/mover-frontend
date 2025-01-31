@@ -7,17 +7,23 @@ import {RouterLink, RouterOutlet} from "@angular/router";
 import {ToastModule} from "primeng/toast";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {LoaderModule} from "../loader/loader.module";
+import {LoginComponent} from "../login/login.component";
+import {AuthLayoutComponent} from "./auth/auth-layout.component";
+import {InputTextModule} from "primeng/inputtext";
+import {AutoFocus} from "primeng/autofocus";
+import {FormsModule} from "@angular/forms";
+import {PasswordModule} from "primeng/password";
 
 @NgModule({
     declarations: [
         MainLayoutComponent,
+        AuthLayoutComponent,
         HeaderComponent,
-        MenuLateralComponent
+        MenuLateralComponent,
+        LoginComponent
     ],
     exports: [
-        MainLayoutComponent,
-        HeaderComponent,
-        MenuLateralComponent
+
     ],
     imports: [
         CommonModule,
@@ -26,7 +32,11 @@ import {LoaderModule} from "../loader/loader.module";
         ConfirmDialogModule,
         LoaderModule,
         RouterLink,
-        NgOptimizedImage
+        NgOptimizedImage,
+        InputTextModule,
+        AutoFocus,
+        FormsModule,
+        PasswordModule
     ]
 })
 export class LayoutModule { }

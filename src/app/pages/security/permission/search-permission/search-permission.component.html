@@ -1,0 +1,96 @@
+<form autocomplete="off" class="fade-in">
+    <app-title name="Permissões"></app-title>
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label"> Pesquisar:</label>
+                            <input pInputText class="form-control" id="search" name="search" [(ngModel)]="searchFilter" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-6 col-xs-6 text-md-start">
+                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()">
+                                <i class="fa-solid fa-magnifying-glass m-1"></i>
+                                Pesquisar
+                            </button>
+                        </div>
+                        <div class="col-6 col-xs-6 text-md-end">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/permissions/new">
+                                <i class="fa-solid fa-plus m-1"></i>
+                                Novo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-body">
+                    <p-table #table [value]="partners" [paginator]="partners.length > 10" [rows]="10"
+                             responsiveLayout="stack" [breakpoint]="'960px'" styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+
+                        <ng-template pTemplate="header">
+                            <tr *ngIf="partners.length > 0">
+                                <th class="text-left">NOME</th>
+                                <th class="text-left">E-MAIL</th>
+                                <th class="text-center">ATIVO</th>
+                                <th class="text-center">AÇÕES</th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-partner>
+                            <tr>
+                                <td class="text-left">
+                                    <span class="p-column-title">NOME</span>
+                                    {{ partner['name'] }}
+                                </td>
+                                <td class="text-left">
+                                    <span class="p-column-title">E-MAIL</span>
+                                    {{ partner['email'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">ATIVO</span>
+                                    <span class=" {{ partner['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                        {{ partner["active"] === true ? 'Sim' : 'Não' }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">AÇÕES</span>
+                                    <div class="card-actions">
+                                        <p-button [link]="true" (click)="confirmationDelete(partner)">
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </p-button>
+                                        <p-button [link]="true" [routerLink]="['/permissions/', partner.id]">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </p-button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="4" style="text-align: center;">
+                                    Nenhum registro encontrado.
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

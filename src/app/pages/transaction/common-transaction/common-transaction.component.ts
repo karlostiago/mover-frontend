@@ -20,8 +20,12 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
 
     accounts = new Array<AccountEntity>();
     vehicles = new Array<VehicleEntity>();
+
     contracts = new Array<ContractEntity>();
     cards = new Array<CardEntity>();
+
+    private selectedContracts = new Array<ContractEntity>();
+    private selectedCards = new Array<CardEntity>();
 
     @Input() transaction: TransactionEntity;
     @Input() updateForm: boolean;
@@ -35,10 +39,12 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     }
 
     async ngOnInit() {
-        await this.loadingAccounts();
-        await this.loadingVehicles();
-        await this.loadingContracts();
-        await this.loadingCards();
+        await Promise.all([
+            this.loadingAccounts(),
+            this.loadingVehicles(),
+            this.loadingContracts(),
+            this.loadingCards()
+        ]);
 
         if (this.updateForm) {
             this.onChangeContract();
@@ -47,21 +53,13 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     }
 
     onChangeCard() {
-        this.loadService.automatic = false;
-        this.loadingCards().then(response => {
-            // @ts-ignore
-            this.cards = [{ id: 0, name: 'Selecione'}, ...response.filter(c => c.accountId === this.transaction['accountId'])];
-            this.loadService.automatic = true;
-        });
+        // @ts-ignore
+        this.cards = [ { id: 0, name: 'Selecione' }, ...this.selectedCards.filter(c => c.accountId === this.transaction['accountId'])];
     }
 
     onChangeContract() {
-        this.loadService.automatic = false;
-        this.loadingContracts().then(response => {
-            // @ts-ignore
-            this.contracts = [{ id: 0, number: 'Selecione' }, ...response.filter(c => c.vehicleId === this.transaction['vehicleId'])];
-            this.loadService.automatic = true;
-        })
+        // @ts-ignore
+       this.contracts = [{ id: 0, number: 'Selecione' }, ...this.selectedContracts.filter(c => c.vehicleId === this.transaction['vehicleId'])];
     }
 
     private async loadingAccounts() {
@@ -79,10 +77,20 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     }
 
     private async loadingCards() {
-        return await this.cardService.findAll();
+        return await this.cardService.findAll().then(response => {
+            // @ts-ignore
+            this.cards = [{ id: 0, name: 'Selecione'}, ...response];
+            // @ts-ignore
+            this.selectedCards = [{ id: 0, name: 'Selecione'}, ...response];
+        });
     }
 
     private async loadingContracts() {
-        return await this.contractService.findAll();
+        return await this.contractService.findAll().then(response => {
+            // @ts-ignore
+            this.contracts = [{ id: 0, number: 'Selecione'}, ...response];
+            // @ts-ignore
+            this.selectedContracts = [{ id: 0, number: 'Selecione'}, ...response];
+        });
     }
 }

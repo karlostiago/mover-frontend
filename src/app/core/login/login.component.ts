@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "./auth.service";
 import {AuthEntity} from "../../../entity/AuthEntity";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import {AuthEntity} from "../../../entity/AuthEntity";
 export class LoginComponent implements OnInit {
 
     auth = new AuthEntity();
+    version: string;
 
     constructor(private router: Router,
                 private authService: AuthService) {
@@ -18,6 +20,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
         localStorage.removeItem("APP_TOKEN");
+        this.version = environment.version;
     }
 
     login() {

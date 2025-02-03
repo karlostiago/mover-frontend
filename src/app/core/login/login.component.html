@@ -7,18 +7,20 @@
     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Faça login com sua conta</h5>
 
     <div data-mdb-input-init class="form-outline mb-4">
-        <label class="form-label" for="username">Email</label>
+        <label class="form-label" for="username">Email:</label>
         <input pInputText type="email" id="username" name="username" class="form-control form-control-lg" pAutoFocus [(ngModel)]="auth.username" />
     </div>
 
     <div data-mdb-input-init class="form-outline mb-4">
-        <label class="form-label" for="password">Senha</label>
+        <label class="form-label" for="password">Senha:</label>
         <input pInputText type="password" id="password" name="password" class="form-control form-control-lg" [(ngModel)]="auth.password" />
     </div>
 
     <div class="pt-1 mb-4">
         <button pButton class="btn btn-success btn-lg btn-block" type="submit">Login</button>
     </div>
+
+    <small>v{{ version }}</small>
 
     <!--                                    <a class="small text-muted" href="#!">Forgot password?</a>-->
     <!--                                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!"-->

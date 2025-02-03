@@ -51,10 +51,12 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     }
 
     async ngOnInit() {
-        await this.loadingAllSubcategory();
-        await this.loadingInstallmentType();
-        await this.loadingFrequencyransaction();
-        await this.loadingTransactionTypes();
+        await Promise.all([
+            this.loadingAllSubcategory(),
+            this.loadingInstallmentType(),
+            this.loadingFrequencyransaction(),
+            this.loadingTransactionTypes()
+        ]);
 
         if (!this.registerNew) {
             this.edit = true;

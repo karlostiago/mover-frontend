@@ -33,68 +33,69 @@ import {SearchPermissionComponent} from "../pages/security/permission/search-per
 import {
     RegisterPermissionComponent
 } from "../pages/security/permission/register-permission/register-permission.component";
+import {CanActivate} from "./login/AuthGuard";
 
 export const routers = [
-    { path: '', component: DashboardComponent },
-    { path: 'dashboard', component: DashboardComponent },
+    { path: '', component: DashboardComponent, canActivate: [CanActivate] },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [CanActivate] },
 
-    { path: 'clients', component: SearchClientComponent },
-    { path: 'clients/new', component: RegisterClientComponent },
-    { path: 'clients/:id', component: RegisterClientComponent },
+    { path: 'clients', component: SearchClientComponent, canActivate: [CanActivate] },
+    { path: 'clients/new', component: RegisterClientComponent, canActivate: [CanActivate] },
+    { path: 'clients/:id', component: RegisterClientComponent, canActivate: [CanActivate] },
 
-    { path: 'contracts', component: SearchContractComponent },
-    { path: 'contracts/new', component: RegisterContractComponent },
-    { path: 'contracts/:id', component: RegisterContractComponent },
+    { path: 'contracts', component: SearchContractComponent, canActivate: [CanActivate] },
+    { path: 'contracts/new', component: RegisterContractComponent, canActivate: [CanActivate] },
+    { path: 'contracts/:id', component: RegisterContractComponent, canActivate: [CanActivate] },
 
-    { path: 'accounts', component: SearchAccountComponent },
-    { path: 'accounts/new', component: RegisterAccountComponent },
-    { path: 'accounts/:id', component: RegisterAccountComponent },
+    { path: 'accounts', component: SearchAccountComponent, canActivate: [CanActivate] },
+    { path: 'accounts/new', component: RegisterAccountComponent, canActivate: [CanActivate] },
+    { path: 'accounts/:id', component: RegisterAccountComponent, canActivate: [CanActivate] },
 
-    { path: 'brands', component: SearchBrandComponent },
-    { path: 'brands/new', component: RegisterBrandComponent },
-    { path: 'brands/:id', component: RegisterBrandComponent },
+    { path: 'brands', component: SearchBrandComponent, canActivate: [CanActivate] },
+    { path: 'brands/new', component: RegisterBrandComponent, canActivate: [CanActivate] },
+    { path: 'brands/:id', component: RegisterBrandComponent, canActivate: [CanActivate] },
 
-    { path: 'cards', component: SearchCardComponent },
-    { path: 'cards/new', component: RegisterCardComponent },
-    { path: 'cards/:id', component: RegisterCardComponent },
+    { path: 'cards', component: SearchCardComponent, canActivate: [CanActivate] },
+    { path: 'cards/new', component: RegisterCardComponent, canActivate: [CanActivate] },
+    { path: 'cards/:id', component: RegisterCardComponent, canActivate: [CanActivate] },
 
-    { path: 'categories', component: SearchCategoryComponent },
-    { path: 'categories/new', component: RegisterCategoryComponent },
-    { path: 'categories/:id', component: RegisterCategoryComponent },
+    { path: 'categories', component: SearchCategoryComponent, canActivate: [CanActivate] },
+    { path: 'categories/new', component: RegisterCategoryComponent, canActivate: [CanActivate] },
+    { path: 'categories/:id', component: RegisterCategoryComponent, canActivate: [CanActivate] },
 
-    { path: 'parameters', component: SearchConfigurationComponent },
-    { path: 'parameters/new', component: RegisterConfigurationComponent },
-    { path: 'parameters/:id', component: RegisterConfigurationComponent },
+    { path: 'parameters', component: SearchConfigurationComponent, canActivate: [CanActivate] },
+    { path: 'parameters/new', component: RegisterConfigurationComponent, canActivate: [CanActivate] },
+    { path: 'parameters/:id', component: RegisterConfigurationComponent, canActivate: [CanActivate] },
 
-    { path: 'maintenance', component: SearchMaintenanceComponent },
-    { path: 'maintenance/new', component: RegisterMaintenanceComponent },
-    { path: 'maintenance/:id', component: RegisterMaintenanceComponent },
+    { path: 'maintenance', component: SearchMaintenanceComponent, canActivate: [CanActivate] },
+    { path: 'maintenance/new', component: RegisterMaintenanceComponent, canActivate: [CanActivate] },
+    { path: 'maintenance/:id', component: RegisterMaintenanceComponent, canActivate: [CanActivate]},
 
-    { path: 'models', component: SearchModelComponent },
-    { path: 'models/new', component: RegisterModelComponent },
-    { path: 'models/:id', component: RegisterModelComponent },
+    { path: 'models', component: SearchModelComponent, canActivate: [CanActivate] },
+    { path: 'models/new', component: RegisterModelComponent, canActivate: [CanActivate] },
+    { path: 'models/:id', component: RegisterModelComponent, canActivate: [CanActivate] },
 
-    { path: 'partners', component: SearchPartnerComponent },
-    { path: 'partners/new', component: RegisterPartnerComponent },
-    { path: 'partners/:id', component: RegisterPartnerComponent },
+    { path: 'partners', component: SearchPartnerComponent, canActivate: [CanActivate] },
+    { path: 'partners/new', component: RegisterPartnerComponent, canActivate: [CanActivate] },
+    { path: 'partners/:id', component: RegisterPartnerComponent, canActivate: [CanActivate] },
 
-    { path: 'transactions', component: SearchTransactionComponent },
-    { path: 'transactions/new', component: RegisterTransactionComponent },
-    { path: 'transactions/:id', component: RegisterTransactionComponent },
+    { path: 'transactions', component: SearchTransactionComponent, canActivate: [CanActivate] },
+    { path: 'transactions/new', component: RegisterTransactionComponent, canActivate: [CanActivate] },
+    { path: 'transactions/:id', component: RegisterTransactionComponent, canActivate: [CanActivate] },
 
-    { path: 'vehicles', component: SearchVehicleComponent },
-    { path: 'vehicles/new', component: RegisterVehicleComponent },
-    { path: 'vehicles/:id', component: RegisterVehicleComponent },
+    { path: 'vehicles', component: SearchVehicleComponent, canActivate: [CanActivate] },
+    { path: 'vehicles/new', component: RegisterVehicleComponent, canActivate: [CanActivate] },
+    { path: 'vehicles/:id', component: RegisterVehicleComponent, canActivate: [CanActivate] },
 
-    { path: 'users', component: SearchUserComponent },
-    { path: 'users/new', component: RegisterUserComponent },
-    { path: 'users/:id', component: RegisterUserComponent },
+    { path: 'users', component: SearchUserComponent, canActivate: [CanActivate] },
+    { path: 'users/new', component: RegisterUserComponent, canActivate: [CanActivate] },
+    { path: 'users/:id', component: RegisterUserComponent, canActivate: [CanActivate] },
 
-    { path: 'profiles', component: SearchProfileComponent },
-    { path: 'profiles/new', component: RegisterProfileComponent },
-    { path: 'profiles/:id', component: RegisterProfileComponent },
+    { path: 'profiles', component: SearchProfileComponent, canActivate: [CanActivate] },
+    { path: 'profiles/new', component: RegisterProfileComponent, canActivate: [CanActivate] },
+    { path: 'profiles/:id', component: RegisterProfileComponent, canActivate: [CanActivate] },
 
-    { path: 'permissions', component: SearchPermissionComponent },
-    { path: 'permissions/new', component: RegisterPermissionComponent },
-    { path: 'permissions/:id', component: RegisterPermissionComponent },
+    { path: 'permissions', component: SearchPermissionComponent, canActivate: [CanActivate] },
+    { path: 'permissions/new', component: RegisterPermissionComponent, canActivate: [CanActivate] },
+    { path: 'permissions/:id', component: RegisterPermissionComponent, canActivate: [CanActivate] },
 ]

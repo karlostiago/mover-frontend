@@ -8,10 +8,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CoreModule} from "./core/core.module";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {SharedModule} from "../shared/SharedModule";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LoaderModule} from "./core/loader/loader.module";
 import localePt from '@angular/common/locales/pt';
 import {LayoutModule} from "./core/layout/layout.module";
+import {AuthInterceptor} from "./core/login/AuthInterceptor";
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -34,7 +35,8 @@ registerLocaleData(localePt, 'pt-BR');
         LayoutModule
     ],
     providers: [
-        { provide: LOCALE_ID, useValue: 'pt-BR' }
+        { provide: LOCALE_ID, useValue: 'pt-BR' },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
     ],
     exports: [
 

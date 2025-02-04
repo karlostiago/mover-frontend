@@ -35,4 +35,8 @@ export class HeaderComponent implements OnInit {
         this.expendMenu = false;
         document.body.classList.remove('overflow-hidden');
     }
+
+    get username() {
+        return localStorage.getItem("APP_USERNAME")
+    }
 }

@@ -37,10 +37,14 @@ span.show-menu {
 }
 
 .info-username {
-    font-size: 0.875rem;
+    font-size: 0.875rem !important;
 }
 
 .mv-toggle {
     font-size: 1.875rem !important;
     color: #5a5a5a;
+}
+
+.notification, .info-username {
+    color: rgba(0, 0, 0, 0.54) !important;
 }

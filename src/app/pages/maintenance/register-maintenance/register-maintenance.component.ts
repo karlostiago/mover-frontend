@@ -36,9 +36,11 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
     }
 
     async ngOnInit() {
-        await this.loadingAllAccounts();
-        await this.loadingAllVehicles();
-        await this.loadingAllTypes();
+        await Promise.all([
+            this.loadingAllAccounts(),
+            this.loadingAllVehicles(),
+            this.loadingAllTypes()
+        ]);
 
         if (!this.registerNew) {
             this.maintenanceService.findById(this.id).then(response => {

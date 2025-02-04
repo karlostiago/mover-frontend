@@ -12,7 +12,7 @@ export class ErrorHandler {
 
     capture(errorResponse: any) {
         if (errorResponse.status === 0) {
-            this.alertService.error('Erro ao se conectar ao servidor. O servidor esta temporariamente fora do ar, por gentileza aguarde uns minutos e tente novamente mais tarde.');
+            this.alertService.error('Erro ao se conectar ao servidor. O servidor esta temporariamente fora do ar, por gentileza aguarde uns minutos ou tente novamente mais tarde.');
             this.router.navigate(['/login']).then(() => {});
         } else {
             for (const error of errorResponse.error) {

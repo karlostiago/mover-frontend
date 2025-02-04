@@ -19,22 +19,21 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        localStorage.removeItem("APP_TOKEN");
-        localStorage.removeItem("APP_USERNAME");
+        localStorage.removeItem('APP_TOKEN');
+        localStorage.removeItem('APP_USERNAME');
+        localStorage.removeItem('APP_TOKEN_EXPIRATION');
         this.version = environment.version;
     }
 
     login() {
         this.authService.login(this.auth).then(response => {
             if (response.token) {
-                localStorage.setItem("APP_TOKEN", response.token);
-
                 const firstWord = this.auth.username.split('@')[0];
                 const username = firstWord.charAt(0).toUpperCase() + firstWord.slice(1);
-
-                localStorage.setItem("APP_USERNAME", username);
+                localStorage.setItem('APP_TOKEN', response.token);
+                localStorage.setItem('APP_USERNAME', username);
+                localStorage.setItem('APP_TOKEN_EXPIRATION', String(response.expiration));
             }
-
             this.router.navigate(['/dashboard']).then(r => console.log('login executado com sucesso.'));
         });
     }

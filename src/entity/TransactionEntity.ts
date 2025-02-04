@@ -24,4 +24,5 @@ export class TransactionEntity {
     paid: boolean = false;
     transactionType: string;
     remainingPages: number;
+    lastInstallment: boolean = false;
 }

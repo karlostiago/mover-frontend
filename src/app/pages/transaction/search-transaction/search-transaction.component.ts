@@ -27,8 +27,6 @@ export class SearchTransactionComponent implements OnInit {
     searchFilter: string = "";
     periodoFilter: Date;
 
-    selectedTransaction: TransactionEntity;
-
     remainingPages: number = -1;
 
     private page = 1;
@@ -56,12 +54,11 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     confirmationDelete(transaction: TransactionEntity) {
-        this.selectedTransaction = transaction;
-        if (transaction.installment === 0) {
+        if (transaction.installment === 0 || transaction.lastInstallment) {
             this.confirmationService.confirm({
-                message: `Tem certeza que deseja excluir o Lançamento ${this.selectedTransaction.description}`,
+                message: `Tem certeza que deseja excluir o Lançamento ${transaction.description}`,
                 accept: () => {
-                    this.delete();
+                    this.delete(transaction);
                 }
             })
         } else {
@@ -69,8 +66,8 @@ export class SearchTransactionComponent implements OnInit {
         }
     }
 
-    delete() {
-        this.transactionService.delete(this.selectedTransaction.id).then(() => {
+    delete(transaction: TransactionEntity) {
+        this.transactionService.delete(transaction.id).then(() => {
             this.updateTransactions();
             this.alertService.success("Lançamento excluido com sucesso.");
         });

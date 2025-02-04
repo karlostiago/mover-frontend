@@ -26,9 +26,14 @@ export class AuthService extends BaseService<AuthEntity> {
         return localStorage.getItem('APP_TOKEN') || null;
     }
 
+    async getExpiration(): Promise<boolean> {
+        const timestamp = localStorage.getItem('APP_TOKEN_EXPIRATION');
+        return timestamp ? Number(timestamp) < Date.now() : true;
+    }
+
     async isLoggedIn(): Promise<boolean> {
-        return await this.getToken().then(response => {
-            return response !== null;
-        });
+        const token = await this.getToken();
+        const expiration = await this.getExpiration();
+        return !!(token && !expiration);
     }
 }

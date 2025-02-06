@@ -1,0 +1,49 @@
+<p-table [value]="features"
+         responsiveLayout="stack"
+         [breakpoint]="'960px'"
+         sortMode="single"
+         sortField="codeMenu"
+         groupRowsBy="codeMenu"
+         rowGroupMode="subheader"
+         styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+
+    <ng-template pTemplate="header">
+        <tr *ngIf="features.length > 0">
+            <th class="text-left">NOME</th>
+            <th class="text-center">ATIVO</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="groupheader" let-feature>
+        <tr pRowGroupHeader>
+            <td colspan="2">
+                <strong style="font-size: 1rem;"> {{ feature['menuName'] }} </strong>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-feature>
+        <tr>
+            <td class="text-left">
+                <span class="p-column-title">NOME</span>
+                {{ feature['name'] }}
+            </td>
+            <td class="text-center">
+                <span class="p-column-title">ATIVO</span>
+                <a (click)="feature['active'] ? disable(feature) : activate(feature)" style="cursor: pointer">
+                    <span class=" {{ feature['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                        {{ feature["active"] === true ? 'Sim' : 'Não' }}
+                    </span>
+                </a>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="3" style="text-align: center;">
+                Nenhum registro encontrado.
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

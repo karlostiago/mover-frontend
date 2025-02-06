@@ -39,41 +39,36 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table [value]="partners" [paginator]="partners.length > 10" [rows]="10"
+                    <p-table #table [value]="profiles" [paginator]="profiles.length > 10" [rows]="10"
                              responsiveLayout="stack" [breakpoint]="'960px'" styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
 
                         <ng-template pTemplate="header">
-                            <tr *ngIf="partners.length > 0">
-                                <th class="text-left">NOME</th>
-                                <th class="text-left">E-MAIL</th>
+                            <tr *ngIf="profiles.length > 0">
+                                <th class="text-left">DESCRIÇÃO</th>
                                 <th class="text-center">ATIVO</th>
                                 <th class="text-center">AÇÕES</th>
                             </tr>
                         </ng-template>
 
-                        <ng-template pTemplate="body" let-partner>
+                        <ng-template pTemplate="body" let-profile>
                             <tr>
                                 <td class="text-left">
-                                    <span class="p-column-title">NOME</span>
-                                    {{ partner['name'] }}
-                                </td>
-                                <td class="text-left">
-                                    <span class="p-column-title">E-MAIL</span>
-                                    {{ partner['email'] }}
+                                    <span class="p-column-title">DESCRIÇÃO</span>
+                                    {{ profile['description'] }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>
-                                    <span class=" {{ partner['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                        {{ partner["active"] === true ? 'Sim' : 'Não' }}
+                                    <span class=" {{ profile['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                        {{ profile["active"] === true ? 'Sim' : 'Não' }}
                                     </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÕES</span>
                                     <div class="card-actions">
-                                        <p-button [link]="true" (click)="confirmationDelete(partner)">
+                                        <p-button [link]="true" (click)="confirmationDelete(profile)">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </p-button>
-                                        <p-button [link]="true" [routerLink]="['/profiles/', partner.id]">
+                                        <p-button [link]="true" [routerLink]="['/profiles/', profile.id]">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </p-button>
                                     </div>

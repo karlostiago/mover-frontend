@@ -1,4 +1,4 @@
-export class FuncionalityEntity {
+export class FunctionalityEntity {
     id: number = 0;
     name: string = "";
     codeMenu: number = 0;

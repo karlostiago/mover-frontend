@@ -17,29 +17,24 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="form-label"> Nome *:</label>
-                            <input pInputText class="form-control" name="name" id="name" [(ngModel)]="partner['name']" [required]="true" [maxlength]="100" />
+                            <label class="form-label"> Descrição *:</label>
+                            <input pInputText class="form-control" name="description" id="description" [(ngModel)]="profile['description']" [required]="true" />
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="form-label"> E-mail *:</label>
-                            <input pInputText class="form-control" name="email" id="email" [(ngModel)]="partner['email']" [required]="true" [maxlength]="100" />
-                        </div>
-                    </div>
+                    <app-pick-profiles [selectedFeatures]="profile.permissions" (values)="features($event)" [clear]="clear"></app-pick-profiles>
 
                     <div class="row">
                         <div class="col-md-12">
                             <label class="form-label">Ativo:</label>
                             <p-inputSwitch name="active" id="active" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"
-                                           [(ngModel)]="partner['active']"></p-inputSwitch>
+                                           [(ngModel)]="profile['active']"></p-inputSwitch>
                         </div>
                     </div>
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !profile.permissions.length">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>
@@ -55,3 +50,4 @@
         </div>
     </div>
 </form>
+

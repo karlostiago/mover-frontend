@@ -3,7 +3,8 @@ import {BaseService} from "../../../../abstract/BaseService";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../../core/handler/ErrorHandler";
 import {PartnerEntity} from "../../../../entity/PartnerEntity";
-import {FuncionalityEntity} from "../../../../entity/FuncionalityEntity";
+import {FunctionalityEntity} from "../../../../entity/FunctionalityEntity";
+import {PermissionTypeEntity} from "../../../../entity/PermissionTypeEntity";
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,13 @@ export class PermissionService extends BaseService<PartnerEntity> {
         return "permissions";
     }
 
-    async findAllFeatures(): Promise<Array<FuncionalityEntity>> {
+    async findAllFeatures(): Promise<Array<FunctionalityEntity>> {
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/features`, this.options());
+        return this.toPromise(request);
+    }
+
+    async findAllPermissionTypes(): Promise<Array<PermissionTypeEntity>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/permission-types`, this.options());
         return this.toPromise(request);
     }
 

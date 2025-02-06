@@ -11,6 +11,7 @@ import {FileUploadModule} from "primeng/fileupload";
 import {SearchProfileComponent} from "./search-profile/search-profile.component";
 import {RegisterProfileComponent} from "./register-profile/register-profile.component";
 import {SharedModule} from "../../../../shared/SharedModule";
+import {PickProfilesModule} from "../../../core/components/pick-profiles/pick-profiles.module";
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import {SharedModule} from "../../../../shared/SharedModule";
         SharedModule,
         FileUploadModule,
         NgOptimizedImage,
-        SharedModule
+        SharedModule,
+        PickProfilesModule
     ]
 })
 export class ProfileModule { }

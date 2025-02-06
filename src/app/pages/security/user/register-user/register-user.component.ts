@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {AlertService} from "../../../../../service/AlertService";
 import {UserService} from "../user.service";
 import {PartnerEntity} from "../../../../../entity/PartnerEntity";
+import {UserEntity} from "../../../../../entity/UserEntity";
 
 @Component({
   selector: 'app-register-user',
@@ -14,23 +15,24 @@ import {PartnerEntity} from "../../../../../entity/PartnerEntity";
 export class RegisterUserComponent extends AbstractRegister implements OnInit {
 
     partner = new PartnerEntity();
+    user = new UserEntity();
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
-                private partnerService: UserService) {
+                private userService: UserService) {
         super(activatedRoute);
     }
 
     async ngOnInit() {
         if (!this.registerNew) {
-            this.partnerService.findById(this.id).then(response => {
-                this.partner = response;
+            this.userService.findById(this.id).then(response => {
+                this.user = response;
             });
         }
     }
 
     saveOrUpdate(form: NgForm) {
-        if (this.partner.id) {
+        if (this.user.id) {
             this.update();
         } else {
             this.save(form);
@@ -38,7 +40,7 @@ export class RegisterUserComponent extends AbstractRegister implements OnInit {
     }
 
     private save(form: NgForm) {
-        this.partnerService.save(this.partner).then(() => {
+        this.userService.save(this.user).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
             form.resetForm({
                 active: true
@@ -47,7 +49,7 @@ export class RegisterUserComponent extends AbstractRegister implements OnInit {
     }
 
     private update() {
-        this.partnerService.update(this.partner.id, this.partner).then(() => {
+        this.userService.update(this.partner.id, this.user).then(() => {
             this.alertService.success("Registro atualizado com sucesso.");
         });
     }

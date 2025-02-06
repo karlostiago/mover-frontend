@@ -4,7 +4,8 @@ import {AbstractRegister} from "../../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
 import {AlertService} from "../../../../../service/AlertService";
 import {ProfileService} from "../profile.service";
-import {PartnerEntity} from "../../../../../entity/PartnerEntity";
+import {ProfileEntity} from "../../../../../entity/ProfileEntity";
+import {FunctionalityEntity} from "../../../../../entity/FunctionalityEntity";
 
 @Component({
   selector: 'app-register-profile',
@@ -13,7 +14,8 @@ import {PartnerEntity} from "../../../../../entity/PartnerEntity";
 })
 export class RegisterProfileComponent extends AbstractRegister implements OnInit {
 
-    partner = new PartnerEntity();
+    profile = new ProfileEntity();
+    clear: boolean = false;
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
@@ -24,30 +26,38 @@ export class RegisterProfileComponent extends AbstractRegister implements OnInit
     async ngOnInit() {
         if (!this.registerNew) {
             this.profileService.findById(this.id).then(response => {
-                this.partner = response;
+                this.profile = response;
             });
         }
     }
 
     saveOrUpdate(form: NgForm) {
-        if (this.partner.id) {
+        if (this.profile.id) {
             this.update();
         } else {
             this.save(form);
         }
     }
 
+    features(e: Array<FunctionalityEntity>) {
+        this.profile.permissions = e;
+    }
+
+
+    override cancel(form: NgForm) {
+        super.cancel(form);
+        this.clear = !this.clear;
+    }
+
     private save(form: NgForm) {
-        this.profileService.save(this.partner).then(() => {
+        this.profileService.save(this.profile).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
-            form.resetForm({
-                active: true
-            });
+            this.cancel(form);
         });
     }
 
     private update() {
-        this.profileService.update(this.partner.id, this.partner).then(() => {
+        this.profileService.update(this.profile.id, this.profile).then(() => {
             this.alertService.success("Registro atualizado com sucesso.");
         });
     }

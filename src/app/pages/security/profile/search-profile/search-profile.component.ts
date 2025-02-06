@@ -3,7 +3,7 @@ import {Table} from "primeng/table";
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../../service/AlertService";
 import {ProfileService} from "../profile.service";
-import {PartnerEntity} from "../../../../../entity/PartnerEntity";
+import {ProfileEntity} from "../../../../../entity/ProfileEntity";
 
 @Component({
   selector: 'app-search-profile',
@@ -11,7 +11,7 @@ import {PartnerEntity} from "../../../../../entity/PartnerEntity";
   styleUrls: ['./search-profile.component.css']
 })
 export class SearchProfileComponent implements OnInit {
-    partners = new Array<PartnerEntity>();
+    profiles = new Array<ProfileEntity>();
 
     searchFilter: string = "";
 
@@ -24,29 +24,29 @@ export class SearchProfileComponent implements OnInit {
 
     async ngOnInit() {
         this.profileService.findAll().then(response => {
-            this.partners = response;
+            this.profiles = response;
         });
     }
 
-    confirmationDelete(partner: PartnerEntity) {
+    confirmationDelete(profile: ProfileEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir o sócio ${partner['name']}?`,
+            message: `Tem certeza que deseja excluir o perfil ${profile['description']}?`,
             accept: () => {
-                this.delete(partner.id);
+                this.delete(profile.id);
             }
         })
     }
 
     delete(id: number) {
         this.profileService.delete(id).then(() => {
-            this.partners = this.partners.filter(a => a.id !== id);
+            this.profiles = this.profiles.filter(a => a.id !== id);
             this.alertService.success("Registro deletado com sucesso.");
         });
     }
 
     filterBy() {
         this.profileService.findBy(this.searchFilter).then(response => {
-            this.partners = response;
+            this.profiles = response;
             this.table?.reset();
         })
     }

@@ -1,0 +1,35 @@
+.picklist {
+    border: 1px solid #dfe2e6;
+    border-radius: 4px;
+    min-height: 30vh;
+    max-height: 30vh;
+    overflow-y: auto;
+}
+
+.picklist span {
+    padding: 15px;
+    color: rgba(0, 0, 0, 0.54) !important;
+    flex-grow: 1;
+
+    word-wrap: break-word;
+}
+
+.picklist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 5px;
+
+    flex-wrap: wrap;
+}
+
+.picklist-item button {
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .picklist-item button {
+        margin-left: 15px;
+    }
+}

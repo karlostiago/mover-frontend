@@ -5,6 +5,10 @@ import {ActivatedRoute} from "@angular/router";
 import {AlertService} from "../../../../../service/AlertService";
 import {PermissionService} from "../permission.service";
 import {PartnerEntity} from "../../../../../entity/PartnerEntity";
+import {PermissionTypeEntity} from "../../../../../entity/PermissionTypeEntity";
+import {PermissionEntity} from "../../../../../entity/PermissionEntity";
+import {UserEntity} from "../../../../../entity/UserEntity";
+import {UserService} from "../../user/user.service";
 
 @Component({
   selector: 'app-register-permission',
@@ -15,15 +19,30 @@ export class RegisterPermissionComponent extends AbstractRegister implements OnI
 
     partner = new PartnerEntity();
 
+    permissionTypes = new Array<PermissionTypeEntity>();
+    permission = new PermissionEntity();
+    users = new Array<UserEntity>()
+
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
-                private partnerService: PermissionService) {
+                private permissionService: PermissionService,
+                private userService: UserService) {
         super(activatedRoute);
     }
 
     async ngOnInit() {
+
+        this.permissionService.findAllPermissionTypes().then(response => {
+            this.permissionTypes = [ { code: 0, description: 'Selecione' }, ...response];
+        });
+
+        this.userService.findAll().then(response => {
+            // @ts-ignore
+            this.users = [ { id: 0, login: 'Selecione' }, ...response ];
+        })
+
         if (!this.registerNew) {
-            this.partnerService.findById(this.id).then(response => {
+            this.permissionService.findById(this.id).then(response => {
                 this.partner = response;
             });
         }
@@ -38,7 +57,7 @@ export class RegisterPermissionComponent extends AbstractRegister implements OnI
     }
 
     private save(form: NgForm) {
-        this.partnerService.save(this.partner).then(() => {
+        this.permissionService.save(this.partner).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
             form.resetForm({
                 active: true
@@ -47,7 +66,7 @@ export class RegisterPermissionComponent extends AbstractRegister implements OnI
     }
 
     private update() {
-        this.partnerService.update(this.partner.id, this.partner).then(() => {
+        this.permissionService.update(this.partner.id, this.partner).then(() => {
             this.alertService.success("Registro atualizado com sucesso.");
         });
     }

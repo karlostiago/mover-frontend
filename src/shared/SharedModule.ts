@@ -16,6 +16,8 @@ import {CepMaskPipe} from "./pipe/CepMaskPipe";
 import {NumberRangeDirective} from "./directive/NumberRangeDirective";
 import {TitleComponent} from "../app/core/title/title.component";
 import {StickTableHeader} from "./directive/StickTableHeaderDirective";
+import {TableFunctionalityComponent} from "../app/core/components/table-functionality/table-functionality.component";
+import {TableModule} from "primeng/table";
 
 @NgModule({
     declarations: [
@@ -32,7 +34,8 @@ import {StickTableHeader} from "./directive/StickTableHeaderDirective";
         CepMaskPipe,
         NumberRangeDirective,
         TitleComponent,
-        StickTableHeader
+        StickTableHeader,
+        TableFunctionalityComponent
     ],
     exports: [
         ToastModule,
@@ -49,10 +52,12 @@ import {StickTableHeader} from "./directive/StickTableHeaderDirective";
         CepMaskPipe,
         NumberRangeDirective,
         TitleComponent,
-        StickTableHeader
+        StickTableHeader,
+        TableFunctionalityComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        TableModule
     ],
     providers: [
         MessageService

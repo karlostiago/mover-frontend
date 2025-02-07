@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AbstractRegister} from "../../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
 import {AlertService} from "../../../../../service/AlertService";
 import {UserService} from "../user.service";
-import {PartnerEntity} from "../../../../../entity/PartnerEntity";
 import {UserEntity} from "../../../../../entity/UserEntity";
+import {ProfileEntity} from "../../../../../entity/ProfileEntity";
+import {ProfileService} from "../../profile/profile.service";
 
 @Component({
   selector: 'app-register-user',
@@ -14,16 +15,21 @@ import {UserEntity} from "../../../../../entity/UserEntity";
 })
 export class RegisterUserComponent extends AbstractRegister implements OnInit {
 
-    partner = new PartnerEntity();
     user = new UserEntity();
+    profiles = new Array<ProfileEntity>();
+
+    confirmPassword: string;
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
+                private profileService: ProfileService,
                 private userService: UserService) {
         super(activatedRoute);
     }
 
     async ngOnInit() {
+        await this.loadingProfiles();
+
         if (!this.registerNew) {
             this.userService.findById(this.id).then(response => {
                 this.user = response;
@@ -39,18 +45,38 @@ export class RegisterUserComponent extends AbstractRegister implements OnInit {
         }
     }
 
+    updateLoginName() {
+        this.user['login'] = this.user['email'];
+    }
+
+    validatePassword() {
+        if (this.user['password'] && this.user['password'].length === 1) {
+            this.alertService.info("A senha precisa ter pelo menos 6 caracteres.")
+        }
+    }
+
     private save(form: NgForm) {
-        this.userService.save(this.user).then(() => {
-            this.alertService.success("Registro cadastrado com sucesso.");
-            form.resetForm({
-                active: true
+        if (this.user['password'].length > 5) {
+            this.userService.save(this.user).then(() => {
+                this.alertService.success("Registro cadastrado com sucesso.");
+                form.resetForm({
+                    active: true
+                });
             });
-        });
+        } else {
+            this.alertService.error('Senha e confirma senha não confere.');
+        }
     }
 
     private update() {
-        this.userService.update(this.partner.id, this.user).then(() => {
+        this.userService.update(this.user.id, this.user).then(() => {
             this.alertService.success("Registro atualizado com sucesso.");
         });
+    }
+
+    private async loadingProfiles() {
+        await this.profileService.findAll().then(response => {
+            this.profiles = response;
+        })
     }
 }

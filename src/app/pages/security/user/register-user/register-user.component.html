@@ -17,15 +17,35 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="form-label"> Nome *:</label>
-                            <input pInputText class="form-control" name="name" id="name" [(ngModel)]="partner['name']" [required]="true" [maxlength]="100" />
+                            <label class="form-label"> Nome completo *:</label>
+                            <input pInputText class="form-control" name="fullname" id="fullname" [(ngModel)]="user['name']" [required]="true" [maxlength]="100" />
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-12">
                             <label class="form-label"> E-mail *:</label>
-                            <input pInputText class="form-control" name="email" id="email" [(ngModel)]="partner['email']" [required]="true" [maxlength]="100" />
+                            <input pInputText class="form-control" name="email" id="email" [(ngModel)]="user['email']" (keyup)="updateLoginName()" [required]="true" [maxlength]="100" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label"> Senha *:</label>
+                            <input pInputText type="password" class="form-control" name="password" id="password" [(ngModel)]="user['password']" [required]="true" [maxlength]="100"
+                                (input)="validatePassword()" />
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label"> Confirma senha *:</label>
+                            <input pInputText type="password" class="form-control" name="confirmPassword" id="confirmPassword" [(ngModel)]="confirmPassword" [required]="true" [maxlength]="100"
+                                   (input)="validatePassword()" />
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label"> Perfil *:</label>
+                            <p-multiSelect id="profile" name="profile" [showHeader]="false" emptyMessage="Nenhum perfil encontrado."
+                                           [options]="profiles" optionLabel="description" [(ngModel)]="user['profiles']" [style]="{ height: 'inherit', border: '1px solid #dfe2e6'}" />
                         </div>
                     </div>
 
@@ -33,13 +53,13 @@
                         <div class="col-md-12">
                             <label class="form-label">Ativo:</label>
                             <p-inputSwitch name="active" id="active" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"
-                                           [(ngModel)]="partner['active']"></p-inputSwitch>
+                                           [(ngModel)]="user['active']"></p-inputSwitch>
                         </div>
                     </div>
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !user['profiles'].length">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

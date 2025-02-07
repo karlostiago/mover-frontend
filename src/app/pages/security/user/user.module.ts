@@ -11,6 +11,7 @@ import {FileUploadModule} from "primeng/fileupload";
 import {SearchUserComponent} from "./search-user/search-user.component";
 import {RegisterUserComponent} from "./register-user/register-user.component";
 import {SharedModule} from "../../../../shared/SharedModule";
+import {MultiSelectModule} from "primeng/multiselect";
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import {SharedModule} from "../../../../shared/SharedModule";
         DropdownModule,
         SharedModule,
         FileUploadModule,
-        NgOptimizedImage
+        NgOptimizedImage,
+        MultiSelectModule
     ]
 })
 export class UserModule { }

@@ -4,7 +4,7 @@
         <div class="picklist">
             <div class="picklist-item" *ngFor="let feature of features">
                 <span> {{ feature['name'] }} </span>
-                <button pButton type="button" class="p-button-success p-button-sm" (click)="toAdd(feature)"> Adicionar </button> <br />
+                <button pButton type="button" class="p-button-success p-button-sm" [disabled]="disable" (click)="toAdd(feature)"> Adicionar </button> <br />
             </div>
         </div>
     </div>

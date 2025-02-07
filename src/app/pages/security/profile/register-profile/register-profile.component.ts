@@ -43,6 +43,15 @@ export class RegisterProfileComponent extends AbstractRegister implements OnInit
         this.profile.permissions = e;
     }
 
+    info() {
+        if (this.profile['description'] && this.profile['description'].length === 1) {
+            this.alertService.info("A descrição deve ter mais que 5 caracteres.");
+        }
+    }
+
+    enablePickPermissions() {
+        return !!(this.profile['description'] && this.profile['description'].length > 5);
+    }
 
     override cancel(form: NgForm) {
         super.cancel(form);

@@ -22,6 +22,8 @@ export class PickPermissionComponent implements OnInit, OnChanges {
 
     @Input() targetLabel: string;
 
+    @Input() disable: boolean = true;
+
     constructor(private permissionService: PermissionService,
                 private loadService: LoaderService) { }
 

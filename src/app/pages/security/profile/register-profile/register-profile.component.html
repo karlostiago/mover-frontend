@@ -18,12 +18,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label class="form-label"> Descrição *:</label>
-                            <input pInputText class="form-control" name="description" id="description" [(ngModel)]="profile['description']" [required]="true" />
+                            <input pInputText class="form-control" name="description" id="description"
+                                   [(ngModel)]="profile['description']" (keyup)="info()" [required]="true" />
                         </div>
                     </div>
 
                     <app-pick-permission sourceLabel="Permissões do sistema" targetLabel="Permissões associadas ao perfil"
-                        [selectedFeatures]="profile.permissions" (values)="features($event)" [clear]="clear"></app-pick-permission>
+                        [selectedFeatures]="profile.permissions" [disable]="!enablePickPermissions()" (values)="features($event)" [clear]="clear"></app-pick-permission>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -35,7 +36,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !profile.permissions.length">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !enablePickPermissions() || !profile.permissions.length">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

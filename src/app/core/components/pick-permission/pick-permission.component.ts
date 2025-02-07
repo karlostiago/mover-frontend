@@ -35,10 +35,9 @@ export class PickPermissionComponent implements OnInit, OnChanges {
             await this.loadingFeatures();
         }
         if (changes['selectedFeatures']) {
-            if (this.features) {
-                this.features = this.features.filter(f =>
-                    !this.selectedFeatures.some(s => s.id === f.id)
-                );
+            if (this.features?.length) {
+                const selectedIds = new Set(this.selectedFeatures.map(it => `${it.id}-${it.codeMenu}`));
+                this.features = this.features.filter(item => !selectedIds.has(`${item.id}-${item.codeMenu}`));
             }
         }
     }

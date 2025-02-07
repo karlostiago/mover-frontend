@@ -1,18 +1,18 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PickProfilesComponent} from "./pick-profiles.component";
+import {PickPermissionComponent} from "./pick-permission.component";
 import {ButtonDirective} from "primeng/button";
 
 @NgModule({
     declarations: [
-        PickProfilesComponent
+        PickPermissionComponent
     ],
     exports: [
-        PickProfilesComponent
+        PickPermissionComponent
     ],
     imports: [
         CommonModule,
         ButtonDirective,
     ]
 })
-export class PickProfilesModule { }
+export class PickPermissionModule { }

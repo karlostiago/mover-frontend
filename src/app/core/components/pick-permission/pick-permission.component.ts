@@ -4,11 +4,11 @@ import {PermissionService} from "../../../pages/security/permission/permission.s
 import {LoaderService} from "../../loader/loader.service";
 
 @Component({
-  selector: 'app-pick-profiles',
-  templateUrl: './pick-profiles.component.html',
-  styleUrls: ['./pick-profiles.component.css']
+  selector: 'app-pick-permission',
+  templateUrl: './pick-permission.component.html',
+  styleUrls: ['./pick-permission.component.css']
 })
-export class PickProfilesComponent implements OnInit, OnChanges {
+export class PickPermissionComponent implements OnInit, OnChanges {
 
     features = new Array<FunctionalityEntity>();
 
@@ -17,6 +17,10 @@ export class PickProfilesComponent implements OnInit, OnChanges {
     @Output() values = new EventEmitter<Array<FunctionalityEntity>>();
 
     @Input() clear: boolean = false;
+
+    @Input() sourceLabel: string;
+
+    @Input() targetLabel: string;
 
     constructor(private permissionService: PermissionService,
                 private loadService: LoaderService) { }

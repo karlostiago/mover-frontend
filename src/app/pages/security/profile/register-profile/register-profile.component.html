@@ -22,7 +22,8 @@
                         </div>
                     </div>
 
-                    <app-pick-profiles [selectedFeatures]="profile.permissions" (values)="features($event)" [clear]="clear"></app-pick-profiles>
+                    <app-pick-permission sourceLabel="Permissões do sistema" targetLabel="Permissões associadas ao perfil"
+                        [selectedFeatures]="profile.permissions" (values)="features($event)" [clear]="clear"></app-pick-permission>
 
                     <div class="row">
                         <div class="col-md-12">

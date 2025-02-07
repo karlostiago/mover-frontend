@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6">
-        <label class="form-label"> Permissões do sistema *:</label>
+        <label class="form-label"> {{ sourceLabel }} *:</label>
         <div class="picklist">
             <div class="picklist-item" *ngFor="let feature of features">
                 <span> {{ feature['name'] }} </span>
@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="col-md-6">
-        <label class="form-label"> Permissões associadas ao perfil *:</label>
+        <label class="form-label"> {{ targetLabel }} *:</label>
         <div class="picklist">
             <div class="picklist-item" *ngFor="let selectedFeature of selectedFeatures">
                 <span> {{ selectedFeature['name'] }} </span>

@@ -30,13 +30,13 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4" *ngIf="isNewRegister()">
                             <label class="form-label"> Senha *:</label>
                             <input pInputText type="password" class="form-control" name="password" id="password" [(ngModel)]="user['password']" [required]="true" [maxlength]="100"
                                 (input)="validatePassword()" />
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4" *ngIf="isNewRegister()">
                             <label class="form-label"> Confirma senha *:</label>
                             <input pInputText type="password" class="form-control" name="confirmPassword" id="confirmPassword" [(ngModel)]="confirmPassword" [required]="true" [maxlength]="100"
                                    (input)="validatePassword()" />

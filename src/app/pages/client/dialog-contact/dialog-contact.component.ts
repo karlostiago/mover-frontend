@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ClientEntity} from "../../../../entity/ClientEntity";
 import {ContactEntity} from "../../../../entity/ContactEntity";
 import {AlertService} from "../../../../service/AlertService";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-dialog-contact',
@@ -15,7 +16,8 @@ export class DialogContactComponent implements OnInit {
     contact = new ContactEntity()
     client: ClientEntity;
 
-    constructor(private alertService: AlertService) {
+    constructor(private alertService: AlertService,
+                protected authService: AuthService) {
     }
 
     ngOnInit(): void {
@@ -23,7 +25,6 @@ export class DialogContactComponent implements OnInit {
     }
 
     showDialog(client: ClientEntity, contact: ContactEntity) {
-        console.log('caiu aqui')
         this.visible = true;
         this.client = client;
         this.contact = contact ? { ... contact} : new ContactEntity();

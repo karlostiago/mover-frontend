@@ -14,6 +14,7 @@ import {OptionEnum} from "../../../../enum/OptionEnum";
 import {FipeService} from "../fipe.service";
 import {LoaderService} from "../../../core/loader/loader.service";
 import {SituationEntity} from "../../../../entity/SituationEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-register-vehicle',
@@ -40,6 +41,7 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
                 private modelService: ModelService,
                 private fipeService: FipeService,
                 private loaderService: LoaderService,
+                protected authService: AuthService,
                 private vehicleService: VehicleService) {
         super(activatedRoute);
     }
@@ -124,6 +126,12 @@ export class RegisterVehicleComponent extends AbstractRegister implements OnInit
             }
         }
         this.loaderService.automatic = true;
+    }
+
+    enable(form: NgForm) {
+        const hasPermission = this.authService.hasPermission('REGISTER_VEHICLES') ||
+            this.authService.hasPermission('REGISTER_VEHICLES');
+        return !form.valid && hasPermission;
     }
 
     private save(form: NgForm) {

@@ -112,7 +112,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || isValidFipeAtAcquisition()">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="enable(form) || isValidFipeAtAcquisition()">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

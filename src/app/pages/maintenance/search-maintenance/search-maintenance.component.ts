@@ -4,6 +4,7 @@ import {AlertService} from "../../../../service/AlertService";
 import {MaintenanceService} from "../maintenance.service";
 import {Table} from "primeng/table";
 import {MaintenanceEntity} from "../../../../entity/MaintenanceEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-search-maintenance',
@@ -19,6 +20,7 @@ export class SearchMaintenanceComponent implements OnInit {
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
+                protected authService: AuthService,
                 private maintenanceService: MaintenanceService) {
     }
 

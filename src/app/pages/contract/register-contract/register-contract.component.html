@@ -1,5 +1,5 @@
 <form autocomplete="off" class="fade-in" #form="ngForm" (ngSubmit)="saveOrUpdate(form)">
-    <app-title name="Contratos # ({{ contract['number'] }})"></app-title>
+    <app-title name="Contratos" subname=" # {{ contract['number'] }}"> </app-title>
 
     <div class="row g-3">
         <div class="col-md-12 mb-10">
@@ -96,7 +96,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="enable(form)">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

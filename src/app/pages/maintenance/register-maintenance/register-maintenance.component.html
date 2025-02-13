@@ -82,7 +82,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="enable(form)">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

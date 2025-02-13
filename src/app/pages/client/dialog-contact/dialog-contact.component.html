@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button pButton type="button" class="p-button-success p-button-sm" (click)="saveOrUpdate()" [disabled]="!form.valid">
+                        <button pButton type="button" class="p-button-success p-button-sm" (click)="saveOrUpdate()" [disabled]="!form.valid || !authService.hasPermission('REGISTER_ADDRESS_CLIENTS') || !authService.hasPermission('UPDATE_ADDRESS_CLIENTS')">
                             <i class="fa-solid fa-save m-1"></i>
                             Salvar
                         </button>

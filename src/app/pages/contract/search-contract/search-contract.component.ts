@@ -5,6 +5,8 @@ import {ContractService} from "../contract.service";
 import {Table} from "primeng/table";
 import {ContractEntity} from "../../../../entity/ContractEntity";
 import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
+import {AuthService} from "../../../core/login/auth.service";
+import {ErrorHandler} from "../../../core/handler/ErrorHandler";
 
 @Component({
   selector: 'app-search-contract',
@@ -21,6 +23,8 @@ export class SearchContractComponent implements OnInit {
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
                 private globalDialogService: GlobalDialogService,
+                protected authService: AuthService,
+                private error: ErrorHandler,
                 private contractService: ContractService) {
     }
 
@@ -31,7 +35,11 @@ export class SearchContractComponent implements OnInit {
     }
 
     close(contract: ContractEntity) {
-        this.globalDialogService.openDialog(TypeDialog.TERMINATE_CONTRACT, contract);
+        if (this.authService.hasPermission('TERMINATION_CONTRACTS')) {
+            this.globalDialogService.openDialog(TypeDialog.TERMINATE_CONTRACT, contract);
+        } else {
+            this.error.capture({ status: 403 })
+        }
     }
 
     confirmationDelete(contract: ContractEntity) {

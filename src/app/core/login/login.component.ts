@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
         this.version = environment.version;
     }
 
-    login() {
+    async login() {
         this.authService.login(this.auth).then(response => {
             if (response.token) {
                 const firstWord = this.auth.username.split('@')[0];
@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('APP_TOKEN', response.token);
                 localStorage.setItem('APP_USERNAME', username);
                 localStorage.setItem('APP_TOKEN_EXPIRATION', String(response.expiration));
+                this.authService.loadingPermissions();
             }
             this.router.navigate(['/dashboard']).then(r => console.log('login executado com sucesso.'));
         });

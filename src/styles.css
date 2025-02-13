@@ -381,8 +381,9 @@ a.btn:active {
 }
 
 .p-disabled, button[disabled]{
-    cursor: no-drop!important;
+    /*cursor: no-drop !important;*/
     pointer-events: auto;
+    opacity: 0.3;
 }
 
 .p-toast {

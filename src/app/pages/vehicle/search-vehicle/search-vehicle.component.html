@@ -16,13 +16,13 @@
                 <div class="card-footer">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-6 col-xs-6 text-md-start">
-                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()">
+                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()" [disabled]="!authService.hasPermission('FILTER_VEHICLES')">
                                 <i class="fa-solid fa-magnifying-glass m-1"></i>
                                 Pesquisar
                             </button>
                         </div>
                         <div class="col-6 col-xs-6 text-md-end">
-                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/vehicles/new">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/vehicles/new" [disabled]="!authService.hasPermission('REGISTER_VEHICLES')">
                                 <i class="fa-solid fa-plus m-1"></i>
                                 Novo
                             </button>
@@ -86,7 +86,7 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">FIPE</span>
-                                    <p-button [link]="true" (click)="showDialogFipe(vehicle['id'])">
+                                    <p-button [link]="true" [disabled]="!authService.hasPermission('VIEW_FIPE_VEHICLES')" (click)="showDialogFipe(vehicle['id'])">
                                         <i class="fa-regular fa-eye"></i>
                                     </p-button>
                                 </td>
@@ -99,10 +99,10 @@
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
                                     <div class="card-actions">
-                                        <p-button [link]="true" (click)="confirmationDelete(vehicle)" >
+                                        <p-button [link]="true" (click)="confirmationDelete(vehicle)" [disabled]="!authService.hasPermission('DELETE_VEHICLES')">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </p-button>
-                                        <p-button [link]="true" [routerLink]="['/vehicles/', vehicle.id]">
+                                        <p-button [link]="true" [routerLink]="['/vehicles/', vehicle.id]" [disabled]="!authService.hasPermission('UPDATE_VEHICLES')">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </p-button>
                                     </div>

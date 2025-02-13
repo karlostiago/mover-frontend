@@ -12,6 +12,7 @@ import {ClientService} from "../../client/client.service";
 import {DayOfWeekEntity} from "../../../../entity/DayOfWeekEntity";
 import {SituationEntity} from "../../../../entity/SituationEntity";
 import {PaymentFrequencyEntity} from "../../../../entity/PaymentFrequencyEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-register-contract',
@@ -31,6 +32,7 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
                 private alertService: AlertService,
                 private contractService: ContractService,
                 private vehicleService: VehicleService,
+                protected authService: AuthService,
                 private clientService: ClientService) {
         super(activatedRoute);
     }
@@ -59,6 +61,12 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
         } else {
             this.save(form);
         }
+    }
+
+    enable(form: NgForm) {
+        const hasPermission = this.authService.hasPermission('REGISTER_CONTRACTS') ||
+            this.authService.hasPermission('UPDATE_CONTRACTS');
+        return !form.valid && hasPermission;
     }
 
     override cancel(form: NgForm) {

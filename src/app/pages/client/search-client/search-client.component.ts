@@ -1,11 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AccountEntity} from "../../../../entity/AccountEntity";
 import {Table} from "primeng/table";
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../service/AlertService";
 import {ClientService} from "../client.service";
 import {ClientEntity} from "../../../../entity/ClientEntity";
 import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
+import {AuthService} from "../../../core/login/auth.service";
+import {ErrorHandler} from "../../../core/handler/ErrorHandler";
 
 @Component({
   selector: 'app-search-client',
@@ -22,6 +23,8 @@ export class SearchClientComponent implements OnInit {
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
                 private globalDialogService: GlobalDialogService,
+                protected authService: AuthService,
+                private error: ErrorHandler,
                 private clientService: ClientService) {
     }
 
@@ -48,7 +51,11 @@ export class SearchClientComponent implements OnInit {
     }
 
     showDialogAddress(client: ClientEntity) {
-        this.globalDialogService.openDialog(TypeDialog.ADDRESS, client);
+        if (this.authService.hasPermission('VIEW_ADDRESS_CLIENTS')) {
+            this.globalDialogService.openDialog(TypeDialog.ADDRESS, client);
+        } else {
+            this.error.capture({ status: 403 })
+        }
     }
 
     filterBy() {

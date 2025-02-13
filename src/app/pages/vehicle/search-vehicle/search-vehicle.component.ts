@@ -5,7 +5,8 @@ import {VehicleService} from "../vehicle.service";
 import {VehicleEntity} from "../../../../entity/VehicleEntity";
 import {Table} from "primeng/table";
 import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
-import {FipeEntity} from "../../../../entity/FipeEntity";
+import {AuthService} from "../../../core/login/auth.service";
+import {ErrorHandler} from "../../../core/handler/ErrorHandler";
 
 @Component({
   selector: 'app-search-vehicle',
@@ -22,6 +23,8 @@ export class SearchVehicleComponent implements OnInit {
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
                 private globalDialogService: GlobalDialogService,
+                protected authService: AuthService,
+                private error: ErrorHandler,
                 private vehicleService: VehicleService) {
     }
 
@@ -55,6 +58,10 @@ export class SearchVehicleComponent implements OnInit {
     }
 
     showDialogFipe(vehicleId: number) {
-        this.globalDialogService.openDialog(TypeDialog.FIPE, vehicleId);
+        if (this.authService.hasPermission('VIEW_FIPE_VEHICLES')) {
+            this.globalDialogService.openDialog(TypeDialog.FIPE, vehicleId);
+        } else {
+            this.error.capture({ status: 403 })
+        }
     }
 }

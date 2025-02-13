@@ -144,7 +144,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="button" class="p-button-success p-button-sm" (click)="openDialogContact()">
+                    <button pButton type="button" [disabled]="!authService.hasPermission('REGISTER_ADDRESS_CLIENTS')" class="p-button-success p-button-sm" (click)="openDialogContact()">
                         <i class="fa-solid fa-plus m-1"></i>
                         Contatos referência
                     </button>
@@ -189,10 +189,10 @@
                                     </td>
                                     <td class="text-center">
                                         <span class="p-column-title">AÇÕES</span>
-                                        <p-button [link]="true" (onClick)="deleteContact(contact)">
+                                        <p-button [link]="true" (onClick)="deleteContact(contact)" [disabled]="!authService.hasPermission('DELETE_ADDRESS_CLIENTS')">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </p-button>
-                                        <p-button [link]="true" (onClick)="updateOpenDialogContact(contact)">
+                                        <p-button [link]="true" (onClick)="updateOpenDialogContact(contact)" [disabled]="!authService.hasPermission('UPDATE_ADDRESS_CLIENTS')">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </p-button>
                                     </td>
@@ -211,7 +211,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="enable(form)">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

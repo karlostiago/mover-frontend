@@ -12,6 +12,7 @@ import {AccountService} from "../../account/account.service";
 import {CardEntity} from "../../../../entity/CardEntity";
 import {CardService} from "../../card/card.service";
 import {MaintenanceTypeEntity} from "../../../../entity/MaintenanceTypeEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-register-maintenance',
@@ -31,6 +32,7 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
                 private accountService: AccountService,
                 private cardService: CardService,
                 private maintenanceService: MaintenanceService,
+                protected authService: AuthService,
                 private vehicleService: VehicleService) {
         super(activatedRoute);
     }
@@ -71,6 +73,12 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
             date: new Date(),
             active: true
         });
+    }
+
+    enable(form: NgForm) {
+        const hasPermission = this.authService.hasPermission('REGISTER_MAINTENANCE') ||
+            this.authService.hasPermission('UPDATE_MAINTENANCE');
+        return !form.valid && hasPermission;
     }
 
     private async save(form: NgForm) {

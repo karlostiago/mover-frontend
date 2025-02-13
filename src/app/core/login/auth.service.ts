@@ -15,7 +15,6 @@ export class AuthService extends BaseService<AuthEntity> {
 
     constructor(override httpClient: HttpClient,  override errorHandler: ErrorHandler) {
         super(httpClient, errorHandler);
-        this.loadingPermissions();
     }
 
     protected pathURL(): string {
@@ -42,16 +41,19 @@ export class AuthService extends BaseService<AuthEntity> {
         return !!(token && !expiration);
     }
 
-    hasPermission(permission: string): boolean {
-        return this.permissions.includes(permission);
-    }
-
-    private loadingPermissions() {
-        this.getToken().then(response => {
+    async loadingPermissions() {
+        await this.getToken().then(response => {
             if (response) {
                 const decode: any = jwtDecode(response);
                 this.permissions = decode.permissions || [];
             }
         });
+    }
+
+    hasPermission(permission: string): boolean {
+        if (this.permissions.length === 0) {
+            this.loadingPermissions().then(() => { });
+        }
+        return this.permissions.includes(`ROLE_${permission}`);
     }
 }

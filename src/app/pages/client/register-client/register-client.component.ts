@@ -10,6 +10,8 @@ import {BrazilianStatesEntity} from "../../../../entity/BrazilianStatesEntity";
 import {LoaderService} from "../../../core/loader/loader.service";
 import {ContactEntity} from "../../../../entity/ContactEntity";
 import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
+import {AuthService} from "../../../core/login/auth.service";
+import {ErrorHandler} from "../../../core/handler/ErrorHandler";
 
 @Component({
   selector: 'app-register-client',
@@ -26,6 +28,8 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
                 private alertService: AlertService,
                 private loaderService: LoaderService,
                 private globalDialogService: GlobalDialogService,
+                protected authService: AuthService,
+                private error: ErrorHandler,
                 private clientService: ClientService) {
         super(activatedRoute);
     }
@@ -77,16 +81,33 @@ export class RegisterClientComponent extends AbstractRegister implements OnInit 
     }
 
     openDialogContact() {
-        console.log('abrindo....', this.globalDialogService)
-        this.globalDialogService.openDialog(TypeDialog.CONTACT, this.client);
+        if (this.authService.hasPermission('REGISTER_ADDRESS_CLIENTS')) {
+            this.globalDialogService.openDialog(TypeDialog.CONTACT, this.client);
+        } else {
+            this.error.capture({ status: 403 })
+        }
     }
 
     deleteContact(contact: ContactEntity) {
-        this.client.contacts = this.client.contacts.filter(c => c.id !== contact.id);
+        if (this.authService.hasPermission('DELETE_ADDRESS_CLIENTS')) {
+            this.client.contacts = this.client.contacts.filter(c => c.id !== contact.id);
+        } else {
+            this.error.capture({ status: 403 })
+        }
     }
 
     updateOpenDialogContact(contact: ContactEntity) {
-        this.globalDialogService.openDialog(TypeDialog.CONTACT, this.client, contact);
+        if (this.authService.hasPermission('UPDATE_ADDRESS_CLIENTS')) {
+            this.globalDialogService.openDialog(TypeDialog.CONTACT, this.client, contact);
+        } else {
+            this.error.capture({ status: 403 })
+        }
+    }
+
+    enable(form: NgForm) {
+        const hasPermission = this.authService.hasPermission('REGISTER_CLIENTS') ||
+            this.authService.hasPermission('UPDATE_CLIENTS');
+        return !form.valid && hasPermission;
     }
 
     private async loadingTypesPerson() {

@@ -3,6 +3,7 @@ import {ContractEntity} from "../../../../entity/ContractEntity";
 import {NgForm} from "@angular/forms";
 import {ContractService} from "../contract.service";
 import {AlertService} from "../../../../service/AlertService";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-dialog-terminate-contract',
@@ -16,6 +17,7 @@ export class DialogTerminateContractComponent implements OnInit {
     contract = new ContractEntity();
 
     constructor(private contractService: ContractService,
+                protected authService: AuthService,
                 private alertService: AlertService,) {
     }
 

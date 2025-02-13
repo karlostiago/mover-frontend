@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div class="card-footer" style="padding-left: 0; padding-bottom: 0">
-                        <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid">
+                        <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !authService.hasPermission('TERMINATION_CONTRACTS')">
                             <i class="fa-solid fa-save m-1"></i>
                             Salvar
                         </button>

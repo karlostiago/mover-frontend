@@ -6,6 +6,7 @@ import {ConfigurationService} from "../configuration.service";
 import {ModelEntity} from "../../../../entity/ModelEntity";
 import {ConfigurationEntity} from "../../../../entity/ConfigurationEntity";
 import {TypeValueEntity} from "../../../../entity/TypeValueEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-search-configuration',
@@ -23,6 +24,7 @@ export class SearchConfigurationComponent implements OnInit {
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
+                protected authService: AuthService,
                 private configurationService: ConfigurationService) {
     }
 

@@ -4,13 +4,18 @@ import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../handler/ErrorHandler";
 import {AuthEntity} from "../../../entity/AuthEntity";
 
+import { jwtDecode } from 'jwt-decode';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService extends BaseService<AuthEntity> {
 
+    private permissions: string [] = [];
+
     constructor(override httpClient: HttpClient,  override errorHandler: ErrorHandler) {
         super(httpClient, errorHandler);
+        this.loadingPermissions();
     }
 
     protected pathURL(): string {
@@ -35,5 +40,18 @@ export class AuthService extends BaseService<AuthEntity> {
         const token = await this.getToken();
         const expiration = await this.getExpiration();
         return !!(token && !expiration);
+    }
+
+    hasPermission(permission: string): boolean {
+        return this.permissions.includes(permission);
+    }
+
+    private loadingPermissions() {
+        this.getToken().then(response => {
+            if (response) {
+                const decode: any = jwtDecode(response);
+                this.permissions = decode.permissions || [];
+            }
+        });
     }
 }

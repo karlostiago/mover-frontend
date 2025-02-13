@@ -6,6 +6,7 @@ import {AlertService} from "../../../../service/AlertService";
 import {ConfigurationService} from "../configuration.service";
 import {TypeValueEntity} from "../../../../entity/TypeValueEntity";
 import {ConfigurationEntity} from "../../../../entity/ConfigurationEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-register-configuration',
@@ -20,6 +21,7 @@ export class RegisterConfigurationComponent extends AbstractRegister implements 
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
+                protected authService: AuthService,
                 private configurationService: ConfigurationService) {
         super(activatedRoute);
     }

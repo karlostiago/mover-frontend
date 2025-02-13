@@ -14,6 +14,8 @@ export class ErrorHandler {
         if (errorResponse.status === 0) {
             this.alertService.error('Erro ao se conectar ao servidor. O servidor esta temporariamente fora do ar, por gentileza aguarde uns minutos ou tente novamente mais tarde.');
             this.router.navigate(['/login']).then(() => {});
+        } else if (errorResponse.status === 403) {
+            this.alertService.error('Autorização de acesso negado para essa funcionalidade.');
         } else {
             for (const error of errorResponse.error) {
                 if (error['severity'] === 'WARNING') {

@@ -26,13 +26,13 @@
                 <div class="card-footer">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-6 col-xs-6 text-md-start">
-                            <button type="button" pButton class="p-button-success p-button-sm" (click)="search()">
+                            <button type="button" pButton class="p-button-success p-button-sm" (click)="search()" [disabled]="!authService.hasPermission('FILTER_TRANSACTIONS')">
                                 <i class="fa-solid fa-magnifying-glass m-1"></i>
                                 Pesquisar
                             </button>
                         </div>
                         <div class="col-6 col-xs-6 text-md-end">
-                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/transactions/new">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/transactions/new" [disabled]="!authService.hasPermission('REGISTER_TRANSACTIONS')">
                                 <i class="fa-solid fa-plus m-1"></i>
                                 Novo
                             </button>
@@ -43,9 +43,9 @@
         </div>
     </div>
 
-    <br />
+    <br *ngIf="allowFilterTransactions" />
 
-    <div class="row g-3">
+    <div class="row g-3" *ngIf="allowFilterTransactions">
         <div class="col-md-3 col-sm-12 mb-10">
             <div class="card">
                 <div class="card-header">
@@ -146,19 +146,20 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">EFETIVADO</span>
-                                    <a (click)="transaction['paid'] ? refund(transaction) : confirmationPayment(transaction)" style="cursor: pointer">
-                                        <span class=" {{ transaction['paid'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                            {{ transaction["paid"] === true ? 'Sim' : 'Não' }}
-                                        </span>
+                                    <a *ngIf="transaction['paid'] === true" (click)="refund(transaction)" style="cursor: pointer; {{ allowRefund ? '' : 'opacity: .3; cursor: default;' }}">
+                                        <span class="badge text-bg-danger"> Não </span>
+                                    </a>
+                                    <a *ngIf="transaction['paid'] === false" (click)="confirmationPayment(transaction)" style="cursor: pointer; {{ allowPayment ? '' : 'opacity: .3; cursor: default;' }}">
+                                        <span class="badge text-bg-success disabled"> Sim </span>
                                     </a>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
                                     <div class="card-actions">
-                                        <p-button [link]="true" (click)="confirmationDelete(transaction)" >
+                                        <p-button [link]="true" (click)="confirmationDelete(transaction)" [disabled]="!authService.hasPermission('DELETE_TRANSACTIONS')">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </p-button>
-                                        <p-button [link]="true" [routerLink]="['/transactions/', transaction.id]">
+                                        <p-button [link]="true" [routerLink]="['/transactions/', transaction.id]" [disabled]="!authService.hasPermission('UPDATE_TRANSACTIONS')">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </p-button>
                                     </div>

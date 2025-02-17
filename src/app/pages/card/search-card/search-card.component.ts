@@ -6,6 +6,7 @@ import {AlertService} from "../../../../service/AlertService";
 import {CardService} from "../card.service";
 import {BankIconEntity} from "../../../../entity/BankIconEntity";
 import {CardEntity} from "../../../../entity/CardEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-search-card',
@@ -23,6 +24,7 @@ export class SearchCardComponent implements OnInit {
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
+                protected authService: AuthService,
                 private cardService: CardService) {
     }
 

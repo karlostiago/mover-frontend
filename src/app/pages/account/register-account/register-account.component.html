@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !account['codeIcon']">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !account['codeIcon'] || !authService.hasPermission('REGISTER_ACCOUNTS')">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

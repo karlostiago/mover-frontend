@@ -4,6 +4,7 @@ import {BrandService} from "../brand.service";
 import {AlertService} from "../../../../service/AlertService";
 import {BrandEntity} from "../../../../entity/BrandEntity";
 import {Table} from "primeng/table";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-search-brand',
@@ -20,6 +21,7 @@ export class SearchBrandComponent implements OnInit {
 
     constructor(private confirmationService: ConfirmationService,
                 private brandService: BrandService,
+                protected authService: AuthService,
                 private alertService: AlertService) {
     }
 

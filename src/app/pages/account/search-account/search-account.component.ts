@@ -5,6 +5,7 @@ import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../service/AlertService";
 import {AccountService} from "../account.service";
 import {BankIconEntity} from "../../../../entity/BankIconEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-search-account',
@@ -21,6 +22,7 @@ export class SearchAccountComponent implements OnInit {
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
+                protected authService: AuthService,
                 private accountService: AccountService) {
     }
 

@@ -12,6 +12,7 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthService extends BaseService<AuthEntity> {
 
     private permissions: string [] = [];
+    username: string = "";
 
     constructor(override httpClient: HttpClient,  override errorHandler: ErrorHandler) {
         super(httpClient, errorHandler);
@@ -50,10 +51,23 @@ export class AuthService extends BaseService<AuthEntity> {
         });
     }
 
+    async recoverLogin() {
+        return await this.getToken().then(response => {
+            if (response) {
+                const decode: any = jwtDecode(response);
+                this.username = decode.login || '';
+            }
+        });
+    }
+
     hasPermission(permission: string): boolean {
-        if (this.permissions.length === 0) {
-            this.loadingPermissions().then(() => { });
-        }
         return this.permissions.includes(`ROLE_${permission}`);
+    }
+
+    resetPermissions() {
+        this.permissions = [];
+        localStorage.removeItem('APP_TOKEN');
+        localStorage.removeItem('APP_USERNAME');
+        localStorage.removeItem('APP_TOKEN_EXPIRATION');
     }
 }

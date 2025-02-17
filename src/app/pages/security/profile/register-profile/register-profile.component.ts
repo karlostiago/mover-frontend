@@ -6,6 +6,7 @@ import {AlertService} from "../../../../../service/AlertService";
 import {ProfileService} from "../profile.service";
 import {ProfileEntity} from "../../../../../entity/ProfileEntity";
 import {FunctionalityEntity} from "../../../../../entity/FunctionalityEntity";
+import {AuthService} from "../../../../core/login/auth.service";
 
 @Component({
   selector: 'app-register-profile',
@@ -19,6 +20,7 @@ export class RegisterProfileComponent extends AbstractRegister implements OnInit
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
+                protected authService: AuthService,
                 private profileService: ProfileService) {
         super(activatedRoute);
     }

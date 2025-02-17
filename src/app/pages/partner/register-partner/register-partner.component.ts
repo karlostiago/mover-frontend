@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {AlertService} from "../../../../service/AlertService";
 import {PartnerService} from "../partner.service";
 import {PartnerEntity} from "../../../../entity/PartnerEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-register-partner',
@@ -17,6 +18,7 @@ export class RegisterPartnerComponent extends AbstractRegister implements OnInit
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
+                protected authService: AuthService,
                 private partnerService: PartnerService) {
         super(activatedRoute);
     }

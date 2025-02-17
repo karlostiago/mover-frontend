@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CategoryEntity} from "../../../../entity/CategoryEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-table-category',
@@ -11,6 +12,9 @@ export class TableCategoryComponent implements OnInit {
     @Input() categories = new Array<CategoryEntity>();
 
     @Output() delete = new EventEmitter<CategoryEntity>();
+
+    constructor(protected authService: AuthService) {
+    }
 
     ngOnInit(): void { }
 

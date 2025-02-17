@@ -4,6 +4,7 @@ import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../../service/AlertService";
 import {ProfileService} from "../profile.service";
 import {ProfileEntity} from "../../../../../entity/ProfileEntity";
+import {AuthService} from "../../../../core/login/auth.service";
 
 @Component({
   selector: 'app-search-profile',
@@ -19,6 +20,7 @@ export class SearchProfileComponent implements OnInit {
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
+                protected authService: AuthService,
                 private profileService: ProfileService) {
     }
 

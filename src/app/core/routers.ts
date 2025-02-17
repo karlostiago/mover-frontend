@@ -34,6 +34,12 @@ import {
     RegisterPermissionComponent
 } from "../pages/security/permission/register-permission/register-permission.component";
 import {CanActivate} from "./login/AuthGuard";
+import {
+    SearchChangePasswordComponent
+} from "../pages/security/change-password/search-change-password/search-change-password.component";
+import {
+    RegisterChangePasswordComponent
+} from "../pages/security/change-password/register-change-password/register-change-password.component";
 
 export const routers = [
     { path: '', component: DashboardComponent, canActivate: [CanActivate] },
@@ -98,4 +104,7 @@ export const routers = [
     { path: 'permissions', component: SearchPermissionComponent, canActivate: [CanActivate] },
     { path: 'permissions/new', component: RegisterPermissionComponent, canActivate: [CanActivate] },
     { path: 'permissions/:id', component: RegisterPermissionComponent, canActivate: [CanActivate] },
+
+    { path: 'changepassword', component: SearchChangePasswordComponent, canActivate: [CanActivate] },
+    { path: 'changepassword/:id', component: RegisterChangePasswordComponent, canActivate: [CanActivate] },
 ]

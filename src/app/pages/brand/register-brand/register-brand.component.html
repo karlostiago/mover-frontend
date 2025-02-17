@@ -42,7 +42,7 @@
                                         accept="image/*"
                                         maxFileSize="1000000"
                                         [auto]="true"
-                                        [disabled]="uploadSymbolDisabled()"
+                                        [disabled]="uploadSymbolDisabled() || !authService.hasPermission('UPLOAD_BRANDS')"
                                         (onBeforeUpload)="updateURL($event)"
                                         (onUpload)="uploadSuccess($event)"
                                         (onError)="uploadError($event)"
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!formValid()">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!formValid() || !authService.hasPermission('REGISTER_BRANDS')">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

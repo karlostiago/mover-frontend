@@ -3,6 +3,7 @@ import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../service/AlertService";
 import {CategoryService} from "../category.service";
 import {CategoryEntity} from "../../../../entity/CategoryEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-search-category',
@@ -17,6 +18,7 @@ export class SearchCategoryComponent implements OnInit {
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
+                protected authService: AuthService,
                 private categoryService: CategoryService) {
     }
 

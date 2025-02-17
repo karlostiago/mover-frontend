@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AbstractRegister} from "../../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
@@ -7,6 +7,7 @@ import {UserService} from "../user.service";
 import {UserEntity} from "../../../../../entity/UserEntity";
 import {ProfileEntity} from "../../../../../entity/ProfileEntity";
 import {ProfileService} from "../../profile/profile.service";
+import {AuthService} from "../../../../core/login/auth.service";
 
 @Component({
   selector: 'app-register-user',
@@ -23,6 +24,7 @@ export class RegisterUserComponent extends AbstractRegister implements OnInit {
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 private profileService: ProfileService,
+                protected authService: AuthService,
                 private userService: UserService) {
         super(activatedRoute);
     }
@@ -56,15 +58,19 @@ export class RegisterUserComponent extends AbstractRegister implements OnInit {
     }
 
     private save(form: NgForm) {
-        if (this.user['password'].length > 5) {
+        const isPasswordValid = this.user['password'].length > 5;
+        const isConfirmPassword = this.user['password'] === this.confirmPassword;
+        if (!isPasswordValid) {
+            this.alertService.error('Senha inválida, quantidade de caracteres insuficiente.');
+        } else if (!isConfirmPassword) {
+            this.alertService.error('Senha e confirma senha não confere.');
+        } else {
             this.userService.save(this.user).then(() => {
                 this.alertService.success("Registro cadastrado com sucesso.");
                 form.resetForm({
                     active: true
                 });
             });
-        } else {
-            this.alertService.error('Senha e confirma senha não confere.');
         }
     }
 

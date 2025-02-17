@@ -16,13 +16,13 @@
                 <div class="card-footer">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-6 col-xs-6 text-md-start">
-                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()">
+                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()" [disabled]="!authService.hasPermission('FILTER_CATEGORIES')">
                                 <i class="fa-solid fa-magnifying-glass m-1"></i>
                                 Pesquisar
                             </button>
                         </div>
                         <div class="col-6 col-xs-6 text-md-end">
-                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/categories/new">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/categories/new" [disabled]="!authService.hasPermission('REGISTER_CATEGORIES')">
                                 <i class="fa-solid fa-plus m-1"></i>
                                 Novo
                             </button>

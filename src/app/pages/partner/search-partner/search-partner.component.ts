@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AccountEntity} from "../../../../entity/AccountEntity";
 import {Table} from "primeng/table";
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../service/AlertService";
 import {PartnerService} from "../partner.service";
 import {PartnerEntity} from "../../../../entity/PartnerEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-search-partner',
@@ -20,6 +20,7 @@ export class SearchPartnerComponent implements OnInit {
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
+                protected authService: AuthService,
                 private partnerService: PartnerService) {
     }
 

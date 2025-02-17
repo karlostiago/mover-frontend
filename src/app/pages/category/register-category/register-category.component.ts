@@ -8,7 +8,7 @@ import {CategoryEntity} from "../../../../entity/CategoryEntity";
 import {CategoryTypeEntity} from "../../../../entity/CategoryTypeEntity";
 import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
 import {SubCategoryEntity} from "../../../../entity/SubCategoryEntity";
-import {SubCategoryService} from "../../transaction/subcategory.service";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-register-category',
@@ -23,7 +23,7 @@ export class RegisterCategoryComponent extends AbstractRegister implements OnIni
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 private globalDialogService: GlobalDialogService,
-                private subcategoryService: SubCategoryService,
+                protected authService: AuthService,
                 private categoryService: CategoryService) {
         super(activatedRoute);
     }

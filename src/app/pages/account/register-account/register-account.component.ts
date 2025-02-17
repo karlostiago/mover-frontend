@@ -7,6 +7,7 @@ import {AccountEntity} from "../../../../entity/AccountEntity";
 import {AccountService} from "../account.service";
 import {BankIconEntity} from "../../../../entity/BankIconEntity";
 import {OptionEnum} from "../../../../enum/OptionEnum";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-register-account',
@@ -23,6 +24,7 @@ export class RegisterAccountComponent extends AbstractRegister implements OnInit
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
+                protected authService: AuthService,
                 private accountService: AccountService) {
         super(activatedRoute);
     }

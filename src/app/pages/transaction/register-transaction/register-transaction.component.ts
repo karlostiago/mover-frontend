@@ -16,6 +16,7 @@ import {CategoryTypeEntity} from "../../../../entity/CategoryTypeEntity";
 import {LoaderService} from "../../../core/loader/loader.service";
 import {DateHelpers} from "../../../../shared/DateHelpers";
 import {GlobalDialogService, TypeDialog} from "../../../../shared/service/GlobalDialogService";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-register-transaction',
@@ -46,6 +47,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
                 private categoryService: CategoryService,
                 private subcategoryService: SubCategoryService,
                 private globalDialogService: GlobalDialogService,
+                protected authService: AuthService,
                 private loadService: LoaderService) {
         super(activatedRoute);
     }

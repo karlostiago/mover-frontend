@@ -11,6 +11,7 @@ import {ConfirmationService} from "primeng/api";
 import {DialogDeleteTransactionComponent} from "../dialog-delete-transaction/dialog-delete-transaction.component";
 import {DialogConfirmationPaymentComponent} from "../dialog-confirmation-payment/dialog-confirmation-payment.component";
 import {BalanceService} from "../balance.service";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-search-transaction',
@@ -34,16 +35,25 @@ export class SearchTransactionComponent implements OnInit {
     @ViewChild(DialogDeleteTransactionComponent) dialogDeleteTransaction: DialogDeleteTransactionComponent;
     @ViewChild(DialogConfirmationPaymentComponent) dialogConfirmationPaymentComponent: DialogConfirmationPaymentComponent;
 
+    allowPayment: boolean = false;
+    allowRefund: boolean = false;
+    allowFilterTransactions: boolean = false;
+
     constructor(private alertService: AlertService,
                 private accountServce: AccountService,
                 private confirmationService: ConfirmationService,
                 private balanceService: BalanceService,
+                protected authService: AuthService,
                 private transactionService: TransactionService) {
     }
 
     async ngOnInit() {
         await this.loadingAccounts();
         const fromUpdate = !!localStorage.getItem("TRANSACTION_UPDATE");
+
+        this.allowPayment = this.authService.hasPermission('PAYMENT_TRANSACTIONS');
+        this.allowRefund = this.authService.hasPermission('REFUND_TRANSACTIONS');
+        this.allowFilterTransactions = this.authService.hasPermission('FILTER_TRANSACTIONS')
 
         if (fromUpdate) {
             this.searchAfterUpdate();
@@ -74,14 +84,18 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     confirmationPayment(transaction: TransactionEntity) {
-        this.dialogConfirmationPaymentComponent.showDialog(transaction);
+        if (this.allowPayment) {
+            this.dialogConfirmationPaymentComponent.showDialog(transaction);
+        }
     }
 
     refund(transaction: TransactionEntity) {
-        this.transactionService.refund(transaction.id).then(() => {
-            this.alertService.success("Lançamento estornado com sucesso.");
-            this.updateTransactions();
-        });
+        if (this.allowRefund) {
+            this.transactionService.refund(transaction.id).then(() => {
+                this.alertService.success("Lançamento estornado com sucesso.");
+                this.updateTransactions();
+            });
+        }
     }
 
     search() {

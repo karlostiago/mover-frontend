@@ -16,13 +16,13 @@
                 <div class="card-footer">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-6 col-xs-6 text-md-start">
-                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()">
+                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()" [disabled]="!authService.hasPermission('FILTER_MODELS')">
                                 <i class="fa-solid fa-magnifying-glass m-1"></i>
                                 Pesquisar
                             </button>
                         </div>
                         <div class="col-6 col-xs-6 text-md-end">
-                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/models/new">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/models/new" [disabled]="!authService.hasPermission('REGISTER_MODELS')">
                                 <i class="fa-solid fa-plus m-1"></i>
                                 Novo
                             </button>
@@ -70,10 +70,10 @@
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÕES</span>
                                     <div class="card-actions">
-                                        <p-button [link]="true" (click)="confirmationDelete(model)">
+                                        <p-button [link]="true" (click)="confirmationDelete(model)" [disabled]="!authService.hasPermission('DELETE_MODELS')">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </p-button>
-                                        <p-button [link]="true" [routerLink]="['/models/', model.id]">
+                                        <p-button [link]="true" [routerLink]="['/models/', model.id]" [disabled]="!authService.hasPermission('UPDATE_MODELS')">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </p-button>
                                     </div>

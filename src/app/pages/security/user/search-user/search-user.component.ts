@@ -4,6 +4,8 @@ import {ConfirmationService} from "primeng/api";
 import {UserService} from "../user.service";
 import {PartnerEntity} from "../../../../../entity/PartnerEntity";
 import {AlertService} from "../../../../../service/AlertService";
+import {AuthService} from "../../../../core/login/auth.service";
+import {UserEntity} from "../../../../../entity/UserEntity";
 
 @Component({
   selector: 'app-search-user',
@@ -11,7 +13,7 @@ import {AlertService} from "../../../../../service/AlertService";
   styleUrls: ['./search-user.component.css']
 })
 export class SearchUserComponent implements OnInit {
-    partners = new Array<PartnerEntity>();
+    users = new Array<UserEntity>();
 
     searchFilter: string = "";
 
@@ -19,34 +21,35 @@ export class SearchUserComponent implements OnInit {
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
+                protected authService: AuthService,
                 private userService: UserService) {
     }
 
     async ngOnInit() {
         this.userService.findAll().then(response => {
-            this.partners = response;
+            this.users = response;
         });
     }
 
-    confirmationDelete(partner: PartnerEntity) {
+    confirmationDelete(user: UserEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir o sócio ${partner['name']}?`,
+            message: `Tem certeza que deseja excluir o usuário ${user['name']}?`,
             accept: () => {
-                this.delete(partner.id);
+                this.delete(user.id);
             }
         })
     }
 
     delete(id: number) {
         this.userService.delete(id).then(() => {
-            this.partners = this.partners.filter(a => a.id !== id);
+            this.users = this.users.filter(a => a.id !== id);
             this.alertService.success("Registro deletado com sucesso.");
         });
     }
 
     filterBy() {
         this.userService.findBy(this.searchFilter).then(response => {
-            this.partners = response;
+            this.users = response;
             this.table?.reset();
         })
     }

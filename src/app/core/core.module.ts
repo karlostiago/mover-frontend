@@ -17,6 +17,7 @@ import {ContractModule} from "../pages/contract/contract.module";
 import {MaintenanceModule} from "../pages/maintenance/maintenance.module";
 import {TransactionModule} from "../pages/transaction/transaction.module";
 import {SecurityModule} from "../pages/security/security.module";
+import {ChangePasswordModule} from "../pages/security/change-password/change-password.module";
 
 @NgModule({
     declarations: [ ],
@@ -35,6 +36,7 @@ import {SecurityModule} from "../pages/security/security.module";
         ContractModule,
         MaintenanceModule,
         TransactionModule,
+        ChangePasswordModule,
         SecurityModule
     ],
     imports: [

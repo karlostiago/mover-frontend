@@ -7,6 +7,7 @@ import {ModelService} from "../model.service";
 import {ModelEntity} from "../../../../entity/ModelEntity";
 import {BrandService} from "../../brand/brand.service";
 import {BrandEntity} from "../../../../entity/BrandEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-register-model',
@@ -23,6 +24,7 @@ export class RegisterModelComponent extends AbstractRegister implements OnInit {
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 private brandService: BrandService,
+                protected authService: AuthService,
                 private modelService: ModelService) {
         super(activatedRoute);
     }

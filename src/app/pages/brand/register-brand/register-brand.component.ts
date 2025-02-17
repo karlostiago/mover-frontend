@@ -9,6 +9,7 @@ import {environment} from "../../../../environments/environment";
 import {SymbolEntity} from "../../../../entity/SymbolEntity";
 import {FileUpload} from "primeng/fileupload";
 import {SymbolService} from "../symbol.service";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
     selector: 'app-register-brand',
@@ -28,6 +29,7 @@ export class RegisterBrandComponent extends AbstractRegister implements OnInit {
     constructor(protected override activatedRoute: ActivatedRoute,
                 private brandService: BrandService,
                 private symbolService: SymbolService,
+                protected authService: AuthService,
                 private alertService: AlertService) {
         super(activatedRoute);
     }

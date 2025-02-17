@@ -45,7 +45,7 @@
                         <div class="col-md-4">
                             <label class="form-label"> Perfil *:</label>
                             <p-multiSelect id="profile" name="profile" [showHeader]="false" emptyMessage="Nenhum perfil encontrado."
-                                           [options]="profiles" optionLabel="description" [(ngModel)]="user['profiles']" [style]="{ height: 'inherit', border: '1px solid #dfe2e6'}" />
+                                           [options]="profiles" optionLabel="description" [(ngModel)]="user['profiles']" [style]="{ border: '1px solid #dfe2e6'}" />
                         </div>
                     </div>
 
@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !user['profiles'].length">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !user['profiles'].length || !authService.hasPermission('REGISTER_USERS')">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

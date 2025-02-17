@@ -46,10 +46,10 @@
             <td class="text-center">
                 <span class="p-column-title">AÇÔES</span>
                 <div class="card-actions">
-                    <p-button [link]="true" (click)="confirmationDelete(category)" >
+                    <p-button [link]="true" (click)="confirmationDelete(category)" [disabled]="!authService.hasPermission('DELETE_CATEGORIES')">
                         <i class="fa-regular fa-trash-can"></i>
                     </p-button>
-                    <p-button [link]="true" [routerLink]="['/categories/', category.id]">
+                    <p-button [link]="true" [routerLink]="['/categories/', category.id]" [disabled]="!authService.hasPermission('UPDATE_CATEGORIES')">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </p-button>
                 </div>

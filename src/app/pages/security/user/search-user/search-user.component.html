@@ -16,13 +16,13 @@
                 <div class="card-footer">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-6 col-xs-6 text-md-start">
-                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()">
+                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()" [disabled]="!authService.hasPermission('FILTER_USERS')">
                                 <i class="fa-solid fa-magnifying-glass m-1"></i>
                                 Pesquisar
                             </button>
                         </div>
                         <div class="col-6 col-xs-6 text-md-end">
-                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/users/new">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/users/new" [disabled]="!authService.hasPermission('REGISTER_USERS')">
                                 <i class="fa-solid fa-plus m-1"></i>
                                 Novo
                             </button>
@@ -39,11 +39,11 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table [value]="partners" [paginator]="partners.length > 10" [rows]="10"
+                    <p-table #table [value]="users" [paginator]="users.length > 10" [rows]="10"
                              responsiveLayout="stack" [breakpoint]="'960px'" styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
 
                         <ng-template pTemplate="header">
-                            <tr *ngIf="partners.length > 0">
+                            <tr *ngIf="users.length > 0">
                                 <th class="text-left">NOME</th>
                                 <th class="text-left">E-MAIL</th>
                                 <th class="text-center">ATIVO</th>
@@ -51,29 +51,29 @@
                             </tr>
                         </ng-template>
 
-                        <ng-template pTemplate="body" let-partner>
+                        <ng-template pTemplate="body" let-user>
                             <tr>
                                 <td class="text-left">
                                     <span class="p-column-title">NOME</span>
-                                    {{ partner['name'] }}
+                                    {{ user['name'] }}
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">E-MAIL</span>
-                                    {{ partner['email'] }}
+                                    {{ user['email'] }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>
-                                    <span class=" {{ partner['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                        {{ partner["active"] === true ? 'Sim' : 'Não' }}
+                                    <span class=" {{ user['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                        {{ user["active"] === true ? 'Sim' : 'Não' }}
                                     </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÕES</span>
                                     <div class="card-actions">
-                                        <p-button [link]="true" (click)="confirmationDelete(partner)">
+                                        <p-button [link]="true" (click)="confirmationDelete(user)" [disabled]="!authService.hasPermission('DELETE_USERS')">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </p-button>
-                                        <p-button [link]="true" [routerLink]="['/users/', partner.id]">
+                                        <p-button [link]="true" [routerLink]="['/users/', user.id]" [disabled]="!authService.hasPermission('UPDATE_USERS')">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </p-button>
                                     </div>

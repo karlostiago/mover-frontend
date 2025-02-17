@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !enablePickPermissions() || !profile.permissions.length">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !enablePickPermissions() || !profile.permissions.length || !authService.hasPermission('REGISTER_PROFILES')">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

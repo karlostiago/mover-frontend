@@ -4,6 +4,7 @@ import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../service/AlertService";
 import {ModelService} from "../model.service";
 import {ModelEntity} from "../../../../entity/ModelEntity";
+import {AuthService} from "../../../core/login/auth.service";
 
 @Component({
   selector: 'app-search-model',
@@ -14,13 +15,12 @@ export class SearchModelComponent implements OnInit {
     models = new Array<ModelEntity>();
 
     searchFilter: string = "";
-    yearManufactureFilter: string = "";
-    yearModelFilter: string = "";
 
     @ViewChild("table") table: Table | undefined;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
+                protected authService: AuthService,
                 private modelService: ModelService) {
     }
 

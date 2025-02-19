@@ -14,7 +14,7 @@ export class ChangePasswordService extends BaseService<UserEntity> {
     }
 
     protected pathURL(): string {
-        return "users";
+        return "changepasswords";
     }
 
     async changePassword(user: UserEntity): Promise<Array<UserEntity>> {

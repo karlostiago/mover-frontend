@@ -29,7 +29,12 @@
 }
 
 @media (max-width: 768px) {
+    .picklist-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     .picklist-item button {
-        margin-left: 15px;
+        margin: -10px 0 -30px 15px;
     }
 }

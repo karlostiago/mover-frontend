@@ -134,11 +134,11 @@
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">DESCRIÇÃO</span>
-                                    {{ transaction['description'].toUpperCase() }}
+                                    <span>{{ transaction['description'].toUpperCase() }}</span>
                                 </td>
                                 <td class="text-left" style="width: 400px">
                                     <span class="p-column-title">CATEGORIA</span>
-                                    {{ transaction['subcategory'] }}
+                                    <span>{{ transaction['subcategory'] }}</span>
                                 </td>
                                 <td class="text-right {{ transaction['categoryType'] !== 'TRANSFERÊNCIA' && transaction['transactionType'] === 'DÉBITO' ? 'text-danger' : '' }} ">
                                     <span class="p-column-title">VALOR</span>

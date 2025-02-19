@@ -45,7 +45,7 @@ input, textarea {
 }
 
 .text-limited-15 {
-    width: 15ch;
+    max-width: 200px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -332,10 +332,11 @@ a.btn:active {
     .p-column-title ~ span:not(.badge) {
         text-align: right;
 
-        width: 15ch;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+
+        max-width: 200px !important;
     }
 
     .p-datepicker table th > span {
@@ -381,7 +382,6 @@ a.btn:active {
 }
 
 .p-disabled, button[disabled]{
-    /*cursor: no-drop !important;*/
     pointer-events: auto;
     opacity: 0.3;
 }

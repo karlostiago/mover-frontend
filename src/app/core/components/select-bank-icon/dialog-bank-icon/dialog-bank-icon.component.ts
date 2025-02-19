@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BankIconEntity} from "../../../../../entity/BankIconEntity";
-import {AccountService} from "../../../../pages/account/account.service";
+import {AccountService} from "../../../../pages/configuration/account/account.service";
 
 @Component({
   selector: 'app-dialog-bank-icon',

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SymbolEntity} from "../../../../../entity/SymbolEntity";
-import {SymbolService} from "../../../../pages/brand/symbol.service";
+import {SymbolService} from "../../../../pages/configuration/brand/symbol.service";
 
 @Component({
   selector: 'app-dialog-brand-icon',

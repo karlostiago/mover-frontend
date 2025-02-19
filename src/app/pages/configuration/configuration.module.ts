@@ -1,36 +1,29 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ConfigurationRoutingModule} from "./configuration-routing.module";
-import {RegisterConfigurationComponent} from "./register-configuration/register-configuration.component";
-import {SearchConfigurationComponent} from "./search-configuration/search-configuration.component";
-import {FormsModule} from "@angular/forms";
-import {Button, ButtonDirective} from "primeng/button";
-import {InputTextModule} from "primeng/inputtext";
-import {TableModule} from "primeng/table";
-import {InputSwitchModule} from "primeng/inputswitch";
-import {DropdownModule} from "primeng/dropdown";
-import {SharedModule} from "../../../shared/SharedModule";
+import {AccountModule} from "./account/account.module";
+import {CardModule} from "./card/card.module";
+import {CategoryModule} from "./category/category.module";
+import {ModelModule} from "./model/model.module";
+import {PartnerModule} from "./partner/partner.module";
+import {ParameterModule} from "./parameter/parameter.module";
+import {BrandModule} from "./brand/brand.module";
 
 @NgModule({
     declarations: [
-        RegisterConfigurationComponent,
-        SearchConfigurationComponent
+
     ],
     exports: [
-        RegisterConfigurationComponent,
-        SearchConfigurationComponent
+
     ],
     imports: [
         CommonModule,
-        ConfigurationRoutingModule,
-        FormsModule,
-        ButtonDirective,
-        InputTextModule,
-        TableModule,
-        Button,
-        InputSwitchModule,
-        DropdownModule,
-        SharedModule
+        AccountModule,
+        CardModule,
+        CategoryModule,
+        ModelModule,
+        BrandModule,
+        PartnerModule,
+        ParameterModule
     ]
 })
 export class ConfigurationModule { }

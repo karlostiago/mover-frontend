@@ -1,30 +1,28 @@
 import {DashboardComponent} from "../pages/dashboard/dashboard.component";
-import {SearchClientComponent} from "../pages/client/search-client/search-client.component";
-import {RegisterClientComponent} from "../pages/client/register-client/register-client.component";
-import {SearchContractComponent} from "../pages/contract/search-contract/search-contract.component";
-import {RegisterContractComponent} from "../pages/contract/register-contract/register-contract.component";
-import {SearchAccountComponent} from "../pages/account/search-account/search-account.component";
-import {RegisterAccountComponent} from "../pages/account/register-account/register-account.component";
-import {SearchBrandComponent} from "../pages/brand/search-brand/search-brand.component";
-import {RegisterBrandComponent} from "../pages/brand/register-brand/register-brand.component";
-import {SearchCardComponent} from "../pages/card/search-card/search-card.component";
-import {RegisterCardComponent} from "../pages/card/register-card/register-card.component";
-import {SearchCategoryComponent} from "../pages/category/search-category/search-category.component";
-import {RegisterCategoryComponent} from "../pages/category/register-category/register-category.component";
-import {SearchConfigurationComponent} from "../pages/configuration/search-configuration/search-configuration.component";
+import {SearchClientComponent} from "../pages/clients/client/search-client/search-client.component";
+import {RegisterClientComponent} from "../pages/clients/client/register-client/register-client.component";
+import {SearchContractComponent} from "../pages/clients/contract/search-contract/search-contract.component";
+import {RegisterContractComponent} from "../pages/clients/contract/register-contract/register-contract.component";
+import {SearchAccountComponent} from "../pages/configuration/account/search-account/search-account.component";
+import {RegisterAccountComponent} from "../pages/configuration/account/register-account/register-account.component";
+import {SearchBrandComponent} from "../pages/configuration/brand/search-brand/search-brand.component";
+import {RegisterBrandComponent} from "../pages/configuration/brand/register-brand/register-brand.component";
+import {SearchCardComponent} from "../pages/configuration/card/search-card/search-card.component";
+import {RegisterCardComponent} from "../pages/configuration/card/register-card/register-card.component";
+import {SearchCategoryComponent} from "../pages/configuration/category/search-category/search-category.component";
+import {RegisterCategoryComponent} from "../pages/configuration/category/register-category/register-category.component";
+import {SearchParameterComponent} from "../pages/configuration/parameter/search-parameter/search-parameter.component";
 import {
-    RegisterConfigurationComponent
-} from "../pages/configuration/register-configuration/register-configuration.component";
-import {SearchMaintenanceComponent} from "../pages/maintenance/search-maintenance/search-maintenance.component";
-import {RegisterMaintenanceComponent} from "../pages/maintenance/register-maintenance/register-maintenance.component";
-import {SearchModelComponent} from "../pages/model/search-model/search-model.component";
-import {RegisterModelComponent} from "../pages/model/register-model/register-model.component";
-import {SearchPartnerComponent} from "../pages/partner/search-partner/search-partner.component";
-import {RegisterPartnerComponent} from "../pages/partner/register-partner/register-partner.component";
-import {SearchTransactionComponent} from "../pages/transaction/search-transaction/search-transaction.component";
-import {RegisterTransactionComponent} from "../pages/transaction/register-transaction/register-transaction.component";
-import {SearchVehicleComponent} from "../pages/vehicle/search-vehicle/search-vehicle.component";
-import {RegisterVehicleComponent} from "../pages/vehicle/register-vehicle/register-vehicle.component";
+    RegisterParameterComponent
+} from "../pages/configuration/parameter/register-parameter/register-parameter.component";
+import {SearchMaintenanceComponent} from "../pages/fleets/maintenance/search-maintenance/search-maintenance.component";
+import {RegisterMaintenanceComponent} from "../pages/fleets/maintenance/register-maintenance/register-maintenance.component";
+import {SearchModelComponent} from "../pages/configuration/model/search-model/search-model.component";
+import {RegisterModelComponent} from "../pages/configuration/model/register-model/register-model.component";
+import {SearchPartnerComponent} from "../pages/configuration/partner/search-partner/search-partner.component";
+import {RegisterPartnerComponent} from "../pages/configuration/partner/register-partner/register-partner.component";
+import {SearchVehicleComponent} from "../pages/fleets/vehicle/search-vehicle/search-vehicle.component";
+import {RegisterVehicleComponent} from "../pages/fleets/vehicle/register-vehicle/register-vehicle.component";
 import {SearchUserComponent} from "../pages/security/user/search-user/search-user.component";
 import {RegisterUserComponent} from "../pages/security/user/register-user/register-user.component";
 import {SearchProfileComponent} from "../pages/security/profile/search-profile/search-profile.component";
@@ -40,6 +38,10 @@ import {
 import {
     RegisterChangePasswordComponent
 } from "../pages/security/change-password/register-change-password/register-change-password.component";
+import {SearchTransactionComponent} from "../pages/money/transaction/search-transaction/search-transaction.component";
+import {
+    RegisterTransactionComponent
+} from "../pages/money/transaction/register-transaction/register-transaction.component";
 
 export const routers = [
     { path: '', component: DashboardComponent, canActivate: [CanActivate] },
@@ -69,9 +71,9 @@ export const routers = [
     { path: 'categories/new', component: RegisterCategoryComponent, canActivate: [CanActivate] },
     { path: 'categories/:id', component: RegisterCategoryComponent, canActivate: [CanActivate] },
 
-    { path: 'parameters', component: SearchConfigurationComponent, canActivate: [CanActivate] },
-    { path: 'parameters/new', component: RegisterConfigurationComponent, canActivate: [CanActivate] },
-    { path: 'parameters/:id', component: RegisterConfigurationComponent, canActivate: [CanActivate] },
+    { path: 'parameters', component: SearchParameterComponent, canActivate: [CanActivate] },
+    { path: 'parameters/new', component: RegisterParameterComponent, canActivate: [CanActivate] },
+    { path: 'parameters/:id', component: RegisterParameterComponent, canActivate: [CanActivate] },
 
     { path: 'maintenance', component: SearchMaintenanceComponent, canActivate: [CanActivate] },
     { path: 'maintenance/new', component: RegisterMaintenanceComponent, canActivate: [CanActivate] },

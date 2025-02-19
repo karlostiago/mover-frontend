@@ -16,6 +16,7 @@ export class AuthService extends BaseService<AuthEntity> {
 
     constructor(override httpClient: HttpClient,  override errorHandler: ErrorHandler) {
         super(httpClient, errorHandler);
+        this.initializePermissions().then(() => { });
     }
 
     protected pathURL(): string {
@@ -69,5 +70,9 @@ export class AuthService extends BaseService<AuthEntity> {
         localStorage.removeItem('APP_TOKEN');
         localStorage.removeItem('APP_USERNAME');
         localStorage.removeItem('APP_TOKEN_EXPIRATION');
+    }
+
+    private async initializePermissions() {
+        await this.loadingPermissions();
     }
 }

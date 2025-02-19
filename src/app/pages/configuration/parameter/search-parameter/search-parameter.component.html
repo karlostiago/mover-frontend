@@ -1,0 +1,104 @@
+<form autocomplete="off" class="fade-in">
+    <app-title name="Parâmetros"></app-title>
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label"> Pesquisar:</label>
+                            <input pInputText class="form-control" name="search" id="search" [(ngModel)]="searchFilter" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-6 col-xs-6 text-md-start">
+                            <button type="button" pButton class="p-button-success p-button-sm" (click)="filterBy()" [disabled]="!authService.hasPermission('FILTER_PARAMETERS')">
+                                <i class="fa-solid fa-magnifying-glass m-1"></i>
+                                Pesquisar
+                            </button>
+                        </div>
+                        <div class="col-6 col-xs-6 text-md-end">
+                            <button type="button" pButton class="p-button-contrast p-button-sm" routerLink="/parameters/new" [disabled]="!authService.hasPermission('REGISTER_PARAMETERS')">
+                                <i class="fa-solid fa-plus m-1"></i>
+                                Novo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-body">
+                    <p-table #table [value]="parameters" [paginator]="parameters.length > 10" [rows]="10"
+                             responsiveLayout="stack" [breakpoint]="'960px'" styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+
+                        <ng-template pTemplate="header">
+                            <tr *ngIf="parameters.length > 0">
+                                <th class="text-left">CHAVE</th>
+                                <th class="text-center">TIPO</th>
+                                <th class="text-center">VALOR</th>
+                                <th class="text-center">ATIVO</th>
+                                <th class="text-center">AÇÕES</th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-configuration>
+                            <tr>
+                                <td class="text-left">
+                                    <span class="p-column-title">CHAVE</span>
+                                    {{ configuration['key'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">TIPO</span>
+                                    {{ getTypeDescriptionValue(configuration['typeValue']) }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">VALOR</span>
+                                    <span *ngIf="configuration['typeValue'] === '1'">{{ configuration['value'] | currency:'BRL':'':'1.2-2':'pt-BR' }}</span>
+                                    <span *ngIf="configuration['typeValue'] === '2'">{{ configuration['value'] * 0.01 | percent:'1.2-2':'pt-BR' }}</span>
+                                    <span *ngIf="configuration['typeValue'] === '4'">{{ configuration['value'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
+                                    <span *ngIf="configuration['typeValue'] === '5' || configuration['typeValue'] === '6' || configuration['typeValue'] === '3'">{{ configuration['value'] }}</span>
+                                </td>
+                                <td class="text-center w-5">
+                                    <span class="p-column-title">ATIVO</span>
+                                    <span class=" {{ configuration['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                        {{ configuration["active"] === true ? 'Sim' : 'Não' }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">AÇÕES</span>
+                                    <div class="card-actions">
+                                        <p-button [link]="true" (click)="confirmationDelete(configuration)" [disabled]="!authService.hasPermission('DELETE_PARAMETERS')">
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </p-button>
+                                        <p-button [link]="true" [routerLink]="['/parameters/', configuration.id]" [disabled]="!authService.hasPermission('UPDATE_PARAMETERS')">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </p-button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5" style="text-align: center;">
+                                    Nenhum registro encontrado.
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

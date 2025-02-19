@@ -1,27 +1,29 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {DialogAddressComponent} from "../../app/pages/client/dialog-address/dialog-address.component";
-import {DialogFipeComponent} from "../../app/pages/vehicle/dialog-fipe/dialog-fipe.component";
+import {DialogAddressComponent} from "../../app/pages/clients/client/dialog-address/dialog-address.component";
+import {DialogFipeComponent} from "../../app/pages/fleets/vehicle/dialog-fipe/dialog-fipe.component";
 import {TypeDialog} from "../service/GlobalDialogService";
-import {DialogContactComponent} from "../../app/pages/client/dialog-contact/dialog-contact.component";
+import {DialogContactComponent} from "../../app/pages/clients/client/dialog-contact/dialog-contact.component";
 import {
     DialogTerminateContractComponent
-} from "../../app/pages/contract/dialog-terminate-contract/dialog-terminate-contract.component";
-import {DialogSubcategoryComponent} from "../../app/pages/category/dialog-subcategory/dialog-subcategory.component";
+} from "../../app/pages/clients/contract/dialog-terminate-contract/dialog-terminate-contract.component";
 import {
-    DialogDeleteTransactionComponent
-} from "../../app/pages/transaction/dialog-delete-transaction/dialog-delete-transaction.component";
-import {
-    DialogConfirmationPaymentComponent
-} from "../../app/pages/transaction/dialog-confirmation-payment/dialog-confirmation-payment.component";
-import {
-    DialogBatchUpdateTransactionComponent
-} from "../../app/pages/transaction/dialog-batch-update-transaction/dialog-batch-update-transaction.component";
+    DialogSubcategoryComponent
+} from "../../app/pages/configuration/category/dialog-subcategory/dialog-subcategory.component";
 import {
     DialogBankIconComponent
 } from "../../app/core/components/select-bank-icon/dialog-bank-icon/dialog-bank-icon.component";
 import {
     DialogBrandIconComponent
 } from "../../app/core/components/select-brand-icon/dialog-brand-icon/dialog-brand-icon.component";
+import {
+    DialogDeleteTransactionComponent
+} from "../../app/pages/money/transaction/dialog-delete-transaction/dialog-delete-transaction.component";
+import {
+    DialogConfirmationPaymentComponent
+} from "../../app/pages/money/transaction/dialog-confirmation-payment/dialog-confirmation-payment.component";
+import {
+    DialogBatchUpdateTransactionComponent
+} from "../../app/pages/money/transaction/dialog-batch-update-transaction/dialog-batch-update-transaction.component";
 
 @Component({
   selector: 'app-global-dialog',

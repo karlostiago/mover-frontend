@@ -26,8 +26,7 @@ export class LoginComponent implements OnInit {
     async login() {
         this.authService.login(this.auth).then(response => {
             if (response.token) {
-                const words = response.username.split(' ');
-                const username = `${words[0]} ${words[1]}`;
+                const username = this.splitText(response.username)
                 localStorage.setItem('APP_TOKEN', response.token);
                 localStorage.setItem('APP_USERNAME', username);
                 localStorage.setItem('APP_TOKEN_EXPIRATION', String(response.expiration));
@@ -35,5 +34,24 @@ export class LoginComponent implements OnInit {
             }
             this.router.navigate(['/dashboard']).then(r => console.log('login executado com sucesso.'));
         });
+    }
+
+    private splitText(text: string) {
+        const clearText = text.trim();
+
+        if (this.isEmail(clearText)) {
+            const [user, fulldomain] = clearText.split('@');
+            const domain = fulldomain.split('.')[0];
+            return `${user} ${domain}`.toUpperCase();
+        }
+
+        const words = clearText.split(/\s+/);
+
+        return words.slice(0, 2).join(' ').toUpperCase();
+    }
+
+    private isEmail(text: string) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(text);
     }
 }

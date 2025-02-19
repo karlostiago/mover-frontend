@@ -9,7 +9,7 @@ import {HealthCheckService} from "../../../../service/HealthCheckService";
 })
 export class MenuLateralComponent implements OnInit {
 
-    productionEnviroment: boolean = false;
+    enviroment: string = "";
     resizeListener: any;
     version: string = "";
     running: boolean = false;
@@ -21,7 +21,8 @@ export class MenuLateralComponent implements OnInit {
     constructor(private healhCheckService: HealthCheckService) { }
 
     ngOnInit(): void {
-        this.productionEnviroment = environment.production;
+        this.enviroment = this.chooseEnviroment();
+
         this.version = environment.version;
 
         this.healhCheckService.isRunning().then(response => {
@@ -43,5 +44,15 @@ export class MenuLateralComponent implements OnInit {
     showOrHideMenu() {
         this.showMenu = !this.showMenu;
         this.hideMenu.emit(true);
+    }
+
+    private chooseEnviroment() {
+        if (environment.production) {
+            return "PRD";
+        } else if (environment.approval) {
+            return "HOM";
+        } else {
+            return "DSV";
+        }
     }
 }

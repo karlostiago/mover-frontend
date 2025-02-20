@@ -25,10 +25,10 @@ export class SearchChangePasswordComponent implements OnInit {
 
     async ngOnInit() {
         await this.authService.recoverLogin();
-        const userDefault = "mover@sistemas.com";
+        await this.authService.isRootUser();
         this.userService.findAll().then(response => {
             this.users = response;
-            if (userDefault === this.authService.username) {
+            if (this.authService.rootUser) {
                 this.usersFiltered = this.users;
             } else {
                 this.users = response.filter(user => user.login === this.authService.username);

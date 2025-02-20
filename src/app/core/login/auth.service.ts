@@ -13,6 +13,7 @@ export class AuthService extends BaseService<AuthEntity> {
 
     private permissions: string [] = [];
     username: string = "";
+    rootUser: boolean = false;
 
     constructor(override httpClient: HttpClient,  override errorHandler: ErrorHandler) {
         super(httpClient, errorHandler);
@@ -57,6 +58,15 @@ export class AuthService extends BaseService<AuthEntity> {
             if (response) {
                 const decode: any = jwtDecode(response);
                 this.username = decode.login || '';
+            }
+        });
+    }
+
+    async isRootUser() {
+        return await this.getToken().then(response => {
+            if (response) {
+                const decode: any = jwtDecode(response);
+                this.rootUser = decode.root || false;
             }
         });
     }

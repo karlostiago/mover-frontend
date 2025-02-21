@@ -33,8 +33,16 @@ export class DialogContactComponent implements OnInit {
     saveOrUpdate() {
         this.validTelephone();
         this.existsContact();
-        this.client.id === 0 ? this.save() : this.update(this.contact);
+        if (this.isNotExists()) {
+            this.save();
+        } else {
+            this.update(this.contact);
+        }
         this.visible = false;
+    }
+
+    private isNotExists() {
+        return !this.client.contacts.some( c => c.id === this.contact.id);
     }
 
     private save() {

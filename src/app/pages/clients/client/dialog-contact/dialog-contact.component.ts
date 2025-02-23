@@ -61,8 +61,8 @@ export class DialogContactComponent implements OnInit {
     private existsContact() {
         for (const contact of this.client.contacts) {
             if (contact.telephone === this.contact.telephone
-                && contact.name === this.contact.name
-                && contact.degreeKinship === this.contact.degreeKinship) {
+                && contact.name.toUpperCase() === this.contact.name.toUpperCase()
+                && contact.degreeKinship.toUpperCase() === this.contact.degreeKinship.toUpperCase()) {
                 this.alertService.error("Já existe um contato com os dados informados.");
                 throw Error();
             }

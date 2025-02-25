@@ -147,10 +147,10 @@
                                 <td class="text-center">
                                     <span class="p-column-title">EFETIVADO</span>
                                     <a *ngIf="transaction['paid'] === true" (click)="refund(transaction)" style="cursor: pointer; {{ allowRefund ? '' : 'opacity: .3; cursor: default;' }}">
-                                        <span class="badge text-bg-danger"> Não </span>
+                                        <span class="badge text-bg-success disabled"> Sim </span>
                                     </a>
                                     <a *ngIf="transaction['paid'] === false" (click)="confirmationPayment(transaction)" style="cursor: pointer; {{ allowPayment ? '' : 'opacity: .3; cursor: default;' }}">
-                                        <span class="badge text-bg-success disabled"> Sim </span>
+                                        <span class="badge text-bg-danger"> Não </span>
                                     </a>
                                 </td>
                                 <td class="text-center">

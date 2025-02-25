@@ -16,7 +16,7 @@
                 <div class="card-footer">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-6 col-xs-6 text-md-start">
-                            <button type="button" pButton class="p-button-success p-button-sm" [disabled]="!authService.hasPermission('FILTER_CONTRACTS')" (click)="filterBy()">
+                            <button type="submit" pButton class="p-button-success p-button-sm" [disabled]="!authService.hasPermission('FILTER_CONTRACTS')" (click)="filterBy()">
                                 <i class="fa-solid fa-magnifying-glass m-1"></i>
                                 Pesquisar
                             </button>
@@ -40,7 +40,7 @@
             <div class="card">
                 <div class="card-body">
                     <p-table #table [value]="contracts" [paginator]="contracts.length > 10" [rows]="10"
-                             responsiveLayout="stack" [breakpoint]="'1480px'"
+                             responsiveLayout="stack" [breakpoint]="'1300px'"
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
                         <ng-template pTemplate="header">
                             <tr *ngIf="contracts.length > 0">

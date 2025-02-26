@@ -64,8 +64,9 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
 
     private async loadingAccounts() {
         await this.accountService.findAll().then(response => {
+            const onlyActiveAccounts = response.filter(r => r.active);
             // @ts-ignore
-            this.accounts = [{ id: 0, name: 'Selecione'}, ...response];
+            this.accounts = [{ id: 0, name: 'Selecione'}, ...onlyActiveAccounts];
         });
     }
 
@@ -87,10 +88,11 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
 
     private async loadingContracts() {
         return await this.contractService.findAll().then(response => {
+            const contractsFilters = response.filter(r => r.situation !== 'ENCERRADO' && r.active);
             // @ts-ignore
-            this.contracts = [{ id: 0, number: 'Selecione'}, ...response];
+            this.contracts = [{ id: 0, number: 'Selecione'}, ...contractsFilters];
             // @ts-ignore
-            this.selectedContracts = [{ id: 0, number: 'Selecione'}, ...response];
+            this.selectedContracts = [{ id: 0, number: 'Selecione'}, ...contractsFilters];
         });
     }
 }

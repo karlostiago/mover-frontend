@@ -1,0 +1,23 @@
+.btn-up {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    /*display: none; !* Inicialmente oculto *!*/
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    border: transparent;
+    background: #ffffff36;
+    color: #6161cd;
+}
+
+.btn-up i {
+    font-size: 12px;
+}
+
+.btn-up.show {
+    display: block; /* Exibir quando necessário */
+}

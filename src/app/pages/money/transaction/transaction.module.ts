@@ -20,6 +20,7 @@ import {
     CorporateCapitalTransactionComponent
 } from "./corporate-capital-transaction/corporate-capital-transaction.component";
 import {CommonTransactionComponent} from "./common-transaction/common-transaction.component";
+import {ScrollUpModule} from "../../../core/components/scroll-up/scroll-up.module";
 
 @NgModule({
     declarations: [
@@ -48,7 +49,8 @@ import {CommonTransactionComponent} from "./common-transaction/common-transactio
         InputTextareaModule,
         CalendarModule,
         MultiSelectModule,
-        GlobalDialogModule
+        GlobalDialogModule,
+        ScrollUpModule
     ]
 })
 export class TransactionModule { }

@@ -4,7 +4,7 @@ import {AbstractRegister} from "../../../../../abstract/AbstractRegister";
 import {BrandEntity} from "../../../../../entity/BrandEntity";
 import {NgForm} from "@angular/forms";
 import {BrandService} from "../brand.service";
-import {AlertService} from "../../../../../service/AlertService";
+import {AlertService} from "../../../../../shared/service/AlertService";
 import {environment} from "../../../../../environments/environment";
 import {SymbolEntity} from "../../../../../entity/SymbolEntity";
 import {FileUpload} from "primeng/fileupload";

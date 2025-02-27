@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
-import {AlertService} from "../../../../../service/AlertService";
+import {AlertService} from "../../../../../shared/service/AlertService";
 import {VehicleService} from "../vehicle.service";
 import {VehicleEntity} from "../../../../../entity/VehicleEntity";
 import {Table} from "primeng/table";

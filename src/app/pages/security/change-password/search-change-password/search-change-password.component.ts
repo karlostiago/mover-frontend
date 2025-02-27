@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Table} from "primeng/table";
 import {ChangePasswordService} from "../change-password.service";
-import {AlertService} from "../../../../../service/AlertService";
+import {AlertService} from "../../../../../shared/service/AlertService";
 import {AuthService} from "../../../../core/login/auth.service";
 import {UserEntity} from "../../../../../entity/UserEntity";
 

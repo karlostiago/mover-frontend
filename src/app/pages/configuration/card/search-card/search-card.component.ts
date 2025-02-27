@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AccountEntity} from "../../../../../entity/AccountEntity";
 import {Table} from "primeng/table";
 import {ConfirmationService} from "primeng/api";
-import {AlertService} from "../../../../../service/AlertService";
+import {AlertService} from "../../../../../shared/service/AlertService";
 import {CardService} from "../card.service";
 import {BankIconEntity} from "../../../../../entity/BankIconEntity";
 import {CardEntity} from "../../../../../entity/CardEntity";

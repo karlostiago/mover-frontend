@@ -1,5 +1,5 @@
 import {Directive, ElementRef, HostListener, Input} from "@angular/core";
-import {AlertService} from "../../service/AlertService";
+import {AlertService} from "../service/AlertService";
 
 @Directive({
     selector: '[appNumberRange]'

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AbstractRegister} from "../../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
-import {AlertService} from "../../../../../service/AlertService";
+import {AlertService} from "../../../../../shared/service/AlertService";
 import {AccountEntity} from "../../../../../entity/AccountEntity";
 import {AccountService} from "../account.service";
 import {BankIconEntity} from "../../../../../entity/BankIconEntity";

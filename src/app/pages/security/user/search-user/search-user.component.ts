@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Table} from "primeng/table";
 import {ConfirmationService} from "primeng/api";
 import {UserService} from "../user.service";
-import {AlertService} from "../../../../../service/AlertService";
+import {AlertService} from "../../../../../shared/service/AlertService";
 import {AuthService} from "../../../../core/login/auth.service";
 import {UserEntity} from "../../../../../entity/UserEntity";
 

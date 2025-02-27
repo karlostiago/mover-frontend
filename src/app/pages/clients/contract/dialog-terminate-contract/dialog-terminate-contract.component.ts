@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ContractEntity} from "../../../../../entity/ContractEntity";
 import {NgForm} from "@angular/forms";
 import {ContractService} from "../contract.service";
-import {AlertService} from "../../../../../service/AlertService";
+import {AlertService} from "../../../../../shared/service/AlertService";
 import {AuthService} from "../../../../core/login/auth.service";
 
 @Component({

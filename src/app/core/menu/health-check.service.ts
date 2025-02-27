@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
-import {BaseService} from "../abstract/BaseService";
-import {HealthCheckEntity} from "../entity/HealthCheckEntity";
+import {BaseService} from "../../../abstract/BaseService";
+import {HealthCheckEntity} from "../../../entity/HealthCheckEntity";
 import {HttpClient} from "@angular/common/http";
-import {ErrorHandler} from "../app/core/handler/ErrorHandler";
+import {ErrorHandler} from "../handler/ErrorHandler";
 
 @Injectable({
     providedIn: 'root'

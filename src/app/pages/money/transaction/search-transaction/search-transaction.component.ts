@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService} from "../../../../../service/AlertService";
+import {AlertService} from "../../../../../shared/service/AlertService";
 import {TransactionService} from "../transaction.service";
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 import {BalanceEntity} from "../../../../../entity/BalanceEntity";
@@ -12,6 +12,7 @@ import {DialogDeleteTransactionComponent} from "../dialog-delete-transaction/dia
 import {DialogConfirmationPaymentComponent} from "../dialog-confirmation-payment/dialog-confirmation-payment.component";
 import {BalanceService} from "../balance.service";
 import {AuthService} from "../../../../core/login/auth.service";
+import {PaginationService} from "../../../../../shared/service/PaginationService";
 
 @Component({
   selector: 'app-search-transaction',
@@ -44,7 +45,8 @@ export class SearchTransactionComponent implements OnInit {
                 private confirmationService: ConfirmationService,
                 private balanceService: BalanceService,
                 protected authService: AuthService,
-                private transactionService: TransactionService) {
+                private transactionService: TransactionService,
+                private paginationService: PaginationService) {
     }
 
     async ngOnInit() {
@@ -100,6 +102,7 @@ export class SearchTransactionComponent implements OnInit {
 
     search() {
         this.page = 1;
+        this.paginationService.clear();
         this.executeSearch(this.createFilters());
     }
 
@@ -124,6 +127,9 @@ export class SearchTransactionComponent implements OnInit {
             } else {
                 this.remainingPages = -1;
             }
+            this.paginationService.storedData = this.transactions;
+            this.paginationService.currentPage = this.page;
+            this.paginationService.remainingPages = this.remainingPages;
         });
     }
 
@@ -160,8 +166,14 @@ export class SearchTransactionComponent implements OnInit {
                 this.searchFilter = text;
             }
 
-            filters[3] = this.page;
-            this.executeSearch(filters.join(';'));
+            if (this.paginationService.storedData.length > 0) {
+                this.transactions = this.paginationService.storedData;
+                this.remainingPages = this.paginationService.remainingPages;
+                this.page = this.paginationService.currentPage;
+            } else {
+                filters[3] = localFilters.split(';')[3];
+                this.executeSearch(filters.join(';'));
+            }
         }
     }
 
@@ -199,7 +211,7 @@ export class SearchTransactionComponent implements OnInit {
 
     private async loadingAccounts() {
         await this.accountServce.findAll().then(response => {
-            this.accounts = response;
+            this.accounts = response.filter(c => c.active);
         });
     }
 

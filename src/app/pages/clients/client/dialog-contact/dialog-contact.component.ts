@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ClientEntity} from "../../../../../entity/ClientEntity";
 import {ContactEntity} from "../../../../../entity/ContactEntity";
-import {AlertService} from "../../../../../service/AlertService";
+import {AlertService} from "../../../../../shared/service/AlertService";
 import {AuthService} from "../../../../core/login/auth.service";
 
 @Component({

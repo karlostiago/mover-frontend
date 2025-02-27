@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractRegister} from "../../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
-import {AlertService} from "../../../../../service/AlertService";
+import {AlertService} from "../../../../../shared/service/AlertService";
 import {ChangePasswordService} from "../change-password.service";
 import {UserEntity} from "../../../../../entity/UserEntity";
 import {AuthService} from "../../../../core/login/auth.service";

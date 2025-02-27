@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertService} from "../../../../../service/AlertService";
+import {AlertService} from "../../../../../shared/service/AlertService";
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 import {TransactionService} from "../transaction.service";
 

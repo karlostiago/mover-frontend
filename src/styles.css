@@ -315,6 +315,11 @@ a.btn:active {
     height: 2.688rem;
 }
 
+.p-dropdown-item.p-highlight {
+    color: #854d48 !important;
+    font-weight: 900 !important;
+}
+
 @media (max-width: 768px) {
     .text-md-end {
         text-align: right !important;

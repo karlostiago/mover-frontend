@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {environment} from "../../../../environments/environment";
-import {HealthCheckService} from "../../../../service/HealthCheckService";
+import {HealthCheckService} from "../health-check.service";
 
 @Component({
   selector: 'app-menu-lateral',

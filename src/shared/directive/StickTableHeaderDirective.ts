@@ -80,7 +80,8 @@ export class StickTableHeader implements AfterViewInit {
             })
         );
 
-        const headerOffset = Math.max(this.tableElement.getBoundingClientRect().top, 44);
+        const top = 60;
+        const headerOffset = Math.max(this.tableElement.getBoundingClientRect().top, top);
 
         this.renderer.setStyle(this.headerElement, 'position', 'fixed');
         this.renderer.setStyle(this.headerElement, 'top', `${headerOffset}px`);
@@ -91,7 +92,7 @@ export class StickTableHeader implements AfterViewInit {
 
         const headerColumns = this.headerElement.querySelectorAll('th');
         headerColumns.forEach((th: HTMLElement, index: number) => {
-            const width = index === 1 ? columnWidths[index] + 44 : columnWidths[index] ;
+            const width = index === 1 ? columnWidths[index] + top : columnWidths[index] ;
             this.renderer.setStyle(th, 'width', `${width}px`);
         });
     }

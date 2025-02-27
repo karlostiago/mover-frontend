@@ -172,6 +172,7 @@ export class SearchTransactionComponent implements OnInit {
                 this.transactions = this.paginationService.storedData;
                 this.remainingPages = this.paginationService.remainingPages;
                 this.page = this.paginationService.currentPage;
+
                 this.updateBalance(filters.join(';'));
             } else {
                 this.executeSearch(filters.join(';'));

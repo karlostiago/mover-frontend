@@ -21,9 +21,6 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void {
         this.authService.resetPermissions();
         this.version = environment.version;
-
-        this.auth.username = 'mover@sistemas.com';
-        this.auth.password = '#moversistemas$';
     }
 
     async login() {

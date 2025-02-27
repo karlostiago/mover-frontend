@@ -166,12 +166,14 @@ export class SearchTransactionComponent implements OnInit {
                 this.searchFilter = text;
             }
 
+            filters[3] = localFilters.split(';')[3];
+
             if (this.paginationService.storedData.length > 0) {
                 this.transactions = this.paginationService.storedData;
                 this.remainingPages = this.paginationService.remainingPages;
                 this.page = this.paginationService.currentPage;
+                this.updateBalance(filters.join(';'));
             } else {
-                filters[3] = localFilters.split(';')[3];
                 this.executeSearch(filters.join(';'));
             }
         }

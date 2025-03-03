@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
 import {ErrorHandler} from "../app/core/handler/ErrorHandler";
+import {AuthService} from "../app/core/login/auth.service";
 
 export abstract class BaseService<T> {
 
@@ -9,7 +10,9 @@ export abstract class BaseService<T> {
 
     protected constructor(
         protected httpClient: HttpClient,
-        protected errorHandler: ErrorHandler) { }
+        protected errorHandler: ErrorHandler,
+        protected authService?: AuthService) {
+    }
 
     protected abstract pathURL(): string;
 
@@ -51,7 +54,7 @@ export abstract class BaseService<T> {
         return headers;
     }
 
-    toPromise<T>(request: Observable<Object>): Promise<T> {
+    async toPromise<T>(request: Observable<Object>): Promise<T> {
         return new Promise((resolve) => {
             request.subscribe({
                 next: (data) => {
@@ -60,7 +63,7 @@ export abstract class BaseService<T> {
                 error: (error) => {
                     this.errorHandler.capture(error);
                 }
-            })
-        })
+            });
+        });
     }
 }

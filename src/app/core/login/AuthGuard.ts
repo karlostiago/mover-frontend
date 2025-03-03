@@ -4,12 +4,12 @@ import {Router} from "@angular/router";
 
 export const CanActivate = () => {
     const authService = inject(AuthService);
-    const router = inject(Router);
+    const router = inject(Router)
     authService.isLoggedIn().then(response => {
        if (response) {
            return true;
        }  else {
-           router.navigate(['/login']).then(() => {});
+           void router.navigate(['/login']);
            return false;
        }
     });

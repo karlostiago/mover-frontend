@@ -24,7 +24,6 @@ export class AccountService extends BaseService<AccountEntity> {
     }
 
     async findBy(search: string): Promise<Array<AccountEntity>> {
-        console.log(search)
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/filterBy?search=${search}`, this.options());
         return this.toPromise(request);
     }

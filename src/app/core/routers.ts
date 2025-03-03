@@ -42,6 +42,7 @@ import {SearchTransactionComponent} from "../pages/money/transaction/search-tran
 import {
     RegisterTransactionComponent
 } from "../pages/money/transaction/register-transaction/register-transaction.component";
+import {ForbiddenComponent} from "./components/forbidden/forbidden.component";
 
 export const routers = [
     { path: '', component: DashboardComponent, canActivate: [CanActivate] },
@@ -109,4 +110,6 @@ export const routers = [
 
     { path: 'changepassword', component: SearchChangePasswordComponent, canActivate: [CanActivate] },
     { path: 'changepassword/:id', component: RegisterChangePasswordComponent, canActivate: [CanActivate] },
+
+    { path: 'forbidden', component: ForbiddenComponent, canActivate: [CanActivate] },
 ]

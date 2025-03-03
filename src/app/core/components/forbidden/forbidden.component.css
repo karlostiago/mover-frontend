@@ -1,0 +1,47 @@
+.base {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-direction: column;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+.base h1 {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    font-family: "Ubuntu", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 30vw;
+    display: block;
+    margin: 0;
+    color: #323d4e !important;
+    position: relative;
+    z-index: 0;
+    animation: colors 0.4s ease-in-out forwards;
+    animation-delay: 1.7s;
+}
+
+.base h2 {
+    color: #323d4e8a;
+    font-size: 2vw;
+    margin: 0;
+    text-align: center;
+    animation: colors 0.4s ease-in-out forwards;
+    animation-delay: 2s;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+.base h5 {
+    font-size: 2vw;
+    margin: 0;
+    text-align: center;
+    opacity: 0;
+    animation: show 2s ease-in-out forwards;
+    color: #323d4e;
+    animation-delay: 3s;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}

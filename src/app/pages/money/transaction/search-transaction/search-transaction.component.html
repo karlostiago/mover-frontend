@@ -123,7 +123,7 @@
                         <ng-template pTemplate="groupheader" let-transaction>
                             <tr pRowGroupHeader>
                                 <td colspan="6">
-                                    <strong style="font-size: 1rem;"> {{ transaction['date'] }} </strong>
+                                    <strong style="font-size: 1rem;"> {{ transaction['date'] }} </strong> <i style="font-size: 1rem;">({{ transaction['dayOfWeek'].toUpperCase() }})</i>
                                 </td>
                             </tr>
                         </ng-template>
@@ -141,7 +141,7 @@
                                     <span class="p-column-title">CATEGORIA</span>
                                     <span>{{ transaction['subcategory'] }}</span>
                                 </td>
-                                <td class="text-right {{ transaction['categoryType'] !== 'TRANSFERÊNCIA' && transaction['transactionType'] === 'DÉBITO' ? 'text-danger' : '' }} ">
+                                <td class="text-right {{ transaction['transactionType'] === 'DÉBITO' ? 'text-danger' : '' }} ">
                                     <span class="p-column-title">VALOR</span>
                                     {{ NumberHelpers.invertSignalWhenNegative(transaction['value']) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                                 </td>

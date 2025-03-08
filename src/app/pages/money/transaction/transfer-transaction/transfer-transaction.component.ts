@@ -23,12 +23,13 @@ export class TransferTransactionComponent extends BaseTransaction implements OnI
 
     async ngOnInit() {
         await this.accountService.findAll().then(response => {
+            const onlyActiveAccounts = response.filter(ac => ac.active);
             // @ts-ignore
-            this.debitAccounts = [ { id: 0, name: 'Selecione' }, ...response ];
+            this.debitAccounts = [ { id: 0, name: 'Selecione' }, ...onlyActiveAccounts ];
             // @ts-ignore
-            this.creditAccounts = [ { id: 0, name: 'Selecione' }, ...response ];
+            this.creditAccounts = [ { id: 0, name: 'Selecione' }, ...onlyActiveAccounts ];
             // @ts-ignore
-            this.accounts = [ { id: 0, name: 'Selecione' }, ...response ];
+            this.accounts = [ { id: 0, name: 'Selecione' }, ...onlyActiveAccounts ];
         });
     }
 

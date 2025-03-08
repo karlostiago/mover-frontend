@@ -10,6 +10,8 @@ import {DateHelpers} from "../../../../shared/DateHelpers";
 })
 export class TransactionService extends BaseService<TransactionEntity> {
 
+    expanded = new Set<number>;
+
     constructor(override httpClient: HttpClient,  override errorHandler: ErrorHandler) {
         super(httpClient, errorHandler);
     }

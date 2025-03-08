@@ -50,6 +50,7 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     async ngOnInit() {
+        this.searchFilter = 'LOO';
         await this.loadingAccounts();
         const fromUpdate = !!localStorage.getItem("TRANSACTION_UPDATE");
 
@@ -136,6 +137,25 @@ export class SearchTransactionComponent implements OnInit {
     updateTransactions() {
         this.search();
         this.updateBalance(this.createFilters());
+    }
+
+    rowExpanded(transaction: any) {
+        const invoice = transaction['invoice'];
+        const index = this.transactions.indexOf(transaction);
+
+        if (index !== -1) {
+            transaction['expanded'] = true;
+            this.transactionService.expanded.add(transaction['id']);
+            this.transactions.splice(index + 1, 0, ...invoice['transactions']);
+            this.transactions = [...this.transactions];
+        }
+    }
+
+    rowReduce(transaction: any) {
+        transaction['expanded'] = false;
+        const invoice = transaction['invoice'];
+        this.transactionService.expanded.delete(transaction['id']);
+        this.transactions = this.transactions.filter(t => !invoice['transactions'].includes(t));
     }
 
     private updateBalance(filters: string) {

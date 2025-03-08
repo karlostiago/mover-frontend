@@ -26,4 +26,6 @@ export class TransactionEntity {
     remainingPages: number;
     lastInstallment: boolean = false;
     dayOfWeek: string;
+    hasInvoice: boolean = false;
+    expanded: boolean = false;
 }

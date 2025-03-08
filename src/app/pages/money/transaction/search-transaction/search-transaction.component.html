@@ -156,12 +156,17 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
-                                    <div class="card-actions">
+                                    <div class="card-actions" *ngIf="!transaction['hasInvoice']">
                                         <p-button [link]="true" (click)="confirmationDelete(transaction)" [disabled]="!authService.hasPermission('DELETE_TRANSACTIONS')">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </p-button>
                                         <p-button [link]="true" [routerLink]="['/transactions/', transaction.id]" [disabled]="!authService.hasPermission('UPDATE_TRANSACTIONS')">
                                             <i class="fa-regular fa-pen-to-square"></i>
+                                        </p-button>
+                                    </div>
+                                    <div class="card-actions" *ngIf="transaction['hasInvoice']">
+                                        <p-button [link]="true" (click)="transaction['expanded'] ? rowReduce(transaction) : rowExpanded(transaction)">
+                                            <i class="fa-solid  {{ transaction['expanded'] ? 'fa-minus' : 'fa-plus' }}"></i>
                                         </p-button>
                                     </div>
                                 </td>

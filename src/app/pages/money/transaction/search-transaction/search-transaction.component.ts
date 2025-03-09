@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {AlertService} from "../../../../../shared/service/AlertService";
 import {TransactionService} from "../transaction.service";
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
@@ -46,11 +46,11 @@ export class SearchTransactionComponent implements OnInit {
                 private balanceService: BalanceService,
                 protected authService: AuthService,
                 private transactionService: TransactionService,
-                private paginationService: PaginationService) {
+                private paginationService: PaginationService,
+                private cdr: ChangeDetectorRef) {
     }
 
     async ngOnInit() {
-        this.searchFilter = 'LOO';
         await this.loadingAccounts();
         const fromUpdate = !!localStorage.getItem("TRANSACTION_UPDATE");
 
@@ -123,11 +123,8 @@ export class SearchTransactionComponent implements OnInit {
         this.page = this.page + 1;
         this.transactionService.findBy(this.createFilters()).then(response => {
             this.transactions = [...this.transactions, ...response];
-            if (response.length > 0) {
-                this.remainingPages = response[0].remainingPages;
-            } else {
-                this.remainingPages = -1;
-            }
+
+            this.remainingPages = response.length > 0 ? response[0].remainingPages : -1;
             this.paginationService.storedData = this.transactions;
             this.paginationService.currentPage = this.page;
             this.paginationService.remainingPages = this.remainingPages;
@@ -140,12 +137,13 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     rowExpanded(transaction: any) {
+        if (!transaction['invoice']) return;
+
         const invoice = transaction['invoice'];
         const index = this.transactions.indexOf(transaction);
 
         if (index !== -1) {
             transaction['expanded'] = true;
-            this.transactionService.expanded.add(transaction['id']);
             this.transactions.splice(index + 1, 0, ...invoice['transactions']);
             this.transactions = [...this.transactions];
         }
@@ -154,7 +152,6 @@ export class SearchTransactionComponent implements OnInit {
     rowReduce(transaction: any) {
         transaction['expanded'] = false;
         const invoice = transaction['invoice'];
-        this.transactionService.expanded.delete(transaction['id']);
         this.transactions = this.transactions.filter(t => !invoice['transactions'].includes(t));
     }
 
@@ -201,14 +198,17 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     private executeSearch(filters: string) {
+        this.cdr.detach();
         this.transactionService.findBy(filters).then(response => {
-            this.transactions = response;
+            this.transactions.length = 0;
+            this.transactions = response.map(r => r);
+            this.transactions.forEach(t => this.rowExpanded(t));
+
             this.updateBalance(filters);
-            if (response.length > 0) {
-                this.remainingPages = response[0].remainingPages;
-            } else {
-                this.remainingPages = -1;
-            }
+            this.remainingPages = response.length > 0 ? response[0].remainingPages : -1;
+
+            this.cdr.detectChanges();
+            this.cdr.reattach();
         });
     }
 

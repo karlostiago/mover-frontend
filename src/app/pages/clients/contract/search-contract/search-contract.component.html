@@ -101,7 +101,7 @@
                                         <p-button [link]="true" [routerLink]="['/contracts/', contract.id]" [disabled]="!authService.hasPermission('UPDATE_CONTRACTS')">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </p-button>
-                                        <p-button [link]="true" (click)="close(contract)" [disabled]="!authService.hasPermission('TERMINATION_CONTRACTS')">
+                                        <p-button [link]="true" (click)="close(contract)" *ngIf="contract['situation'] !== 'ENCERRADO'" [disabled]="!authService.hasPermission('TERMINATION_CONTRACTS')">
                                             <i class="far fa-file-excel"></i>
                                         </p-button>
                                     </div>

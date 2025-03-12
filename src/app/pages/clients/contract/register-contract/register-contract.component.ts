@@ -13,6 +13,7 @@ import {DayOfWeekEntity} from "../../../../../entity/DayOfWeekEntity";
 import {SituationEntity} from "../../../../../entity/SituationEntity";
 import {PaymentFrequencyEntity} from "../../../../../entity/PaymentFrequencyEntity";
 import {AuthService} from "../../../../core/login/auth.service";
+import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/GlobalDialogService";
 
 @Component({
   selector: 'app-register-contract',
@@ -27,12 +28,16 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
     daysOfWeek = new Array<DayOfWeekEntity>();
     situations = new Array<SituationEntity>();
     paymentFrenquencies = new Array<PaymentFrequencyEntity>();
+    visible: boolean = true;
+
+    currentSituation: string;
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 private contractService: ContractService,
                 private vehicleService: VehicleService,
                 protected authService: AuthService,
+                private globalDialogService: GlobalDialogService,
                 private clientService: ClientService) {
         super(activatedRoute);
     }
@@ -47,6 +52,7 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
             await this.loadingAllVehicles();
             this.contractService.findById(this.id).then(response => {
                 this.contract = response;
+                this.currentSituation = this.contract.situation;
             });
         } else {
             this.generatedNewContract();
@@ -57,9 +63,9 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
 
     saveOrUpdate(form: NgForm) {
         if (this.contract.id) {
-            this.update();
+            void this.update();
         } else {
-            this.save(form);
+            void this.save(form);
         }
     }
 
@@ -87,19 +93,31 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
     }
 
     private async save(form: NgForm) {
-        this.contractService.save(this.contract).then(() => {
-            this.alertService.success("Registro cadastrado com sucesso.");
-            this.loadingOnlyActiveClients();
-            this.loadingAvailableVehicles();
-            this.generatedNewContract();
-            this.cancel(form);
-        });
+        if (this.isClose()) {
+            this.globalDialogService.openDialog(TypeDialog.TERMINATE_CONTRACT, this.contract);
+        } else {
+            this.contractService.save(this.contract).then(() => {
+                this.alertService.success("Registro cadastrado com sucesso.");
+                this.loadingOnlyActiveClients();
+                this.loadingAvailableVehicles();
+                this.generatedNewContract();
+                this.cancel(form);
+            });
+        }
     }
 
-    private update() {
-        this.contractService.update(this.contract.id, this.contract).then(() => {
-            this.alertService.success("Registro atualizado com sucesso.");
-        });
+    private async update() {
+        if (this.isClose()) {
+            this.globalDialogService.openDialog(TypeDialog.TERMINATE_CONTRACT, this.contract);
+        } else {
+            this.contractService.update(this.contract.id, this.contract).then(() => {
+                this.alertService.success("Registro atualizado com sucesso.");
+            });
+        }
+    }
+
+    private isClose() {
+        return "ENCERRADO" === this.contract.situation && 'ENCERRADO' !== this.currentSituation;
     }
 
     private async loadingPaymentFrequencies() {

@@ -107,18 +107,6 @@ export class SearchTransactionComponent implements OnInit {
         this.executeSearch(this.createFilters());
     }
 
-    // calculatedSubTotal(transaction: TransactionEntity): { subtotal: number, isNegative: boolean } {
-    //     const subtotal = this.transactions.reduce((subtotal, tr) => {
-    //         const isSameDate = tr.date === transaction.date;
-    //         if (isSameDate) {
-    //             subtotal += tr.value;
-    //         }
-    //         return subtotal;
-    //     }, 0);
-    //     const isNegative = subtotal < 0;
-    //     return { subtotal, isNegative };
-    // }
-
     showMore() {
         this.page = this.page + 1;
         this.transactionService.findBy(this.createFilters()).then(response => {
@@ -137,7 +125,7 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     rowExpanded(transaction: any) {
-        if (!transaction['invoice']) return;
+        if (!transaction.hasInvoice) return;
 
         const invoice = transaction['invoice'];
         const index = this.transactions.indexOf(transaction);
@@ -201,8 +189,13 @@ export class SearchTransactionComponent implements OnInit {
         this.cdr.detach();
         this.transactionService.findBy(filters).then(response => {
             this.transactions.length = 0;
-            this.transactions = response.map(r => r);
-            this.transactions.forEach(t => this.rowExpanded(t));
+            this.transactions = response;
+
+            for (const transaction of this.transactions) {
+                if (transaction.hasInvoice) {
+                    this.rowExpanded(transaction);
+                }
+            }
 
             this.updateBalance(filters);
             this.remainingPages = response.length > 0 ? response[0].remainingPages : -1;

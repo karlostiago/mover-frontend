@@ -16,4 +16,5 @@ export class ContractEntity {
     reason: string = "";
     active: boolean = true;
     friendlyTermination: boolean = true;
+    inactiveClient: boolean = false;
 }

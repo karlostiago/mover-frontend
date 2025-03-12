@@ -1,5 +1,5 @@
 <p-dialog header="Encerramento de contrato" [modal]="true" [(visible)]="visible" [draggable]="false" [baseZIndex]="100000">
-    <form autocomplete="off" class="fade-in" #form="ngForm" (ngSubmit)="saveOrUpdate(form)">
+    <form autocomplete="off" class="fade-in" #form="ngForm" (ngSubmit)="saveOrUpdate()">
         <div class="row g-3">
             <div class="col-md-12 mb-10" style="position: relative; margin-top: -10px;">
                 <div class="card">
@@ -9,15 +9,22 @@
                             <textarea rows="5" id="reason" name="reason" pInputTextarea [(ngModel)]="contract['reason']"></textarea>
                         </div>
                         <div class="row">
-                            <label class="form-label" style="padding-left: 0"> Distrato amigável *:</label>
-                            <p-inputSwitch name="active" id="active" styleClass="form-control" [ngStyle]="{ 'padding-left': '0' }"
-                                           [(ngModel)]="contract['friendlyTermination']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                            <div class="col-md-6" style="margin-left: -.625rem">
+                                <label class="form-label" style="padding-left: 0"> Distrato amigável ?:</label>
+                                <p-inputSwitch name="friendlyTermination" id="friendlyTermination" styleClass="form-control" [ngStyle]="{ 'padding-left': '0' }"
+                                               [(ngModel)]="contract['friendlyTermination']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                            </div>
+                            <div class="col-md-6" style="margin-left: -.625rem">
+                                <label class="form-label" style="padding-left: 0"> Deseja inativar cliente ?:</label>
+                                <p-inputSwitch name="inactiveClient" id="inactiveClient" styleClass="form-control" [ngStyle]="{ 'padding-left': '0' }"
+                                               [(ngModel)]="contract['inactiveClient']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer" style="padding-left: 0; padding-bottom: 0">
                         <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !authService.hasPermission('TERMINATION_CONTRACTS')">
                             <i class="fa-solid fa-save m-1"></i>
-                            Salvar
+                            Confirmar
                         </button>
                         <button pButton type="button" class="p-button-danger p-button-sm ms-2" (click)="visible = false">
                             <i class="fa-solid fa-remove m-1"></i>

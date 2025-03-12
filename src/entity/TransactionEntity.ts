@@ -28,4 +28,5 @@ export class TransactionEntity {
     dayOfWeek: string;
     hasInvoice: boolean = false;
     expanded: boolean = false;
+    scheduled: boolean = false;
 }

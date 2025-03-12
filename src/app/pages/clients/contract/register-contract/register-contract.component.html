@@ -1,11 +1,13 @@
 <form autocomplete="off" class="fade-in" #form="ngForm" (ngSubmit)="saveOrUpdate(form)">
-    <app-title name="Contratos" subname=" # {{ contract['number'] }}"> </app-title>
+    <app-title name="Contratos"> </app-title>
 
     <div class="row g-3">
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-header">
-                    <h4> {{ isNewRegister() ? 'Cadastrar' : 'Atualizar' }}</h4>
+                    <h4> {{ isNewRegister() ? 'Cadastrar' : 'Atualizar' }}
+                        <small class="float-end color-white">{{ contract['number'] }}</small>
+                    </h4>
                 </div>
 
                 <div class="card-body">
@@ -79,10 +81,10 @@
                         </div>
                     </div>
 
-                    <div class="row" *ngIf="contract['situation'] === 'ENCERRADO'">
+                    <div class="row" *ngIf="currentSituation === 'ENCERRADO'">
                         <div class="col-md-12">
-                            <label class="form-label"> Motivo *:</label><br/>
-                            <textarea rows="5" id="reason" name="reason" pInputTextarea [(ngModel)]="contract['reason']"></textarea>
+                            <label class="form-label"> Motivo:</label><br/>
+                            <textarea rows="5" id="reason" name="reason" [disabled]="true" pInputTextarea [(ngModel)]="contract['reason']"></textarea>
                         </div>
                     </div>
 

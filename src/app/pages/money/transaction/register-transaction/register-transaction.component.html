@@ -42,10 +42,16 @@
                     <app-common-transaction [updateForm]="edit" [transaction]="transaction"></app-common-transaction>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-3">
                             <label class="form-label">Pago:</label>
                             <p-inputSwitch name="paid" id="paid" styleClass="form-control" (onChange)="processPayment()"
                                            [(ngModel)]="transaction['paid']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Agendar:</label>
+                            <p-inputSwitch name="scheduled" id="scheduled" styleClass="form-control"
+                                           [(ngModel)]="transaction['scheduled']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
                         </div>
                     </div>
                 </div>

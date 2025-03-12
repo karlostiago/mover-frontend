@@ -103,26 +103,15 @@
                                 <th class="text-left">DESCRIÇÃO</th>
                                 <th class="text-left">CATEGORIA</th>
                                 <th class="text-center">VALOR</th>
+                                <th class="text-center">AGENDADO</th>
                                 <th class="text-center">EFETIVADO</th>
                                 <th class="text-center">AÇÕES</th>
                             </tr>
                         </ng-template>
 
-<!--                        <ng-template pTemplate="groupfooter" let-transaction>-->
-<!--                            <tr>-->
-<!--                                <td colspan="4" class="text-right">-->
-<!--                                    <strong class="m-3"> Total: </strong>-->
-<!--                                    <span class="{{ calculatedSubTotal(transaction).isNegative ? 'text-danger' : '' }}">-->
-<!--                                        {{ NumberHelpers.invertSignalWhenNegative(calculatedSubTotal(transaction).subtotal) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}-->
-<!--                                    </span>-->
-<!--                                </td>-->
-<!--                                <td colspan="2"></td>-->
-<!--                            </tr>-->
-<!--                        </ng-template>-->
-
                         <ng-template pTemplate="groupheader" let-transaction>
                             <tr pRowGroupHeader>
-                                <td colspan="6">
+                                <td colspan="7">
                                     <strong style="font-size: 1rem;"> {{ transaction['date'] }} </strong> <i style="font-size: 1rem;">({{ transaction['dayOfWeek'].toUpperCase() }})</i>
                                 </td>
                             </tr>
@@ -144,6 +133,12 @@
                                 <td class="text-right {{ transaction['transactionType'] === 'DÉBITO' ? 'text-danger' : '' }} ">
                                     <span class="p-column-title">VALOR</span>
                                     {{ NumberHelpers.invertSignalWhenNegative(transaction['value']) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">AGENDADO</span>
+                                    <span class=" {{ transaction['scheduled'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                        {{ transaction["scheduled"] === true ? 'Sim' : 'Não' }}
+                                    </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">EFETIVADO</span>
@@ -175,7 +170,7 @@
 
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td colspan="4" style="text-align: center;">
+                                <td colspan="7" style="text-align: center;">
                                     Nenhum registro encontrado.
                                 </td>
                             </tr>

@@ -27,15 +27,15 @@ export class DialogTerminateContractComponent implements OnInit {
     async showDialog(contract: ContractEntity) {
         this.visible = true;
         this.contract = contract;
-        this.contract.friendlyTermination = true;
     }
 
-    async saveOrUpdate(form: NgForm) {
+    async saveOrUpdate() {
         this.contract.situation = 'ENCERRADO';
         this.contract.active = false;
         this.contract.endDate = new Date();
-        this.visible = false;
-        this.alertService.success("Contrato encerrado com sucesso.");
-        this.contractService.close(this.contract).then(() => { });
+        this.contractService.close(this.contract).then(() => {
+            this.visible = false;
+            this.alertService.success("Contrato encerrado com sucesso.");
+        });
     }
 }

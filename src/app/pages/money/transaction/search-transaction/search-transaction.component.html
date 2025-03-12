@@ -136,7 +136,7 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AGENDADO</span>
-                                    <span class=" {{ transaction['scheduled'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                    <span *ngIf="!transaction['hasInvoice']" class=" {{ transaction['scheduled'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
                                         {{ transaction["scheduled"] === true ? 'Sim' : 'Não' }}
                                     </span>
                                 </td>

@@ -22,6 +22,8 @@ import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/Glo
 })
 export class RegisterContractComponent extends AbstractRegister implements OnInit {
 
+    private closed: string = 'ENCERRADO';
+
     contract = new ContractEntity()
     vehicles = new Array<VehicleEntity>();
     clients = new Array<ClientEntity>();
@@ -29,8 +31,6 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
     situations = new Array<SituationEntity>();
     paymentFrenquencies = new Array<PaymentFrequencyEntity>();
     visible: boolean = true;
-
-    currentSituation: string;
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
@@ -52,7 +52,7 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
             await this.loadingAllVehicles();
             this.contractService.findById(this.id).then(response => {
                 this.contract = response;
-                this.currentSituation = this.contract.situation;
+                this.contract.currentSituation = this.contract.situation;
             });
         } else {
             this.generatedNewContract();
@@ -93,11 +93,12 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
     }
 
     private async save(form: NgForm) {
-        if (this.isClose()) {
+        if (this.isClosed()) {
             this.globalDialogService.openDialog(TypeDialog.TERMINATE_CONTRACT, this.contract);
         } else {
             this.contractService.save(this.contract).then(() => {
                 this.alertService.success("Registro cadastrado com sucesso.");
+                this.contract.currentSituation = this.contract.situation;
                 this.loadingOnlyActiveClients();
                 this.loadingAvailableVehicles();
                 this.generatedNewContract();
@@ -107,17 +108,18 @@ export class RegisterContractComponent extends AbstractRegister implements OnIni
     }
 
     private async update() {
-        if (this.isClose()) {
+        if (this.isClosed()) {
             this.globalDialogService.openDialog(TypeDialog.TERMINATE_CONTRACT, this.contract);
         } else {
             this.contractService.update(this.contract.id, this.contract).then(() => {
+                this.contract.currentSituation = this.contract.situation;
                 this.alertService.success("Registro atualizado com sucesso.");
             });
         }
     }
 
-    private isClose() {
-        return "ENCERRADO" === this.contract.situation && 'ENCERRADO' !== this.currentSituation;
+    private isClosed() {
+        return this.closed === this.contract.situation && this.closed !== this.contract.currentSituation;
     }
 
     private async loadingPaymentFrequencies() {

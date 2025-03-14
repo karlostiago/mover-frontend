@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ContractEntity} from "../../../../../entity/ContractEntity";
-import {NgForm} from "@angular/forms";
 import {ContractService} from "../contract.service";
 import {AlertService} from "../../../../../shared/service/AlertService";
 import {AuthService} from "../../../../core/login/auth.service";
@@ -12,6 +11,7 @@ import {AuthService} from "../../../../core/login/auth.service";
 })
 export class DialogTerminateContractComponent implements OnInit {
 
+    private closed: string = 'ENCERRADO';
     @Input() visible = false;
 
     contract = new ContractEntity();
@@ -27,14 +27,16 @@ export class DialogTerminateContractComponent implements OnInit {
     async showDialog(contract: ContractEntity) {
         this.visible = true;
         this.contract = contract;
+        this.contract.reason = '';
     }
 
     async saveOrUpdate() {
-        this.contract.situation = 'ENCERRADO';
+        this.contract.situation = this.closed;
         this.contract.active = false;
         this.contract.endDate = new Date();
         this.contractService.close(this.contract).then(() => {
             this.visible = false;
+            this.contract.currentSituation = this.contract.situation;
             this.alertService.success("Contrato encerrado com sucesso.");
         });
     }

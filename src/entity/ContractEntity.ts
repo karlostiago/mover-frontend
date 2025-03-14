@@ -12,6 +12,7 @@ export class ContractEntity {
     recurrenceValue: number = 0;
     paymentFrequency: string = "";
     situation: string = "";
+    currentSituation: string = "";
     paymentDay: string = "";
     reason: string = "";
     active: boolean = true;

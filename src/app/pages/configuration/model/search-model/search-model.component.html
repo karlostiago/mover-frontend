@@ -44,8 +44,8 @@
 
                         <ng-template pTemplate="header">
                             <tr *ngIf="models.length > 0">
-                                <th class="text-left">MARCA</th>
-                                <th class="text-center w-75">DESCRIÇÃO</th>
+                                <th class="text-left w-25">MARCA</th>
+                                <th class="text-left w-50">DESCRIÇÃO</th>
                                 <th class="text-center">ATIVO</th>
                                 <th class="text-center">AÇÕES</th>
                             </tr>
@@ -57,11 +57,11 @@
                                     <span class="p-column-title">MARCA</span>
                                     <span>{{ model['brandName'] }}</span>
                                 </td>
-                                <td class="text-center">
+                                <td class="text-left">
                                     <span class="p-column-title">DESCRIÇÃO</span>
                                     <span>{{ model['name'] }}</span>
                                 </td>
-                                <td class="text-center w-5">
+                                <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>
                                     <span class=" {{ model['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
                                         {{ model["active"] === true ? 'Sim' : 'Não' }}

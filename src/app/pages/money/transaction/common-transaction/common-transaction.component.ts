@@ -10,6 +10,7 @@ import {LoaderService} from "../../../../core/loader/loader.service";
 import {CardService} from "../../../configuration/card/card.service";
 import {VehicleService} from "../../../fleets/vehicle/vehicle.service";
 import {ContractService} from "../../../clients/contract/contract.service";
+import {TransactionService} from "../transaction.service";
 
 @Component({
   selector: 'app-common-transaction',
@@ -34,6 +35,7 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
                 private cardService: CardService,
                 private contractService: ContractService,
                 private vehicleService: VehicleService,
+                private transactionService: TransactionService,
                 private loadService: LoaderService) {
         super();
     }
@@ -60,6 +62,20 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     onChangeContract() {
         // @ts-ignore
        this.contracts = [{ id: 0, number: 'Selecione' }, ...this.selectedContracts.filter(c => c.vehicleId === this.transaction['vehicleId'])];
+    }
+
+    onCalculateCutOfDate() {
+        if (this.transaction.cardId === 0) {
+            this.transaction.dueDate = null;
+            return;
+        }
+
+        this.loadService.automatic = false;
+        this.transactionService.calculateCutOffDate(this.transaction).then(response => {
+            Object.assign(this.transaction, response);
+        }).finally(() => {
+            this.loadService.automatic = true;
+        });
     }
 
     private async loadingAccounts() {

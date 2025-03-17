@@ -136,9 +136,12 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AGENDADO</span>
-                                    <span *ngIf="!transaction['hasInvoice']" class=" {{ transaction['scheduled'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                        {{ transaction["scheduled"] === true ? 'Sim' : 'Não' }}
-                                    </span>
+                                    <a *ngIf="transaction['scheduled'] === true" (click)="undoScheduling(transaction)" style="cursor: pointer; {{ allowUndoScheduling ? '' : 'opacity: .3; cursor: default;' }}">
+                                        <span class="badge text-bg-success disabled"> Sim </span>
+                                    </a>
+                                    <a *ngIf="transaction['scheduled'] === false" (click)="schedule(transaction)" style="cursor: pointer; {{ allowSchedule ? '' : 'opacity: .3; cursor: default;' }}">
+                                        <span class="badge text-bg-danger"> Não </span>
+                                    </a>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">EFETIVADO</span>
@@ -151,14 +154,24 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
-                                    <div class="card-actions" *ngIf="!transaction['hasInvoice']">
-                                        <p-button [link]="true" (click)="confirmationDelete(transaction)" [disabled]="!authService.hasPermission('DELETE_TRANSACTIONS')">
-                                            <i class="fa-regular fa-trash-can"></i>
-                                        </p-button>
-                                        <p-button [link]="true" [routerLink]="['/transactions/', transaction.id]" [disabled]="!authService.hasPermission('UPDATE_TRANSACTIONS')">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </p-button>
+                                    <div class="dropdown" *ngIf="!transaction['hasInvoice']">
+                                        <button class="btn btn-secondary btn-sm" type="button" id="actions" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa-solid fa-ellipsis"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="actions">
+                                            <li>
+                                                <p-button [link]="true" class="dropdown-item" (click)="confirmationDelete(transaction)" [disabled]="!authService.hasPermission('DELETE_TRANSACTIONS')">
+                                                    <i class="fa-regular fa-trash-can m-sm-1"></i> Excluir
+                                                </p-button>
+                                            </li>
+                                            <li>
+                                                <p-button class="dropdown-item" [link]="true" [routerLink]="['/transactions/', transaction.id]" [disabled]="!authService.hasPermission('UPDATE_TRANSACTIONS')">
+                                                    <i class="fa-regular fa-pen-to-square m-sm-1"></i> Editar
+                                                </p-button>
+                                            </li>
+                                        </ul>
                                     </div>
+
                                     <div class="card-actions" *ngIf="transaction['hasInvoice']">
                                         <p-button [link]="true" (click)="transaction['expanded'] ? rowReduce(transaction) : rowExpanded(transaction)">
                                             <i class="fa-solid  {{ transaction['expanded'] ? 'fa-minus' : 'fa-plus' }}"></i>

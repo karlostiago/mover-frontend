@@ -33,6 +33,16 @@ export class TransactionService extends BaseService<TransactionEntity> {
         return this.toPromise(request);
     }
 
+    async schedule(id: number): Promise<TransactionEntity> {
+        const request = this.httpClient.put(`${this.baseURL}/${this.pathURL()}/${id}/schedule`, this.options());
+        return this.toPromise(request);
+    }
+
+    async undoScheduling(id: number): Promise<TransactionEntity> {
+        const request = this.httpClient.put(`${this.baseURL}/${this.pathURL()}/${id}/undo-scheduling`, this.options());
+        return this.toPromise(request);
+    }
+
     async batchDelete(id: number) {
         const request = this.httpClient.delete(`${this.baseURL}/${this.pathURL()}/batch-delete/${id}`, this.options());
         return this.toPromise(request);
@@ -40,6 +50,11 @@ export class TransactionService extends BaseService<TransactionEntity> {
 
     async batchUpdate(id: number, entity: TransactionEntity) {
         const request = this.httpClient.put(`${this.baseURL}/${this.pathURL()}/batch-update/${id}`, JSON.stringify(entity), this.options());
+        return this.toPromise(request);
+    }
+
+    async calculateCutOffDate(entity: TransactionEntity): Promise<TransactionEntity> {
+        const request = this.httpClient.put(`${this.baseURL}/${this.pathURL()}/calculate-cut-off-date`, JSON.stringify(entity), this.options());
         return this.toPromise(request);
     }
 }

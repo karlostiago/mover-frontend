@@ -24,7 +24,7 @@
         <p-dropdown styleClass="w-100" name="card" id="card" placeholder="Selecione"
                     optionLabel="name" optionValue="id" [(ngModel)]="transaction['cardId']"
                     [options]="cards" [disabled]="!transaction['accountId']"
-                    emptyMessage="Nenhum cartão disponível"/>
+                    emptyMessage="Nenhum cartão disponível" (onChange)="onCalculateCutOfDate()" />
     </div>
 </div>
 

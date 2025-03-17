@@ -103,6 +103,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     override cancel(form: NgForm) {
         form.resetForm({
             paid: false,
+            dueDate: null
         });
         this.transaction.value = 0;
         this.transaction.paymentDate = null;

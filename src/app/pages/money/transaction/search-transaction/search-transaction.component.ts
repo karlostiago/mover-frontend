@@ -38,6 +38,8 @@ export class SearchTransactionComponent implements OnInit {
 
     allowPayment: boolean = false;
     allowRefund: boolean = false;
+    allowSchedule: boolean = false;
+    allowUndoScheduling: boolean = false;
     allowFilterTransactions: boolean = false;
 
     constructor(private alertService: AlertService,
@@ -55,6 +57,8 @@ export class SearchTransactionComponent implements OnInit {
         const fromUpdate = !!localStorage.getItem("TRANSACTION_UPDATE");
 
         this.allowPayment = this.authService.hasPermission('PAYMENT_TRANSACTIONS');
+        this.allowSchedule = this.authService.hasPermission('SCHEDULE_TRANSACTIONS');
+        this.allowUndoScheduling = this.authService.hasPermission('UNDO_SCHEDULING_TRANSACTIONS');
         this.allowRefund = this.authService.hasPermission('REFUND_TRANSACTIONS');
         this.allowFilterTransactions = this.authService.hasPermission('FILTER_TRANSACTIONS')
 
@@ -96,6 +100,24 @@ export class SearchTransactionComponent implements OnInit {
         if (this.allowRefund) {
             this.transactionService.refund(transaction.id).then(() => {
                 this.alertService.success("Lançamento estornado com sucesso.");
+                this.updateTransactions();
+            });
+        }
+    }
+
+    schedule(transaction: TransactionEntity) {
+        if (this.allowSchedule) {
+            this.transactionService.schedule(transaction.id).then(() => {
+                this.alertService.success("Lançamento agendado com sucesso.");
+                this.updateTransactions();
+            });
+        }
+    }
+
+    undoScheduling(transaction: TransactionEntity) {
+        if (this.allowSchedule) {
+            this.transactionService.undoScheduling(transaction.id).then(() => {
+                this.alertService.success("Agendamento de lançamento desfeito com sucesso.");
                 this.updateTransactions();
             });
         }

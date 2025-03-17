@@ -104,7 +104,7 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
     private async loadingAllAccounts() {
         this.accountService.findAll().then(response => {
             // @ts-ignore
-            this.accounts = [{ id: 0, name: 'Selecione' }, ...response];
+            this.accounts = [{ id: 0, name: 'Selecione' }, ...response.filter(acc => acc.active)];
         });
     }
 

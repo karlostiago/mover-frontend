@@ -113,7 +113,6 @@ input, textarea {
     position: sticky;
     z-index: inherit;
 }
-
 /**
  * ---------------------------------------------------------
  *      Configuração de estilos dos cards
@@ -176,6 +175,10 @@ input, textarea {
 
 .dropdown-no-drop > .p-dropdown .p-inputtext {
     cursor: no-drop!important;
+}
+
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: none !important;
 }
 /**
  * ---------------------------------------------------------

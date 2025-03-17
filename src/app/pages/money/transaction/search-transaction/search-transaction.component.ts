@@ -215,7 +215,7 @@ export class SearchTransactionComponent implements OnInit {
 
             for (const transaction of this.transactions) {
                 if (transaction.hasInvoice) {
-                    this.rowExpanded(transaction);
+                    // this.rowExpanded(transaction);
                 }
             }
 

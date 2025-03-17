@@ -96,13 +96,22 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÔES</span>
-                                    <div class="card-actions">
-                                        <p-button [link]="true" (click)="confirmationDelete(vehicle)" [disabled]="!authService.hasPermission('DELETE_VEHICLES')">
-                                            <i class="fa-regular fa-trash-can"></i>
-                                        </p-button>
-                                        <p-button [link]="true" [routerLink]="['/vehicles/', vehicle.id]" [disabled]="!authService.hasPermission('UPDATE_VEHICLES')">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </p-button>
+                                    <div class="dropdown position-static">
+                                        <button class="btn btn-secondary btn-sm" type="button" id="actions" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa-solid fa-ellipsis"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="actions">
+                                            <li>
+                                                <p-button class="dropdown-item" [link]="true" (click)="confirmationDelete(vehicle)" [disabled]="!authService.hasPermission('DELETE_VEHICLES')">
+                                                    <i class="fa-regular fa-trash-can m-sm-1"></i> Excluir
+                                                </p-button>
+                                            </li>
+                                            <li>
+                                                <p-button class="dropdown-item" [link]="true" [routerLink]="['/vehicles/', vehicle.id]" [disabled]="!authService.hasPermission('UPDATE_VEHICLES')">
+                                                    <i class="fa-regular fa-pen-to-square m-sm-1"></i> Editar
+                                                </p-button>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </td>
                             </tr>

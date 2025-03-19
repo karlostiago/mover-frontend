@@ -55,11 +55,18 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3 col-xs-12 d-flex align-items-center">
-                                <label class="form-label mt-2 me-2">Deseja expandir lancamentos de fatura ?:</label>
+                                <label class="form-label mt-2 me-2">Deseja expandir lançamentos de fatura ?:</label>
                                 <p-inputSwitch name="expand" id="expand" [(ngModel)]="expand" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"
                                     (onChange)="updateExpand()"></p-inputSwitch>
                             </div>
                         </div>
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-3 col-xs-12 d-flex align-items-center">-->
+<!--                                <label class="form-label mt-2 me-2">Deseja visualizar apenas lançamentos de fatura ?:</label>-->
+<!--                                <p-inputSwitch name="viewOnlyInvoice" id="viewOnlyInvoice" [(ngModel)]="viewOnlyInvoice" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"-->
+<!--                                               (onChange)="updateViewOnlyInvoice()"></p-inputSwitch>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -124,8 +131,8 @@
                         <ng-template pTemplate="header">
                             <tr *ngIf="transactions.length > 0">
                                 <th class="text-center"></th>
-                                <th class="text-left">DESCRIÇÃO</th>
-                                <th class="text-left">CATEGORIA</th>
+                                <th class="text-left" style="width: 700px;">DESCRIÇÃO</th>
+                                <th class="text-left" style="width: 150px">CATEGORIA</th>
                                 <th class="text-center">VALOR</th>
                                 <th class="text-center">AGENDADO</th>
                                 <th class="text-center">EFETIVADO</th>
@@ -150,7 +157,7 @@
                                     <span class="p-column-title">DESCRIÇÃO</span>
                                     <span>{{ transaction['description'].toUpperCase() }}</span>
                                 </td>
-                                <td class="text-left" style="width: 400px">
+                                <td class="text-left">
                                     <span class="p-column-title">CATEGORIA</span>
                                     <span>{{ transaction['subcategory'] }}</span>
                                 </td>
@@ -197,9 +204,9 @@
                                     </div>
 
                                     <div class="card-actions" *ngIf="transaction['hasInvoice']">
-                                        <p-button [link]="true" (click)="transaction['expanded'] ? rowReduce(transaction) : rowExpanded(transaction)">
+                                        <button class="btn btn-secondary btn-sm" type="button" id="btnExpanded" (click)="transaction['expanded'] ? rowReduce(transaction) : rowExpanded(transaction)">
                                             <i class="fa-solid  {{ transaction['expanded'] ? 'fa-minus' : 'fa-plus' }}"></i>
-                                        </p-button>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>

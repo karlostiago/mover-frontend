@@ -105,15 +105,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
             paid: false,
             dueDate: null
         });
-        this.transaction.value = 0;
-        this.transaction.paymentDate = null;
-        this.transaction.accountId = 0;
-        this.transaction.partnerId = 0;
-        this.transaction.contractId = 0;
-        this.transaction.cardId = 0;
-        this.transaction.vehicleId = 0;
-        this.enableInstallments = false;
-        this.transaction.dueDate = null;
+        this.clear();
     }
 
     async findCategories() {
@@ -124,6 +116,11 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
             label: `${category.description}`,
             items: this.findSubcategories(category.id, this.subcategories)
         }));
+
+        if (this.transaction.categoryType === 'TRANSFERÊNCIA' || this.transaction.categoryType === 'CAPITAL SOCIETÁRIO') {
+            this.clear();
+        }
+
         this.loadService.automatic = true;
     }
 
@@ -166,6 +163,19 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         this.transaction.installment = 0;
         this.transaction.installmentValue = 0;
         this.enableInstallments = !this.enableInstallments;
+    }
+
+    private clear() {
+        this.transaction.description = '';
+        this.transaction.value = 0;
+        this.transaction.paymentDate = null;
+        this.transaction.accountId = 0;
+        this.transaction.partnerId = 0;
+        this.transaction.contractId = 0;
+        this.transaction.cardId = 0;
+        this.transaction.vehicleId = 0;
+        this.enableInstallments = false;
+        this.transaction.dueDate = null;
     }
 
     private findSubcategories(categoryId: number, subcategories: Array<SubCategoryEntity>) {

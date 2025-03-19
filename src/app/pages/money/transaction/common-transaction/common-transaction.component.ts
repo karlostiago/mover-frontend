@@ -57,6 +57,8 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     onChangeCard() {
         // @ts-ignore
         this.cards = [ { id: 0, name: 'Selecione' }, ...this.selectedCards.filter(c => c.accountId === this.transaction['accountId'])];
+        this.transaction['cardId'] = 0;
+        this.transaction['dueDate'] = null;
     }
 
     onChangeContract() {

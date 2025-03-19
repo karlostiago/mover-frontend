@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, Renderer2} from "@angular/core";
+import {AfterViewInit, ChangeDetectorRef, Directive, ElementRef, Renderer2} from "@angular/core";
 
 @Directive({
     selector: '[appStickTableHeader]'
@@ -12,12 +12,31 @@ export class StickTableHeader implements AfterViewInit {
 
     private initialWidths: number[] = [];
     private isIncremented: boolean = false;
+    private top: number = 60;
 
-    constructor(private el: ElementRef, private renderer: Renderer2) {}
+    private scrollTimeout: any = null;
+
+    constructor(private el: ElementRef, private renderer: Renderer2, private cdr: ChangeDetectorRef) {}
 
     ngAfterViewInit(): void {
         this.initializeHeaderAndTable();
+        this.cdr.detectChanges();
+        setTimeout(() => this.adjustColumnWiths(), 200);
         this.monitorScroll();
+    }
+
+    private adjustColumnWiths() {
+        if (!this.tableElement || !this.headerElement) return;
+
+        this.loadingInitialWidths();
+
+        this.renderer.setStyle(this.headerElement, 'width', `${this.tableElement.offsetWidth}px`);
+
+        const headerColumns = this.headerElement.querySelectorAll('th');
+        headerColumns.forEach((th: HTMLElement, index: number) => {
+            const width = index === 1 ? this.initialWidths[index] + this.top : this.initialWidths[index];
+            this.renderer.setStyle(th, 'width', `${width}px`);
+        });
     }
 
     private initializeHeaderAndTable(): void {
@@ -33,15 +52,6 @@ export class StickTableHeader implements AfterViewInit {
 
     private monitorScroll(): void {
         window.addEventListener('scroll', () => this.onWindowScroll());
-        this.observeScrollChanges();
-    }
-
-    private observeScrollChanges(): void {
-        const checkStickyState = () => {
-            this.onWindowScroll();
-            requestAnimationFrame(checkStickyState);
-        };
-        requestAnimationFrame(checkStickyState);
     }
 
     private onWindowScroll(): void {
@@ -63,12 +73,8 @@ export class StickTableHeader implements AfterViewInit {
         }
     }
 
-    private makeHeaderSticky(): void {
-        if (!this.headerElement || !this.tableElement) {
-            return;
-        }
-
-        this.isStickyApplied = true;
+    private loadingInitialWidths() {
+        if (!this.tableElement) return;
 
         // Captura as larguras iniciais apenas uma vez
         if (this.initialWidths.length === 0) {
@@ -77,9 +83,18 @@ export class StickTableHeader implements AfterViewInit {
                 (th: HTMLElement) => th.offsetWidth
             );
         }
+    }
 
-        const top = 60;
-        const headerOffset = Math.max(this.tableElement.getBoundingClientRect().top, top);
+    private makeHeaderSticky(): void {
+        if (!this.headerElement || !this.tableElement) {
+            return;
+        }
+
+        this.isStickyApplied = true;
+
+        this.loadingInitialWidths();
+
+        const headerOffset = Math.max(this.tableElement.getBoundingClientRect().top, this.top);
 
         // Ajusta o cabeçalho
         this.renderer.setStyle(this.headerElement, 'position', 'fixed');
@@ -91,7 +106,7 @@ export class StickTableHeader implements AfterViewInit {
 
         const headerColumns = this.headerElement.querySelectorAll('th');
         headerColumns.forEach((th: HTMLElement, index: number) => {
-            const width = this.isIncremented && index === 1 ? this.initialWidths[index] + top : this.initialWidths[index];
+            const width = this.isIncremented && index === 1 ? this.initialWidths[index] + this.top : this.initialWidths[index];
             this.renderer.setStyle(th, 'width', `${width}px`);
         });
 
@@ -101,7 +116,7 @@ export class StickTableHeader implements AfterViewInit {
         bodyRows.forEach((row: HTMLTableRowElement) => {
             const bodyColumns = row.querySelectorAll('td');
             bodyColumns.forEach((td: HTMLElement, index: number) => {
-                const width = this.isIncremented && index === 1 ? this.initialWidths[index] + top : this.initialWidths[index];
+                const width = this.isIncremented && index === 1 ? this.initialWidths[index] + this.top : this.initialWidths[index];
                 this.renderer.setStyle(td, 'width', `${width}px`);
             });
         });
@@ -129,11 +144,9 @@ export class StickTableHeader implements AfterViewInit {
         this.renderer.removeStyle(this.headerElement, 'z-index');
         this.renderer.removeStyle(this.headerElement, 'background');
         this.renderer.removeStyle(this.headerElement, 'display');
-        this.renderer.removeStyle(this.headerElement, 'width');
 
         const headerColumns = this.headerElement.querySelectorAll('th');
         headerColumns.forEach((th: HTMLElement) => {
-            this.renderer.removeStyle(th, 'width');
             this.renderer.removeStyle(th, 'text-align');
             this.renderer.removeStyle(th, 'vertical-align');
         });

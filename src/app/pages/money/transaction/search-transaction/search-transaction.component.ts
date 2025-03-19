@@ -31,11 +31,6 @@ export class SearchTransactionComponent implements OnInit {
 
     remainingPages: number = -1;
 
-    private page = 1;
-
-    @ViewChild(DialogDeleteTransactionComponent) dialogDeleteTransaction: DialogDeleteTransactionComponent;
-    @ViewChild(DialogConfirmationPaymentComponent) dialogConfirmationPaymentComponent: DialogConfirmationPaymentComponent;
-
     allowPayment: boolean = false;
     allowRefund: boolean = false;
     allowSchedule: boolean = false;
@@ -43,7 +38,13 @@ export class SearchTransactionComponent implements OnInit {
     allowFilterTransactions: boolean = false;
 
     expand: boolean = false;
+    viewOnlyInvoice: boolean = false;
     enableConfig: boolean = false;
+
+    private page = 1;
+
+    @ViewChild(DialogDeleteTransactionComponent) dialogDeleteTransaction: DialogDeleteTransactionComponent;
+    @ViewChild(DialogConfirmationPaymentComponent) dialogConfirmationPaymentComponent: DialogConfirmationPaymentComponent;
 
     constructor(private alertService: AlertService,
                 private accountServce: AccountService,
@@ -58,7 +59,9 @@ export class SearchTransactionComponent implements OnInit {
     async ngOnInit() {
         await this.loadingAccounts();
         const fromUpdate = !!localStorage.getItem("TRANSACTION_UPDATE");
+
         this.expand = localStorage.getItem('TRANSACTION_EXPAND') === 'true';
+        this.viewOnlyInvoice = localStorage.getItem('TRANSACTION_VIEW_INVOICE') === 'true';
 
         this.allowPayment = this.authService.hasPermission('PAYMENT_TRANSACTIONS');
         this.allowSchedule = this.authService.hasPermission('SCHEDULE_TRANSACTIONS');
@@ -166,6 +169,10 @@ export class SearchTransactionComponent implements OnInit {
         localStorage.setItem('TRANSACTION_EXPAND', String(this.expand));
     }
 
+    updateViewOnlyInvoice() {
+        localStorage.setItem('TRANSACTION_VIEW_INVOICE', String(this.viewOnlyInvoice));
+    }
+
     rowExpanded(transaction: any) {
         if (!transaction.hasInvoice) return;
 
@@ -230,7 +237,7 @@ export class SearchTransactionComponent implements OnInit {
     private executeSearch(filters: string) {
         this.transactionService.findBy(filters).then(response => {
             this.transactions.length = 0;
-            this.transactions = response;
+            this.transactions = response; //.filter(t => t.hasInvoice === this.viewOnlyInvoice);
 
             for (const transaction of this.transactions) {
                 if (this.expand) {
@@ -240,7 +247,6 @@ export class SearchTransactionComponent implements OnInit {
 
             this.updateBalance(filters);
             this.remainingPages = response.length > 0 ? response[0].remainingPages : -1;
-
             this.cdr.detectChanges();
         });
     }

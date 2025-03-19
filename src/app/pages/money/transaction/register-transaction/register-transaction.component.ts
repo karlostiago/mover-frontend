@@ -76,7 +76,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         if (this.transaction.id) {
             this.update();
         } else {
-            this.save(form);
+            void this.save(form);
         }
     }
 

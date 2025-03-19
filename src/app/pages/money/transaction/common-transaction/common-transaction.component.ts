@@ -29,7 +29,6 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     private selectedCards = new Array<CardEntity>();
 
     @Input() transaction: TransactionEntity;
-    @Input() updateForm: boolean;
 
     constructor(private accountService: AccountService,
                 private cardService: CardService,
@@ -47,18 +46,13 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
             this.loadingContracts(),
             this.loadingCards()
         ]);
-
-        if (this.updateForm) {
-            this.onChangeContract();
-            this.onChangeCard();
-        }
     }
 
     onChangeCard() {
         // @ts-ignore
         this.cards = [ { id: 0, name: 'Selecione' }, ...this.selectedCards.filter(c => c.accountId === this.transaction['accountId'])];
-        this.transaction['cardId'] = 0;
-        this.transaction['dueDate'] = null;
+        this.transaction.dueDate = null;
+        this.transaction.cardId = 0;
     }
 
     onChangeContract() {
@@ -74,7 +68,7 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
 
         this.loadService.automatic = false;
         this.transactionService.calculateCutOffDate(this.transaction).then(response => {
-            Object.assign(this.transaction, response);
+            this.transaction.dueDate = response.dueDate;
         }).finally(() => {
             this.loadService.automatic = true;
         });

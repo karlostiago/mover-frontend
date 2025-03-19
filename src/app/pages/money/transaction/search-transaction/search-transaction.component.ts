@@ -140,7 +140,9 @@ export class SearchTransactionComponent implements OnInit {
 
             response.forEach(t => {
                 if (!existingIds.has(t.id)) {
-                    this.rowExpanded(t);
+                    if (this.expand) {
+                        this.rowExpanded(t);
+                    }
                     this.transactions.push(t);
                     existingIds.add(t.id);
                 }
@@ -166,7 +168,6 @@ export class SearchTransactionComponent implements OnInit {
 
     rowExpanded(transaction: any) {
         if (!transaction.hasInvoice) return;
-        if (!this.expand) return;
 
         const invoice = transaction['invoice'];
         const index = this.transactions.indexOf(transaction);
@@ -232,7 +233,9 @@ export class SearchTransactionComponent implements OnInit {
             this.transactions = response;
 
             for (const transaction of this.transactions) {
-                this.rowExpanded(transaction);
+                if (this.expand) {
+                    this.rowExpanded(transaction);
+                }
             }
 
             this.updateBalance(filters);

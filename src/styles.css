@@ -279,6 +279,10 @@ a.btn:active {
     box-shadow: none;
 }
 
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
+    transform: translateX(1rem);
+}
+
 /**
  * ---------------------------------------------------------
  *      Configuração de estilos dos dropdown

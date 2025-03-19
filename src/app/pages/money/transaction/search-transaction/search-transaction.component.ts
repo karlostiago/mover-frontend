@@ -42,6 +42,9 @@ export class SearchTransactionComponent implements OnInit {
     allowUndoScheduling: boolean = false;
     allowFilterTransactions: boolean = false;
 
+    expand: boolean = false;
+    enableConfig: boolean = false;
+
     constructor(private alertService: AlertService,
                 private accountServce: AccountService,
                 private confirmationService: ConfirmationService,
@@ -55,6 +58,7 @@ export class SearchTransactionComponent implements OnInit {
     async ngOnInit() {
         await this.loadingAccounts();
         const fromUpdate = !!localStorage.getItem("TRANSACTION_UPDATE");
+        this.expand = localStorage.getItem('TRANSACTION_EXPAND') === 'true';
 
         this.allowPayment = this.authService.hasPermission('PAYMENT_TRANSACTIONS');
         this.allowSchedule = this.authService.hasPermission('SCHEDULE_TRANSACTIONS');
@@ -132,7 +136,17 @@ export class SearchTransactionComponent implements OnInit {
     showMore() {
         this.page = this.page + 1;
         this.transactionService.findBy(this.createFilters()).then(response => {
-            this.transactions = [...this.transactions, ...response];
+            const existingIds = new Set(this.transactions.map(tr => tr.id));
+
+            response.forEach(t => {
+                if (!existingIds.has(t.id)) {
+                    this.rowExpanded(t);
+                    this.transactions.push(t);
+                    existingIds.add(t.id);
+                }
+            });
+
+            this.transactions = [...this.transactions];
 
             this.remainingPages = response.length > 0 ? response[0].remainingPages : -1;
             this.paginationService.storedData = this.transactions;
@@ -146,8 +160,13 @@ export class SearchTransactionComponent implements OnInit {
         this.updateBalance(this.createFilters());
     }
 
+    updateExpand() {
+        localStorage.setItem('TRANSACTION_EXPAND', String(this.expand));
+    }
+
     rowExpanded(transaction: any) {
         if (!transaction.hasInvoice) return;
+        if (!this.expand) return;
 
         const invoice = transaction['invoice'];
         const index = this.transactions.indexOf(transaction);
@@ -208,22 +227,18 @@ export class SearchTransactionComponent implements OnInit {
     }
 
     private executeSearch(filters: string) {
-        this.cdr.detach();
         this.transactionService.findBy(filters).then(response => {
             this.transactions.length = 0;
             this.transactions = response;
 
             for (const transaction of this.transactions) {
-                if (transaction.hasInvoice) {
-                    // this.rowExpanded(transaction);
-                }
+                this.rowExpanded(transaction);
             }
 
             this.updateBalance(filters);
             this.remainingPages = response.length > 0 ? response[0].remainingPages : -1;
 
             this.cdr.detectChanges();
-            this.cdr.reattach();
         });
     }
 

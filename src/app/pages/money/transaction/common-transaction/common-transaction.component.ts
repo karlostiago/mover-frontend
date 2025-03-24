@@ -46,6 +46,15 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
             this.loadingContracts(),
             this.loadingCards()
         ]);
+
+        setTimeout(() => {
+            if (this.transaction.accountId > 0) {
+                this.onChangeCard();
+            }
+            if (this.transaction.vehicleId > 0) {
+                this.onChangeContract();
+            }
+        }, 1000);
     }
 
     onChangeCard() {

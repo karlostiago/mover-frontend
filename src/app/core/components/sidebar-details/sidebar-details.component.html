@@ -1,0 +1,30 @@
+<p-sidebar *ngIf="value" [(visible)]="visible" [modal]="true" position="bottom" (onHide)="close()">
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <ng-container *ngFor="let field of fields">
+                            <div class="col-md-{{ field.col }}">
+                                <label class="form-label">
+                                    <strong>{{ field.label }}:</strong>
+                                </label>
+                                <input pInputText class="form-control" readonly [value]="field.value" />
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <ng-content select="[actions]"></ng-content>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-sidebar>

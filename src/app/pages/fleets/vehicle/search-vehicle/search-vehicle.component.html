@@ -39,87 +39,51 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table [value]="vehicles" [paginator]="vehicles.length > 10" [rows]="10"
-                             responsiveLayout="stack" [breakpoint]="'1300px'"
+                    <p-table [value]="vehicles"
+                             dataKey="id"
+                             responsiveLayout="stack"
+                             [breakpoint]="'1300px'"
+                             selectionMode="single"
+                             [(selection)]="selectedValue"
+                             (onRowSelect)="onRowSelect()"
+                             (onRowUnselect)="onRowUnSelect($event)"
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+
                         <ng-template pTemplate="header">
                             <tr *ngIf="vehicles.length > 0">
-                                <th class="text-left">MARCA</th>
-                                <th class="text-left">MODELO</th>
-                                <th class="text-center">PLACA</th>
-                                <th class="text-center">ANO FABRICAÇÃO / ANO MODELO</th>
-                                <th class="text-center">V. AQUISIÇÃO</th>
+                                <th class="text-left" style="width: 60%">DESCRIÇÃO</th>
                                 <th class="text-center">SITUAÇÃO</th>
-                                <th class="text-center">FIPE</th>
                                 <th class="text-center">ATIVO</th>
-                                <th class="text-center">AÇÕES</th>
+                                <th class="text-center">VALOR AQUISIÇÃO</th>
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="body" let-vehicle>
-                            <tr>
+                            <tr [pSelectableRow]="vehicle">
                                 <td class="text-left">
-                                    <span class="p-column-title">MARCA</span>
-                                    <span>{{ vehicle['brandName'] }}</span>
-                                </td>
-                                <td class="text-left">
-                                    <span class="p-column-title">MODELO</span>
-                                    <span> {{ vehicle['modelName'] }} </span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">PLACA</span>
-                                    {{ vehicle['licensePlate'] }}
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">FAB. / MOD.</span>
-                                    {{ vehicle['yearManufacture'] }} / {{ vehicle['modelYear'] }}
-                                </td>
-                                <td class="text-right">
-                                    <span class="p-column-title">V. AQUISIÇÃO</span>
-                                    {{ vehicle['acquisitionValue'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                                    <span class="p-column-title">DESCRIÇÃO</span>
+                                    <span>{{ vehicle['fullname'] }}</span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">SITUAÇÃO</span>
-                                    {{ vehicle['situation'] }}
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">FIPE</span>
-                                    <p-button [link]="true" [disabled]="!authService.hasPermission('VIEW_FIPE_VEHICLES')" (click)="showDialogFipe(vehicle['id'])">
-                                        <i class="fa-regular fa-eye"></i>
-                                    </p-button>
+                                    <span>{{ vehicle['situation'] }}</span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>
-                                    <span class=" {{ vehicle['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
-                                        {{ vehicle["active"] === true ? 'Sim' : 'Não' }}
+                                    <span class="badge rounded-pill {{ vehicle['active'] == true ? 'text-bg-success' : 'text-bg-danger' }} ">
+                                        {{ vehicle["active"] === true ? 'SIM' : 'NÃO' }}
                                     </span>
                                 </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">AÇÔES</span>
-                                    <div class="dropdown position-static">
-                                        <button class="btn btn-secondary btn-sm" type="button" id="actions" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="actions">
-                                            <li>
-                                                <p-button class="dropdown-item" [link]="true" (click)="confirmationDelete(vehicle)" [disabled]="!authService.hasPermission('DELETE_VEHICLES')">
-                                                    <i class="fa-regular fa-trash-can m-sm-1"></i> Excluir
-                                                </p-button>
-                                            </li>
-                                            <li>
-                                                <p-button class="dropdown-item" [link]="true" [routerLink]="['/vehicles/', vehicle.id]" [disabled]="!authService.hasPermission('UPDATE_VEHICLES')">
-                                                    <i class="fa-regular fa-pen-to-square m-sm-1"></i> Editar
-                                                </p-button>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <span class="p-column-title">V. AQUISIÇÃO</span>
+                                    {{ vehicle['acquisitionValue'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                                 </td>
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td colspan="6" style="text-align: center;">
+                                <td colspan="4" style="text-align: center;">
                                     Nenhum registro encontrado.
                                 </td>
                             </tr>
@@ -130,3 +94,20 @@
         </div>
     </div>
 </form>
+
+<app-sidebar-details [value]="selectedValue" [visible]="visibleSidebar" [fields]="fields" (visibleChange)="closeSidebarDetails()">
+    <div actions *ngIf="selectedValue">
+        <button type="button" pButton class="p-button-contrast p-button-sm me-2" [routerLink]="['/vehicles/', selectedValue.id]" [disabled]="!authService.hasPermission('UPDATE_VEHICLES')">
+            <i class="fa-solid fa-pencil m-1"></i>
+            Editar
+        </button>
+        <button type="button" pButton class="p-button-contrast p-button-sm me-2" (click)="confirmationDelete(selectedValue)" [disabled]="!authService.hasPermission('DELETE_VEHICLES')">
+            <i class="fa-solid fa-remove m-1"></i>
+            Excluir
+        </button>
+        <button type="button" pButton class="p-button-contrast p-button-sm" [disabled]="!authService.hasPermission('VIEW_FIPE_VEHICLES')" (click)="showDialogFipe(selectedValue['id'])">
+            <i class="fa-regular fa-eye m-1"></i>
+            Ver Fipe
+        </button>
+    </div>
+</app-sidebar-details>

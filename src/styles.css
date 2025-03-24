@@ -102,7 +102,7 @@ input, textarea {
 }
 
 .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
-    background: #ebebeb !important;
+    background: #ebebeb;
 }
 
 .p-datatable .p-datatable-tbody > tr > td {
@@ -112,6 +112,11 @@ input, textarea {
 .p-datatable-scrollable-table>.p-datatable-tbody>.p-rowgroup-header {
     position: sticky;
     z-index: inherit;
+}
+
+.p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover,
+.p-datatable .p-datatable-tbody > tr.p-highlight {
+    background: #1f89063d !important;
 }
 /**
  * ---------------------------------------------------------
@@ -168,10 +173,6 @@ input, textarea {
 .cursor-no_drop {
     cursor: no-drop !important;
 }
-
-/*input[readonly] {*/
-/*    cursor: no-drop !important;*/
-/*}*/
 
 .dropdown-no-drop > .p-dropdown .p-inputtext {
     cursor: no-drop!important;
@@ -304,7 +305,6 @@ a.btn:active {
 .p-dropdown .p-dropdown-label.p-placeholder {
     color: rgba(0, 0, 0, 0.54);
     font-weight: 300;
-    margin-top: -1px;
 }
 
 .p-dropdown .p-dropdown-label, .p-dropdown-item, .p-dropdown-empty-message {
@@ -473,39 +473,6 @@ textarea {
 
 /**
  * ---------------------------------------------------------
- *      Configuração de estilos tabview
- * ---------------------------------------------------------
- */
-
-.p-tabview .p-tabview-nav li .p-tabview-nav-link {
-    text-decoration: inherit!important;
-    font-family: 'Ubuntu', sans-serif!important;
-    color: rgba(0, 0, 0, 0.54) !important;
-    font-weight: 500;
-
-    border-width: 0 0 3px 0;
-}
-
-.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    border-color: #47b051;
-}
-
-.p-tabview .p-tabview-nav {
-    margin-top: 1px !important;
-    margin-left: -30px;
-}
-
-.p-tabview-nav {
-    display: flex;
-}
-
-.p-tabview-nav li {
-    flex: 1;
-    text-align: center;
-}
-
-/**
- * ---------------------------------------------------------
  *      Configuração de estilos container icon
  * ---------------------------------------------------------
  */
@@ -538,4 +505,21 @@ textarea {
     margin-top: 2px;
     text-align: center;
     color: rgba(0, 0, 0, 0.54);
+}
+
+/**
+ * ---------------------------------------------------------
+ *      Configuração de estilos p-sidebar
+ * ---------------------------------------------------------
+ */
+.p-sidebar-bottom {
+    height: 25rem;
+}
+
+.p-sidebar-content input {
+    padding: 0 !important;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-radius: 0;
 }

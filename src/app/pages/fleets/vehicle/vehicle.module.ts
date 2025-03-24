@@ -12,6 +12,8 @@ import {DropdownModule} from "primeng/dropdown";
 import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../../../shared/SharedModule";
 import {TooltipModule} from "primeng/tooltip";
+import {SidebarModule} from "primeng/sidebar";
+import {SidebarDetailsModule} from "../../../core/components/sidebar-details/sidebar-details.module";
 
 @NgModule({
     declarations: [
@@ -34,7 +36,9 @@ import {TooltipModule} from "primeng/tooltip";
         DropdownModule,
         DialogModule,
         SharedModule,
-        TooltipModule
+        TooltipModule,
+        SidebarModule,
+        SidebarDetailsModule
     ]
 })
 export class VehicleModule { }

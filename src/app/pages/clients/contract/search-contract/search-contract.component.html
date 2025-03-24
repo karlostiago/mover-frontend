@@ -39,7 +39,13 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table [value]="contracts" [paginator]="contracts.length > 10" [rows]="10"
+                    <p-table #table
+                             [value]="contracts" [paginator]="contracts.length > 10" [rows]="10"
+                             dataKey="id"
+                             selectionMode="single"
+                             [(selection)]="selectedValue"
+                             (onRowSelect)="onRowSelect()"
+                             (onRowUnselect)="onRowUnSelect($event)"
                              responsiveLayout="stack" [breakpoint]="'1300px'"
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
                         <ng-template pTemplate="header">
@@ -48,16 +54,14 @@
                                 <th class="text-left">VEÍCULO</th>
                                 <th class="text-left">CLIENTE</th>
                                 <th class="text-center">FORMA PAGAMENTO</th>
-                                <th class="text-center">VR. CAUÇÃO</th>
                                 <th class="text-center">VR. RECORRENTE</th>
                                 <th class="text-center">SITUAÇÃO</th>
                                 <th class="text-center">ATIVO</th>
-                                <th class="text-center">AÇÕES</th>
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="body" let-contract>
-                            <tr>
+                            <tr [pSelectableRow]="contract">
                                 <td class="text-center">
                                     <span class="p-column-title">NÚMERO</span>
                                     {{ contract['number'] }}
@@ -75,10 +79,6 @@
                                     {{ contract['paymentFrequency'] }} / {{ contract['paymentDay'].substring(0, 3) }}
                                 </td>
                                 <td class="text-right">
-                                    <span class="p-column-title">VR. CAUÇÃO</span>
-                                    {{ contract['depositAmount'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-                                </td>
-                                <td class="text-right">
                                     <span class="p-column-title">VR. RECORRENTE</span>
                                     {{ contract['recurrenceValue'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                                 </td>
@@ -91,31 +91,6 @@
                                     <span class=" {{ contract['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
                                         {{ contract["active"] === true ? 'Sim' : 'Não' }}
                                     </span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">AÇÔES</span>
-                                    <div class="dropdown position-static">
-                                        <button class="btn btn-secondary btn-sm" type="button" id="actions" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="actions">
-                                            <li>
-                                                <p-button class="dropdown-item" [link]="true" (click)="confirmationDelete(contract)" [disabled]="!authService.hasPermission('DELETE_CONTRACTS')">
-                                                    <i class="fa-regular fa-trash-can m-sm-1"></i> Excluir
-                                                </p-button>
-                                            </li>
-                                            <li>
-                                                <p-button class="dropdown-item" [link]="true" [routerLink]="['/contracts/', contract.id]" [disabled]="!authService.hasPermission('UPDATE_CONTRACTS')">
-                                                    <i class="fa-regular fa-pen-to-square m-sm-1"></i> Editar
-                                                </p-button>
-                                            </li>
-                                            <li>
-                                                <p-button class="dropdown-item" [link]="true" (click)="close(contract)" *ngIf="contract['situation'] !== 'ENCERRADO'" [disabled]="!authService.hasPermission('TERMINATION_CONTRACTS')">
-                                                    <i class="far fa-file-excel m-sm-1"></i> Encerrar
-                                                </p-button>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </td>
                             </tr>
                         </ng-template>
@@ -133,3 +108,20 @@
         </div>
     </div>
 </form>
+
+<app-sidebar-details [value]="selectedValue" [visible]="visibleSidebar" [fields]="fields" (visibleChange)="closeSidebarDetails()">
+    <div actions *ngIf="selectedValue">
+        <button type="button" pButton class="p-button-contrast p-button-sm me-2" [routerLink]="['/contracts/', selectedValue.id]" *ngIf="selectedValue['situation'] !== 'ENCERRADO'" [disabled]="!authService.hasPermission('UPDATE_CONTRACTS')">
+            <i class="fa-solid fa-pencil m-1"></i>
+            Editar
+        </button>
+        <button type="button" pButton class="p-button-contrast p-button-sm me-2" (click)="confirmationDelete(selectedValue)" [disabled]="!authService.hasPermission('DELETE_CONTRACTS')">
+            <i class="fa-solid fa-remove m-1"></i>
+            Excluir
+        </button>
+        <button type="button" pButton class="p-button-contrast p-button-sm" (click)="close(selectedValue)" *ngIf="selectedValue['situation'] !== 'ENCERRADO'" [disabled]="!authService.hasPermission('TERMINATION_CONTRACTS')">
+            <i class="far fa-file-excel m-1"></i>
+            Encerrar
+        </button>
+    </div>
+</app-sidebar-details>

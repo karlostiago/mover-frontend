@@ -13,6 +13,7 @@ import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../../../shared/SharedModule";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {SpeedDialModule} from "primeng/speeddial";
+import {SidebarDetailsModule} from "../../../core/components/sidebar-details/sidebar-details.module";
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import {SpeedDialModule} from "primeng/speeddial";
         DialogModule,
         SharedModule,
         InputTextareaModule,
-        SpeedDialModule
+        SpeedDialModule,
+        SidebarDetailsModule
     ]
 })
 export class ContractModule { }

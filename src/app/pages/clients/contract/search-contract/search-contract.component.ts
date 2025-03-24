@@ -7,13 +7,14 @@ import {ContractEntity} from "../../../../../entity/ContractEntity";
 import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/GlobalDialogService";
 import {AuthService} from "../../../../core/login/auth.service";
 import {ErrorHandler} from "../../../../core/handler/ErrorHandler";
+import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
 
 @Component({
   selector: 'app-search-contract',
   templateUrl: './search-contract.component.html',
   styleUrls: ['./search-contract.component.css']
 })
-export class SearchContractComponent implements OnInit {
+export class SearchContractComponent extends AbstractSearch implements OnInit {
 
     contracts = new Array<ContractEntity>();
     searchFilter: string = "";
@@ -26,11 +27,12 @@ export class SearchContractComponent implements OnInit {
                 protected authService: AuthService,
                 private error: ErrorHandler,
                 private contractService: ContractService) {
+        super();
     }
 
     ngOnInit(): void {
         this.contractService.findAll().then(response => {
-            this.contracts = response;
+            this.contracts = super.findAll(response);
         });
     }
 
@@ -53,7 +55,7 @@ export class SearchContractComponent implements OnInit {
 
     delete(id: number) {
         this.contractService.delete(id).then(() => {
-            this.contracts = this.contracts.filter(v => v.id !== id);
+            this.contracts = super.deleteById(id, this.contracts);
             this.alertService.success("Registro deletado com sucesso.");
         });
     }
@@ -63,5 +65,19 @@ export class SearchContractComponent implements OnInit {
             this.contracts = response;
             this.table?.reset();
         });
+    }
+
+    createFieldsSidebarDetails(): void {
+        this.fields = [
+            { label: 'Número', value: this.selectedValue.number, col: 2 },
+            { label: 'Veículo', value: this.selectedValue.vehicleName, col: 3 },
+            { label: 'Cliente', value: this.selectedValue.clientName, col: 3 },
+            { label: 'Forma de pagamento', value: this.selectedValue.paymentFrequency, col: 2 },
+            { label: 'Dia do pagamento', value: this.selectedValue.paymentDay, col: 2 },
+            { label: 'Valor caução', value: new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(this.selectedValue.depositAmount), col: 2 },
+            { label: 'Valor recorrencia', value: new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(this.selectedValue.recurrenceValue), col: 3 },
+            { label: 'Situação', value: this.selectedValue.situation, col: 3 },
+            { label: 'Ativo', value: this.selectedValue.active ? 'SIM' : 'NÃO', col: 2 }
+        ]
     }
 }

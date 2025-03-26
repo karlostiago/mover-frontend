@@ -18,4 +18,5 @@ export class ContractEntity {
     active: boolean = true;
     friendlyTermination: boolean = true;
     inactiveClient: boolean = false;
+    clientContact: string;
 }

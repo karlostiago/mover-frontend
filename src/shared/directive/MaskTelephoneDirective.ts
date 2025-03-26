@@ -1,5 +1,6 @@
 import {Directive, ElementRef, forwardRef, HostListener, Renderer2} from "@angular/core";
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
+import {MaskHelpers} from "../MaskHelpers";
 
 @Directive({
     selector: '[appMaskTelephone]',
@@ -52,17 +53,7 @@ export class MaskTelephoneDirective {
     }
 
     private applyMask(value: string): string {
-        if (!value) {
-            return '';
-        }
-        if (value.length <= 10) {
-            value = value.replace(/^(\d{2})(\d)/, '($1) $2');
-            value = value.replace(/(\d{4})(\d)/, '$1-$2');
-        } else {
-            value = value.replace(/^(\d{2})(\d)/, '($1) $2');
-            value = value.replace(/(\d{5})(\d)/, '$1-$2');
-        }
-        return value;
+        return MaskHelpers.maskTelephone(value);
     }
 
     private cleanValue(value: string): string {

@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
-export interface InputField {
+export class InputField {
     label: string;
     value: any;
     col: number;
+    visible?: boolean = true;
 }
 
 @Component({

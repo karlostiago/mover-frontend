@@ -96,7 +96,7 @@
 </form>
 
 <app-sidebar-details [value]="selectedValue" [visible]="visibleSidebar" [fields]="fields" (visibleChange)="closeSidebarDetails()">
-    <div actions *ngIf="selectedValue">
+    <div actions>
         <button type="button" pButton class="p-button-contrast p-button-sm me-2" [routerLink]="['/vehicles/', selectedValue.id]" [disabled]="!authService.hasPermission('UPDATE_VEHICLES')">
             <i class="fa-solid fa-pencil m-1"></i>
             Editar

@@ -8,6 +8,10 @@ import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/Glo
 import {AuthService} from "../../../../core/login/auth.service";
 import {ErrorHandler} from "../../../../core/handler/ErrorHandler";
 import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
+import {MaskTelephoneDirective} from "../../../../../shared/directive/MaskTelephoneDirective";
+import {MaskHelpers} from "../../../../../shared/MaskHelpers";
+import {NumberHelpers} from "../../../../../shared/NumberHelpers";
+import {DateHelpers} from "../../../../../shared/DateHelpers";
 
 @Component({
   selector: 'app-search-contract',
@@ -69,15 +73,17 @@ export class SearchContractComponent extends AbstractSearch implements OnInit {
 
     createFieldsSidebarDetails(): void {
         this.fields = [
-            { label: 'Número', value: this.selectedValue.number, col: 2 },
-            { label: 'Veículo', value: this.selectedValue.vehicleName, col: 3 },
-            { label: 'Cliente', value: this.selectedValue.clientName, col: 3 },
-            { label: 'Forma de pagamento', value: this.selectedValue.paymentFrequency, col: 2 },
-            { label: 'Dia do pagamento', value: this.selectedValue.paymentDay, col: 2 },
-            { label: 'Valor caução', value: new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(this.selectedValue.depositAmount), col: 2 },
-            { label: 'Valor recorrencia', value: new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(this.selectedValue.recurrenceValue), col: 3 },
-            { label: 'Situação', value: this.selectedValue.situation, col: 3 },
-            { label: 'Ativo', value: this.selectedValue.active ? 'SIM' : 'NÃO', col: 2 }
+            { label: 'Número', value: this.selectedValue.number, col: 2, visible: true },
+            { label: 'Veículo', value: this.selectedValue.vehicleName, col: 3, visible: true },
+            { label: 'Cliente', value: this.selectedValue.clientName, col: 4, visible: true },
+            { label: 'Contato do cliente', value: MaskHelpers.maskTelephone(this.selectedValue.clientContact), col: 3, visible: true },
+            { label: 'Ciclo de pagamento', value: this.selectedValue.paymentFrequency, col: 2, visible: true },
+            { label: 'Dia do pagamento', value: this.selectedValue.paymentDay, col: 3, visible: true },
+            { label: 'Valor caução', value: NumberHelpers.currencyBRL(this.selectedValue.depositAmount), col: 4, visible: true },
+            { label: 'Valor recorrencia', value: NumberHelpers.currencyBRL(this.selectedValue.recurrenceValue), col: 3, visible: true },
+            { label: 'Situação', value: this.selectedValue.situation, col: 2, visible: true },
+            { label: 'Data encerramento', value: DateHelpers.parseToPtBr(this.selectedValue.endDate), col: 3, visible: !!this.selectedValue.endDate },
+            { label: 'Ativo', value: this.selectedValue.active ? 'SIM' : 'NÃO', col: 3, visible: true }
         ]
     }
 }

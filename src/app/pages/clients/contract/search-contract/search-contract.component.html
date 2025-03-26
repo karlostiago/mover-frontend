@@ -39,47 +39,53 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table
-                             [value]="contracts" [paginator]="contracts.length > 10" [rows]="10"
+                    <p-table #table appStickTableHeader
+                             [value]="contracts"
                              dataKey="id"
                              selectionMode="single"
+                             rowGroupMode="subheader"
+                             groupRowsBy="clientId"
                              [(selection)]="selectedValue"
                              (onRowSelect)="onRowSelect()"
                              (onRowUnselect)="onRowUnSelect($event)"
                              responsiveLayout="stack" [breakpoint]="'1300px'"
-                             styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+                             styleClass="p-datatable-striped p-datatable p-datatable-gridlines"
+                             [customSort]="true">
                         <ng-template pTemplate="header">
                             <tr *ngIf="contracts.length > 0">
-                                <th class="text-center">NÚMERO</th>
+                                <th class="text-left">NÚMERO</th>
                                 <th class="text-left">VEÍCULO</th>
-                                <th class="text-left">CLIENTE</th>
-                                <th class="text-center">FORMA PAGAMENTO</th>
-                                <th class="text-center">VR. RECORRENTE</th>
+                                <th class="text-center">CICLO PAGAMENTO</th>
+                                <th class="text-center">VALOR</th>
                                 <th class="text-center">SITUAÇÃO</th>
                                 <th class="text-center">ATIVO</th>
                             </tr>
                         </ng-template>
 
+                        <ng-template pTemplate="groupheader" let-contract>
+                            <tr pRowGroupHeader>
+                                <td colspan="6">
+                                    <strong style="font-size: 1rem;"> {{ contract['clientName'] }} </strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+
                         <ng-template pTemplate="body" let-contract>
                             <tr [pSelectableRow]="contract">
-                                <td class="text-center">
+                                <td class="text-left">
                                     <span class="p-column-title">NÚMERO</span>
-                                    {{ contract['number'] }}
+                                    <span> {{ contract['number'] }} </span>
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">VEÍCULO</span>
                                     <span> {{ contract['vehicleName'] }} </span>
                                 </td>
-                                <td class="text-left">
-                                    <span class="p-column-title">CLIENTE</span>
-                                    <span> {{ contract['clientName'] }} </span>
-                                </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">FORMA PAG.</span>
-                                    {{ contract['paymentFrequency'] }} / {{ contract['paymentDay'].substring(0, 3) }}
+                                    <span class="p-column-title">CICLO PAG.</span>
+                                    {{ contract['paymentFrequency'] }}
                                 </td>
                                 <td class="text-right">
-                                    <span class="p-column-title">VR. RECORRENTE</span>
+                                    <span class="p-column-title">VALOR</span>
                                     {{ contract['recurrenceValue'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                                 </td>
                                 <td class="text-center">
@@ -97,7 +103,7 @@
 
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td colspan="4" style="text-align: center;">
+                                <td colspan="7" style="text-align: center;">
                                     Nenhum registro encontrado.
                                 </td>
                             </tr>
@@ -110,8 +116,8 @@
 </form>
 
 <app-sidebar-details [value]="selectedValue" [visible]="visibleSidebar" [fields]="fields" (visibleChange)="closeSidebarDetails()">
-    <div actions *ngIf="selectedValue">
-        <button type="button" pButton class="p-button-contrast p-button-sm me-2" [routerLink]="['/contracts/', selectedValue.id]" *ngIf="selectedValue['situation'] !== 'ENCERRADO'" [disabled]="!authService.hasPermission('UPDATE_CONTRACTS')">
+    <div actions>
+        <button type="button" pButton class="p-button-contrast p-button-sm me-2" [routerLink]="['/contracts/', selectedValue.id]" [disabled]="!authService.hasPermission('UPDATE_CONTRACTS')">
             <i class="fa-solid fa-pencil m-1"></i>
             Editar
         </button>

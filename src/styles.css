@@ -102,22 +102,26 @@ input, textarea {
 }
 
 .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
-    background: #ebebeb;
+    background: #ebebeb !important;
 }
 
 .p-datatable .p-datatable-tbody > tr > td {
     padding: 0.55rem 1rem;
 }
 
-.p-datatable-scrollable-table>.p-datatable-tbody>.p-rowgroup-header {
-    position: sticky;
-    z-index: inherit;
+.p-datatable .p-datatable-tbody > tr.p-rowgroup-header:hover {
+    background: transparent;
 }
 
-.p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover,
-.p-datatable .p-datatable-tbody > tr.p-highlight {
-    background: #1f89063d !important;
+.p-datatable .p-datatable-tbody > tr.p-selectable-row:hover {
+    background: #7897733b !important;
 }
+
+.p-datatable .p-datatable-tbody > tr.p-highlight,
+.p-datatable .p-datatable-tbody > tr.p-selectable-row.p-highlight {
+    background: #56957366 !important;
+}
+
 /**
  * ---------------------------------------------------------
  *      Configuração de estilos dos cards

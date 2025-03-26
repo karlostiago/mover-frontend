@@ -4,8 +4,24 @@ export class DateHelpers {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate());
     }
 
+    static parseToPtBr(dateStr: string) {
+
+        if (dateStr && dateStr.length === 10) return dateStr;
+
+        const date = new Date(dateStr);
+
+        if (isNaN(date.getTime())) {
+            return '';
+        }
+
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+
+        return `${day}/${month}/${year}`;
+    }
+
     static toISOToString(date: Date) {
-        console.log(date);
         return date.toISOString().split('T')[0];
     }
 

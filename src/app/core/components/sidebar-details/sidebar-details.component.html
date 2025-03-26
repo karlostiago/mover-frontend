@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <div class="row">
                         <ng-container *ngFor="let field of fields">
-                            <div class="col-md-{{ field.col }}">
+                            <div class="col-md-{{ field.col }}" *ngIf="field.visible">
                                 <label class="form-label">
                                     <strong>{{ field.label }}:</strong>
                                 </label>

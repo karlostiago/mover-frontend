@@ -77,7 +77,8 @@ export class SearchContractComponent extends AbstractSearch implements OnInit {
             { label: 'Valor caução', value: NumberHelpers.currencyBRL(this.selectedValue.depositAmount), col: 2, visible: true },
             { label: 'Valor recorrencia', value: NumberHelpers.currencyBRL(this.selectedValue.recurrenceValue), col: 3, visible: true },
             { label: 'Situação', value: this.selectedValue.situation, col: 2, visible: true },
-            { label: 'Data encerramento', value: DateHelpers.parseToPtBr(this.selectedValue.endDate), col: 2, visible: !!this.selectedValue.endDate },
+            { label: 'Data encerramento', value: DateHelpers.parseToPtBr(this.selectedValue.endDate), col: 2, visible: this.selectedValue.situation === 'ENCERRADO' },
+            { label: 'Data encerramento', value: '', col: 2, visible: this.selectedValue.situation !== 'ENCERRADO' },
             { label: 'Ativo', value: this.selectedValue.active ? 'SIM' : 'NÃO', col: 1, visible: true },
             { label: 'Motivo', value: this.selectedValue.reason, col: 12, visible: !!this.selectedValue.endDate }
         ]

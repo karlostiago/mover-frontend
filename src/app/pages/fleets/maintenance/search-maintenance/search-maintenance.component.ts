@@ -1,32 +1,32 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../../shared/service/AlertService";
 import {MaintenanceService} from "../maintenance.service";
-import {Table} from "primeng/table";
 import {MaintenanceEntity} from "../../../../../entity/MaintenanceEntity";
 import {AuthService} from "../../../../core/login/auth.service";
+import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
+import {NumberHelpers} from "../../../../../shared/NumberHelpers";
 
 @Component({
   selector: 'app-search-maintenance',
   templateUrl: './search-maintenance.component.html',
   styleUrls: ['./search-maintenance.component.css']
 })
-export class SearchMaintenanceComponent implements OnInit {
+export class SearchMaintenanceComponent extends AbstractSearch implements OnInit {
 
     maintenances = new Array<MaintenanceEntity>();
     searchFilter: string = "";
-
-    @ViewChild("table") table: Table | undefined;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
                 protected authService: AuthService,
                 private maintenanceService: MaintenanceService) {
+        super();
     }
 
     ngOnInit(): void {
         this.maintenanceService.findAll().then(response => {
-            this.maintenances = response;
+            this.maintenances = super.findAll(response);
         });
     }
 
@@ -41,7 +41,7 @@ export class SearchMaintenanceComponent implements OnInit {
 
     delete(id: number) {
         this.maintenanceService.delete(id).then(() => {
-            this.maintenances = this.maintenances.filter(v => v.id !== id);
+            this.maintenances = super.deleteById(id, this.maintenances);
             this.alertService.success("Registro deletado com sucesso.");
         });
     }
@@ -49,7 +49,22 @@ export class SearchMaintenanceComponent implements OnInit {
     filterBy() {
         this.maintenanceService.findBy(this.searchFilter).then(response => {
             this.maintenances = response;
-            this.table?.reset();
         });
+    }
+
+    createFieldsSidebarDetails(): void {
+        this.fields = [
+            { label: 'Veículo', value: this.selectedValue.vehicleName, col: 4, visible: true },
+            { label: 'Estabelecimento', value: this.selectedValue.establishment, col: 6, visible: true },
+            { label: 'Data do serviço', value: this.selectedValue.date, col: 2, visible: true },
+            { label: 'Conta', value: this.selectedValue.account, col: 3, visible: true },
+            { label: 'Cartão', value: this.selectedValue.card, col: 3, visible: this.selectedValue.card },
+            { label: 'Cartão', value: '', col: 3, visible: !this.selectedValue.card },
+            { label: 'KM Registrado', value: this.selectedValue.mileage, col: 2, visible: true },
+            { label: 'Tipo', value: this.selectedValue.type, col: 2, visible: true },
+            { label: 'Valor do serviço', value: NumberHelpers.currencyBRL(this.selectedValue.value), col: 2, visible: true },
+            { label: 'Detalhe do que foi realizado', value: this.selectedValue.detail, col: 12, visible: true },
+            { label: 'Ativo', value: this.selectedValue.active ? 'SIM' : 'NÃO', col: 1, visible: true }
+        ]
     }
 }

@@ -11,6 +11,7 @@ import {SharedModule} from "../../../../shared/SharedModule";
 import {FileUploadModule} from "primeng/fileupload";
 import {SearchClientComponent} from "./search-client/search-client.component";
 import {RegisterClientComponent} from "./register-client/register-client.component";
+import {SidebarDetailsModule} from "../../../core/components/sidebar-details/sidebar-details.module";
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import {RegisterClientComponent} from "./register-client/register-client.compone
         DropdownModule,
         SharedModule,
         FileUploadModule,
-        NgOptimizedImage
+        NgOptimizedImage,
+        SidebarDetailsModule
     ]
 })
 export class ClientModule { }

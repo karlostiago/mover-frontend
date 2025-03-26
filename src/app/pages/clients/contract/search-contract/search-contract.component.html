@@ -39,7 +39,7 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table appStickTableHeader
+                    <p-table appStickTableHeader
                              [value]="contracts"
                              dataKey="id"
                              selectionMode="single"
@@ -94,7 +94,7 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>
-                                    <span class=" {{ contract['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                    <span class="badge rounded-pill {{ contract['active'] == true ? 'text-bg-success' : 'text-bg-danger' }} ">
                                         {{ contract["active"] === true ? 'Sim' : 'Não' }}
                                     </span>
                                 </td>

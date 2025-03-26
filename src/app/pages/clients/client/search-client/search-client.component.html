@@ -39,24 +39,27 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table [value]="clients" [paginator]="clients.length > 10" [rows]="10"
+                    <p-table appStickTableHeader
+                             [value]="clients"
+                             dataKey="id"
+                             selectionMode="single"
+                             [(selection)]="selectedValue"
+                             (onRowSelect)="onRowSelect()"
+                             (onRowUnselect)="onRowUnSelect($event)"
                              responsiveLayout="stack" [breakpoint]="'1300px'" styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
 
                         <ng-template pTemplate="header">
                             <tr *ngIf="clients.length > 0">
                                 <th class="text-left">NOME</th>
                                 <th class="text-center">CPF / CNPJ</th>
-                                <th class="text-center">DATA NASCIMENTO</th>
                                 <th class="text-left">E-MAIL</th>
                                 <th class="text-center">CONTATO</th>
-                                <th class="text-center">ENDEREÇO</th>
                                 <th class="text-center">ATIVO</th>
-                                <th class="text-center">AÇÕES</th>
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="body" let-client>
-                            <tr>
+                            <tr [pSelectableRow]="client">
                                 <td class="text-left">
                                     <span class="p-column-title">NOME</span>
                                     <span>{{ client['name'] }}</span>
@@ -64,10 +67,6 @@
                                 <td class="text-center">
                                     <span class="p-column-title">CPF / CNPJ</span>
                                     {{ client['cpfCnpj'] | cpfMask }}
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">DATA NASCIMENTO</span>
-                                    {{ client['birthDate'] }}
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">E-MAIL</span>
@@ -78,43 +77,17 @@
                                     {{ client['cellPhone'] | phoneMask }}
                                 </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">ENDEREÇO</span>
-                                    <p-button [link]="true" (click)="showDialogAddress(client)" class="custom-no-drop" [disabled]="!authService.hasPermission('VIEW_ADDRESS_CLIENTS')">
-                                        <i class="fa-regular fa-eye"></i>
-                                    </p-button>
-                                </td>
-                                <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>
-                                    <span class=" {{ client['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                    <span class="badge rounded-pill {{ client['active'] == true ? 'text-bg-success' : 'text-bg-danger' }} ">
                                         {{ client["active"] === true ? 'Sim' : 'Não' }}
                                     </span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">AÇÕES</span>
-                                    <div class="dropdown position-static">
-                                        <button class="btn btn-secondary btn-sm" type="button" id="actions" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="actions">
-                                            <li>
-                                                <p-button class="dropdown-item" [link]="true" (click)="confirmationDelete(client)" [disabled]="!authService.hasPermission('DELETE_CLIENTS')">
-                                                    <i class="fa-regular fa-trash-can m-sm-1"></i> Excluir
-                                                </p-button>
-                                            </li>
-                                            <li>
-                                                <p-button class="dropdown-item" [link]="true" [routerLink]="['/clients/', client.id]" [disabled]="!authService.hasPermission('UPDATE_CLIENTS')">
-                                                    <i class="fa-regular fa-pen-to-square m-sm-1"></i> Editar
-                                                </p-button>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </td>
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td colspan="9" style="text-align: center;">
+                                <td colspan="4" style="text-align: center;">
                                     Nenhum registro encontrado.
                                 </td>
                             </tr>
@@ -125,3 +98,16 @@
         </div>
     </div>
 </form>
+
+<app-sidebar-details [value]="selectedValue" [visible]="visibleSidebar" [fields]="fields" (visibleChange)="closeSidebarDetails()">
+    <div actions>
+        <button type="button" pButton class="p-button-contrast p-button-sm me-2" [routerLink]="['/clients/', selectedValue.id]" [disabled]="!authService.hasPermission('UPDATE_CLIENTS')">
+            <i class="fa-solid fa-pencil m-1"></i>
+            Editar
+        </button>
+        <button type="button" pButton class="p-button-contrast p-button-sm me-2" (click)="confirmationDelete(selectedValue)" [disabled]="!authService.hasPermission('DELETE_CLIENTS')">
+            <i class="fa-solid fa-remove m-1"></i>
+            Excluir
+        </button>
+    </div>
+</app-sidebar-details>

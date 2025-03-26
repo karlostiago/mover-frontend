@@ -14,8 +14,6 @@ export class StickTableHeader implements AfterViewInit {
     private isIncremented: boolean = false;
     private top: number = 60;
 
-    private scrollTimeout: any = null;
-
     constructor(private el: ElementRef, private renderer: Renderer2, private cdr: ChangeDetectorRef) {}
 
     ngAfterViewInit(): void {

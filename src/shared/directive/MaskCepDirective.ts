@@ -1,5 +1,6 @@
 import {Directive, ElementRef, forwardRef, HostListener, Renderer2} from "@angular/core";
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
+import {MaskHelpers} from "../MaskHelpers";
 
 @Directive({
     selector: '[appMaskCep]',
@@ -52,12 +53,7 @@ export class MaskCepDirective {
     }
 
     private applyMask(value: string): string {
-        if (!value) {
-            return '';
-        }
-        value = value.replace(/^(\d{2})(\d)/, '$1.$2');
-        value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2-$3');
-        return value;
+        return MaskHelpers.maskCep(value);
     }
 
     private cleanValue(value: string): string {

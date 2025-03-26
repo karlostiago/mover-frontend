@@ -1,8 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../../shared/service/AlertService";
 import {ContractService} from "../contract.service";
-import {Table} from "primeng/table";
 import {ContractEntity} from "../../../../../entity/ContractEntity";
 import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/GlobalDialogService";
 import {AuthService} from "../../../../core/login/auth.service";
@@ -21,8 +20,6 @@ export class SearchContractComponent extends AbstractSearch implements OnInit {
 
     contracts = new Array<ContractEntity>();
     searchFilter: string = "";
-
-    @ViewChild("table") table: Table | undefined;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
@@ -66,7 +63,6 @@ export class SearchContractComponent extends AbstractSearch implements OnInit {
     filterBy() {
         this.contractService.findBy(this.searchFilter).then(response => {
             this.contracts = response;
-            this.table?.reset();
         });
     }
 

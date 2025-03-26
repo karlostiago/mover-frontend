@@ -56,13 +56,18 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
         if (this.maintenance.id) {
             this.update();
         } else {
-            this.save(form);
+            void this.save(form);
         }
     }
 
     onChanceCard() {
         this.cardService.findAll().then(response => {
             const cards = response.filter(c => c.accountId === this.maintenance['accountId']);
+
+            if (cards.length === 0) {
+                this.maintenance['cardId'] = 0;
+            }
+
             // @ts-ignore
             this.cards = [{ id: 0, name: 'Selecione' }, ...cards];
         });

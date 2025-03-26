@@ -39,7 +39,13 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table [value]="maintenances" [paginator]="maintenances.length > 10" [rows]="10"
+                    <p-table appStickTableHeader
+                             [value]="maintenances"
+                             dataKey="id"
+                             selectionMode="single"
+                             [(selection)]="selectedValue"
+                             (onRowSelect)="onRowSelect()"
+                             (onRowUnselect)="onRowUnSelect($event)"
                              responsiveLayout="stack" [breakpoint]="'1300px'"
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
                         <ng-template pTemplate="header">
@@ -47,16 +53,14 @@
                                 <th class="text-center">DATA</th>
                                 <th class="text-left">VEÍCULO</th>
                                 <th class="text-center">KM</th>
-                                <th class="text-left">ESTABELECIMENTO</th>
                                 <th class="text-left">TIPO</th>
                                 <th class="text-center">VALOR</th>
                                 <th class="text-center">ATIVO</th>
-                                <th class="text-center">AÇÕES</th>
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="body" let-maintenance>
-                            <tr>
+                            <tr [pSelectableRow]="maintenance">
                                 <td class="text-center">
                                     <span class="p-column-title">DATA</span>
                                     {{ maintenance['date'] }}
@@ -70,10 +74,6 @@
                                     <span> {{ maintenance['mileage'] | number }} </span>
                                 </td>
                                 <td class="text-left">
-                                    <span class="p-column-title"> ESTABELECIMENTO </span>
-                                    <span> {{ maintenance['establishment'] }} </span>
-                                </td>
-                                <td class="text-left">
                                     <span class="p-column-title">TIPO</span>
                                     <span> {{ maintenance['type'] }} </span>
                                 </td>
@@ -83,36 +83,16 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>
-                                    <span class=" {{ maintenance['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                    <span class="badge rounded-pill {{ maintenance['active'] == true ? 'text-bg-success' : 'text-bg-danger' }} ">
                                         {{ maintenance["active"] === true ? 'Sim' : 'Não' }}
                                     </span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">AÇÔES</span>
-                                    <div class="dropdown position-static">
-                                        <button class="btn btn-secondary btn-sm" type="button" id="actions" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="actions">
-                                            <li>
-                                                <p-button class="dropdown-item" [link]="true" (click)="confirmationDelete(maintenance)" [disabled]="!authService.hasPermission('DELETE_MAINTENANCE')">
-                                                    <i class="fa-regular fa-trash-can m-sm-1"></i> Excluir
-                                                </p-button>
-                                            </li>
-                                            <li>
-                                                <p-button class="dropdown-item" [link]="true" [routerLink]="['/maintenance/', maintenance.id]" [disabled]="!authService.hasPermission('UPDATE_MAINTENANCE')">
-                                                    <i class="fa-regular fa-pen-to-square m-sm-1"></i> Editar
-                                                </p-button>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </td>
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td colspan="4" style="text-align: center;">
+                                <td colspan="6" style="text-align: center;">
                                     Nenhum registro encontrado.
                                 </td>
                             </tr>
@@ -123,3 +103,16 @@
         </div>
     </div>
 </form>
+
+<app-sidebar-details [value]="selectedValue" [visible]="visibleSidebar" [fields]="fields" (visibleChange)="closeSidebarDetails()">
+    <div actions>
+        <button type="button" pButton class="p-button-contrast p-button-sm me-2" [routerLink]="['/maintenance/', selectedValue.id]" [disabled]="!authService.hasPermission('UPDATE_MAINTENANCE')">
+            <i class="fa-solid fa-pencil m-1"></i>
+            Editar
+        </button>
+        <button type="button" pButton class="p-button-contrast p-button-sm me-2" (click)="confirmationDelete(selectedValue)" [disabled]="!authService.hasPermission('DELETE_MAINTENANCE')">
+            <i class="fa-solid fa-remove m-1"></i>
+            Excluir
+        </button>
+    </div>
+</app-sidebar-details>

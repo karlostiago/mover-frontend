@@ -1,36 +1,31 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Table} from "primeng/table";
+import {Component, OnInit} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../../shared/service/AlertService";
 import {ClientService} from "../client.service";
 import {ClientEntity} from "../../../../../entity/ClientEntity";
-import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/GlobalDialogService";
 import {AuthService} from "../../../../core/login/auth.service";
-import {ErrorHandler} from "../../../../core/handler/ErrorHandler";
+import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
+import {MaskHelpers} from "../../../../../shared/MaskHelpers";
 
 @Component({
   selector: 'app-search-client',
   templateUrl: './search-client.component.html',
   styleUrls: ['./search-client.component.css']
 })
-export class SearchClientComponent implements OnInit {
+export class SearchClientComponent extends AbstractSearch implements OnInit {
     clients = new Array<ClientEntity>();
-
     searchFilter: string = "";
-
-    @ViewChild("table") table: Table | undefined;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
-                private globalDialogService: GlobalDialogService,
                 protected authService: AuthService,
-                private error: ErrorHandler,
                 private clientService: ClientService) {
+        super();
     }
 
     async ngOnInit() {
         this.clientService.findAll().then(response => {
-            this.clients = response;
+            this.clients = super.findAll(response);
         });
     }
 
@@ -45,23 +40,36 @@ export class SearchClientComponent implements OnInit {
 
     delete(id: number) {
         this.clientService.delete(id).then(() => {
-            this.clients = this.clients.filter(a => a.id !== id);
+            this.clients = super.deleteById(id, this.clients);
             this.alertService.success("Registro deletado com sucesso.");
         });
-    }
-
-    showDialogAddress(client: ClientEntity) {
-        if (this.authService.hasPermission('VIEW_ADDRESS_CLIENTS')) {
-            this.globalDialogService.openDialog(TypeDialog.ADDRESS, client);
-        } else {
-            this.error.capture({ status: 403 })
-        }
     }
 
     filterBy() {
         this.clientService.findBy(this.searchFilter).then(response => {
             this.clients = response;
-            this.table?.reset();
         })
+    }
+
+    createFieldsSidebarDetails(): void {
+        this.fields = [
+            { label: 'Tipo pessoa', value: 'Pessoa Física', col: 2, visible: this.selectedValue.typePersonCode === 1 },
+            { label: 'Tipo pessoa', value: 'Pessoa Jurídica', col: 2, visible: this.selectedValue.typePersonCode === 2 },
+            { label: 'Nome completo', value: this.selectedValue.name, col: 4, visible: true },
+            { label: 'CPF', value: MaskHelpers.maskCpf(this.selectedValue.cpfCnpj), col: 2, visible: this.selectedValue.typePersonCode === 1 },
+            { label: 'CNPJ', value: this.selectedValue.cpfCnpj, col: 2, visible: this.selectedValue.typePersonCode === 2 },
+            { label: 'RG', value: this.selectedValue.rg, col: 2, visible: true },
+            { label: 'Data de nascimento', value: this.selectedValue.birthDate, col: 2, visible: true },
+            { label: 'Nome da mãe', value: this.selectedValue.motherName, col: 3, visible: true },
+            { label: 'Endereço', value: this.selectedValue.publicPlace, col: 3, visible: true },
+            { label: 'Número', value: this.selectedValue.number, col: 2, visible: true },
+            { label: 'Bairro', value: this.selectedValue.neighborhood, col: 2, visible: true },
+            { label: 'Cep', value: MaskHelpers.maskCep(this.selectedValue.postalCode), col: 2, visible: true },
+            { label: 'Cidade', value: this.selectedValue.city, col: 2, visible: true },
+            { label: 'UF', value: this.selectedValue.uf, col: 1, visible: true },
+            { label: 'Email', value: this.selectedValue.email, col: 3, visible: true },
+            { label: 'Telefone celular', value: MaskHelpers.maskTelephone(this.selectedValue.cellPhone), col: 2, visible: true },
+            { label: 'Ativo', value: this.selectedValue.active ? 'SIM' : 'NÃO', col: 1, visible: true }
+        ]
     }
 }

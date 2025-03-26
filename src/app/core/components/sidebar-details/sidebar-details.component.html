@@ -4,17 +4,16 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <ng-container *ngFor="let field of fields">
+                        <ng-container *ngFor="let field of fields; let i = index">
                             <div class="col-md-{{ field.col }}" *ngIf="field.visible">
-                                <label class="form-label">
+                                <label for="name_{{ i }}" class="form-label">
                                     <strong>{{ field.label }}:</strong>
                                 </label>
-                                <input pInputText class="form-control" readonly [value]="field.value" />
+                                <input id="name_{{ i }}" name="name_{{ i }}" pInputText class="form-control" readonly [value]="field.value" />
                             </div>
                         </ng-container>
                     </div>
 
-                    <br/>
                     <br/>
                     <br/>
 

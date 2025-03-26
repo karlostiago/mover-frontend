@@ -12,6 +12,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../../../shared/SharedModule";
 import {InputTextareaModule} from "primeng/inputtextarea";
+import {SidebarDetailsModule} from "../../../core/components/sidebar-details/sidebar-details.module";
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import {InputTextareaModule} from "primeng/inputtextarea";
         DropdownModule,
         DialogModule,
         SharedModule,
-        InputTextareaModule
+        InputTextareaModule,
+        SidebarDetailsModule
     ]
 })
 export class MaintenanceModule { }

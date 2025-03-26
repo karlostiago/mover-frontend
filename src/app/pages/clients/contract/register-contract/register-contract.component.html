@@ -53,12 +53,12 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label class="form-label"> Valor recorrência *:</label>
+                            <label class="form-label"> Valor *:</label>
                             <input pInputText class="form-control" name="recurrenceValue" id="recurrenceValue" appCurrencyFormatPtBr [(ngModel)]="contract['recurrenceValue']" [required]="true"/>
                         </div>
 
                         <div class="col-md-3">
-                            <label class="form-label"> Frequência pagamento *:</label>
+                            <label class="form-label"> Ciclo pagamento *:</label>
                             <p-dropdown styleClass="w-100" name="paymentFrequency" id="paymentFrequency" placeholder="Selecione"
                                         optionLabel="description" optionValue="description" [(ngModel)]="contract['paymentFrequency']"
                                         [options]="paymentFrenquencies" required="true"  />

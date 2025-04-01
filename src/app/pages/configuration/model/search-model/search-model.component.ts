@@ -1,5 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Table} from "primeng/table";
+import {Component, OnInit} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../../shared/service/AlertService";
 import {ModelService} from "../model.service";
@@ -13,10 +12,7 @@ import {AuthService} from "../../../../core/login/auth.service";
 })
 export class SearchModelComponent implements OnInit {
     models = new Array<ModelEntity>();
-
     searchFilter: string = "";
-
-    @ViewChild("table") table: Table | undefined;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
@@ -49,7 +45,6 @@ export class SearchModelComponent implements OnInit {
     filterBy() {
         this.modelService.findBy(this.searchFilter).then(response => {
             this.models = response;
-            this.table?.reset();
         })
     }
 }

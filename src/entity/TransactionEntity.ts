@@ -7,11 +7,13 @@ export class TransactionEntity {
     frequency: string;
     paymentType: string;
     categoryType: string;
+    codeTypeCategory: number;
     category: string;
     subcategory: string;
     date: Date;
     dueDate: Date | null;
     paymentDate: Date | null;
+    registerDate: Date;
     value: number = 0;
     installmentValue: number = 0;
     cardId: number = 0;
@@ -26,7 +28,12 @@ export class TransactionEntity {
     remainingPages: number;
     lastInstallment: boolean = false;
     dayOfWeek: string;
-    hasInvoice: boolean = false;
-    expanded: boolean = false;
     scheduled: boolean = false;
+    vehicle: string;
+    account: string;
+    card: string;
+    contract: string;
+    invoice: boolean = false;
+    invoiceId: number;
+    amountPaid: number;
 }

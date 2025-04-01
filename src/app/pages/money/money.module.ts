@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TransactionModule} from "./transaction/transaction.module";
+import {InvoiceModule} from "./invoice/invoice.module";
 
 @NgModule({
     declarations: [
@@ -11,7 +12,8 @@ import {TransactionModule} from "./transaction/transaction.module";
     ],
     imports: [
         CommonModule,
-        TransactionModule
+        TransactionModule,
+        InvoiceModule
     ]
 })
 export class MoneyModule { }

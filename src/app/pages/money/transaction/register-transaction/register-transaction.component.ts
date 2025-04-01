@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AbstractRegister} from "../../../../../abstract/AbstractRegister";
 import {ActivatedRoute} from "@angular/router";
@@ -12,23 +12,22 @@ import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 import {InstallmentTypeEnum} from "../../../../../enum/InstallmentTypeEnum";
 import {FrequencyTransactionEnum} from "../../../../../enum/FrequencyTransactionEnum";
 import {SelectItemGroup} from "primeng/api";
-import {CategoryTypeEntity} from "../../../../../entity/CategoryTypeEntity";
 import {LoaderService} from "../../../../core/loader/loader.service";
 import {DateHelpers} from "../../../../../shared/DateHelpers";
 import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/GlobalDialogService";
 import {AuthService} from "../../../../core/login/auth.service";
+import {StringHelpers} from "../../../../../shared/StringHelpers";
 
 @Component({
   selector: 'app-register-transaction',
   templateUrl: './register-transaction.component.html',
   styleUrls: ['./register-transaction.component.css']
 })
-export class RegisterTransactionComponent extends AbstractRegister implements OnInit {
+export class RegisterTransactionComponent extends AbstractRegister implements OnInit, AfterViewInit {
 
     transaction = new TransactionEntity();
     categories = new Array<CategoryEntity>();
-    subcategories = new Array<SubCategoryEntity>();
-    categoryTypes = new Array<CategoryTypeEntity>();
+    subcategories = new Array<any>();
 
     typesEnum = new Array<any>();
     frequencyEnum = new Array<any>();
@@ -37,9 +36,16 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     groupCategories: SelectItemGroup[];
 
     enableInstallments: boolean = false;
-
-    edit: boolean;
     visible: boolean;
+
+    descriptionType: string;
+
+    private readonly types = [
+        { code: 1, name: 'RECEITA' },
+        { code: 2, name: 'DESPESA' },
+        { code: 3, name: 'INVESTIMENTO' },
+        { code: 4, name: 'TRANSFERÊNCIA' }
+    ]
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
@@ -48,28 +54,39 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
                 private subcategoryService: SubCategoryService,
                 private globalDialogService: GlobalDialogService,
                 protected authService: AuthService,
-                private loadService: LoaderService) {
+                private loadService: LoaderService,
+                private cdr: ChangeDetectorRef) {
         super(activatedRoute);
+        this.transaction.codeTypeCategory = Number(this.activatedRoute.snapshot.params['type']);
     }
 
     async ngOnInit() {
+        this.transaction['registerDate'] = new Date();
+
         await Promise.all([
             this.loadingAllSubcategory(),
             this.loadingInstallmentType(),
-            this.loadingFrequencyransaction(),
-            this.loadingTransactionTypes()
+            this.loadingFrequencyransaction()
         ]);
 
         if (!this.registerNew) {
-            this.edit = true;
             this.transactionService.findById(this.id).then(response => {
                 localStorage.setItem("TRANSACTION_UPDATE", String(true));
                 this.transaction = response;
                 this.findCategories();
             });
-        } else {
-            this.edit = false;
         }
+    }
+
+    async ngAfterViewInit() {
+        const selectedType = this.types.find(t => t.code === this.transaction.codeTypeCategory)?.name;
+
+        if (!selectedType) return;
+
+        this.transaction.categoryType = selectedType;
+        this.descriptionType = StringHelpers.capitalizeFirstLetter(selectedType);
+        void this.findCategories();
+        this.cdr.detectChanges();
     }
 
     saveOrUpdate(form: NgForm) {
@@ -116,11 +133,6 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
             label: `${category.description}`,
             items: this.findSubcategories(category.id, this.subcategories)
         }));
-
-        if (this.transaction.categoryType === 'TRANSFERÊNCIA' || this.transaction.categoryType === 'CAPITAL SOCIETÁRIO') {
-            this.clear();
-        }
-
         this.loadService.automatic = true;
     }
 
@@ -179,7 +191,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     }
 
     private findSubcategories(categoryId: number, subcategories: Array<SubCategoryEntity>) {
-        return this.subcategories.filter(subcategory => subcategory.categoryId === categoryId)
+        return subcategories.filter(subcategory => subcategory.categoryId === categoryId)
             .map(subcategory => ({
                 label: subcategory.description,
                 value: subcategory.id
@@ -188,7 +200,6 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     private async loadingAllSubcategory() {
         this.subcategoryService.findAll().then(response => {
-            // @ts-ignore
             this.subcategories = [{ id: 0, description: 'Selecione' }, ...response];
         });
     }
@@ -209,12 +220,6 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
                 this.alertService.success("Registro atualizado com sucesso.");
             });
         }
-    }
-
-    private async loadingTransactionTypes() {
-        this.categoryService.findAllTypes().then(response => {
-            this.categoryTypes = [{ code: 0, description: 'Selecione' }, ...response];
-        });
     }
 
     private async loadingFrequencyransaction() {

@@ -9,7 +9,11 @@ export abstract class AbstractSearch {
 
     private updateFieldInterval: any;
 
-    protected constructor() { }
+    protected constructor() {
+        if (this.selectedValue && Object.keys(this.selectedValue).length === 0) {
+            localStorage.removeItem("VALUE_ID");
+        }
+    }
 
     onRowSelect() {
         setTimeout(() => {

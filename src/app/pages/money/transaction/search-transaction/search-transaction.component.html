@@ -32,41 +32,35 @@
                             </button>
                         </div>
                         <div class="col-9 col-md-9 text-md-end  d-flex justify-content-end align-items-center">
-                            <button type="button" pButton class="p-button-contrast p-button-sm me-1" routerLink="/transactions/new" [disabled]="!authService.hasPermission('REGISTER_TRANSACTIONS')">
-                                <i class="fa-solid fa-plus me-1"></i>
-                                Novo
-                            </button>
-                            <button type="button" pButton class="p-button-contrast p-button-sm" (click)="enableConfig = !enableConfig">
-                                <i class="fa-solid fa-cog me-1"></i>
-                                {{ enableConfig ? 'Fechar' : '' }} Config
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="enableConfig" class="fade-in">
-        <br />
-        <div class="row g-3">
-            <div class="col-md-12 col-sm-12 mb-10">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3 col-xs-12 d-flex align-items-center">
-                                <label class="form-label mt-2 me-2">Deseja expandir lançamentos de fatura ?:</label>
-                                <p-inputSwitch name="expand" id="expand" [(ngModel)]="expand" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"
-                                    (onChange)="updateExpand()"></p-inputSwitch>
+                            <div class="dropdown position-static">
+                                <button pButton class="p-button-contrast p-button-sm me-1" type="button" id="actions1" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="!authService.hasPermission('REGISTER_TRANSACTIONS')">
+                                    <i class="fa-solid fa-plus me-1"></i>
+                                    Novo
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="actions">
+                                    <li>
+                                        <p-button [link]="true" class="dropdown-item" routerLink="/transactions/1/new">
+                                            <i class="m-sm-1"></i> Receita
+                                        </p-button>
+                                    </li>
+                                    <li>
+                                        <p-button class="dropdown-item" [link]="true" routerLink="/transactions/2/new">
+                                            <i class="m-sm-1"></i> Despesa
+                                        </p-button>
+                                    </li>
+                                    <li>
+                                        <p-button class="dropdown-item" [link]="true" routerLink="/transactions/3/new">
+                                            <i class="m-sm-1"></i> Investimento
+                                        </p-button>
+                                    </li>
+                                    <li>
+                                        <p-button class="dropdown-item" [link]="true" routerLink="/transactions/4/new">
+                                            <i class="m-sm-1"></i> Transferência
+                                        </p-button>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-<!--                        <div class="row">-->
-<!--                            <div class="col-md-3 col-xs-12 d-flex align-items-center">-->
-<!--                                <label class="form-label mt-2 me-2">Deseja visualizar apenas lançamentos de fatura ?:</label>-->
-<!--                                <p-inputSwitch name="viewOnlyInvoice" id="viewOnlyInvoice" [(ngModel)]="viewOnlyInvoice" styleClass="form-control" [style]="{ width: '3rem', border: 'none' }"-->
-<!--                                               (onChange)="updateViewOnlyInvoice()"></p-inputSwitch>-->
-<!--                            </div>-->
-<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -120,14 +114,17 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table [value]="transactions" responsiveLayout="stack" [breakpoint]="'1300px'" appStickTableHeader
+                    <p-table [value]="transactions"
+                             responsiveLayout="stack" [breakpoint]="'1300px'" appStickTableHeader
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines"
-                             sortMode="single"
-                             sortField="date"
-                             [sortOrder]="-1"
-                             [scrollable]="false"
+                             dataKey="id"
                              rowGroupMode="subheader"
-                             groupRowsBy="date">
+                             groupRowsBy="date"
+                             selectionMode="single"
+                             [(selection)]="selectedValue"
+                             (onRowSelect)="onRowSelect()"
+                             (onRowUnselect)="onRowUnSelect($event)"
+                             [customSort]="true">
                         <ng-template pTemplate="header">
                             <tr *ngIf="transactions.length > 0">
                                 <th class="text-center"></th>
@@ -136,20 +133,19 @@
                                 <th class="text-center">VALOR</th>
                                 <th class="text-center">AGENDADO</th>
                                 <th class="text-center">EFETIVADO</th>
-                                <th class="text-center">AÇÕES</th>
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="groupheader" let-transaction>
                             <tr pRowGroupHeader>
-                                <td colspan="7">
+                                <td colspan="6">
                                     <strong style="font-size: 1rem;"> {{ transaction['date'] }} </strong> <i style="font-size: 1rem;">({{ transaction['dayOfWeek'].toUpperCase() }})</i>
                                 </td>
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="body" let-transaction>
-                            <tr>
+                            <tr [pSelectableRow]="transaction">
                                 <td class="text-center" style="width: .625rem">
                                     <img src="{{ transaction['icon'] }}" style="width: 2.1rem; border-radius: 30%;"  alt="icon" />
                                 </td>
@@ -168,53 +164,27 @@
                                 <td class="text-center">
                                     <span class="p-column-title">AGENDADO</span>
                                     <a *ngIf="transaction['scheduled'] === true" (click)="undoScheduling(transaction)" style="cursor: pointer; {{ allowUndoScheduling ? '' : 'opacity: .3; cursor: default;' }}">
-                                        <span class="badge text-bg-success disabled"> Sim </span>
+                                        <span class="badge rounded-pill text-bg-success"> Sim </span>
                                     </a>
                                     <a *ngIf="transaction['scheduled'] === false" (click)="schedule(transaction)" style="cursor: pointer; {{ allowSchedule ? '' : 'opacity: .3; cursor: default;' }}">
-                                        <span class="badge text-bg-danger"> Não </span>
+                                        <span class="badge rounded-pill text-bg-danger"> Não </span>
                                     </a>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">EFETIVADO</span>
                                     <a *ngIf="transaction['paid'] === true" (click)="refund(transaction)" style="cursor: pointer; {{ allowRefund ? '' : 'opacity: .3; cursor: default;' }}">
-                                        <span class="badge text-bg-success disabled"> Sim </span>
+                                        <span class="badge rounded-pill text-bg-success disabled"> Sim </span>
                                     </a>
                                     <a *ngIf="transaction['paid'] === false" (click)="confirmationPayment(transaction)" style="cursor: pointer; {{ allowPayment ? '' : 'opacity: .3; cursor: default;' }}">
-                                        <span class="badge text-bg-danger"> Não </span>
+                                        <span class="badge rounded-pill text-bg-danger"> Não </span>
                                     </a>
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">AÇÔES</span>
-                                    <div class="dropdown position-static" *ngIf="!transaction['hasInvoice']">
-                                        <button class="btn btn-secondary btn-sm" type="button" id="actions" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="actions">
-                                            <li>
-                                                <p-button [link]="true" class="dropdown-item" (click)="confirmationDelete(transaction)" [disabled]="!authService.hasPermission('DELETE_TRANSACTIONS')">
-                                                    <i class="fa-regular fa-trash-can m-sm-1"></i> Excluir
-                                                </p-button>
-                                            </li>
-                                            <li>
-                                                <p-button class="dropdown-item" [link]="true" [routerLink]="['/transactions/', transaction.id]" [disabled]="!authService.hasPermission('UPDATE_TRANSACTIONS')">
-                                                    <i class="fa-regular fa-pen-to-square m-sm-1"></i> Editar
-                                                </p-button>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="card-actions" *ngIf="transaction['hasInvoice']">
-                                        <button class="btn btn-secondary btn-sm" type="button" id="btnExpanded" (click)="transaction['expanded'] ? rowReduce(transaction) : rowExpanded(transaction)">
-                                            <i class="fa-solid  {{ transaction['expanded'] ? 'fa-minus' : 'fa-plus' }}"></i>
-                                        </button>
-                                    </div>
                                 </td>
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td colspan="7" style="text-align: center;">
+                                <td colspan="6" style="text-align: center;">
                                     Nenhum registro encontrado.
                                 </td>
                             </tr>
@@ -239,3 +209,20 @@
 
 <app-dialog-confirmation-payment (transactionPayment)="updateTransactions()"></app-dialog-confirmation-payment>
 <app-dialog-delete-transaction (transactionDeleted)="updateTransactions()"></app-dialog-delete-transaction>
+
+<app-sidebar-details [value]="selectedValue" [visible]="visibleSidebar" [fields]="fields" (visibleChange)="closeSidebarDetails()">
+    <div actions>
+        <button *ngIf="!selectedValue.invoice" type="button" pButton class="p-button-contrast p-button-sm me-2" [routerLink]="['/transactions/', selectedValue.codeTypeCategory, selectedValue.id]" [disabled]="!authService.hasPermission('UPDATE_TRANSACTIONS')">
+            <i class="fa-solid fa-pencil m-1"></i>
+            Editar
+        </button>
+        <button *ngIf="selectedValue.invoice" type="button" pButton class="p-button-contrast p-button-sm me-2" [routerLink]="['/invoices/', selectedValue.id, 'credit-card', selectedValue.cardId]" [disabled]="!authService.hasPermission('UPDATE_TRANSACTIONS')">
+            <i class="fa-solid fa-pencil m-1"></i>
+            Editar
+        </button>
+        <button type="button" pButton class="p-button-contrast p-button-sm me-2" (click)="confirmationDelete(selectedValue)" [disabled]="!authService.hasPermission('DELETE_TRANSACTIONS')">
+            <i class="fa-solid fa-remove m-1"></i>
+            Excluir
+        </button>
+    </div>
+</app-sidebar-details>

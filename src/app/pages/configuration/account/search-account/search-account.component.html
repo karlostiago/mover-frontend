@@ -39,7 +39,7 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table #table [value]="accounts" [paginator]="accounts.length > 10" [rows]="10"
+                    <p-table [value]="accounts"
                              responsiveLayout="stack" [breakpoint]="'960px'" styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
 
                         <ng-template pTemplate="header">
@@ -74,13 +74,13 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">CAUÇÃO</span>
-                                    <span class=" {{ account['caution'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                    <span class="badge rounded-pill {{ account['caution'] == true ? 'text-bg-success' : 'text-bg-danger' }} ">
                                         {{ account["caution"] === true ? 'Sim' : 'Não' }}
                                     </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">ATIVO</span>
-                                    <span class=" {{ account['active'] == true ? 'badge text-bg-success' : 'badge text-bg-danger' }} ">
+                                    <span class="badge rounded-pill {{ account['active'] == true ? 'text-bg-success' : 'text-bg-danger' }} ">
                                         {{ account["active"] === true ? 'Sim' : 'Não' }}
                                     </span>
                                 </td>

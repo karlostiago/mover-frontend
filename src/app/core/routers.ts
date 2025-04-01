@@ -43,6 +43,7 @@ import {
     RegisterTransactionComponent
 } from "../pages/money/transaction/register-transaction/register-transaction.component";
 import {ForbiddenComponent} from "./components/forbidden/forbidden.component";
+import {SearchInvoiceComponent} from "../pages/money/invoice/search-invoce/search-invoice.component";
 
 export const routers = [
     { path: '', component: DashboardComponent, canActivate: [CanActivate] },
@@ -89,8 +90,10 @@ export const routers = [
     { path: 'partners/:id', component: RegisterPartnerComponent, canActivate: [CanActivate] },
 
     { path: 'transactions', component: SearchTransactionComponent, canActivate: [CanActivate] },
-    { path: 'transactions/new', component: RegisterTransactionComponent, canActivate: [CanActivate] },
-    { path: 'transactions/:id', component: RegisterTransactionComponent, canActivate: [CanActivate] },
+    { path: 'transactions/:type/new', component: RegisterTransactionComponent, canActivate: [CanActivate] },
+    { path: 'transactions/:type/:id', component: RegisterTransactionComponent, canActivate: [CanActivate] },
+
+    { path: 'invoices/:id/credit-card/:cardId', component: SearchInvoiceComponent },
 
     { path: 'vehicles', component: SearchVehicleComponent, canActivate: [CanActivate] },
     { path: 'vehicles/new', component: RegisterVehicleComponent, canActivate: [CanActivate] },

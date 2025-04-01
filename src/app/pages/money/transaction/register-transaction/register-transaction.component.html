@@ -5,7 +5,9 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-header">
-                    <h4> {{ isNewRegister() ? 'Cadastrar' : 'Atualizar' }}</h4>
+                    <h4> {{ isNewRegister() ? 'Cadastrar' : 'Atualizar' }}
+                         {{ descriptionType }}
+                    </h4>
                 </div>
 
                 <div class="card-body">
@@ -17,23 +19,19 @@
 
                     <div class="row">
                         <div class="col-md-3">
-                            <label class="form-label"> Tipo categoria *:</label>
-                            <p-dropdown styleClass="w-100" name="typeCategory" id="typeCategory" placeholder="Selecione"
-                                        [options]="categoryTypes"
-                                        emptyMessage="Nenhuma tipo lançamento encontrado"
-                                        optionValue="description" optionLabel="description" required="true" [(ngModel)]="transaction['categoryType']"
-                                        (onChange)="findCategories()" [disabled]="!isNewRegister()"/>
-                        </div>
-                        <div class="col-md-3">
                             <label class="form-label"> Categoria *:</label>
                             <p-dropdown styleClass="w-100" name="subcategory" id="subcategory" placeholder="Selecione"
                                         [options]="groupCategories" optionLabel="label" optionValue="value" [group]="true"
                                         emptyMessage="Nenhuma subcategoria encontrada" required="true" [(ngModel)]="transaction['subcategoryId']"
                                         [filter]="true" [disabled]="!transaction['categoryType']" />
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <label class="form-label"> Descrição *:</label>
                             <input pInputText class="form-control" name="description" id="description" [required]="true" [(ngModel)]="transaction['description']" [maxlength]="70" />
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label"> Data *:</label>
+                            <p-calendar appendTo="body" name="registerDate" id="registerDate" [(ngModel)]="transaction['registerDate']" [required]="true" dateFormat="dd/mm/yy" [readonlyInput]="true" />
                         </div>
                     </div>
 

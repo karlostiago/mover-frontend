@@ -21,6 +21,7 @@ import {
 } from "./corporate-capital-transaction/corporate-capital-transaction.component";
 import {CommonTransactionComponent} from "./common-transaction/common-transaction.component";
 import {ScrollUpModule} from "../../../core/components/scroll-up/scroll-up.module";
+import {SidebarDetailsModule} from "../../../core/components/sidebar-details/sidebar-details.module";
 
 @NgModule({
     declarations: [
@@ -50,7 +51,8 @@ import {ScrollUpModule} from "../../../core/components/scroll-up/scroll-up.modul
         CalendarModule,
         MultiSelectModule,
         GlobalDialogModule,
-        ScrollUpModule
+        ScrollUpModule,
+        SidebarDetailsModule
     ]
 })
 export class TransactionModule { }

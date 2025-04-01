@@ -3,7 +3,7 @@
         <label class="form-label"> Veículo:</label>
         <p-dropdown styleClass="w-100" name="vehicle" id="vehicle" placeholder="Selecione"
                     optionLabel="fullname" optionValue="id" [(ngModel)]="transaction['vehicleId']"
-                    [options]="vehicles" required="true" [filter]="true" (onChange)="onChangeContract()"
+                    [options]="vehicles" required="true" [filter]="true" (onChange)="onChangeFilterContract()"
                     emptyMessage="Nenhum veículo encontrado"/>
     </div>
     <div class="col-md-3">
@@ -17,7 +17,7 @@
         <label class="form-label"> Conta *:</label>
         <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione"
                     optionLabel="name" optionValue="id" [(ngModel)]="transaction['accountId']"
-                    [options]="accounts" required="true" (onChange)="onChangeCard()" />
+                    [options]="accounts" required="true" (onChange)="onChangeFilterCard()" />
     </div>
     <div class="col-md-3">
         <label class="form-label"> Cartão :</label>

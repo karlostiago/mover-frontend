@@ -1,11 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
-import {AccountEntity} from "../../../../../entity/AccountEntity";
 import {AccountService} from "../../../configuration/account/account.service";
 import {BaseTransaction} from "../../../../../abstract/BaseTransaction";
-import {VehicleEntity} from "../../../../../entity/VehicleEntity";
-import {ContractEntity} from "../../../../../entity/ContractEntity";
-import {CardEntity} from "../../../../../entity/CardEntity";
 import {LoaderService} from "../../../../core/loader/loader.service";
 import {CardService} from "../../../configuration/card/card.service";
 import {VehicleService} from "../../../fleets/vehicle/vehicle.service";
@@ -19,14 +15,13 @@ import {TransactionService} from "../transaction.service";
 })
 export class CommonTransactionComponent extends BaseTransaction implements OnInit {
 
-    accounts = new Array<AccountEntity>();
-    vehicles = new Array<VehicleEntity>();
+    cards = new Array<any>();
+    accounts = new Array<any>();
+    vehicles = new Array<any>();
+    contracts = new Array<any>();
 
-    contracts = new Array<ContractEntity>();
-    cards = new Array<CardEntity>();
-
-    private selectedContracts = new Array<ContractEntity>();
-    private selectedCards = new Array<CardEntity>();
+    private selectedContracts = new Array<any>();
+    private selectedCards = new Array<any>();
 
     @Input() transaction: TransactionEntity;
 
@@ -49,24 +44,23 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
 
         setTimeout(() => {
             if (this.transaction.accountId > 0) {
-                this.onChangeCard();
+                this.filterCardByAccount();
             }
             if (this.transaction.vehicleId > 0) {
-                this.onChangeContract();
+                this.onChangeFilterContract();
             }
         }, 1000);
     }
 
-    onChangeCard() {
-        // @ts-ignore
-        this.cards = [ { id: 0, name: 'Selecione' }, ...this.selectedCards.filter(c => c.accountId === this.transaction['accountId'])];
-        this.transaction.dueDate = null;
-        this.transaction.cardId = 0;
+    onChangeFilterCard() {
+        this.filterCardByAccount();
+        this.transaction['cardId'] = 0;
+        this.transaction['dueDate'] = null;
     }
 
-    onChangeContract() {
-        // @ts-ignore
+    onChangeFilterContract() {
        this.contracts = [{ id: 0, number: 'Selecione' }, ...this.selectedContracts.filter(c => c.vehicleId === this.transaction['vehicleId'])];
+       this.transaction['contractId'] = 0;
     }
 
     onCalculateCutOfDate() {
@@ -86,23 +80,19 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     private async loadingAccounts() {
         await this.accountService.findAll().then(response => {
             const onlyActiveAccounts = response.filter(r => r.active);
-            // @ts-ignore
             this.accounts = [{ id: 0, name: 'Selecione'}, ...onlyActiveAccounts];
         });
     }
 
     private async loadingVehicles() {
         await this.vehicleService.findAll().then(response => {
-            // @ts-ignore
             this.vehicles = [{ id: 0, fullname: 'Selecione'}, ...response];
         });
     }
 
     private async loadingCards() {
         return await this.cardService.findAll().then(response => {
-            // @ts-ignore
             this.cards = [{ id: 0, name: 'Selecione'}, ...response];
-            // @ts-ignore
             this.selectedCards = [{ id: 0, name: 'Selecione'}, ...response];
         });
     }
@@ -110,10 +100,12 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     private async loadingContracts() {
         return await this.contractService.findAll().then(response => {
             const contractsFilters = response.filter(r => r.situation !== 'ENCERRADO' && r.active);
-            // @ts-ignore
             this.contracts = [{ id: 0, number: 'Selecione'}, ...contractsFilters];
-            // @ts-ignore
             this.selectedContracts = [{ id: 0, number: 'Selecione'}, ...contractsFilters];
         });
+    }
+
+    private filterCardByAccount() {
+        this.cards = [ { id: 0, name: 'Selecione' }, ...this.selectedCards.filter(c => c.accountId === this.transaction['accountId'])];
     }
 }

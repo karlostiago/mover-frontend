@@ -1,6 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AccountEntity} from "../../../../../entity/AccountEntity";
-import {Table} from "primeng/table";
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../../shared/service/AlertService";
 import {AccountService} from "../account.service";
@@ -17,8 +16,6 @@ export class SearchAccountComponent implements OnInit {
     icons = new Array<BankIconEntity>();
 
     searchFilter: string = "";
-
-    @ViewChild("table") table: Table | undefined;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
@@ -52,7 +49,6 @@ export class SearchAccountComponent implements OnInit {
     filterBy() {
         this.accountService.findBy(this.searchFilter).then(response => {
             this.accounts = response;
-            this.table?.reset();
         })
     }
 

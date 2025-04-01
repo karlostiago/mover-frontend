@@ -13,13 +13,14 @@ import {DialogConfirmationPaymentComponent} from "../dialog-confirmation-payment
 import {BalanceService} from "../balance.service";
 import {AuthService} from "../../../../core/login/auth.service";
 import {PaginationService} from "../../../../../shared/service/PaginationService";
+import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
 
 @Component({
   selector: 'app-search-transaction',
   templateUrl: './search-transaction.component.html',
   styleUrls: ['./search-transaction.component.css']
 })
-export class SearchTransactionComponent implements OnInit {
+export class SearchTransactionComponent extends AbstractSearch implements OnInit {
 
     accounts = new Array<AccountEntity>();
     selectedAccounts = new Array<AccountEntity>();
@@ -39,7 +40,6 @@ export class SearchTransactionComponent implements OnInit {
 
     expand: boolean = false;
     viewOnlyInvoice: boolean = false;
-    enableConfig: boolean = false;
 
     private page = 1;
 
@@ -54,6 +54,7 @@ export class SearchTransactionComponent implements OnInit {
                 private transactionService: TransactionService,
                 private paginationService: PaginationService,
                 private cdr: ChangeDetectorRef) {
+        super();
     }
 
     async ngOnInit() {
@@ -92,6 +93,7 @@ export class SearchTransactionComponent implements OnInit {
 
     delete(transaction: TransactionEntity) {
         this.transactionService.delete(transaction.id).then(() => {
+            this.closeSidebarDetails();
             this.updateTransactions();
             this.alertService.success("Lançamento excluido com sucesso.");
         });
@@ -165,6 +167,7 @@ export class SearchTransactionComponent implements OnInit {
         this.updateBalance(this.createFilters());
     }
 
+    /*
     updateExpand() {
         localStorage.setItem('TRANSACTION_EXPAND', String(this.expand));
     }
@@ -172,6 +175,7 @@ export class SearchTransactionComponent implements OnInit {
     updateViewOnlyInvoice() {
         localStorage.setItem('TRANSACTION_VIEW_INVOICE', String(this.viewOnlyInvoice));
     }
+     */
 
     rowExpanded(transaction: any) {
         if (!transaction.hasInvoice) return;
@@ -192,10 +196,27 @@ export class SearchTransactionComponent implements OnInit {
         this.transactions = this.transactions.filter(t => !invoice['transactions'].includes(t));
     }
 
+    createFieldsSidebarDetails() {
+        const card = this.selectedValue.cardId > 0 ? `/ ${this.selectedValue.card}` : '';
+        this.fields = [
+            { label: 'Tipo de lançamento', value: this.selectedValue.categoryType, col: 3, visible: true },
+            { label: 'Categoria', value: this.selectedValue.subcategory, col: 2, visible: true },
+            { label: 'Descrição', value: this.selectedValue.description, col: 7, visible: true },
+            { label: 'Veículo', value: this.selectedValue.vehicle, col: 3, visible: true },
+            { label: 'Contrato', value: this.selectedValue.contract, col: 2, visible: true },
+            { label: 'Conta / Cartão', value: `${this.selectedValue.account} ${card}`, col: 3, visible: true },
+            { label: 'Valor', value: NumberHelpers.currencyBRL(this.selectedValue.value, true), col: 2, visible: true },
+            { label: 'Agendado', value: this.selectedValue.scheduled ? 'SIM' : 'NÃO', col: 2, visible: true },
+            { label: 'Data vencimento', value: this.selectedValue.dueDate, col: 3, visible: true },
+            { label: 'Data pagamento', value: this.selectedValue.paymentDate, col: 2, visible: this.selectedValue.paid },
+            { label: 'Efetivado / Pago', value: this.selectedValue.paid ? 'SIM' : 'NÃO', col: 2, visible: true }
+        ]
+    }
+
     private updateBalance(filters: string) {
         this.balanceService.calculateBalances(filters).then(response => {
             this.balance = response;
-        })
+        });
     }
 
     private searchAfterUpdate() {
@@ -237,7 +258,7 @@ export class SearchTransactionComponent implements OnInit {
     private executeSearch(filters: string) {
         this.transactionService.findBy(filters).then(response => {
             this.transactions.length = 0;
-            this.transactions = response; //.filter(t => t.hasInvoice === this.viewOnlyInvoice);
+            this.transactions = this.findAll(response);
 
             for (const transaction of this.transactions) {
                 if (this.expand) {

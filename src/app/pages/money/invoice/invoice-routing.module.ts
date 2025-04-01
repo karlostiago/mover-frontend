@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {SearchTransactionComponent} from "./search-transaction/search-transaction.component";
+import {SearchInvoiceComponent} from "./search-invoce/search-invoice.component";
 
 const rotas: Routes = [
     {
         path: '',
-        component: SearchTransactionComponent
+        component: SearchInvoiceComponent
     }
 ]
 
@@ -17,7 +17,7 @@ const rotas: Routes = [
         RouterModule
     ]
 })
-export class TransactionRoutingModule {
+export class InvoiceRoutingModule {
 
     constructor() { }
 }

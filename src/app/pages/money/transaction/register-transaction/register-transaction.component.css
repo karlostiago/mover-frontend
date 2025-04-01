@@ -22,3 +22,7 @@
         margin-bottom: 0;
     }
 }
+
+.color-white {
+    color: #fff !important;
+}

@@ -1,5 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Table} from "primeng/table";
+import {Component, OnInit} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../../shared/service/AlertService";
 import {ParameterService} from "../parameter.service";
@@ -19,8 +18,6 @@ export class SearchParameterComponent implements OnInit {
     parameters = new Array<ParameterEntity>();
 
     searchFilter: string = "";
-
-    @ViewChild("table") table: Table | undefined;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
@@ -54,7 +51,6 @@ export class SearchParameterComponent implements OnInit {
     filterBy() {
         this.parameterService.findBy(this.searchFilter).then(response => {
             this.parameters = response;
-            this.table?.reset();
         })
     }
 

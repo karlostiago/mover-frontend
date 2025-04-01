@@ -1,10 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AccountEntity} from "../../../../../entity/AccountEntity";
-import {Table} from "primeng/table";
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../../shared/service/AlertService";
 import {CardService} from "../card.service";
-import {BankIconEntity} from "../../../../../entity/BankIconEntity";
 import {CardEntity} from "../../../../../entity/CardEntity";
 import {AuthService} from "../../../../core/login/auth.service";
 
@@ -15,12 +13,9 @@ import {AuthService} from "../../../../core/login/auth.service";
 })
 export class SearchCardComponent implements OnInit {
     accounts = new Array<AccountEntity>();
-    icons = new Array<BankIconEntity>();
     cards = new Array<CardEntity>();
 
     searchFilter: string = "";
-
-    @ViewChild("table") table: Table | undefined;
 
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
@@ -53,7 +48,6 @@ export class SearchCardComponent implements OnInit {
     filterBy() {
         this.cardService.findBy(this.searchFilter).then(response => {
             this.cards = response;
-            this.table?.reset();
         })
     }
 }

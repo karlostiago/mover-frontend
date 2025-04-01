@@ -198,18 +198,44 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
 
     createFieldsSidebarDetails() {
         const card = this.selectedValue.cardId > 0 ? `/ ${this.selectedValue.card}` : '';
+        if (this.selectedValue.invoice) {
+            this.fieldsSidebarDetailsInvoice(card);
+        } else {
+            this.fieldsSidebarDetailsTransaction(card);
+        }
+    }
+
+    private fieldsSidebarDetailsTransaction(card: string) {
         this.fields = [
-            { label: 'Tipo de lançamento', value: this.selectedValue.categoryType, col: 3, visible: true },
-            { label: 'Categoria', value: this.selectedValue.subcategory, col: 2, visible: true },
-            { label: 'Descrição', value: this.selectedValue.description, col: 7, visible: true },
-            { label: 'Veículo', value: this.selectedValue.vehicle, col: 3, visible: true },
-            { label: 'Contrato', value: this.selectedValue.contract, col: 2, visible: true },
+            ...this.fieldsDefault(),
+            { label: 'Veículo', value: this.selectedValue.vehicle, col: 3, visible: !this.selectedValue.invoice },
+            { label: 'Contrato', value: this.selectedValue.contract, col: 2, visible: !this.selectedValue.invoice },
             { label: 'Conta / Cartão', value: `${this.selectedValue.account} ${card}`, col: 3, visible: true },
             { label: 'Valor', value: NumberHelpers.currencyBRL(this.selectedValue.value, true), col: 2, visible: true },
             { label: 'Agendado', value: this.selectedValue.scheduled ? 'SIM' : 'NÃO', col: 2, visible: true },
             { label: 'Data vencimento', value: this.selectedValue.dueDate, col: 3, visible: true },
             { label: 'Data pagamento', value: this.selectedValue.paymentDate, col: 2, visible: this.selectedValue.paid },
             { label: 'Efetivado / Pago', value: this.selectedValue.paid ? 'SIM' : 'NÃO', col: 2, visible: true }
+        ]
+    }
+
+    private fieldsSidebarDetailsInvoice(card: string) {
+        this.fields = [
+            ...this.fieldsDefault(),
+            { label: 'Conta / Cartão', value: `${this.selectedValue.account} ${card}`, col: 3, visible: true },
+            { label: 'Data vencimento', value: this.selectedValue.dueDate, col: 2, visible: true },
+            { label: 'Valor', value: NumberHelpers.currencyBRL(this.selectedValue.value, true), col: 2, visible: true },
+            { label: 'Agendado', value: this.selectedValue.scheduled ? 'SIM' : 'NÃO', col: 2, visible: true },
+            { label: 'Data pagamento', value: this.selectedValue.paymentDate, col: 2, visible: this.selectedValue.paid },
+            { label: 'Efetivado / Pago', value: this.selectedValue.paid ? 'SIM' : 'NÃO', col: 2, visible: true }
+        ]
+    }
+
+    private fieldsDefault() {
+        return [
+            { label: 'Tipo de lançamento', value: this.selectedValue.categoryType, col: 3, visible: true },
+            { label: 'Categoria', value: this.selectedValue.subcategory, col: 2, visible: true },
+            { label: 'Descrição', value: this.selectedValue.description, col: 7, visible: true },
         ]
     }
 

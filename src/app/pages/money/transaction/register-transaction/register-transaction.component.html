@@ -39,7 +39,7 @@
                     <app-corporate-capital-transaction [transaction]="transaction"></app-corporate-capital-transaction>
                     <app-common-transaction [transaction]="transaction"></app-common-transaction>
 
-                    <div class="row">
+                    <div class="row" *ngIf="!transaction['invoiceId']">
                         <div class="col-md-3">
                             <label class="form-label">Pago:</label>
                             <p-inputSwitch name="paid" id="paid" styleClass="form-control" (onChange)="processPayment()"
@@ -67,7 +67,8 @@
                         <i class="fa-solid fa-repeat m-1"></i>
                         {{ enableInstallments ? 'Desativa' : 'Ativa' }} repetição
                     </button>
-                    <a class="btn" style="float: right; margin-top: 5px;" routerLink="/transactions">
+                    <a class="btn" style="float: right; margin-top: 5px;"
+                        [routerLink]="transaction['invoiceId'] ? ['/invoices', transaction['invoiceId'], 'credit-card', transaction['cardId']] : ['/transactions']">
                         Voltar
                     </a>
                 </div>

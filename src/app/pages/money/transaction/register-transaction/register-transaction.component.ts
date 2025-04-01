@@ -17,6 +17,7 @@ import {DateHelpers} from "../../../../../shared/DateHelpers";
 import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/GlobalDialogService";
 import {AuthService} from "../../../../core/login/auth.service";
 import {StringHelpers} from "../../../../../shared/StringHelpers";
+import {InvoiceService} from "../../invoice/invoice.service";
 
 @Component({
   selector: 'app-register-transaction',
@@ -55,6 +56,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
                 private globalDialogService: GlobalDialogService,
                 protected authService: AuthService,
                 private loadService: LoaderService,
+                private invoiceService: InvoiceService,
                 private cdr: ChangeDetectorRef) {
         super(activatedRoute);
         this.transaction.codeTypeCategory = Number(this.activatedRoute.snapshot.params['type']);
@@ -90,10 +92,16 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     }
 
     saveOrUpdate(form: NgForm) {
-        if (this.transaction.id) {
-            this.update();
+        if (this.transaction.invoiceId) {
+            this.invoiceService.update(this.transaction.id, this.transaction).then(response => {
+                this.alertService.success("Registro atualizado com sucesso.");
+            });
         } else {
-            void this.save(form);
+            if (this.transaction.id) {
+                this.update();
+            } else {
+                void this.save(form);
+            }
         }
     }
 

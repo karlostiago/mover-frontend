@@ -38,7 +38,7 @@
         <label class="form-label"> Data Vencimento *:</label>
         <p-calendar appendTo="body" name="dueDate" id="dueDate" [(ngModel)]="transaction['dueDate']" [required]="true" dateFormat="dd/mm/yy" [readonlyInput]="true" />
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" *ngIf="notShowWhenInvoice(transaction)">
         <label class="form-label"> Data Pagamento :</label>
         <p-calendar appendTo="body" name="paymentDate" id="paymentDate" [(ngModel)]="transaction['paymentDate']" (onSelect)="updatePaid(transaction)" (onClear)="updatePaid(transaction)" dateFormat="dd/mm/yy" [readonlyInput]="true" [showClear]="true" />
     </div>

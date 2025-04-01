@@ -47,7 +47,7 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
                 this.filterCardByAccount();
             }
             if (this.transaction.vehicleId > 0) {
-                this.onChangeFilterContract();
+                this.filterContractByVehicleId();
             }
         }, 1000);
     }
@@ -59,7 +59,7 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     }
 
     onChangeFilterContract() {
-       this.contracts = [{ id: 0, number: 'Selecione' }, ...this.selectedContracts.filter(c => c.vehicleId === this.transaction['vehicleId'])];
+       this.filterContractByVehicleId();
        this.transaction['contractId'] = 0;
     }
 
@@ -107,5 +107,9 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
 
     private filterCardByAccount() {
         this.cards = [ { id: 0, name: 'Selecione' }, ...this.selectedCards.filter(c => c.accountId === this.transaction['accountId'])];
+    }
+
+    private filterContractByVehicleId() {
+        this.contracts = [{ id: 0, number: 'Selecione' }, ...this.selectedContracts.filter(c => c.vehicleId === this.transaction['vehicleId'])];
     }
 }

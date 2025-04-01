@@ -34,6 +34,10 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
         });
     }
 
+    addLocalstorage() {
+        localStorage.setItem("VALUE_ID", this.selectedValue.id);
+    }
+
     createFieldsSidebarDetails() {
         const card = this.selectedValue.cardId > 0 ? `/ ${this.selectedValue.card}` : '';
         this.fields = [

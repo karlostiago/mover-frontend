@@ -24,6 +24,10 @@ export abstract class BaseTransaction {
         }
     }
 
+    notShowWhenInvoice(transaction: TransactionEntity) {
+        return !transaction.invoiceId
+    }
+
     private validPaymentDate(date: any) {
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0');

@@ -1,5 +1,5 @@
 <form autocomplete="off" class="fade-in">
-    <app-title name="Fatura"></app-title>
+    <app-title name="Faturas"></app-title>
 
     <div class="row g-3">
         <div class="col-md-4 mb-10">
@@ -111,7 +111,7 @@
 
 <app-sidebar-details [value]="selectedValue" [visible]="visibleSidebar" [fields]="fields" (visibleChange)="closeSidebarDetails()">
     <div actions>
-        <button type="button" pButton class="p-button-contrast p-button-sm me-2" [routerLink]="['/invoices/', selectedValue.id, 'credit-card', selectedValue.cardId]" [disabled]="!authService.hasPermission('UPDATE_TRANSACTIONS')">
+        <button type="button" pButton class="p-button-contrast p-button-sm me-2" [routerLink]="['/transactions/', selectedValue.codeTypeCategory, selectedValue.id]" [disabled]="!authService.hasPermission('UPDATE_TRANSACTIONS')">
             <i class="fa-solid fa-pencil m-1"></i>
             Editar
         </button>

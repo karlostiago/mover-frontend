@@ -71,7 +71,7 @@
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines"
                              dataKey="id"
                              rowGroupMode="subheader"
-                             groupRowsBy="date"
+                             groupRowsBy="registerDate"
                              selectionMode="single"
                              [(selection)]="selectedValue"
                              (onRowSelect)="onRowSelect()"
@@ -83,6 +83,14 @@
                                 <th class="text-left" style="width: 700px;">DESCRIÇÃO</th>
                                 <th class="text-left" style="width: 250px">CATEGORIA</th>
                                 <th class="text-center">VALOR</th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="groupheader" let-transaction>
+                            <tr pRowGroupHeader>
+                                <td colspan="4">
+                                    <strong style="font-size: 1rem;"> {{ transaction['registerDate'] }} </strong> <i style="font-size: 1rem;">({{ transaction['dayOfWeek'].toUpperCase() }})</i>
+                                </td>
                             </tr>
                         </ng-template>
 

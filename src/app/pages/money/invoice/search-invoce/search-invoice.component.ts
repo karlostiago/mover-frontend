@@ -5,6 +5,7 @@ import {AuthService} from "../../../../core/login/auth.service";
 import {ActivatedRoute} from "@angular/router";
 import {NumberHelpers} from "../../../../../shared/NumberHelpers";
 import {InvoiceService} from "../invoice.service";
+import {transition} from "@angular/animations";
 
 @Component({
   selector: 'app-invoice-brand',
@@ -56,4 +57,5 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
     }
 
     protected readonly NumberHelpers = NumberHelpers;
+    protected readonly transition = transition;
 }

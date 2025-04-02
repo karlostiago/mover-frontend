@@ -93,7 +93,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     saveOrUpdate(form: NgForm) {
         if (this.transaction.invoiceId) {
-            this.invoiceService.update(this.transaction.id, this.transaction).then(response => {
+            this.invoiceService.update(this.transaction.id, this.transaction).then(() => {
                 this.alertService.success("Registro atualizado com sucesso.");
             });
         } else {

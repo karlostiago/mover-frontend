@@ -15,11 +15,15 @@ import {FileUploadModule} from "primeng/fileupload";
 import {SharedModule} from "../../../../shared/SharedModule";
 import {SelectBrandIconModule} from "../../../core/components/select-brand-icon/select-brand-icon.module";
 import {SidebarDetailsModule} from "../../../core/components/sidebar-details/sidebar-details.module";
+import {InvoicePaymentDetailComponent} from "./invoce-payment-detail/invoice-payment-detail.component";
+import {InvoiceCardComponent} from "./invoce-card/invoice-card.component";
 
 @NgModule({
     declarations: [
         RegisterInvoiceComponent,
-        SearchInvoiceComponent
+        SearchInvoiceComponent,
+        InvoicePaymentDetailComponent,
+        InvoiceCardComponent
     ],
     exports: [
         RegisterInvoiceComponent,

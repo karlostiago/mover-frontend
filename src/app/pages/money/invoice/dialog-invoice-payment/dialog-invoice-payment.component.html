@@ -1,0 +1,47 @@
+<p-dialog header="{{ transaction['paid'] ? 'Estornar' : 'Pagar' }} fatura " [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }" [draggable]="false">
+    <form autocomplete="off" #form="ngForm">
+        <div class="row g-3">
+            <div class="col-md-12 mb-10" style="margin-top: -1.125rem; margin-bottom: -0.9375rem; padding-left: 0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="form-label"> Data Pagamento :</label>
+                                <p-calendar appendTo="body" name="paymentDate" id="paymentDate" [(ngModel)]="transaction['paymentDate']"
+                                            dateFormat="dd/mm/yy" tabindex="-1" [readonlyInput]="true" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="form-label"> Valor :</label>
+                                <input pInputText class="form-control" name="value" id="value" [(ngModel)]="transaction['value']" appCurrencyFormatPtBr [required]="true" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="form-label"> Conta :</label>
+                                <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione"
+                                            optionLabel="name" optionValue="id" [(ngModel)]="transaction['accountId']"
+                                            [options]="accounts" [required]="true"
+                                            emptyMessage="Nenhuma conta encontrada" appendTo="body"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button pButton type="button" class="p-button-success p-button-sm" (click)="processPayment()" [disabled]="formInValid()">
+                            <i class="fa-solid fa-save m-1"></i>
+                            Salvar
+                        </button>
+                        <button pButton type="button" class="p-button-danger p-button-sm ms-2" (click)="visible = !visible">
+                            <i class="fa-solid fa-remove m-1"></i>
+                            Fechar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</p-dialog>
+

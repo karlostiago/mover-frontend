@@ -2,55 +2,20 @@
     <app-title name="Faturas"></app-title>
 
     <div class="row g-3">
-        <div class="col-md-4 mb-10">
-            <div class="card">
-                <div class="card-header">
-                    <label>Cartão</label>
-                    <h5> {{ invoice['card'] }} </h5>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-3 mb-10">
-            <div class="card">
-                <div class="card-header">
-                    <label>Vencimento</label>
-                    <h5> {{ invoice['dueDate'] }} </h5>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 mb-10">
-            <div class="card">
-                <div class="card-header">
-                    <label>Total da fatura</label>
-                    <h5 class="text-danger"> {{ NumberHelpers.invertSignalWhenNegative(invoice['value']) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </h5>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-2 mb-10">
-            <div class="card">
-                <div class="card-header">
-                    <label>Pago / Agendado</label>
-                    <h5>
-                        <span class="badge rounded-pill {{ invoice['paid'] ? 'text-bg-success' : 'text-bg-danger' }}">  {{ invoice['paid'] ? 'Sim' : 'Não' }} </span> /
-                        <span class="badge rounded-pill {{ invoice['scheduled'] ? 'text-bg-success' : 'text-bg-danger' }}"> {{ invoice['scheduled'] ? 'Sim' : 'Não' }} </span>
-                    </h5>
-                </div>
-            </div>
-        </div>
+        <app-invoice-card [invoice]="invoice"></app-invoice-card>
 
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-footer">
-                    <button type="submit" pButton class="p-button-success p-button-sm">
+                    <button type="submit" pButton class="{{ invoice['paid'] ? 'p-button-danger' : 'p-button-success' }} p-button-sm"
+                        (click)="invoice['paid'] ? refund() : pay()">
                         <i class="fas fa-donate me-1"></i>
-                        Pagar
+                        {{ invoice['paid'] ? 'Estonar' : 'Pagar' }}
                     </button>
-                    <button type="button" pButton class="p-button-contrast p-button-sm ms-2">
+                    <button type="button" pButton class="p-button-contrast p-button-sm ms-2" (click)="invoice['scheduled'] ? undoScheduling(invoice) : schedule(invoice)">
                         <i class="fas fa-clock me-1"></i>
-                        Agendar
+                        {{ invoice['scheduled'] ? 'Canc. agendamento' : 'Agendar' }}
                     </button>
                     <a class="btn" style="float: right; margin-top: 5px;" routerLink="/transactions">
                         Voltar
@@ -59,6 +24,8 @@
             </div>
         </div>
     </div>
+
+    <app-invoice-payment-detail [invoicePaymentDetails]="invoicePaymentDetails" (isPayment)="this.invoice.paid = false"></app-invoice-payment-detail>
 
     <br />
 
@@ -107,9 +74,17 @@
                                     <span class="p-column-title">CATEGORIA</span>
                                     <span>{{ transaction['subcategory'] }}</span>
                                 </td>
-                                <td class="text-right text-danger">
+                                <td class="text-right {{ transaction['value'] > 0 ? '' : 'text-danger' }}">
                                     <span class="p-column-title">VALOR</span>
                                     {{ NumberHelpers.invertSignalWhenNegative(transaction['value']) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="3" style="text-align: center;">
+                                    Nenhum registro encontrado.
                                 </td>
                             </tr>
                         </ng-template>
@@ -126,7 +101,7 @@
             <i class="fa-solid fa-pencil m-1"></i>
             Editar
         </button>
-        <button type="button" pButton class="p-button-contrast p-button-sm me-2" [disabled]="!authService.hasPermission('DELETE_TRANSACTIONS')">
+        <button type="button" pButton class="p-button-contrast p-button-sm me-2" (click)="confirmationDelete(selectedValue)" [disabled]="!authService.hasPermission('DELETE_TRANSACTIONS')">
             <i class="fa-solid fa-remove m-1"></i>
             Excluir
         </button>

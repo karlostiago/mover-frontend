@@ -1,0 +1,40 @@
+<div class="row g-3">
+    <div class="col-md-4 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label>Cartão</label>
+                <h5> {{ invoice['card'] }} </h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label>Vencimento</label>
+                <h5> {{ invoice['dueDate'] }} </h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label>Total da fatura</label>
+                <h5 class="{{ invoice['value'] >= 0 ? '' : 'text-danger' }}"> {{ NumberHelpers.invertSignalWhenNegative(invoice['value']) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label>Pago / Agendado</label>
+                <h5>
+                    <span class="badge rounded-pill {{ invoice['paid'] ? 'text-bg-success' : 'text-bg-danger' }}">  {{ invoice['paid'] ? 'Sim' : 'Não' }} </span> /
+                    <span class="badge rounded-pill {{ invoice['scheduled'] ? 'text-bg-success' : 'text-bg-danger' }}"> {{ invoice['scheduled'] ? 'Sim' : 'Não' }} </span>
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>

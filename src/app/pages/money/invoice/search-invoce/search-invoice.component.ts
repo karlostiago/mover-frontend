@@ -5,7 +5,10 @@ import {AuthService} from "../../../../core/login/auth.service";
 import {ActivatedRoute} from "@angular/router";
 import {NumberHelpers} from "../../../../../shared/NumberHelpers";
 import {InvoiceService} from "../invoice.service";
-import {transition} from "@angular/animations";
+import {ConfirmationService} from "primeng/api";
+import {AlertService} from "../../../../../shared/service/AlertService";
+import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/GlobalDialogService";
+import {InvoicePaymentDetailEntity} from "../../../../../entity/InvoicePaymentDetailEntity";
 
 @Component({
   selector: 'app-invoice-brand',
@@ -15,11 +18,16 @@ import {transition} from "@angular/animations";
 export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
 
     private id: number;
+
     invoice = new TransactionEntity();
     transactions = new Array<TransactionEntity>();
+    invoicePaymentDetails = new Array<InvoicePaymentDetailEntity>();
 
     constructor(protected authService: AuthService,
                 private invoiceService: InvoiceService,
+                private confirmationService: ConfirmationService,
+                private alertService: AlertService,
+                private globalService: GlobalDialogService,
                 protected activatedRoute: ActivatedRoute) {
         super();
         if (this.activatedRoute.snapshot.params['id']) {
@@ -28,15 +36,52 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
     }
 
     async ngOnInit() {
-        this.invoiceService.searchInvoice(this.id).then(response => {
-            this.transactions = response.filter(t => !t.invoice);
-            this.invoice = response.find(t => t.invoice)!;
-            localStorage.setItem("TRANSACTION_UPDATE", String(true));
+        this.loading();
+    }
+
+    confirmationDelete(transaction: TransactionEntity) {
+        this.confirmationService.confirm({
+            message: `Tem certeza que deseja excluir o Lançamento ${transaction.description}`,
+            accept: () => {
+                this.delete(transaction);
+            }
+        })
+    }
+
+    delete(transaction: TransactionEntity) {
+        this.invoiceService.delete(transaction.id).then(() => {
+            this.closeSidebarDetails();
+            this.loading();
+            this.alertService.success("Lançamento excluido com sucesso.");
         });
     }
 
-    addLocalstorage() {
-        localStorage.setItem("VALUE_ID", this.selectedValue.id);
+    schedule(transaction: TransactionEntity) {
+        this.invoiceService.schedule(transaction.id).then(() => {
+            this.alertService.success("Fatura agendada com sucesso.");
+            this.loading();
+        });
+    }
+
+    undoScheduling(transaction: TransactionEntity) {
+        this.invoiceService.undoScheduling(transaction.id).then(() => {
+            this.alertService.success("Agendamento de fatura desfeito com sucesso.");
+            this.loading();
+        });
+    }
+
+    pay() {
+        const result$ = this.globalService.openDialog<boolean>(TypeDialog.CONFIRMATION_INVOICE_PAYMENT, this.invoice);
+        result$?.subscribe((response) => {
+            if (response === true) {
+                this.invoice.paid = true;
+                this.loadingInvoicePaymentDetails();
+            }
+        })
+    }
+
+    refund() {
+        this.invoicePaymentDetails = [];
     }
 
     createFieldsSidebarDetails() {
@@ -56,6 +101,21 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
         ]
     }
 
+    private loading() {
+        this.invoiceService.searchInvoice(this.id).then(response => {
+            this.transactions = response.filter(t => !t.invoice);
+            this.invoice = response.find(t => t.invoice)!;
+            this.loadingInvoicePaymentDetails();
+
+            localStorage.setItem("TRANSACTION_UPDATE", String(true));
+        });
+    }
+
+    private loadingInvoicePaymentDetails() {
+        this.invoiceService.invoicePaymentDetail(this.invoice.id).then(response => {
+            this.invoicePaymentDetails = response;
+        });
+    }
+
     protected readonly NumberHelpers = NumberHelpers;
-    protected readonly transition = transition;
 }

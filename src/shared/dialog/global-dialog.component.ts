@@ -24,6 +24,10 @@ import {
 import {
     DialogBatchUpdateTransactionComponent
 } from "../../app/pages/money/transaction/dialog-batch-update-transaction/dialog-batch-update-transaction.component";
+import {
+    DialogInvoicePaymentComponent
+} from "../../app/pages/money/invoice/dialog-invoice-payment/dialog-invoice-payment.component";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-global-dialog',
@@ -52,10 +56,12 @@ export class GlobalDialogComponent implements OnInit {
 
     @ViewChild(DialogBrandIconComponent) dialogBrandIconComponent: DialogBrandIconComponent;
 
+    @ViewChild(DialogInvoicePaymentComponent) dialogInvoicePaymentComponent: DialogInvoicePaymentComponent;
+
     ngOnInit() { }
 
-    open(typeDialog: TypeDialog, source?: any, target?: any) {
-        const dialogMap: Record<TypeDialog, (source?: any, target?: any) => void> = {
+    open(typeDialog: TypeDialog, source?: any, target?: any, result$?: Subject<any>) {
+        const dialogMap: Record<TypeDialog, (source?: any, target?: any, result$?: Subject<any>) => void> = {
             [TypeDialog.ADDRESS]: this.dialogAddress.showDialog.bind(this.dialogAddress),
             [TypeDialog.FIPE]: this.dialogFipe.showDialog.bind(this.dialogFipe),
             [TypeDialog.CONTACT]: this.dialogContact.showDialog.bind(this.dialogContact),
@@ -65,13 +71,14 @@ export class GlobalDialogComponent implements OnInit {
             [TypeDialog.CONFIRMATION_PAYMENT_TRANSATION]: this.dialogConfirmationPaymentComponent.showDialog.bind(this.dialogConfirmationPaymentComponent),
             [TypeDialog.BATCH_UPDATE_TRANSACTION]: this.dialogUpdateFixedTransactionComponent.showDialog.bind(this.dialogUpdateFixedTransactionComponent),
             [TypeDialog.SELECT_BANK_ICON]: this.dialogBankIconComponent.showDialog.bind(this.dialogBankIconComponent),
-            [TypeDialog.SELECT_BRAND_ICON]: this.dialogBrandIconComponent.showDialog.bind(this.dialogBrandIconComponent)
+            [TypeDialog.SELECT_BRAND_ICON]: this.dialogBrandIconComponent.showDialog.bind(this.dialogBrandIconComponent),
+            [TypeDialog.CONFIRMATION_INVOICE_PAYMENT]: this.dialogInvoicePaymentComponent.showDialog.bind(this.dialogInvoicePaymentComponent),
         };
 
         const dialogFunction = dialogMap[typeDialog];
 
         if (dialogFunction) {
-            dialogFunction(source, target);
+            dialogFunction(source, target, result$);
         } else {
             console.warn(`Dialog type ${typeDialog} is not handled.`);
         }

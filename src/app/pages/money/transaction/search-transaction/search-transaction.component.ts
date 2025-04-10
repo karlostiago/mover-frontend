@@ -14,6 +14,7 @@ import {BalanceService} from "../balance.service";
 import {AuthService} from "../../../../core/login/auth.service";
 import {PaginationService} from "../../../../../shared/service/PaginationService";
 import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-search-transaction',
@@ -53,6 +54,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 protected authService: AuthService,
                 private transactionService: TransactionService,
                 private paginationService: PaginationService,
+                private router: Router,
                 private cdr: ChangeDetectorRef) {
         super();
     }
@@ -101,21 +103,31 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
 
     confirmationPayment(transaction: TransactionEntity) {
         if (this.allowPayment) {
-            this.dialogConfirmationPaymentComponent.showDialog(transaction);
+            if (transaction.invoice) {
+                this.redirectToInvoice(transaction);
+            } else {
+                this.dialogConfirmationPaymentComponent.showDialog(transaction);
+            }
         }
     }
 
     refund(transaction: TransactionEntity) {
         if (this.allowRefund) {
-            this.transactionService.refund(transaction.id).then(() => {
-                this.alertService.success("Lançamento estornado com sucesso.");
-                this.updateTransactions();
-            });
+            if (transaction.invoice) {
+                this.redirectToInvoice(transaction);
+            } else {
+                this.transactionService.refund(transaction.id).then(() => {
+                    this.alertService.success("Lançamento estornado com sucesso.");
+                    this.updateTransactions();
+                });
+            }
         }
     }
 
     schedule(transaction: TransactionEntity) {
-        if (this.allowSchedule) {
+        if (transaction.invoice && this.allowSchedule) {
+            this.redirectToInvoice(transaction);
+        } else if (this.allowSchedule) {
             this.transactionService.schedule(transaction.id).then(() => {
                 this.alertService.success("Lançamento agendado com sucesso.");
                 this.updateTransactions();
@@ -124,7 +136,9 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     }
 
     undoScheduling(transaction: TransactionEntity) {
-        if (this.allowSchedule) {
+        if (transaction.invoice && this.allowSchedule) {
+            this.redirectToInvoice(transaction);
+        } else if (this.allowSchedule) {
             this.transactionService.undoScheduling(transaction.id).then(() => {
                 this.alertService.success("Agendamento de lançamento desfeito com sucesso.");
                 this.updateTransactions();
@@ -145,9 +159,6 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
 
             response.forEach(t => {
                 if (!existingIds.has(t.id)) {
-                    if (this.expand) {
-                        this.rowExpanded(t);
-                    }
                     this.transactions.push(t);
                     existingIds.add(t.id);
                 }
@@ -167,35 +178,6 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.updateBalance(this.createFilters());
     }
 
-    /*
-    updateExpand() {
-        localStorage.setItem('TRANSACTION_EXPAND', String(this.expand));
-    }
-
-    updateViewOnlyInvoice() {
-        localStorage.setItem('TRANSACTION_VIEW_INVOICE', String(this.viewOnlyInvoice));
-    }
-     */
-
-    rowExpanded(transaction: any) {
-        if (!transaction.hasInvoice) return;
-
-        const invoice = transaction['invoice'];
-        const index = this.transactions.indexOf(transaction);
-
-        if (index !== -1) {
-            transaction['expanded'] = true;
-            this.transactions.splice(index + 1, 0, ...invoice['transactions']);
-            this.transactions = [...this.transactions];
-        }
-    }
-
-    rowReduce(transaction: any) {
-        transaction['expanded'] = false;
-        const invoice = transaction['invoice'];
-        this.transactions = this.transactions.filter(t => !invoice['transactions'].includes(t));
-    }
-
     createFieldsSidebarDetails() {
         const card = this.selectedValue.cardId > 0 ? `/ ${this.selectedValue.card}` : '';
         if (this.selectedValue.invoice) {
@@ -203,6 +185,12 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         } else {
             this.fieldsSidebarDetailsTransaction(card);
         }
+    }
+
+    private redirectToInvoice(transaction: TransactionEntity) {
+        void this.router.navigate([
+            '/invoices', transaction.id, 'credit-card', transaction.cardId
+        ]);
     }
 
     private fieldsSidebarDetailsTransaction(card: string) {
@@ -285,13 +273,6 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.transactionService.findBy(filters).then(response => {
             this.transactions.length = 0;
             this.transactions = this.findAll(response);
-
-            for (const transaction of this.transactions) {
-                if (this.expand) {
-                    this.rowExpanded(transaction);
-                }
-            }
-
             this.updateBalance(filters);
             this.remainingPages = response.length > 0 ? response[0].remainingPages : -1;
             this.cdr.detectChanges();

@@ -323,7 +323,7 @@ a.btn:active {
 }
 
 .p-dropdown .p-inputtext {
-    height: 2.688rem;
+    /*height: 2.688rem;*/
 }
 
 .p-dropdown-item.p-highlight {

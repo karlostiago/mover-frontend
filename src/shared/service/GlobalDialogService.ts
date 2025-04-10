@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {GlobalDialogComponent} from "../dialog/global-dialog.component";
+import {Subject} from "rxjs";
 
 export enum TypeDialog {
     ADDRESS,
@@ -11,7 +12,8 @@ export enum TypeDialog {
     CONFIRMATION_PAYMENT_TRANSATION,
     BATCH_UPDATE_TRANSACTION,
     SELECT_BANK_ICON,
-    SELECT_BRAND_ICON
+    SELECT_BRAND_ICON,
+    CONFIRMATION_INVOICE_PAYMENT
 }
 
 @Injectable({
@@ -30,9 +32,12 @@ export class GlobalDialogService {
      * @param source
      * @param target usado para atualizar registro
      */
-    openDialog(typeDialog: TypeDialog, source?: any, target?: any) {
+    openDialog<T = any>(typeDialog: TypeDialog, source?: any, target?: any): Subject<T> | null {
         if (this.globalDialog) {
-            this.globalDialog.open(typeDialog, source, target);
+            const result$ = new Subject<T>();
+            this.globalDialog.open(typeDialog, source, target, result$);
+            return result$;
         }
+        return null;
     }
 }

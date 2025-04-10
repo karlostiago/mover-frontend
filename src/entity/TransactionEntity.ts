@@ -35,5 +35,4 @@ export class TransactionEntity {
     contract: string;
     invoice: boolean = false;
     invoiceId: number;
-    amountPaid: number;
 }

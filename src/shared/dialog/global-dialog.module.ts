@@ -35,6 +35,9 @@ import {
 import {
     DialogBatchUpdateTransactionComponent
 } from "../../app/pages/money/transaction/dialog-batch-update-transaction/dialog-batch-update-transaction.component";
+import {
+    DialogInvoicePaymentComponent
+} from "../../app/pages/money/invoice/dialog-invoice-payment/dialog-invoice-payment.component";
 
 @NgModule({
     declarations: [
@@ -48,7 +51,8 @@ import {
         DialogDeleteTransactionComponent,
         DialogBatchUpdateTransactionComponent,
         DialogBankIconComponent,
-        DialogBrandIconComponent
+        DialogBrandIconComponent,
+        DialogInvoicePaymentComponent
     ],
     exports: [
         DialogAddressComponent,
@@ -57,7 +61,8 @@ import {
         DialogContactComponent,
         DialogSubcategoryComponent,
         DialogDeleteTransactionComponent,
-        DialogConfirmationPaymentComponent
+        DialogConfirmationPaymentComponent,
+        DialogInvoicePaymentComponent
     ],
     imports: [
         CommonModule,

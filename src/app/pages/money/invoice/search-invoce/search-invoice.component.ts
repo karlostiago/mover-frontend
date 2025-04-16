@@ -45,7 +45,7 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
             accept: () => {
                 this.delete(transaction);
             }
-        })
+        });
     }
 
     delete(transaction: TransactionEntity) {
@@ -80,8 +80,18 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
         })
     }
 
-    refund() {
-        this.invoicePaymentDetails = [];
+    confirmationRefund() {
+        this.confirmationService.confirm({
+            message: `Tem certeza que deseja estornar a ${this.invoice.description} ?`,
+            accept: () => {
+                this.refund(this.invoice.id);
+            }
+        })
+    }
+
+    isInvoicePaid() {
+        return NumberHelpers.invertSignalWhenNegative(this.invoice['amountPaid']) >=
+            NumberHelpers.invertSignalWhenNegative(this.invoice['value']);
     }
 
     createFieldsSidebarDetails() {
@@ -99,6 +109,12 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
             { label: 'Data pagamento', value: this.selectedValue.paymentDate, col: 2, visible: this.selectedValue.paid },
             { label: 'Efetivado / Pago', value: this.selectedValue.paid ? 'SIM' : 'NÃO', col: 2, visible: true }
         ]
+    }
+
+    private refund(id: number) {
+        this.invoiceService.refund(id).then(response => {
+            this.invoicePaymentDetails = [];
+        });
     }
 
     private loading() {

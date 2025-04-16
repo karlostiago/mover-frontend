@@ -4,6 +4,7 @@ import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 import {InvoiceService} from "../invoice.service";
 import {AccountService} from "../../../configuration/account/account.service";
 import {Subject} from "rxjs";
+import {NumberHelpers} from "../../../../../shared/NumberHelpers";
 
 @Component({
   selector: 'app-dialog-invoice-payment',
@@ -28,10 +29,11 @@ export class DialogInvoicePaymentComponent implements OnInit {
     }
 
     showDialog(transaction: TransactionEntity, target: any, result$?: Subject<any>) {
+        console.log(transaction)
         this.visible = true;
         this.result$ = result$!;
         this.transaction = structuredClone(transaction);
-        this.transaction.value = 0;
+        this.transaction.value = this.calculateResidualValue();
         this.transaction.account = '';
         this.transaction.accountId = 0
         this.transaction.paymentDate = new Date();
@@ -52,6 +54,13 @@ export class DialogInvoicePaymentComponent implements OnInit {
     formInValid() {
         if (this.transaction.accountId === 0) return true;
         return this.transaction.value === 0;
+    }
+
+    private calculateResidualValue() {
+        if (this.transaction.residualValue) {
+            return NumberHelpers.invertSignalWhenNegative(this.transaction.residualValue);
+        }
+        return NumberHelpers.invertSignalWhenNegative(this.transaction.value);
     }
 
     private async loadingAccounts() {

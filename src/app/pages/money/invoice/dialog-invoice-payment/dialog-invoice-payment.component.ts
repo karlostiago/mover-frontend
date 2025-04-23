@@ -29,11 +29,10 @@ export class DialogInvoicePaymentComponent implements OnInit {
     }
 
     showDialog(transaction: TransactionEntity, target: any, result$?: Subject<any>) {
-        console.log(transaction)
         this.visible = true;
         this.result$ = result$!;
         this.transaction = structuredClone(transaction);
-        this.transaction.value = this.calculateResidualValue();
+        this.transaction.value = 0;
         this.transaction.account = '';
         this.transaction.accountId = 0
         this.transaction.paymentDate = new Date();
@@ -44,7 +43,10 @@ export class DialogInvoicePaymentComponent implements OnInit {
         if (this.transaction.paymentDate) {
             this.invoiceService.pay(this.transaction, this.transaction.paymentDate).then(() => {
                 this.alertService.success("Fatura paga com sucesso.");
-                this.result$.next(true);
+                this.result$.next({
+                    paid: true,
+                    amountPaid: this.transaction.value
+                });
                 this.result$.complete();
                 this.visible = false;
             });
@@ -54,13 +56,6 @@ export class DialogInvoicePaymentComponent implements OnInit {
     formInValid() {
         if (this.transaction.accountId === 0) return true;
         return this.transaction.value === 0;
-    }
-
-    private calculateResidualValue() {
-        if (this.transaction.residualValue) {
-            return NumberHelpers.invertSignalWhenNegative(this.transaction.residualValue);
-        }
-        return NumberHelpers.invertSignalWhenNegative(this.transaction.value);
     }
 
     private async loadingAccounts() {

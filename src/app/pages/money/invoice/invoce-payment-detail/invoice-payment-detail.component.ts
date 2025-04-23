@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NumberHelpers} from "../../../../../shared/NumberHelpers";
 import {InvoicePaymentDetailEntity} from "../../../../../entity/InvoicePaymentDetailEntity";
 import {ConfirmationService} from "primeng/api";
@@ -11,11 +11,8 @@ import {ConfirmationService} from "primeng/api";
 export class InvoicePaymentDetailComponent implements OnInit {
 
     @Input() invoicePaymentDetails = new Array<InvoicePaymentDetailEntity>();
-    @Output() isPayment = new EventEmitter<boolean>();
 
-    constructor(private confirmationService: ConfirmationService) {
-
-    }
+    constructor(private confirmationService: ConfirmationService) { }
 
     async ngOnInit() {
 
@@ -32,7 +29,12 @@ export class InvoicePaymentDetailComponent implements OnInit {
 
     private delete(invoicePaymentDetail: InvoicePaymentDetailEntity) {
         this.invoicePaymentDetails = this.invoicePaymentDetails.filter( i => i.id !== invoicePaymentDetail.id)
-        this.isPayment.emit(false);
+    }
+
+    get totalAmountPaid() {
+        return (this.invoicePaymentDetails ?? [])
+            .map(i => i.value)
+            .reduce((sum, value) => sum + value, 0);
     }
 
     protected readonly NumberHelpers = NumberHelpers;

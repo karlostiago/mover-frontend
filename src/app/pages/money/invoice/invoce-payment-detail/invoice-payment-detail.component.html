@@ -30,7 +30,7 @@
                                     {{ detail['account'] }}
                                 </td>
                                 <td class="text-center">
-                                    {{ NumberHelpers.invertSignalWhenNegative(detail['value']) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                                    {{ NumberHelpers.invertSignalWhenNegative(detail['value']) | currency:'BRL' }}
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÕES</span>
@@ -47,6 +47,17 @@
                                         </ul>
                                     </div>
                                 </td>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="footer">
+                            <tr>
+                                <td></td>
+                                <td class="text-center"> TOTAL PAGO </td>
+                                <td class="text-center">
+                                    {{ NumberHelpers.invertSignalWhenNegative(totalAmountPaid) | currency:'BRL' }}
+                                </td>
+                                <td></td>
                             </tr>
                         </ng-template>
                     </p-table>

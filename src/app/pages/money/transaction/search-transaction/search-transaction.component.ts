@@ -15,6 +15,7 @@ import {AuthService} from "../../../../core/login/auth.service";
 import {PaginationService} from "../../../../../shared/service/PaginationService";
 import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
 import {Router} from "@angular/router";
+import {InvoiceService} from "../../invoice/invoice.service";
 
 @Component({
   selector: 'app-search-transaction',
@@ -54,6 +55,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 protected authService: AuthService,
                 private transactionService: TransactionService,
                 private paginationService: PaginationService,
+                private invoiceService: InvoiceService,
                 private router: Router,
                 private cdr: ChangeDetectorRef) {
         super();
@@ -94,11 +96,19 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     }
 
     delete(transaction: TransactionEntity) {
-        this.transactionService.delete(transaction.id).then(() => {
-            this.closeSidebarDetails();
-            this.updateTransactions();
-            this.alertService.success("Lançamento excluido com sucesso.");
-        });
+        if (transaction.invoice) {
+            this.invoiceService.delete(transaction.id).then(() => {
+                this.closeSidebarDetails();
+                this.updateTransactions();
+                this.alertService.success("Fatura excluida com sucesso.");
+            });
+        } else {
+            this.transactionService.delete(transaction.id).then(() => {
+                this.closeSidebarDetails();
+                this.updateTransactions();
+                this.alertService.success("Lançamento excluido com sucesso.");
+            });
+        }
     }
 
     confirmationPayment(transaction: TransactionEntity) {

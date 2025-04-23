@@ -50,34 +50,34 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
 
     delete(transaction: TransactionEntity) {
         this.invoiceService.delete(transaction.id).then(() => {
-            this.closeSidebarDetails();
-            this.loading();
+            this.transactions = this.transactions.filter(t => t.id !== transaction.id);
+            this.invoice.value = this.transactions.reduce((sum, t) => sum + t.value, 0);
             this.alertService.success("Lançamento excluido com sucesso.");
+            this.closeSidebarDetails();
         });
     }
 
     schedule(transaction: TransactionEntity) {
         this.invoiceService.schedule(transaction.id).then(() => {
             this.alertService.success("Fatura agendada com sucesso.");
-            this.loading();
+            transaction.scheduled = true;
         });
     }
 
     undoScheduling(transaction: TransactionEntity) {
         this.invoiceService.undoScheduling(transaction.id).then(() => {
             this.alertService.success("Agendamento de fatura desfeito com sucesso.");
-            this.loading();
+            transaction.scheduled = false;
         });
     }
 
     pay() {
-        const result$ = this.globalService.openDialog<boolean>(TypeDialog.CONFIRMATION_INVOICE_PAYMENT, this.invoice);
+        const result$ = this.globalService.openDialog<any>(TypeDialog.CONFIRMATION_INVOICE_PAYMENT, this.invoice);
         result$?.subscribe((response) => {
-            if (response === true) {
-                this.invoice.paid = true;
-                this.loadingInvoicePaymentDetails();
-            }
-        })
+            this.invoice.paid = response.paid;
+            this.invoice.amountPaid += response.amountPaid;
+            this.loadingInvoicePaymentDetails();
+        });
     }
 
     confirmationRefund() {
@@ -114,6 +114,8 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
     private refund(id: number) {
         this.invoiceService.refund(id).then(response => {
             this.invoicePaymentDetails = [];
+            this.invoice.paid = false;
+            this.invoice.amountPaid = 0;
         });
     }
 

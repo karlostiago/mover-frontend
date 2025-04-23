@@ -8,15 +8,17 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-footer">
-                    <button type="submit" pButton class="{{ isInvoicePaid() ? 'p-button-danger' : 'p-button-success' }} p-button-sm"
-                        (click)="isInvoicePaid() ? confirmationRefund() : pay()">
-                        <i class="fas fa-donate me-1"></i>
-                        {{ isInvoicePaid() ? 'Estonar' : 'Pagar' }}
-                    </button>
-                    <button type="button" pButton class="p-button-contrast p-button-sm ms-2" (click)="invoice['scheduled'] ? undoScheduling(invoice) : schedule(invoice)">
-                        <i class="fas fa-clock me-1"></i>
-                        {{ invoice['scheduled'] ? 'Canc. agendamento' : 'Agendar' }}
-                    </button>
+                    <span *ngIf="invoice.value !== 0">
+                        <button type="submit" pButton class="{{ isInvoicePaid() ? 'p-button-danger' : 'p-button-success' }} p-button-sm"
+                                (click)="isInvoicePaid() ? confirmationRefund() : pay()">
+                            <i class="fas fa-donate me-1"></i>
+                            {{ isInvoicePaid() ? 'Estonar' : 'Pagar' }}
+                        </button>
+                        <button type="button" pButton class="p-button-contrast p-button-sm ms-2" (click)="invoice['scheduled'] ? undoScheduling(invoice) : schedule(invoice)">
+                            <i class="fas fa-clock me-1"></i>
+                            {{ invoice['scheduled'] ? 'Canc. agendamento' : 'Agendar' }}
+                        </button>
+                    </span>
                     <a class="btn" style="float: right; margin-top: 5px;" routerLink="/transactions">
                         Voltar
                     </a>
@@ -25,7 +27,7 @@
         </div>
     </div>
 
-    <app-invoice-payment-detail [invoicePaymentDetails]="invoicePaymentDetails" (isPayment)="this.invoice.paid = false"></app-invoice-payment-detail>
+    <app-invoice-payment-detail [invoicePaymentDetails]="invoicePaymentDetails"></app-invoice-payment-detail>
 
     <br />
 

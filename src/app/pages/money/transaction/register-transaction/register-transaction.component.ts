@@ -192,10 +192,12 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         this.transaction.accountId = 0;
         this.transaction.partnerId = 0;
         this.transaction.contractId = 0;
+        this.transaction.destinationAccountId = 0;
         this.transaction.cardId = 0;
         this.transaction.vehicleId = 0;
         this.enableInstallments = false;
         this.transaction.dueDate = null;
+        this.transaction.registerDate = new Date();
     }
 
     private findSubcategories(categoryId: number, subcategories: Array<SubCategoryEntity>) {
@@ -215,7 +217,6 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     private async save(form: NgForm) {
         this.transactionService.save(this.transaction).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
-            this.transaction = new TransactionEntity();
             this.cancel(form);
         });
     }

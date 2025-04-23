@@ -112,7 +112,7 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
     }
 
     private refund(id: number) {
-        this.invoiceService.refund(id).then(response => {
+        this.invoiceService.refund(id).then(() => {
             this.invoicePaymentDetails = [];
             this.invoice.paid = false;
             this.invoice.amountPaid = 0;

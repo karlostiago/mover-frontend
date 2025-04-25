@@ -119,7 +119,8 @@ input, textarea {
 
 .p-datatable .p-datatable-tbody > tr.p-highlight,
 .p-datatable .p-datatable-tbody > tr.p-selectable-row.p-highlight {
-    /*background: #56957366 !important;*/
+    background: transparent;
+    transition: background 1s;
 }
 
 /**

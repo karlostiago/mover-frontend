@@ -4,7 +4,6 @@ import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 import {InvoiceService} from "../invoice.service";
 import {AccountService} from "../../../configuration/account/account.service";
 import {Subject} from "rxjs";
-import {NumberHelpers} from "../../../../../shared/NumberHelpers";
 
 @Component({
   selector: 'app-dialog-invoice-payment',

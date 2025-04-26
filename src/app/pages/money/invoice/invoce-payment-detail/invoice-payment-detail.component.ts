@@ -1,7 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NumberHelpers} from "../../../../../shared/NumberHelpers";
 import {InvoicePaymentDetailEntity} from "../../../../../entity/InvoicePaymentDetailEntity";
 import {ConfirmationService} from "primeng/api";
+import {InvoiceService} from "../invoice.service";
+import {AlertService} from "../../../../../shared/service/AlertService";
 
 @Component({
     selector: 'app-invoice-payment-detail',
@@ -11,8 +13,11 @@ import {ConfirmationService} from "primeng/api";
 export class InvoicePaymentDetailComponent implements OnInit {
 
     @Input() invoicePaymentDetails = new Array<InvoicePaymentDetailEntity>();
+    @Output() amountPaid = new EventEmitter<number>();
 
-    constructor(private confirmationService: ConfirmationService) { }
+    constructor(private confirmationService: ConfirmationService,
+                private alert: AlertService,
+                private invoiceService: InvoiceService) { }
 
     async ngOnInit() {
 
@@ -20,7 +25,7 @@ export class InvoicePaymentDetailComponent implements OnInit {
 
     confirmationDelete(invoicePaymentDetail: InvoicePaymentDetailEntity) {
         this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir o pagamento da fatura ?`,
+            message: `Tem certeza que deseja estornar este pagamento ?`,
             accept: () => {
                 this.delete(invoicePaymentDetail);
             }
@@ -28,7 +33,11 @@ export class InvoicePaymentDetailComponent implements OnInit {
     }
 
     private delete(invoicePaymentDetail: InvoicePaymentDetailEntity) {
-        this.invoicePaymentDetails = this.invoicePaymentDetails.filter( i => i.id !== invoicePaymentDetail.id)
+        this.invoiceService.refund(invoicePaymentDetail.id).then(() => {
+            this.alert.success('Pagamento excluído com sucesso.');
+            this.invoicePaymentDetails = this.invoicePaymentDetails.filter( i => i.id !== invoicePaymentDetail.id);
+            this.amountPaid.emit(this.totalAmountPaid);
+        });
     }
 
     get totalAmountPaid() {

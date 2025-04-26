@@ -94,6 +94,13 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
             NumberHelpers.invertSignalWhenNegative(this.invoice['value']);
     }
 
+    amountPaid(e: any) {
+        this.invoice['amountPaid'] = e;
+        if (this.invoice['amountPaid'] === 0) {
+            this.invoice['paid'] = false;
+        }
+    }
+
     createFieldsSidebarDetails() {
         const card = this.selectedValue.cardId > 0 ? `/ ${this.selectedValue.card}` : '';
         this.fields = [

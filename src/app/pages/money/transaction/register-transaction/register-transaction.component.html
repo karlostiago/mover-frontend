@@ -31,13 +31,14 @@
                         </div>
                         <div class="col-md-2">
                             <label class="form-label"> Data *:</label>
-                            <p-calendar appendTo="body" name="registerDate" id="registerDate" [(ngModel)]="transaction['registerDate']" [required]="true" dateFormat="dd/mm/yy" [readonlyInput]="true" />
+                            <p-calendar appendTo="body" name="registerDate" id="registerDate" (onSelect)="onCalculateCutOfDate()"
+                                        [(ngModel)]="transaction['registerDate']" [required]="true" dateFormat="dd/mm/yy" [readonlyInput]="true" />
                         </div>
                     </div>
 
                     <app-transfer-transaction [transaction]="transaction"></app-transfer-transaction>
                     <app-corporate-capital-transaction [transaction]="transaction"></app-corporate-capital-transaction>
-                    <app-common-transaction [transaction]="transaction"></app-common-transaction>
+                    <app-common-transaction [transaction]="transaction" (calculateCutOfDate)="onCalculateCutOfDate()"></app-common-transaction>
 
                     <div class="row" *ngIf="!transaction['invoiceId']">
                         <div class="col-md-3">

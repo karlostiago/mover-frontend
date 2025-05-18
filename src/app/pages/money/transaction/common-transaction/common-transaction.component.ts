@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 import {AccountService} from "../../../configuration/account/account.service";
 import {BaseTransaction} from "../../../../../abstract/BaseTransaction";
@@ -24,6 +24,7 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     private selectedCards = new Array<any>();
 
     @Input() transaction: TransactionEntity;
+    @Output() calculateCutOfDate = new EventEmitter<TransactionEntity>();
 
     constructor(private accountService: AccountService,
                 private cardService: CardService,
@@ -55,26 +56,11 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     onChangeFilterCard() {
         this.filterCardByAccount();
         this.transaction['cardId'] = 0;
-        this.transaction['dueDate'] = null;
     }
 
     onChangeFilterContract() {
        this.filterContractByVehicleId();
        this.transaction['contractId'] = 0;
-    }
-
-    onCalculateCutOfDate() {
-        if (this.transaction.cardId === 0) {
-            this.transaction.dueDate = null;
-            return;
-        }
-
-        this.loadService.automatic = false;
-        this.transactionService.calculateCutOffDate(this.transaction).then(response => {
-            this.transaction.dueDate = response.dueDate;
-        }).finally(() => {
-            this.loadService.automatic = true;
-        });
     }
 
     private async loadingAccounts() {

@@ -57,9 +57,4 @@ export class TransactionService extends BaseService<TransactionEntity> {
         const request = this.httpClient.put(`${this.baseURL}/${this.pathURL()}/calculate-cut-off-date`, JSON.stringify(entity), this.options());
         return this.toPromise(request);
     }
-
-    async searchInvoice(invoiceId: number): Promise<Array<TransactionEntity>> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/invoice/${invoiceId}`, this.options());
-        return this.toPromise(request);
-    }
 }

@@ -186,6 +186,20 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         this.enableInstallments = !this.enableInstallments;
     }
 
+    onCalculateCutOfDate() {
+        if (this.transaction.cardId === 0) {
+            this.transaction.dueDate = null;
+            return;
+        }
+
+        this.loadService.automatic = false;
+        this.transactionService.calculateCutOffDate(this.transaction).then(response => {
+            this.transaction.dueDate = response.dueDate;
+        }).finally(() => {
+            this.loadService.automatic = true;
+        });
+    }
+
     private clear() {
         this.transaction.description = '';
         this.transaction.value = 0;

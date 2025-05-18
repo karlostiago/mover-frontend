@@ -74,7 +74,7 @@
                 <div class="card">
                     <div class="card-header">
                         <label>Saldo em conta corrente</label>
-                        <h5 class="{{ balance['currentAccount'] < 0 ? 'text-danger' : '' }}">{{ balance['currentAccount'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                        <h5 class="{{ balance['currentAccount'] < 0 ? 'text-danger' : '' }}">{{ NumberHelpers.invertSignalWhenNegative(balance['currentAccount']) | currency:'BRL' }}</h5>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
                 <div class="card">
                     <div class="card-header">
                         <label>Receitas</label>
-                        <h5 class="text-success">{{ balance['income'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                        <h5 class="text-success">{{ balance['income'] | currency:'BRL' }}</h5>
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                 <div class="card">
                     <div class="card-header">
                         <label>Despesas</label>
-                        <h5 class="text-danger">{{ balance['expense'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                        <h5 class="text-danger">{{ balance['expense'] | currency:'BRL' }}</h5>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                 <div class="card">
                     <div class="card-header">
                         <label>Balanço mensal</label>
-                        <h5 class="{{ balance['generalBalance'] < 0 ? 'text-danger' : '' }}">{{ NumberHelpers.invertSignalWhenNegative(balance['generalBalance']) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                        <h5 class="{{ balance['generalBalance'] < 0 ? 'text-danger' : '' }}">{{ NumberHelpers.invertSignalWhenNegative(balance['generalBalance']) | currency:'BRL' }}</h5>
                     </div>
                 </div>
             </div>

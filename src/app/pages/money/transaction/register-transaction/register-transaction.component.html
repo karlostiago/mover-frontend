@@ -64,7 +64,7 @@
                         <i class="fa-solid fa-remove m-1"></i>
                         Cancelar
                     </button>
-                    <button pButton type="button" class="p-button-contrast p-button-sm ms-2" *ngIf="!enableInstallments && isNewRegister()" [disabled]="!transaction['value'] || !authService.hasPermission('ENABLED_INSTALLMENT_TRANSACTIONS')" (click)="enableRepeat()">
+                    <button pButton type="button" class="p-button-contrast p-button-sm ms-2" *ngIf="(!enableInstallments && isNewRegister()) || isClone" [disabled]="!transaction['value'] || !authService.hasPermission('ENABLED_INSTALLMENT_TRANSACTIONS')" (click)="enableRepeat()">
                         <i class="fa-solid fa-repeat m-1"></i>
                         {{ enableInstallments ? 'Desativa' : 'Ativa' }} repetição
                     </button>

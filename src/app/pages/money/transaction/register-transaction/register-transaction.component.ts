@@ -16,8 +16,8 @@ import {LoaderService} from "../../../../core/loader/loader.service";
 import {DateHelpers} from "../../../../../shared/DateHelpers";
 import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/GlobalDialogService";
 import {AuthService} from "../../../../core/login/auth.service";
-import {StringHelpers} from "../../../../../shared/StringHelpers";
 import {InvoiceService} from "../../invoice/invoice.service";
+import {StringHelpers} from "../../../../../shared/StringHelpers";
 
 @Component({
   selector: 'app-register-transaction',
@@ -37,6 +37,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     groupCategories: SelectItemGroup[];
 
     enableInstallments: boolean = false;
+    isClone: boolean = false;
     visible: boolean;
 
     descriptionType: string;
@@ -60,6 +61,9 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
                 private cdr: ChangeDetectorRef) {
         super(activatedRoute);
         this.transaction.codeTypeCategory = Number(this.activatedRoute.snapshot.params['type']);
+        if (this.activatedRoute.snapshot.url.at(-1)?.path === 'clone') {
+            this.isClone = true;
+        }
     }
 
     async ngOnInit() {
@@ -75,6 +79,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
             this.transactionService.findById(this.id).then(response => {
                 localStorage.setItem("TRANSACTION_UPDATE", String(true));
                 this.transaction = response;
+                this.updateWhenClone();
                 this.findCategories();
             });
         }
@@ -198,6 +203,15 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         }).finally(() => {
             this.loadService.automatic = true;
         });
+    }
+
+    private updateWhenClone() {
+        if (this.isClone) {
+            this.transaction.id = 0;
+            // this.transaction.registerDate = new Date();
+            // this.transaction.paid = false;
+            // this.transaction.scheduled = false;
+        }
     }
 
     private clear() {

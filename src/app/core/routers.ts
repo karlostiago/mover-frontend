@@ -92,6 +92,7 @@ export const routers = [
     { path: 'transactions', component: SearchTransactionComponent, canActivate: [CanActivate] },
     { path: 'transactions/:type/new', component: RegisterTransactionComponent, canActivate: [CanActivate] },
     { path: 'transactions/:type/:id', component: RegisterTransactionComponent, canActivate: [CanActivate] },
+    { path: 'transactions/:type/:id/clone', component: RegisterTransactionComponent, canActivate: [CanActivate] },
 
     { path: 'invoices/:id/credit-card/:cardId', component: SearchInvoiceComponent },
 

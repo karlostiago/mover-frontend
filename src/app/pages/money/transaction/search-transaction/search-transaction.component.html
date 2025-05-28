@@ -147,7 +147,7 @@
                         <ng-template pTemplate="body" let-transaction>
                             <tr [pSelectableRow]="transaction">
                                 <td class="text-center" style="width: .625rem">
-                                    <img src="{{ transaction['icon'] }}" style="width: 2.1rem; border-radius: 30%;"  alt="icon" />
+                                    <img src="{{ transaction['icon'] }}" style="width: 2.1rem; {{ !transaction['invoice'] ? 'border-radius: 30%;' : '' }}"  alt="icon" />
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">DESCRIÇÃO</span>
@@ -167,7 +167,7 @@
                                         <span class="badge rounded-pill text-bg-success"> Sim </span>
                                     </a>
                                     <a *ngIf="transaction['scheduled'] === false" (click)="schedule(transaction)" style="cursor: pointer; {{ allowSchedule ? '' : 'opacity: .3; cursor: default;' }}">
-                                        <span class="badge rounded-pill text-bg-danger"> Não </span>
+                                        <span class="badge rounded-pill text-bg-secondary"> Não </span>
                                     </a>
                                 </td>
                                 <td class="text-center">
@@ -219,6 +219,10 @@
         <button *ngIf="selectedValue.invoice" type="button" pButton class="p-button-contrast p-button-sm me-2" [routerLink]="['/invoices/', selectedValue.id, 'credit-card', selectedValue.cardId]" [disabled]="!authService.hasPermission('UPDATE_TRANSACTIONS')">
             <i class="fa-solid fa-pencil m-1"></i>
             Editar
+        </button>
+        <button *ngIf="!selectedValue.invoice" type="button" pButton class="p-button-contrast p-button-sm me-2" [routerLink]="['/transactions/', selectedValue.codeTypeCategory, selectedValue.id, 'clone']" [disabled]="!authService.hasPermission('REGISTER_TRANSACTIONS')">
+            <i class="fa-regular fa-clone m-1"></i>
+            Clonar
         </button>
         <button type="button" pButton class="p-button-contrast p-button-sm me-2" (click)="confirmationDelete(selectedValue)" [disabled]="!authService.hasPermission('DELETE_TRANSACTIONS')">
             <i class="fa-solid fa-remove m-1"></i>

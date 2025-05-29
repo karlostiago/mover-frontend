@@ -13,7 +13,7 @@
                         </div>
                         <div class="col-md-3 col-xs-12">
                             <label class="form-label"> Conta: </label> <br/>
-                            <p-multiSelect id="account" name="account" [showHeader]="false" emptyMessage="Nenhuma conta encontrada."
+                            <p-multiSelect id="account" name="account" [showHeader]="false" emptyMessage="Nenhuma conta encontrada." (onChange)="stopUpdateBalace()"
                                 [options]="accounts" optionLabel="name" [(ngModel)]="selectedAccounts" [style]="{ height: 'inherit', border: '1px solid #dfe2e6'}" />
                         </div>
                         <div class="col-md-7">
@@ -207,8 +207,8 @@
     </div>
 </form>
 
-<app-dialog-confirmation-payment (transactionPayment)="updateTransactions()"></app-dialog-confirmation-payment>
-<app-dialog-delete-transaction (transactionDeleted)="updateTransactions()"></app-dialog-delete-transaction>
+<app-dialog-confirmation-payment (transactionPayment)="search()"></app-dialog-confirmation-payment>
+<app-dialog-delete-transaction (transactionDeleted)="search()"></app-dialog-delete-transaction>
 
 <app-sidebar-details [value]="selectedValue" [visible]="visibleSidebar" [fields]="fields" (visibleChange)="closeSidebarDetails()">
     <div actions>

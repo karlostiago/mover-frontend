@@ -44,9 +44,10 @@ import {
 } from "../pages/money/transaction/register-transaction/register-transaction.component";
 import {ForbiddenComponent} from "./components/forbidden/forbidden.component";
 import {SearchInvoiceComponent} from "../pages/money/invoice/search-invoce/search-invoice.component";
+import {Routes} from "@angular/router";
 
-export const routers = [
-    { path: '', component: DashboardComponent, canActivate: [CanActivate] },
+export const routers: Routes = [
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent, canActivate: [CanActivate] },
 
     { path: 'clients', component: SearchClientComponent, canActivate: [CanActivate] },

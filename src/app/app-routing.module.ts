@@ -13,6 +13,10 @@ const rotas: Routes = [
     {
         path: 'login',
         component: AuthLayoutComponent
+    },
+    {
+        path: '**',
+        redirectTo: ''
     }
 ]
 

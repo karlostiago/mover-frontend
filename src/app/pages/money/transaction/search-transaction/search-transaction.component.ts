@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AlertService} from "../../../../../shared/service/AlertService";
 import {TransactionService} from "../transaction.service";
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
@@ -16,13 +16,14 @@ import {PaginationService} from "../../../../../shared/service/PaginationService
 import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
 import {Router} from "@angular/router";
 import {InvoiceService} from "../../invoice/invoice.service";
+import {LoaderService} from "../../../../core/loader/loader.service";
 
 @Component({
   selector: 'app-search-transaction',
   templateUrl: './search-transaction.component.html',
   styleUrls: ['./search-transaction.component.css']
 })
-export class SearchTransactionComponent extends AbstractSearch implements OnInit {
+export class SearchTransactionComponent extends AbstractSearch implements OnInit, OnDestroy {
 
     accounts = new Array<AccountEntity>();
     selectedAccounts = new Array<AccountEntity>();
@@ -44,6 +45,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     viewOnlyInvoice: boolean = false;
 
     private page = 1;
+    private executeUpdateBalanceId: any;
 
     @ViewChild(DialogDeleteTransactionComponent) dialogDeleteTransaction: DialogDeleteTransactionComponent;
     @ViewChild(DialogConfirmationPaymentComponent) dialogConfirmationPaymentComponent: DialogConfirmationPaymentComponent;
@@ -57,6 +59,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 private paginationService: PaginationService,
                 private invoiceService: InvoiceService,
                 private router: Router,
+                private loaderService: LoaderService,
                 private cdr: ChangeDetectorRef) {
         super();
     }
@@ -82,6 +85,10 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         }
     }
 
+    ngOnDestroy(): void {
+        this.stopUpdateBalace();
+    }
+
     confirmationDelete(transaction: TransactionEntity) {
         if (transaction.installment === 0 || transaction.lastInstallment) {
             this.confirmationService.confirm({
@@ -99,13 +106,13 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         if (transaction.invoice) {
             this.invoiceService.delete(transaction.id).then(() => {
                 this.closeSidebarDetails();
-                this.updateTransactions();
+                this.search();
                 this.alertService.success("Fatura excluida com sucesso.");
             });
         } else {
             this.transactionService.delete(transaction.id).then(() => {
                 this.closeSidebarDetails();
-                this.updateTransactions();
+                this.search();
                 this.alertService.success("Lançamento excluido com sucesso.");
             });
         }
@@ -128,7 +135,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
             } else {
                 this.transactionService.refund(transaction.id).then(() => {
                     this.alertService.success("Lançamento estornado com sucesso.");
-                    this.updateTransactions();
+                    this.search();
                 });
             }
         }
@@ -140,7 +147,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         } else if (this.allowSchedule) {
             this.transactionService.schedule(transaction.id).then(() => {
                 this.alertService.success("Lançamento agendado com sucesso.");
-                this.updateTransactions();
+                this.search();
             });
         }
     }
@@ -151,7 +158,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         } else if (this.allowSchedule) {
             this.transactionService.undoScheduling(transaction.id).then(() => {
                 this.alertService.success("Agendamento de lançamento desfeito com sucesso.");
-                this.updateTransactions();
+                this.search();
             });
         }
     }
@@ -183,17 +190,27 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         });
     }
 
-    updateTransactions() {
-        this.search();
-        this.updateBalance(this.createFilters());
-    }
-
     createFieldsSidebarDetails() {
         const card = this.selectedValue.cardId > 0 ? `/ ${this.selectedValue.card}` : '';
         if (this.selectedValue.invoice) {
             this.fieldsSidebarDetailsInvoice(card);
         } else {
             this.fieldsSidebarDetailsTransaction(card);
+        }
+    }
+
+    startUpdateBalace() {
+        if (this.executeUpdateBalanceId) return;
+        this.executeUpdateBalanceId = setInterval(() => {
+            this.updateBalance(this.createFilters());
+        }, 500);
+    }
+
+    stopUpdateBalace() {
+        if (this.executeUpdateBalanceId) {
+            clearInterval(this.executeUpdateBalanceId);
+            this.executeUpdateBalanceId = null;
+            console.log('atualizando saldo finalizado....')
         }
     }
 
@@ -238,9 +255,11 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     }
 
     private updateBalance(filters: string) {
+        this.loaderService.automatic = false;
         this.balanceService.calculateBalances(filters).then(response => {
             this.balance = response;
         });
+        this.loaderService.automatic = true;
     }
 
     private searchAfterUpdate() {
@@ -271,8 +290,6 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 this.transactions = this.paginationService.storedData;
                 this.remainingPages = this.paginationService.remainingPages;
                 this.page = this.paginationService.currentPage;
-
-                this.updateBalance(filters.join(';'));
             } else {
                 this.executeSearch(filters.join(';'));
             }
@@ -283,8 +300,8 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.transactionService.findBy(filters).then(response => {
             this.transactions.length = 0;
             this.transactions = this.findAll(response);
-            this.updateBalance(filters);
             this.remainingPages = response.length > 0 ? response[0].remainingPages : -1;
+            this.startUpdateBalace();
             this.cdr.detectChanges();
         });
     }

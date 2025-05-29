@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {NgOptimizedImage, registerLocaleData} from "@angular/common";
+import {APP_BASE_HREF, NgOptimizedImage, registerLocaleData} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CoreModule} from "./core/core.module";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
@@ -36,7 +36,8 @@ registerLocaleData(localePt, 'pt-BR');
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'pt-BR' },
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+        { provide: APP_BASE_HREF, useValue: '/app' }
     ],
     exports: [
 

@@ -210,7 +210,6 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         if (this.executeUpdateBalanceId) {
             clearInterval(this.executeUpdateBalanceId);
             this.executeUpdateBalanceId = null;
-            console.log('atualizando saldo finalizado....')
         }
     }
 

@@ -48,4 +48,14 @@ export class InvoiceService extends BaseService<TransactionEntity> {
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/${id}/invoice-payment-detail`, this.options());
         return this.toPromise(request);
     }
+
+    async next(id: number): Promise<Array<TransactionEntity>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/${id}/next`, this.options());
+        return this.toPromise(request);
+    }
+
+    async previous(id: number): Promise<Array<TransactionEntity>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/${id}/previous`, this.options());
+        return this.toPromise(request);
+    }
 }

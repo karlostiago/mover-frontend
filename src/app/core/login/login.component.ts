@@ -24,6 +24,8 @@ export class LoginComponent implements OnInit {
 
         this.auth.username = 'mover@sistemas.com';
         this.auth.password = '#moversistemas$';
+        // this.auth.username = 'carlostiagodesousa@gmail.com';
+        // this.auth.password = 'm3uc4rr0';
     }
 
     async login() {

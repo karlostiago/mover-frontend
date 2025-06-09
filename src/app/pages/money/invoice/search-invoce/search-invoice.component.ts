@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 import {AuthService} from "../../../../core/login/auth.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {NumberHelpers} from "../../../../../shared/NumberHelpers";
 import {InvoiceService} from "../invoice.service";
 import {ConfirmationService} from "primeng/api";
@@ -28,7 +28,8 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
                 private confirmationService: ConfirmationService,
                 private alertService: AlertService,
                 private globalService: GlobalDialogService,
-                protected activatedRoute: ActivatedRoute) {
+                protected activatedRoute: ActivatedRoute,
+                private router: Router) {
         super();
         if (this.activatedRoute.snapshot.params['id']) {
             this.id = this.activatedRoute.snapshot.params['id'];
@@ -116,6 +117,30 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
             { label: 'Data pagamento', value: this.selectedValue.paymentDate, col: 2, visible: this.selectedValue.paid },
             { label: 'Efetivado / Pago', value: this.selectedValue.paid ? 'SIM' : 'NÃO', col: 2, visible: true }
         ]
+    }
+
+    toNext() {
+        this.navigate(this.invoiceService.next.bind(this.invoiceService));
+    }
+
+    toPrevious() {
+        this.navigate(this.invoiceService.previous.bind(this.invoiceService));
+    }
+
+    private navigate(navigateFn: (id: number) => Promise<Array<TransactionEntity>>) {
+        navigateFn(this.id).then(response => {
+            this.transactions = response.filter(t => !t.invoice);
+            this.invoice = response.find(t => t.invoice)!;
+            this.id = this.invoice.id;
+
+            this.loadingInvoicePaymentDetails();
+            localStorage.setItem("TRANSACTION_UPDATE", String(true));
+
+            void this.router.navigate(['/invoices', this.id, 'credit-card', this.invoice.cardId], {
+                relativeTo: this.activatedRoute,
+                queryParamsHandling: 'preserve'
+            });
+        })
     }
 
     private refund(id: number) {

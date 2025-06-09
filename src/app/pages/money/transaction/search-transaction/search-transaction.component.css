@@ -1,3 +1,18 @@
 .card-header {
     background: #ffffff !important;
 }
+
+.position-relative .btn {
+    background: transparent !important;
+    border-radius: 4px !important;
+    border: none !important;
+}
+
+.position-relative .btn:hover {
+    background: #bac8d6 !important;
+    color: #415a73 !important;
+}
+
+.position-relative i {
+    font-size: 1.25rem !important;
+}

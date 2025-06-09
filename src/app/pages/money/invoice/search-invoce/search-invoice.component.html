@@ -95,6 +95,22 @@
             </div>
         </div>
     </div>
+
+    <br/>
+
+    <div class="invoice-navigator">
+        <button class="nav-button" title="Ver Fatura Anterior" (click)="toPrevious()">
+            <span>&larr;</span> Anterior
+        </button>
+
+        <div class="invoice-label">
+            {{ invoice.dueDate }}
+        </div>
+
+        <button class="nav-button" title="Ver Proxíma Fatura" (click)="toNext()">
+            Próxima <span>&rarr;</span>
+        </button>
+    </div>
 </form>
 
 <app-sidebar-details [value]="selectedValue" [visible]="visibleSidebar" [fields]="fields" (visibleChange)="closeSidebarDetails()">

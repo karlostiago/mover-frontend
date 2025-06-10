@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AlertService} from "../../../../../shared/service/AlertService";
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 import {TransactionService} from "../transaction.service";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-dialog-delete-transaction',
@@ -11,6 +12,9 @@ import {TransactionService} from "../transaction.service";
 export class DialogDeleteTransactionComponent implements OnInit {
 
     visible = false;
+    result$: Subject<any>;
+
+    invoice = new TransactionEntity();
     transaction = new TransactionEntity();
 
     @Output() transactionDeleted = new EventEmitter<void>();
@@ -23,8 +27,10 @@ export class DialogDeleteTransactionComponent implements OnInit {
 
     }
 
-    showDialog(transaction: TransactionEntity) {
+    showDialog(transaction: TransactionEntity, target?: any, result$?: Subject<any>) {
         this.visible = true;
+        this.result$ = result$!;
+        this.invoice = target;
         this.transaction = transaction;
     }
 
@@ -34,6 +40,10 @@ export class DialogDeleteTransactionComponent implements OnInit {
                 this.alertService.success("Lançamentos excluídos com sucesso.");
                 this.transactionDeleted.emit();
                 this.visible = false;
+                this.result$.next({
+                    invoice: this.invoice
+                });
+                this.result$.complete();
             });
         }
         else {
@@ -41,6 +51,10 @@ export class DialogDeleteTransactionComponent implements OnInit {
                 this.alertService.success("Lançamento excluido com sucesso.");
                 this.transactionDeleted.emit();
                 this.visible = false;
+                this.result$.next({
+                    invoice: this.invoice
+                });
+                this.result$.complete();
             });
         }
     }

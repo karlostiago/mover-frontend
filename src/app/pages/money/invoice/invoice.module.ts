@@ -17,6 +17,7 @@ import {SelectBrandIconModule} from "../../../core/components/select-brand-icon/
 import {SidebarDetailsModule} from "../../../core/components/sidebar-details/sidebar-details.module";
 import {InvoicePaymentDetailComponent} from "./invoce-payment-detail/invoice-payment-detail.component";
 import {InvoiceCardComponent} from "./invoce-card/invoice-card.component";
+import {GlobalDialogModule} from "../../../../shared/dialog/global-dialog.module";
 
 @NgModule({
     declarations: [
@@ -44,7 +45,8 @@ import {InvoiceCardComponent} from "./invoce-card/invoice-card.component";
         FileUploadModule,
         SharedModule,
         SelectBrandIconModule,
-        SidebarDetailsModule
+        SidebarDetailsModule,
+        GlobalDialogModule
     ]
 })
 export class InvoiceModule { }

@@ -49,13 +49,13 @@ export class InvoiceService extends BaseService<TransactionEntity> {
         return this.toPromise(request);
     }
 
-    async next(id: number): Promise<Array<TransactionEntity>> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/${id}/next`, this.options());
+    async next(id: number, dueDate: Date): Promise<Array<TransactionEntity>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/${id}/${DateHelpers.toISOToString(DateHelpers.toDate(dueDate))}/next`, this.options());
         return this.toPromise(request);
     }
 
-    async previous(id: number): Promise<Array<TransactionEntity>> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/${id}/previous`, this.options());
+    async previous(id: number, dueDate: Date): Promise<Array<TransactionEntity>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/${id}/${DateHelpers.toISOToString(DateHelpers.toDate(dueDate))}/previous`, this.options());
         return this.toPromise(request);
     }
 }

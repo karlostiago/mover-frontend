@@ -5,20 +5,11 @@ export class DateHelpers {
     }
 
     static parseToPtBr(dateStr: string) {
+        return this.format(dateStr, 'pt-BR');
+    }
 
-        if (dateStr && dateStr.length === 10) return dateStr;
-
-        const date = new Date(dateStr);
-
-        if (isNaN(date.getTime())) {
-            return '';
-        }
-
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-
-        return `${day}/${month}/${year}`;
+    static parseToUS(dateStr: string) {
+       return this.format(dateStr, 'US');
     }
 
     static toISOToString(date: Date) {
@@ -44,5 +35,21 @@ export class DateHelpers {
         const month = date.split('/')[0];
         const year = date.split('/')[1];
         return new Date(Number.parseInt(year), Number.parseInt(month) - 1, day);
+    }
+
+    private static format(dateStr: string, format: 'pt-BR' | 'US') {
+        if (dateStr && dateStr.length === 10) return dateStr;
+
+        const date = new Date(dateStr);
+
+        if (isNaN(date.getTime())) {
+            return '';
+        }
+
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+
+        return format === 'pt-BR' ? `${day}/${month}/${year}` :  `${year}-${month}-${day}`
     }
 }

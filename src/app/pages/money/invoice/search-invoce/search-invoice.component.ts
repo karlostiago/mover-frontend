@@ -41,12 +41,20 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
     }
 
     confirmationDelete(transaction: TransactionEntity) {
-        this.confirmationService.confirm({
-            message: `Tem certeza que deseja excluir o Lançamento ${transaction.description}`,
-            accept: () => {
-                this.delete(transaction);
-            }
-        });
+        if (transaction.installment === 0 || transaction.lastInstallment) {
+            this.confirmationService.confirm({
+                message: `Tem certeza que deseja excluir o Lançamento ${transaction.description}`,
+                accept: () => {
+                    this.delete(transaction);
+                }
+            });
+        } else {
+            const result$ = this.globalService.openDialog<any>(TypeDialog.DELETE_TRANSACTION, transaction, this.invoice);
+            result$?.subscribe((response) => {
+                this.loading(response.invoice);
+                this.closeSidebarDetails();
+            });
+        }
     }
 
     delete(transaction: TransactionEntity) {
@@ -120,15 +128,15 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
     }
 
     toNext() {
-        this.navigate(this.invoiceService.next.bind(this.invoiceService));
+        this.navigate(this.invoiceService.next.bind(this.invoiceService), this.invoice.cardId, this.invoice.dueDate!);
     }
 
     toPrevious() {
-        this.navigate(this.invoiceService.previous.bind(this.invoiceService));
+        this.navigate(this.invoiceService.previous.bind(this.invoiceService), this.invoice.cardId, this.invoice.dueDate!);
     }
 
-    private navigate(navigateFn: (id: number) => Promise<Array<TransactionEntity>>) {
-        navigateFn(this.id).then(response => {
+    private navigate(navigateFn: (id: number, dueDate: Date) => Promise<Array<TransactionEntity>>, id: number, dueDate: Date) {
+        navigateFn(id, dueDate).then(response => {
             this.transactions = response.filter(t => !t.invoice);
             this.invoice = response.find(t => t.invoice)!;
             this.id = this.invoice.id;
@@ -140,7 +148,7 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
                 relativeTo: this.activatedRoute,
                 queryParamsHandling: 'preserve'
             });
-        })
+        });
     }
 
     private refund(id: number) {
@@ -151,12 +159,15 @@ export class SearchInvoiceComponent extends AbstractSearch implements OnInit {
         });
     }
 
-    private loading() {
+    private loading(invoice?: TransactionEntity) {
         this.invoiceService.searchInvoice(this.id).then(response => {
             this.transactions = response.filter(t => !t.invoice);
             this.invoice = response.find(t => t.invoice)!;
+            if (!this.invoice) {
+                this.invoice = invoice!;
+                this.invoice.value = 0;
+            }
             this.loadingInvoicePaymentDetails();
-
             localStorage.setItem("TRANSACTION_UPDATE", String(true));
         });
     }

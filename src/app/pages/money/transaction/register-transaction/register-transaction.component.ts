@@ -98,9 +98,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
     saveOrUpdate(form: NgForm) {
         if (this.transaction.invoiceId) {
-            this.invoiceService.update(this.transaction.id, this.transaction).then(() => {
-                this.alertService.success("Registro atualizado com sucesso.");
-            });
+            this.updateInvoice();
         } else {
             if (this.transaction.id) {
                 this.update();
@@ -207,6 +205,16 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     private updateWhenClone() {
         if (this.isClone) {
             this.transaction.id = 0;
+        }
+    }
+
+    private updateInvoice() {
+        if (this.transaction.paymentType === 'FIXED' || this.transaction.paymentType === 'IN_INSTALLMENTS') {
+            this.globalDialogService.openDialog(TypeDialog.BATCH_UPDATE_TRANSACTION, this.transaction);
+        } else {
+            this.invoiceService.update(this.transaction.id, this.transaction).then(() => {
+                this.alertService.success("Registro atualizado com sucesso.");
+            });
         }
     }
 

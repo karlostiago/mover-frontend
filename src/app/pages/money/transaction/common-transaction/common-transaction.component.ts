@@ -2,11 +2,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 import {AccountService} from "../../../configuration/account/account.service";
 import {BaseTransaction} from "../../../../../abstract/BaseTransaction";
-import {LoaderService} from "../../../../core/loader/loader.service";
 import {CardService} from "../../../configuration/card/card.service";
 import {VehicleService} from "../../../fleets/vehicle/vehicle.service";
 import {ContractService} from "../../../clients/contract/contract.service";
-import {TransactionService} from "../transaction.service";
 
 @Component({
   selector: 'app-common-transaction',
@@ -29,9 +27,7 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     constructor(private accountService: AccountService,
                 private cardService: CardService,
                 private contractService: ContractService,
-                private vehicleService: VehicleService,
-                private transactionService: TransactionService,
-                private loadService: LoaderService) {
+                private vehicleService: VehicleService) {
         super();
     }
 

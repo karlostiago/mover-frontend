@@ -192,8 +192,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     }
 
     onCalculateCutOfDate() {
-        if (this.transaction.cardId === 0) {
-            this.transaction.dueDate = null;
+        if (this.transaction.cardId === 0 || this.transaction.cardId == null) {
             return;
         }
 
@@ -208,9 +207,6 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     private updateWhenClone() {
         if (this.isClone) {
             this.transaction.id = 0;
-            // this.transaction.registerDate = new Date();
-            // this.transaction.paid = false;
-            // this.transaction.scheduled = false;
         }
     }
 

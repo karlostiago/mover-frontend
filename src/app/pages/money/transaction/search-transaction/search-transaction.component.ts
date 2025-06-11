@@ -90,7 +90,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     }
 
     confirmationDelete(transaction: TransactionEntity) {
-        if (transaction.installment === 0 || transaction.lastInstallment) {
+        if (transaction.invoice || transaction.installment === 0 || transaction.lastInstallment) {
             this.confirmationService.confirm({
                 message: `Tem certeza que deseja excluir o Lançamento ${transaction.description}`,
                 accept: () => {

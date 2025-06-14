@@ -24,7 +24,7 @@
         <p-dropdown styleClass="w-100" name="card" id="card" placeholder="Selecione"
                     optionLabel="name" optionValue="id" [(ngModel)]="transaction['cardId']"
                     [options]="cards" [disabled]="!transaction['accountId']"
-                    emptyMessage="Nenhum cartão disponível" (onChange)="calculateCutOfDate.emit(this.transaction)" />
+                    emptyMessage="Nenhum cartão disponível" (onChange)="this.calculateCutOfDate.emit(this.transaction)" />
     </div>
 </div>
 
@@ -34,10 +34,15 @@
         <input pInputText class="form-control" name="value" id="value" [(ngModel)]="transaction['value']" appCurrencyFormatPtBr [required]="true"
                (keyup)="calculatesInstallmentValue(transaction)" />
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" *ngIf="notShowWhenCard(transaction)">
         <label class="form-label"> Data Vencimento *:</label>
         <p-calendar appendTo="body" name="dueDate" id="dueDate" [(ngModel)]="transaction['dueDate']" [required]="true" dateFormat="dd/mm/yy"
                     [readonlyInput]="true" [disabled]="!notShowWhenCard(transaction)" />
+    </div>
+    <div class="col-md-3" *ngIf="!notShowWhenCard(transaction)">
+        <label class="form-label"> Fatura de *:</label>
+        <p-dropdown styleClass="w-100" name="invoice" id="invoice" placeholder="Selecione" optionLabel="label" optionValue="value"
+                    [options]="invoices" emptyMessage="Nenhuma fatura encontrada" required="true" [(ngModel)]="transaction['dueDate']" />
     </div>
     <div class="col-md-3" *ngIf="notShowWhenInvoice(transaction) && notShowWhenCard(transaction)">
         <label class="form-label"> Data Pagamento :</label>

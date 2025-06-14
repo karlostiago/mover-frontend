@@ -37,6 +37,21 @@ export class DateHelpers {
         return new Date(Number.parseInt(year), Number.parseInt(month) - 1, day);
     }
 
+    static formatLongDate(date: Date, showDay: boolean): string {
+        const day = date.getDate();
+        const monthNames = [
+            'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+        ];
+        const month = monthNames[date.getMonth()];
+        const year = date.getFullYear();
+
+        if (showDay) return `${day} de ${month} de ${year}`;
+
+        return `${month} de ${year}`;
+    }
+
+
     private static format(dateStr: string, format: 'pt-BR' | 'US') {
         if (dateStr && dateStr.length === 10) return dateStr;
 

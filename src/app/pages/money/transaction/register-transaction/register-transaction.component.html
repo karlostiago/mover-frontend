@@ -38,7 +38,7 @@
 
                     <app-transfer-transaction [transaction]="transaction"></app-transfer-transaction>
                     <app-corporate-capital-transaction [transaction]="transaction"></app-corporate-capital-transaction>
-                    <app-common-transaction [transaction]="transaction" (calculateCutOfDate)="onCalculateCutOfDate()"></app-common-transaction>
+                    <app-common-transaction [transaction]="transaction" [invoices]="invoices" (calculateCutOfDate)="onCalculateCutOfDate()"></app-common-transaction>
 
                     <div class="row" *ngIf="!transaction['invoiceId'] && !transaction['cardId']">
                         <div class="col-md-3">

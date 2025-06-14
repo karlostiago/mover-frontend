@@ -22,6 +22,8 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     private selectedCards = new Array<any>();
 
     @Input() transaction: TransactionEntity;
+    @Input() invoices = new Array<any>();
+
     @Output() calculateCutOfDate = new EventEmitter<TransactionEntity>();
 
     constructor(private accountService: AccountService,
@@ -39,14 +41,12 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
             this.loadingCards()
         ]);
 
-        setTimeout(() => {
-            if (this.transaction.accountId > 0) {
-                this.filterCardByAccount();
-            }
-            if (this.transaction.vehicleId > 0) {
-                this.filterContractByVehicleId();
-            }
-        }, 1000);
+        if (this.transaction.accountId > 0) {
+            this.filterCardByAccount();
+        }
+        if (this.transaction.vehicleId > 0) {
+            this.filterContractByVehicleId();
+        }
     }
 
     onChangeFilterCard() {
@@ -60,31 +60,27 @@ export class CommonTransactionComponent extends BaseTransaction implements OnIni
     }
 
     private async loadingAccounts() {
-        await this.accountService.findAll().then(response => {
-            const onlyActiveAccounts = response.filter(r => r.active);
-            this.accounts = [{ id: 0, name: 'Selecione'}, ...onlyActiveAccounts];
-        });
+        const response = await this.accountService.findAll();
+        const onlyActiveAccounts = response.filter(r => r.active);
+        this.accounts = [{ id: 0, name: 'Selecione'}, ...onlyActiveAccounts];
     }
 
     private async loadingVehicles() {
-        await this.vehicleService.findAll().then(response => {
-            this.vehicles = [{ id: 0, fullname: 'Selecione'}, ...response];
-        });
+        const response = await this.vehicleService.findAll();
+        this.vehicles = [{ id: 0, fullname: 'Selecione'}, ...response];
     }
 
     private async loadingCards() {
-        return await this.cardService.findAll().then(response => {
-            this.cards = [{ id: 0, name: 'Selecione'}, ...response];
-            this.selectedCards = [{ id: 0, name: 'Selecione'}, ...response];
-        });
+        const response = await this.cardService.findAll();
+        this.cards = [{ id: 0, name: 'Selecione'}, ...response];
+        this.selectedCards = [{ id: 0, name: 'Selecione'}, ...response];
     }
 
     private async loadingContracts() {
-        return await this.contractService.findAll().then(response => {
-            const contractsFilters = response.filter(r => r.situation !== 'ENCERRADO' && r.active);
-            this.contracts = [{ id: 0, number: 'Selecione'}, ...contractsFilters];
-            this.selectedContracts = [{ id: 0, number: 'Selecione'}, ...contractsFilters];
-        });
+        const response = await this.contractService.findAll();
+        const contractsFilters = response.filter(r => r.situation !== 'ENCERRADO' && r.active);
+        this.contracts = [{ id: 0, number: 'Selecione'}, ...contractsFilters];
+        this.selectedContracts = [{ id: 0, number: 'Selecione'}, ...contractsFilters];
     }
 
     private filterCardByAccount() {

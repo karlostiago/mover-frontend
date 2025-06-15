@@ -17,6 +17,8 @@ import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
 import {Router} from "@angular/router";
 import {InvoiceService} from "../../invoice/invoice.service";
 import {LoaderService} from "../../../../core/loader/loader.service";
+import {Subscription} from "rxjs";
+import {BalanceWebsocketService} from "../balance-websocket.service";
 
 @Component({
   selector: 'app-search-transaction',
@@ -45,7 +47,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     viewOnlyInvoice: boolean = false;
 
     private page = 1;
-    private executeUpdateBalanceId: any;
+    private subscription: Subscription;
 
     @ViewChild(DialogDeleteTransactionComponent) dialogDeleteTransaction: DialogDeleteTransactionComponent;
     @ViewChild(DialogConfirmationPaymentComponent) dialogConfirmationPaymentComponent: DialogConfirmationPaymentComponent;
@@ -60,6 +62,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 private invoiceService: InvoiceService,
                 private router: Router,
                 private loaderService: LoaderService,
+                private balanceWebSocketService: BalanceWebsocketService,
                 private cdr: ChangeDetectorRef) {
         super();
     }
@@ -77,6 +80,10 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.allowRefund = this.authService.hasPermission('REFUND_TRANSACTIONS');
         this.allowFilterTransactions = this.authService.hasPermission('FILTER_TRANSACTIONS')
 
+        this.subscription = this.balanceWebSocketService.balanceUpdated$.subscribe(() => {
+            this.updateBalance(this.createFilters());
+        });
+
         if (fromUpdate) {
             this.searchAfterUpdate();
         } else {
@@ -86,7 +93,9 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     }
 
     ngOnDestroy(): void {
-        this.stopUpdateBalace();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     confirmationDelete(transaction: TransactionEntity) {
@@ -199,20 +208,6 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         }
     }
 
-    startUpdateBalace() {
-        if (this.executeUpdateBalanceId) return;
-        this.executeUpdateBalanceId = setInterval(() => {
-            this.updateBalance(this.createFilters());
-        }, 500);
-    }
-
-    stopUpdateBalace() {
-        if (this.executeUpdateBalanceId) {
-            clearInterval(this.executeUpdateBalanceId);
-            this.executeUpdateBalanceId = null;
-        }
-    }
-
     private redirectToInvoice(transaction: TransactionEntity) {
         void this.router.navigate([
             '/invoices', transaction.id, 'credit-card', transaction.cardId
@@ -300,7 +295,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
             this.transactions.length = 0;
             this.transactions = this.findAll(response);
             this.remainingPages = response.length > 0 ? response[0].remainingPages : -1;
-            this.startUpdateBalace();
+            this.updateBalance(this.createFilters());
             this.cdr.detectChanges();
         });
     }

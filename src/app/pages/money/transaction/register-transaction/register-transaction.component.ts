@@ -202,12 +202,9 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
             return;
         }
 
-        this.loadService.automatic = false;
         this.transactionService.calculateCutOffDate(this.transaction).then(response => {
             this.transaction.dueDate = DateHelpers.toDate(response.dueDate);
             this.generatedSurroundingDueDate(this.transaction.dueDate!, 3, 3);
-        }).finally(() => {
-            this.loadService.automatic = true;
         });
     }
 

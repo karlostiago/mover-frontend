@@ -21,7 +21,7 @@ thead, th {
 }
 
 body, input, textarea, button, td, thead, .p-button-label, span, .form-label {
-    font-size: 0.75rem!important;
+    font-size: 0.8125rem!important;
 }
 
 .p-menuitem-link {
@@ -223,7 +223,7 @@ input, textarea {
 a.btn {
     color: #757575;
     font-weight: 300;
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
 }
 
 a.btn:active {
@@ -460,7 +460,7 @@ textarea {
 
 .p-multiselect-label {
     color: rgba(0, 0, 0, 0.54) !important;
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
 }
 
 /**
@@ -469,7 +469,7 @@ textarea {
  * ---------------------------------------------------------
  */
 .p-tooltip-text {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
 }
 
 .p-tooltip {

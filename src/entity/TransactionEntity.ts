@@ -37,4 +37,5 @@ export class TransactionEntity {
     invoiceId: number;
     residualValue: number;
     amountPaid: number;
+    signature: string;
 }

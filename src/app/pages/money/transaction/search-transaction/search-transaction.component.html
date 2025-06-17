@@ -210,8 +210,8 @@
     </div>
 </form>
 
-<app-dialog-confirmation-payment (transactionPayment)="search()"></app-dialog-confirmation-payment>
-<app-dialog-delete-transaction (transactionDeleted)="search()"></app-dialog-delete-transaction>
+<app-dialog-confirmation-payment (transactionPayment)="updateTransaction($event)"></app-dialog-confirmation-payment>
+<app-dialog-delete-transaction (transactionDeleted)="deleteTransaction($event)"></app-dialog-delete-transaction>
 
 <app-sidebar-details [value]="selectedValue" [visible]="visibleSidebar" [fields]="fields" (visibleChange)="closeSidebarDetails()">
     <div actions>

@@ -81,7 +81,9 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.allowFilterTransactions = this.authService.hasPermission('FILTER_TRANSACTIONS')
 
         this.subscription = this.balanceWebSocketService.balanceUpdated$.subscribe(() => {
-            this.updateBalance(this.createFilters());
+            setTimeout(() => {
+                this.updateBalance(this.createFilters());
+            }, 1000);
         });
 
         if (fromUpdate) {
@@ -120,8 +122,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
             });
         } else {
             this.transactionService.delete(transaction.id).then(() => {
-                this.closeSidebarDetails();
-                this.search();
+                this.deleteTransaction({ entity: transaction, batch: false });
                 this.alertService.success("Lançamento excluido com sucesso.");
             });
         }
@@ -143,8 +144,9 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 this.redirectToInvoice(transaction);
             } else {
                 this.transactionService.refund(transaction.id).then(() => {
+                    transaction.paid = false;
+                    this.updateTransaction(transaction);
                     this.alertService.success("Lançamento estornado com sucesso.");
-                    this.search();
                 });
             }
         }
@@ -156,7 +158,8 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         } else if (this.allowSchedule) {
             this.transactionService.schedule(transaction.id).then(() => {
                 this.alertService.success("Lançamento agendado com sucesso.");
-                this.search();
+                transaction.scheduled = true;
+                this.updateTransaction(transaction);
             });
         }
     }
@@ -167,7 +170,8 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         } else if (this.allowSchedule) {
             this.transactionService.undoScheduling(transaction.id).then(() => {
                 this.alertService.success("Agendamento de lançamento desfeito com sucesso.");
-                this.search();
+                transaction.scheduled = false;
+                this.updateTransaction(transaction);
             });
         }
     }
@@ -176,6 +180,26 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.page = 1;
         this.paginationService.clear();
         this.executeSearch(this.createFilters());
+    }
+
+    updateTransaction(transaction: TransactionEntity) {
+        const index = this.transactions.findIndex(t => t.id === transaction.id);
+        if (index !== -1) {
+            this.transactions[index] = transaction;
+        }
+        this.cdr.detectChanges();
+    }
+
+    deleteTransaction(e: { entity: TransactionEntity, batch: boolean }) {
+        const transaction = e.entity;
+        const batch = e.batch;
+        if (batch) {
+            this.transactions = this.transactions
+                .filter(t => !(t.signature === transaction.signature && t.installment >= transaction.installment));
+        } else {
+            this.transactions = this.transactions.filter(t => t.id !== transaction.id);
+        }
+        this.closeSidebarDetails();
     }
 
     showMore() {

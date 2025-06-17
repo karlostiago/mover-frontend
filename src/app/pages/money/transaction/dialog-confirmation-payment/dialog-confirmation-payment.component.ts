@@ -15,7 +15,7 @@ export class DialogConfirmationPaymentComponent implements OnInit {
 
     transaction = new TransactionEntity();
 
-    @Output() transactionPayment = new EventEmitter<void>();
+    @Output() transactionPayment = new EventEmitter<TransactionEntity>();
 
     constructor(private alertService: AlertService,
                 private transactionService: TransactionService) {
@@ -33,9 +33,10 @@ export class DialogConfirmationPaymentComponent implements OnInit {
 
     processPayment() {
         if (this.transaction.paymentDate) {
-            this.transactionService.pay(this.transaction.id, this.transaction.paymentDate).then(() => {
+            this.transactionService.pay(this.transaction.id, this.transaction.paymentDate).then(response => {
                 this.alertService.success("Lançamento efetivado com sucesso.");
-                this.transactionPayment.emit();
+                this.transaction.paid = response.paid;
+                this.transactionPayment.emit(this.transaction);
                 this.visible = false;
             });
         }

@@ -81,9 +81,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.allowFilterTransactions = this.authService.hasPermission('FILTER_TRANSACTIONS')
 
         this.subscription = this.balanceWebSocketService.balanceUpdated$.subscribe(() => {
-            setTimeout(() => {
-                this.updateBalance(this.createFilters());
-            }, 1000);
+            this.updateBalance(this.createFilters());
         });
 
         if (fromUpdate) {

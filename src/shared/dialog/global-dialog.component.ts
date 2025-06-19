@@ -68,7 +68,7 @@ export class GlobalDialogComponent implements OnInit {
             [TypeDialog.TERMINATE_CONTRACT]: this.dialogTerminateContract.showDialog.bind(this.dialogTerminateContract),
             [TypeDialog.SUBCATEGORY]: this.dialogSubcategoryComponent.showDialog.bind(this.dialogSubcategoryComponent),
             [TypeDialog.DELETE_TRANSACTION]: this.dialogDeleteTransactionComponent.showDialog.bind(this.dialogDeleteTransactionComponent),
-            [TypeDialog.CONFIRMATION_PAYMENT_TRANSATION]: this.dialogConfirmationPaymentComponent.showDialog.bind(this.dialogConfirmationPaymentComponent),
+            [TypeDialog.CONFIRMATION_PAYMENT_TRANSACTION]: this.dialogConfirmationPaymentComponent.showDialog.bind(this.dialogConfirmationPaymentComponent),
             [TypeDialog.BATCH_UPDATE_TRANSACTION]: this.dialogUpdateFixedTransactionComponent.showDialog.bind(this.dialogUpdateFixedTransactionComponent),
             [TypeDialog.SELECT_BANK_ICON]: this.dialogBankIconComponent.showDialog.bind(this.dialogBankIconComponent),
             [TypeDialog.SELECT_BRAND_ICON]: this.dialogBrandIconComponent.showDialog.bind(this.dialogBrandIconComponent),

@@ -3,7 +3,7 @@ import {BaseService} from "../../../../abstract/BaseService";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../../core/handler/ErrorHandler";
 import {TransactionEntity} from "../../../../entity/TransactionEntity";
-import {DateHelpers} from "../../../../shared/DateHelpers";
+import {DateHelpers} from "../../../../shared/helper/DateHelpers";
 import {InvoicePaymentDetailEntity} from "../../../../entity/InvoicePaymentDetailEntity";
 
 @Injectable({

@@ -98,6 +98,9 @@
                             </tr>
                         </ng-template>
                     </p-table>
+
+                    <app-scroll-up></app-scroll-up>
+                    <div appIfiniteScroll [disabled]="!pagination.hasMore" (scrolled)="loading()"></div>
                 </div>
             </div>
         </div>

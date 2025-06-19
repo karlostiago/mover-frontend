@@ -5,7 +5,7 @@ import {ClientService} from "../client.service";
 import {ClientEntity} from "../../../../../entity/ClientEntity";
 import {AuthService} from "../../../../core/login/auth.service";
 import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
-import {MaskHelpers} from "../../../../../shared/MaskHelpers";
+import {MaskHelpers} from "../../../../../shared/helper/MaskHelpers";
 
 @Component({
   selector: 'app-search-client',

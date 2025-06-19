@@ -4,6 +4,8 @@ import {AlertService} from "../../../../../shared/service/AlertService";
 import {ModelService} from "../model.service";
 import {ModelEntity} from "../../../../../entity/ModelEntity";
 import {AuthService} from "../../../../core/login/auth.service";
+import {PaginationHelper} from "../../../../../shared/helper/PaginationHelper";
+import {Page} from "../../../../../entity/Page";
 
 @Component({
   selector: 'app-search-model',
@@ -11,6 +13,7 @@ import {AuthService} from "../../../../core/login/auth.service";
   styleUrls: ['./search-model.component.css']
 })
 export class SearchModelComponent implements OnInit {
+    pagination = new PaginationHelper<ModelEntity, Page<ModelEntity>>();
     models = new Array<ModelEntity>();
     searchFilter: string = "";
 
@@ -21,9 +24,7 @@ export class SearchModelComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.modelService.findAll().then(response => {
-            this.models = response;
-        });
+        this.pagination.initialization(30);
     }
 
     confirmationDelete(model: ModelEntity) {
@@ -43,8 +44,21 @@ export class SearchModelComponent implements OnInit {
     }
 
     filterBy() {
-        this.modelService.findBy(this.searchFilter).then(response => {
-            this.models = response;
-        })
+        this.pagination.reset();
+        this.pagination.load(
+            () => this.modelService.findBy(this.searchFilter, this.pagination.page, this.pagination.size),
+            (response) => {
+                this.models = response.content;
+            }
+        );
+    }
+
+    loading() {
+        this.pagination.load(
+            () => this.modelService.searchAll(this.pagination.page, this.pagination.size),
+            (response) => {
+                this.models = [...this.models, ...response.content];
+            }
+        );
     }
 }

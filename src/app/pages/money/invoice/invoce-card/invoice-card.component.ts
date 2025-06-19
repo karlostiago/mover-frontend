@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NumberHelpers} from "../../../../../shared/NumberHelpers";
+import {NumberHelpers} from "../../../../../shared/helper/NumberHelpers";
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 
 @Component({

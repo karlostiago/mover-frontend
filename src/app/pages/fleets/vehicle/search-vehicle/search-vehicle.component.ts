@@ -7,7 +7,7 @@ import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/Glo
 import {AuthService} from "../../../../core/login/auth.service";
 import {ErrorHandler} from "../../../../core/handler/ErrorHandler";
 import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
-import {NumberHelpers} from "../../../../../shared/NumberHelpers";
+import {NumberHelpers} from "../../../../../shared/helper/NumberHelpers";
 
 @Component({
   selector: 'app-search-vehicle',

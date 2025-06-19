@@ -3,7 +3,7 @@ import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 import {AuthService} from "../../../../core/login/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {NumberHelpers} from "../../../../../shared/NumberHelpers";
+import {NumberHelpers} from "../../../../../shared/helper/NumberHelpers";
 import {InvoiceService} from "../invoice.service";
 import {ConfirmationService} from "primeng/api";
 import {AlertService} from "../../../../../shared/service/AlertService";

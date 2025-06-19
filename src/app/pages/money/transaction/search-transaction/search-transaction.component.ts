@@ -1,24 +1,31 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AlertService} from "../../../../../shared/service/AlertService";
 import {TransactionService} from "../transaction.service";
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 import {BalanceEntity} from "../../../../../entity/BalanceEntity";
-import {NumberHelpers} from "../../../../../shared/NumberHelpers";
-import {DateHelpers} from "../../../../../shared/DateHelpers";
+import {NumberHelpers} from "../../../../../shared/helper/NumberHelpers";
+import {DateHelpers} from "../../../../../shared/helper/DateHelpers";
 import {AccountService} from "../../../configuration/account/account.service";
 import {AccountEntity} from "../../../../../entity/AccountEntity";
 import {ConfirmationService} from "primeng/api";
-import {DialogDeleteTransactionComponent} from "../dialog-delete-transaction/dialog-delete-transaction.component";
-import {DialogConfirmationPaymentComponent} from "../dialog-confirmation-payment/dialog-confirmation-payment.component";
 import {BalanceService} from "../balance.service";
 import {AuthService} from "../../../../core/login/auth.service";
-import {PaginationService} from "../../../../../shared/service/PaginationService";
+import {PaginationHelper} from "../../../../../shared/helper/PaginationHelper";
 import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
 import {Router} from "@angular/router";
 import {InvoiceService} from "../../invoice/invoice.service";
 import {LoaderService} from "../../../../core/loader/loader.service";
 import {Subscription} from "rxjs";
 import {BalanceWebsocketService} from "../balance-websocket.service";
+import {Page} from "../../../../../entity/Page";
+import {FilterStorageManager} from "../../../../../shared/helper/FilterStorageManager";
+import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/GlobalDialogService";
+
+interface Filters {
+    period: string;
+    accounts: number[];
+    searchText: string;
+}
 
 @Component({
   selector: 'app-search-transaction',
@@ -26,16 +33,14 @@ import {BalanceWebsocketService} from "../balance-websocket.service";
   styleUrls: ['./search-transaction.component.css']
 })
 export class SearchTransactionComponent extends AbstractSearch implements OnInit, OnDestroy {
-
+    pagination = new PaginationHelper<TransactionEntity, Page<TransactionEntity>>();
     accounts = new Array<AccountEntity>();
     selectedAccounts = new Array<AccountEntity>();
     transactions = new Array<TransactionEntity>();
     balance = new BalanceEntity();
 
-    searchFilter: string = "";
-    periodoFilter: Date;
-
-    remainingPages: number = -1;
+    searchText: string = "";
+    periodFilter: Date;
 
     allowPayment: boolean = false;
     allowRefund: boolean = false;
@@ -43,14 +48,8 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     allowUndoScheduling: boolean = false;
     allowFilterTransactions: boolean = false;
 
-    expand: boolean = false;
-    viewOnlyInvoice: boolean = false;
-
-    private page = 1;
     private subscription: Subscription;
-
-    @ViewChild(DialogDeleteTransactionComponent) dialogDeleteTransaction: DialogDeleteTransactionComponent;
-    @ViewChild(DialogConfirmationPaymentComponent) dialogConfirmationPaymentComponent: DialogConfirmationPaymentComponent;
+    private filterManager = new FilterStorageManager<Filters>('TRANSACTION_FILTER');
 
     constructor(private alertService: AlertService,
                 private accountServce: AccountService,
@@ -58,38 +57,27 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 private balanceService: BalanceService,
                 protected authService: AuthService,
                 private transactionService: TransactionService,
-                private paginationService: PaginationService,
                 private invoiceService: InvoiceService,
                 private router: Router,
                 private loaderService: LoaderService,
                 private balanceWebSocketService: BalanceWebsocketService,
-                private cdr: ChangeDetectorRef) {
+                private globalService: GlobalDialogService) {
         super();
     }
 
     async ngOnInit() {
         await this.loadingAccounts();
+        this.pagination.initialization(15);
         const fromUpdate = !!localStorage.getItem("TRANSACTION_UPDATE");
-
-        this.expand = localStorage.getItem('TRANSACTION_EXPAND') === 'true';
-        this.viewOnlyInvoice = localStorage.getItem('TRANSACTION_VIEW_INVOICE') === 'true';
-
-        this.allowPayment = this.authService.hasPermission('PAYMENT_TRANSACTIONS');
-        this.allowSchedule = this.authService.hasPermission('SCHEDULE_TRANSACTIONS');
-        this.allowUndoScheduling = this.authService.hasPermission('UNDO_SCHEDULING_TRANSACTIONS');
-        this.allowRefund = this.authService.hasPermission('REFUND_TRANSACTIONS');
-        this.allowFilterTransactions = this.authService.hasPermission('FILTER_TRANSACTIONS')
-
-        this.subscription = this.balanceWebSocketService.balanceUpdated$.subscribe(() => {
-            this.updateBalance(this.createFilters());
-        });
-
+        this.loadingPermission();
         if (fromUpdate) {
             this.searchAfterUpdate();
         } else {
-            this.periodoFilter = DateHelpers.toUTC(new Date());
-            this.search();
+            this.periodFilter = DateHelpers.toUTC(new Date());
         }
+        this.subscription = this.balanceWebSocketService.balanceUpdated$.subscribe(() => {
+            this.updateBalance(this.createFilters());
+        });
     }
 
     ngOnDestroy(): void {
@@ -105,23 +93,10 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 accept: () => {
                     this.delete(transaction);
                 }
-            })
-        } else {
-            this.dialogDeleteTransaction.showDialog(transaction);
-        }
-    }
-
-    delete(transaction: TransactionEntity) {
-        if (transaction.invoice) {
-            this.invoiceService.delete(transaction.id).then(() => {
-                this.closeSidebarDetails();
-                this.search();
-                this.alertService.success("Fatura excluida com sucesso.");
             });
         } else {
-            this.transactionService.delete(transaction.id).then(() => {
-                this.deleteTransaction({ entity: transaction, batch: false });
-                this.alertService.success("Lançamento excluido com sucesso.");
+            this.globalService.openDialog<any>(TypeDialog.DELETE_TRANSACTION, transaction, {})?.subscribe((response) => {
+                this.deleteTransaction(response);
             });
         }
     }
@@ -131,7 +106,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
             if (transaction.invoice) {
                 this.redirectToInvoice(transaction);
             } else {
-                this.dialogConfirmationPaymentComponent.showDialog(transaction);
+               this.globalService.openDialog<any>(TypeDialog.CONFIRMATION_PAYMENT_TRANSACTION, transaction, {});
             }
         }
     }
@@ -175,9 +150,21 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     }
 
     search() {
-        this.page = 1;
-        this.paginationService.clear();
-        this.executeSearch(this.createFilters());
+        this.transactions = [];
+        this.pagination.reset();
+        this.loading();
+    }
+
+    loading() {
+        setTimeout(() => {
+            this.pagination.load(
+                () => this.transactionService.findBy(this.createFilters(), this.pagination.page, this.pagination.size),
+                (response) => {
+                    this.transactions = [...this.transactions, ...response.content];
+                    this.updateBalance(this.createFilters());
+                }
+            );
+        }, 100);
     }
 
     updateTransaction(transaction: TransactionEntity) {
@@ -185,11 +172,10 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         if (index !== -1) {
             this.transactions[index] = transaction;
         }
-        this.cdr.detectChanges();
     }
 
-    deleteTransaction(e: { entity: TransactionEntity, batch: boolean }) {
-        const transaction = e.entity;
+    deleteTransaction(e: { transaction: TransactionEntity, batch: boolean }) {
+        const transaction = e.transaction;
         const batch = e.batch;
         if (batch) {
             this.transactions = this.transactions
@@ -200,27 +186,6 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.closeSidebarDetails();
     }
 
-    showMore() {
-        this.page = this.page + 1;
-        this.transactionService.findBy(this.createFilters()).then(response => {
-            const existingIds = new Set(this.transactions.map(tr => tr.id));
-
-            response.forEach(t => {
-                if (!existingIds.has(t.id)) {
-                    this.transactions.push(t);
-                    existingIds.add(t.id);
-                }
-            });
-
-            this.transactions = [...this.transactions];
-
-            this.remainingPages = response.length > 0 ? response[0].remainingPages : -1;
-            this.paginationService.storedData = this.transactions;
-            this.paginationService.currentPage = this.page;
-            this.paginationService.remainingPages = this.remainingPages;
-        });
-    }
-
     createFieldsSidebarDetails() {
         const card = this.selectedValue.cardId > 0 ? `/ ${this.selectedValue.card}` : '';
         if (this.selectedValue.invoice) {
@@ -228,6 +193,29 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         } else {
             this.fieldsSidebarDetailsTransaction(card);
         }
+    }
+
+    private delete(transaction: TransactionEntity) {
+        if (transaction.invoice) {
+            this.invoiceService.delete(transaction.id).then(() => {
+                this.closeSidebarDetails();
+                this.search();
+                this.alertService.success("Fatura excluida com sucesso.");
+            });
+        } else {
+            this.transactionService.delete(transaction.id).then(() => {
+                this.deleteTransaction({ transaction: transaction, batch: false });
+                this.alertService.success("Lançamento excluido com sucesso.");
+            });
+        }
+    }
+
+    private loadingPermission() {
+        this.allowPayment = this.authService.hasPermission('PAYMENT_TRANSACTIONS');
+        this.allowSchedule = this.authService.hasPermission('SCHEDULE_TRANSACTIONS');
+        this.allowUndoScheduling = this.authService.hasPermission('UNDO_SCHEDULING_TRANSACTIONS');
+        this.allowRefund = this.authService.hasPermission('REFUND_TRANSACTIONS');
+        this.allowFilterTransactions = this.authService.hasPermission('FILTER_TRANSACTIONS')
     }
 
     private redirectToInvoice(transaction: TransactionEntity) {
@@ -279,67 +267,23 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     }
 
     private searchAfterUpdate() {
-        const filters = new Array(4);
+        const savedFilters = this.filterManager.load();
         localStorage.removeItem("TRANSACTION_UPDATE");
-        const localFilters = localStorage.getItem("TRANSACTION_FILTER");
-        if (localFilters) {
-
-            this.periodoFilter = DateHelpers.parseMonthAndYearToDate(localFilters.split(';')[0]);
-            const accounts = localFilters.split(';')[1];
-            const text = localFilters.split(';')[2];
-
-            filters[0] = DateHelpers.getMonthAndYear(this.periodoFilter);
-
-            if (accounts) {
-                filters[1] = accounts.split(',');
-                this.selectedAccounts = this.accounts.filter(acc => accounts.split(',').includes(String(acc.id)));
-            }
-
-            if (text) {
-                filters[2] = text;
-                this.searchFilter = text;
-            }
-
-            filters[3] = localFilters.split(';')[3];
-
-            if (this.paginationService.storedData.length > 0) {
-                this.transactions = this.paginationService.storedData;
-                this.remainingPages = this.paginationService.remainingPages;
-                this.page = this.paginationService.currentPage;
-            } else {
-                this.executeSearch(filters.join(';'));
-            }
+        if (savedFilters) {
+            this.periodFilter = DateHelpers.parseMonthAndYearToDate(savedFilters.period);
+            this.selectedAccounts = this.accounts.filter(acc => String(savedFilters.accounts).split(',').includes(String(acc.id)));
+            this.searchText = savedFilters?.searchText;
         }
-    }
-
-    private executeSearch(filters: string) {
-        this.transactionService.findBy(filters).then(response => {
-            this.transactions.length = 0;
-            this.transactions = this.findAll(response);
-            this.remainingPages = response.length > 0 ? response[0].remainingPages : -1;
-            this.updateBalance(this.createFilters());
-            this.cdr.detectChanges();
-        });
     }
 
     private createFilters() {
-        const filters = new Array(4);
-
-        if (this.periodoFilter) {
-            filters[0] = DateHelpers.getMonthAndYear(this.periodoFilter);
+        const filter: Filters = {
+            period: DateHelpers.getMonthAndYear(this.periodFilter),
+            accounts: this.selectedAccounts.map(account => account.id),
+            searchText: this.searchText
         }
-        if (this.selectedAccounts) {
-            filters[1] = this.selectedAccounts.map(account => account.id).join(',');
-        }
-        if(this.searchFilter) {
-            filters[2] = this.searchFilter;
-        }
-
-        filters[3] = this.page;
-
-        localStorage.setItem("TRANSACTION_FILTER", filters.join(";"));
-
-        return filters.join(';');
+        this.filterManager.save(filter);
+        return `${filter.period};${filter?.accounts.join(',')};${filter?.searchText}`;
     }
 
     private async loadingAccounts() {

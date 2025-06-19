@@ -10,14 +10,14 @@ import {SubCategoryEntity} from "../../../../../entity/SubCategoryEntity";
 import {SubCategoryService} from "../subcategory.service";
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 import {InstallmentTypeEnum} from "../../../../../enum/InstallmentTypeEnum";
-import {FrequencyTransactionEnum} from "../../../../../enum/FrequencyTransactionEnum";
+import {CicleEnum} from "../../../../../enum/CicleEnum";
 import {SelectItemGroup} from "primeng/api";
 import {LoaderService} from "../../../../core/loader/loader.service";
-import {DateHelpers} from "../../../../../shared/DateHelpers";
+import {DateHelpers} from "../../../../../shared/helper/DateHelpers";
 import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/GlobalDialogService";
 import {AuthService} from "../../../../core/login/auth.service";
 import {InvoiceService} from "../../invoice/invoice.service";
-import {StringHelpers} from "../../../../../shared/StringHelpers";
+import {StringHelpers} from "../../../../../shared/helper/StringHelpers";
 
 @Component({
   selector: 'app-register-transaction',
@@ -31,7 +31,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     subcategories = new Array<any>();
 
     typesEnum = new Array<any>();
-    frequencyEnum = new Array<any>();
+    cicles = new Array<any>();
     installments= new Array<any>();
     invoices = new Array<any>();
 
@@ -73,7 +73,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         await Promise.all([
             this.loadingAllSubcategory(),
             this.loadingInstallmentType(),
-            this.loadingFrequencyransaction()
+            this.loadingCicles()
         ]);
 
         if (!this.registerNew) {
@@ -198,6 +198,8 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
     }
 
     onCalculateCutOfDate() {
+        void this.loadingCicles();
+
         if (this.transaction.cardId === 0 || this.transaction.cardId == null) {
             return;
         }
@@ -292,12 +294,24 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
         }
     }
 
-    private async loadingFrequencyransaction() {
-        const frequencies = Object.entries(FrequencyTransactionEnum).map(([key, value]) => ({
-            label: value,
-            value: key
-        }));
-        this.frequencyEnum = [{ value: 0, label: 'Selecione' }, ...frequencies];
+    private async loadingCicles() {
+        const cardCicles = [
+            CicleEnum.ANNUAL,
+            CicleEnum.SEMIANNUAL,
+            CicleEnum.QUARTERLY,
+            CicleEnum.BIMONTHLY,
+            CicleEnum.MONTHLY
+        ];
+
+        let ciclesToload: string[];
+
+        if (this.transaction.cardId) {
+            ciclesToload = cardCicles;
+        } else {
+            ciclesToload = Object.values(CicleEnum);
+        }
+
+        this.cicles = [{ value: 0, label: 'Selecione' }, ...ciclesToload];
     }
 
     private async loadingInstallmentType() {

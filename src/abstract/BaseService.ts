@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
 import {ErrorHandler} from "../app/core/handler/ErrorHandler";
 import {AuthService} from "../app/core/login/auth.service";
+import {Page} from "../entity/Page";
 
 export abstract class BaseService<T> {
 
@@ -38,6 +39,11 @@ export abstract class BaseService<T> {
 
     async findAll(): Promise<Array<T>> {
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}`, this.options());
+        return this.toPromise(request);
+    }
+
+    async searchAll(page: number, size: number): Promise<Page<T>> {
+        const request = this.httpClient.get<Page<T>>(`${this.baseURL}/${this.pathURL()}/find-all?page=${page}&size=${size}`, this.options());
         return this.toPromise(request);
     }
 

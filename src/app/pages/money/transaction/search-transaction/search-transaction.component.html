@@ -9,7 +9,7 @@
                         <div class="col-md-2 col-xs-12">
                             <label class="form-label" for="period"> Período: </label> <br/>
                             <p-calendar id="period" name="period" view="month" dateFormat="mm/yy" [readonlyInput]="true" inputStyleClass="cursor-pointer"
-                                [(ngModel)]="periodoFilter" [showButtonBar]="false" (onSelect)="search()" />
+                                [(ngModel)]="periodFilter" [showButtonBar]="false" (onSelect)="search()" />
                         </div>
                         <div class="col-md-3 col-xs-12">
                             <label class="form-label" for="account"> Conta: </label> <br/>
@@ -18,7 +18,7 @@
                         </div>
                         <div class="col-md-7 position-relative">
                             <label class="form-label" for="search"> Pesquisar: </label>
-                            <input pInputText class="form-control pe-5" name="search" id="search" [(ngModel)]="searchFilter" />
+                            <input pInputText class="form-control pe-5" name="search" id="search" [(ngModel)]="searchText" />
 <!--                            <button type="button" class="btn btn-outline-secondary position-absolute end-0 top-0 translate-middle-y me-3 mt-5" title="Mostra mais opções de pesquisa">-->
 <!--                                <i class="fa-solid fa-sliders"></i>-->
 <!--                            </button>-->
@@ -197,21 +197,10 @@
             </div>
 
             <app-scroll-up></app-scroll-up>
-
-            <br />
-
-            <div class="col-md-12 mb-10 text-center">
-                <button pButton type="button" class="p-button-contrast p-button-sm ms-2" *ngIf="remainingPages > 0" (click)="showMore()">
-                    <i class="fa-solid fa-rotate-right m-1"></i>
-                    Mostrar mais...
-                </button>
-            </div>
+            <div appIfiniteScroll [disabled]="!pagination.hasMore" (scrolled)="loading()"></div>
         </div>
     </div>
 </form>
-
-<app-dialog-confirmation-payment (transactionPayment)="updateTransaction($event)"></app-dialog-confirmation-payment>
-<app-dialog-delete-transaction (transactionDeleted)="deleteTransaction($event)"></app-dialog-delete-transaction>
 
 <app-sidebar-details [value]="selectedValue" [visible]="visibleSidebar" [fields]="fields" (visibleChange)="closeSidebarDetails()">
     <div actions>

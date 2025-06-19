@@ -3,7 +3,8 @@ import {BaseService} from "../../../../abstract/BaseService";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../../core/handler/ErrorHandler";
 import {TransactionEntity} from "../../../../entity/TransactionEntity";
-import {DateHelpers} from "../../../../shared/DateHelpers";
+import {DateHelpers} from "../../../../shared/helper/DateHelpers";
+import {Page} from "../../../../entity/Page";
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class TransactionService extends BaseService<TransactionEntity> {
         return "transactions";
     }
 
-    async findBy(search: string): Promise<Array<TransactionEntity>> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/filterBy?search=${search}`, this.options());
+    async findBy(search: string, page: number, size: number): Promise<Page<TransactionEntity>> {
+        const request = this.httpClient.get<Page<TransactionEntity>>(`${this.baseURL}/${this.pathURL()}/filterBy?search=${search}&pageNumber=${page}&size=${size}`, this.options());
         return this.toPromise(request);
     }
 

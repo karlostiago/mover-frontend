@@ -5,7 +5,7 @@ import {MaintenanceService} from "../maintenance.service";
 import {MaintenanceEntity} from "../../../../../entity/MaintenanceEntity";
 import {AuthService} from "../../../../core/login/auth.service";
 import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
-import {NumberHelpers} from "../../../../../shared/NumberHelpers";
+import {NumberHelpers} from "../../../../../shared/helper/NumberHelpers";
 
 @Component({
   selector: 'app-search-maintenance',

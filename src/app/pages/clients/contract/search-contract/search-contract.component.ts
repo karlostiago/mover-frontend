@@ -7,9 +7,9 @@ import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/Glo
 import {AuthService} from "../../../../core/login/auth.service";
 import {ErrorHandler} from "../../../../core/handler/ErrorHandler";
 import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
-import {MaskHelpers} from "../../../../../shared/MaskHelpers";
-import {NumberHelpers} from "../../../../../shared/NumberHelpers";
-import {DateHelpers} from "../../../../../shared/DateHelpers";
+import {MaskHelpers} from "../../../../../shared/helper/MaskHelpers";
+import {NumberHelpers} from "../../../../../shared/helper/NumberHelpers";
+import {DateHelpers} from "../../../../../shared/helper/DateHelpers";
 
 @Component({
   selector: 'app-search-contract',

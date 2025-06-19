@@ -18,6 +18,7 @@ import {TitleComponent} from "../app/core/title/title.component";
 import {StickTableHeader} from "./directive/StickTableHeaderDirective";
 import {TableFunctionalityComponent} from "../app/core/components/table-functionality/table-functionality.component";
 import {TableModule} from "primeng/table";
+import {InfiniteScrollDirective} from "./directive/InfiniteScrollDirective";
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import {TableModule} from "primeng/table";
         NumberRangeDirective,
         TitleComponent,
         StickTableHeader,
-        TableFunctionalityComponent
+        TableFunctionalityComponent,
+        InfiniteScrollDirective
     ],
     exports: [
         ToastModule,
@@ -53,7 +55,8 @@ import {TableModule} from "primeng/table";
         NumberRangeDirective,
         TitleComponent,
         StickTableHeader,
-        TableFunctionalityComponent
+        TableFunctionalityComponent,
+        InfiniteScrollDirective
     ],
     imports: [
         CommonModule,

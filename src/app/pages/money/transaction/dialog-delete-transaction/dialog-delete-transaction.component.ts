@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AlertService} from "../../../../../shared/service/AlertService";
 import {TransactionEntity} from "../../../../../entity/TransactionEntity";
 import {TransactionService} from "../transaction.service";
@@ -13,11 +13,7 @@ export class DialogDeleteTransactionComponent implements OnInit {
 
     visible = false;
     result$: Subject<any>;
-
-    invoice = new TransactionEntity();
     transaction = new TransactionEntity();
-
-    @Output() transactionDeleted = new EventEmitter<any>();
 
     constructor(private alertService: AlertService,
                 private transactionService: TransactionService) {
@@ -30,7 +26,6 @@ export class DialogDeleteTransactionComponent implements OnInit {
     showDialog(transaction: TransactionEntity, target?: any, result$?: Subject<any>) {
         this.visible = true;
         this.result$ = result$!;
-        this.invoice = target;
         this.transaction = transaction;
     }
 
@@ -38,13 +33,10 @@ export class DialogDeleteTransactionComponent implements OnInit {
         if (batch) {
             this.transactionService.batchDelete(this.transaction.id).then(() => {
                 this.alertService.success("Lançamentos excluídos com sucesso.");
-                this.transactionDeleted.emit({
-                    entity: this.transaction,
-                    batch: true,
-                });
                 this.visible = false;
                 this.result$.next({
-                    invoice: this.invoice
+                    transaction: this.transaction,
+                    batch: true,
                 });
                 this.result$.complete();
             });
@@ -52,13 +44,10 @@ export class DialogDeleteTransactionComponent implements OnInit {
         else {
             this.transactionService.delete(this.transaction.id).then(() => {
                 this.alertService.success("Lançamento excluido com sucesso.");
-                this.transactionDeleted.emit({
-                    entity: this.transaction,
-                    batch: false,
-                });
                 this.visible = false;
                 this.result$.next({
-                    invoice: this.invoice
+                    transaction: this.transaction,
+                    batch: false,
                 });
                 this.result$.complete();
             });

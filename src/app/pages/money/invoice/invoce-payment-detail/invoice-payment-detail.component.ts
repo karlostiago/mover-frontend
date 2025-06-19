@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {NumberHelpers} from "../../../../../shared/NumberHelpers";
+import {NumberHelpers} from "../../../../../shared/helper/NumberHelpers";
 import {InvoicePaymentDetailEntity} from "../../../../../entity/InvoicePaymentDetailEntity";
 import {ConfirmationService} from "primeng/api";
 import {InvoiceService} from "../invoice.service";

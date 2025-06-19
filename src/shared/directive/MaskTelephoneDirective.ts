@@ -1,6 +1,6 @@
 import {Directive, ElementRef, forwardRef, HostListener, Renderer2} from "@angular/core";
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
-import {MaskHelpers} from "../MaskHelpers";
+import {MaskHelpers} from "../helper/MaskHelpers";
 
 @Directive({
     selector: '[appMaskTelephone]',

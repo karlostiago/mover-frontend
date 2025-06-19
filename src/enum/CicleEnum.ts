@@ -1,4 +1,4 @@
-export enum FrequencyTransactionEnum {
+export enum CicleEnum {
     ANNUAL = "ANUAL",
     SEMIANNUAL = "SEMESTRAL",
     QUARTERLY = "TRIMESTRAL",

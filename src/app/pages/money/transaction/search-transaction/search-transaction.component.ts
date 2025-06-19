@@ -197,7 +197,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     }
 
     onCalendarBlur() {
-        this.calendarFocused = false;
+        this.calendarFocused = !this.calendarFocused;
     }
 
     private delete(transaction: TransactionEntity) {

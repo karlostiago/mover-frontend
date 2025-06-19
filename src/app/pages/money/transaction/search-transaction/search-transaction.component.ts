@@ -47,8 +47,10 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     allowSchedule: boolean = false;
     allowUndoScheduling: boolean = false;
     allowFilterTransactions: boolean = false;
+    loadingData: boolean = true;
 
     private subscription: Subscription;
+    private calendarFocused: boolean = false;
     private filterManager = new FilterStorageManager<Filters>('TRANSACTION_FILTER');
 
     constructor(private alertService: AlertService,
@@ -66,18 +68,15 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     }
 
     async ngOnInit() {
+        this.loadingData = true;
         await this.loadingAccounts();
         this.pagination.initialization(15);
-        const fromUpdate = !!localStorage.getItem("TRANSACTION_UPDATE");
         this.loadingPermission();
-        if (fromUpdate) {
-            this.searchAfterUpdate();
-        } else {
-            this.periodFilter = DateHelpers.toUTC(new Date());
-        }
         this.subscription = this.balanceWebSocketService.balanceUpdated$.subscribe(() => {
             this.updateBalance(this.createFilters());
         });
+        this.search();
+        this.loadingData = false;
     }
 
     ngOnDestroy(): void {
@@ -156,15 +155,13 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     }
 
     loading() {
-        setTimeout(() => {
-            this.pagination.load(
-                () => this.transactionService.findBy(this.createFilters(), this.pagination.page, this.pagination.size),
-                (response) => {
-                    this.transactions = [...this.transactions, ...response.content];
-                    this.updateBalance(this.createFilters());
-                }
-            );
-        }, 100);
+        this.pagination.load(
+            () => this.transactionService.findBy(this.createFilters(), this.pagination.page, this.pagination.size),
+            (response) => {
+                this.transactions = [...this.transactions, ...response.content];
+                this.updateBalance(this.createFilters());
+            }
+        );
     }
 
     updateTransaction(transaction: TransactionEntity) {
@@ -193,6 +190,14 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         } else {
             this.fieldsSidebarDetailsTransaction(card);
         }
+    }
+
+    onCalendarFocus() {
+        this.calendarFocused = true;
+    }
+
+    onCalendarBlur() {
+        this.calendarFocused = false;
     }
 
     private delete(transaction: TransactionEntity) {
@@ -266,30 +271,38 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.loaderService.automatic = true;
     }
 
-    private searchAfterUpdate() {
-        const savedFilters = this.filterManager.load();
-        localStorage.removeItem("TRANSACTION_UPDATE");
-        if (savedFilters) {
-            this.periodFilter = DateHelpers.parseMonthAndYearToDate(savedFilters.period);
-            this.selectedAccounts = this.accounts.filter(acc => String(savedFilters.accounts).split(',').includes(String(acc.id)));
-            this.searchText = savedFilters?.searchText;
+    private createFilters() {
+        let filter: Filters | null;
+        let isUpdate = !!localStorage.getItem("TRANSACTION_UPDATE");
+
+        if (isUpdate) {
+            filter = this.filterManager.load();
+            localStorage.removeItem("TRANSACTION_UPDATE");
+            if (filter) {
+                this.updateFilters(filter);
+            }
+        } else {
+            filter = {
+                period: DateHelpers.getMonthAndYear(this.periodFilter ?? new Date()),
+                accounts: this.selectedAccounts.map(account => account.id),
+                searchText: this.searchText
+            }
+            this.updateFilters(filter);
+            this.filterManager.save(filter!);
         }
+
+        return `${filter?.period};${filter?.accounts.join(',')};${filter?.searchText}`;
     }
 
-    private createFilters() {
-        const filter: Filters = {
-            period: DateHelpers.getMonthAndYear(this.periodFilter),
-            accounts: this.selectedAccounts.map(account => account.id),
-            searchText: this.searchText
-        }
-        this.filterManager.save(filter);
-        return `${filter.period};${filter?.accounts.join(',')};${filter?.searchText}`;
+    private updateFilters(filter: Filters) {
+        this.periodFilter = DateHelpers.parseMonthAndYearToDate(filter.period);
+        this.selectedAccounts = this.accounts.filter(acc => String(filter?.accounts).split(',').includes(String(acc.id)));
+        this.searchText = filter?.searchText;
     }
 
     private async loadingAccounts() {
-        await this.accountServce.findAll().then(response => {
-            this.accounts = response.filter(c => c.active);
-        });
+        const response = await this.accountServce.findAll();
+        this.accounts = response.filter(c => c.active);
     }
 
     protected readonly NumberHelpers = NumberHelpers;

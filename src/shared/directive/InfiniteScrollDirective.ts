@@ -6,7 +6,7 @@ import {Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output} f
 export class InfiniteScrollDirective implements OnInit, OnDestroy {
 
     @Output() scrolled = new EventEmitter<void>();
-    @Input() disabled = false;
+    private _disabled = false;
 
     private observer!: IntersectionObserver;
 
@@ -27,5 +27,19 @@ export class InfiniteScrollDirective implements OnInit, OnDestroy {
         if (this.observer) {
             this.observer.disconnect();
         }
+    }
+
+    @Input()
+    set disabled(value: boolean) {
+        this._disabled = value;
+        if (this.observer && this._disabled) {
+            this.observer.disconnect();
+        } else if (this.observer && !this._disabled) {
+            this.observer.observe(this.el.nativeElement);
+        }
+    }
+
+    get disabled() {
+        return this._disabled;
     }
 }

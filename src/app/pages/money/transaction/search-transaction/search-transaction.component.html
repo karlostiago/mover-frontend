@@ -9,7 +9,7 @@
                         <div class="col-md-2 col-xs-12">
                             <label class="form-label" for="period"> Período: </label> <br/>
                             <p-calendar id="period" name="period" view="month" dateFormat="mm/yy" [readonlyInput]="true" inputStyleClass="cursor-pointer"
-                                [(ngModel)]="periodFilter" [showButtonBar]="false" (onSelect)="search()" />
+                                [(ngModel)]="periodFilter" [showButtonBar]="false" (onSelect)="search()" (onFocus)="onCalendarFocus()" (onBlur)="onCalendarBlur()" />
                         </div>
                         <div class="col-md-3 col-xs-12">
                             <label class="form-label" for="account"> Conta: </label> <br/>
@@ -197,7 +197,7 @@
             </div>
 
             <app-scroll-up></app-scroll-up>
-            <div appIfiniteScroll [disabled]="!pagination.hasMore" (scrolled)="loading()"></div>
+            <div appIfiniteScroll [disabled]="loadingData || !pagination.hasMore" (scrolled)="loading()"></div>
         </div>
     </div>
 </form>

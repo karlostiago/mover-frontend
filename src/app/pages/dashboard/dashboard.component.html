@@ -18,8 +18,8 @@
     <div class="col-md-3 col-sm-12 mb-10">
         <div class="card">
             <div class="card-header">
-                <label>Valor bruto</label>
-                <h5>R$ 0,00</h5>
+                <label>Contratos ativos</label>
+                <h5>{{ qtdActiveContract.quantity }}</h5>
             </div>
         </div>
     </div>
@@ -27,8 +27,8 @@
     <div class="col-md-3 col-sm-12 mb-10">
         <div class="card">
             <div class="card-header">
-                <label>Vr Receita Liquida</label>
-                <h5>R$ 0,00</h5>
+                <label>Contratos encerrados</label>
+                <h5>{{ qtdContractTerminated.quantity }}</h5>
             </div>
         </div>
     </div>
@@ -36,8 +36,8 @@
     <div class="col-md-3 col-sm-12 mb-10">
         <div class="card">
             <div class="card-header">
-                <label>Valor em manutenções</label>
-                <h5>R$ 0,00</h5>
+                <label>Veículos parados</label>
+                <h5>{{ qtdStoppedVehicles.quantity }}</h5>
             </div>
         </div>
     </div>
@@ -45,8 +45,40 @@
     <div class="col-md-3 col-sm-12 mb-10">
         <div class="card">
             <div class="card-header">
-                <label>Valor despesas</label>
-                <h5>R$ 0,00</h5>
+                <label>Veículos alugados</label>
+                <h5>{{ qtdRentalVehicles.quantity }}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mt-0">
+    <div class="col-md-3 col-sm-12 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label>Cobranças em atraso</label>
+                <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardOverdue.quantity }} </span>
+                <h5>{{ cardOverdue.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-12 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label>Cobranças efetivados</label>
+                <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardChargeMade.quantity }} </span>
+                <h5>{{ cardChargeMade.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-12 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label>Manutenções realizadas</label>
+                <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardMaintenance.quantity }} </span>
+                <h5> {{ cardMaintenance.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </h5>
             </div>
         </div>
     </div>

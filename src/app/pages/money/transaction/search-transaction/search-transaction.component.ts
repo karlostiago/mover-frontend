@@ -158,7 +158,16 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.pagination.load(
             () => this.transactionService.findBy(this.createFilters(), this.pagination.page, this.pagination.size),
             (response) => {
-                this.transactions = [...this.transactions, ...response.content];
+                const existingIds = new Set(this.transactions.map(tr => tr.id));
+
+                response.content.forEach(t => {
+                    if (!existingIds.has(t.id)) {
+                        this.transactions.push(t);
+                        existingIds.add(t.id);
+                    }
+                });
+
+                this.transactions = [...this.transactions];
                 this.updateBalance(this.createFilters());
             }
         );
@@ -209,7 +218,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
             });
         } else {
             this.transactionService.delete(transaction.id).then(() => {
-                this.deleteTransaction({ transaction: transaction, batch: false });
+                this.deleteTransaction({ transaction: transaction, batch: transaction.categoryType === 'TRANSFERÊNCIA' });
                 this.alertService.success("Lançamento excluido com sucesso.");
             });
         }

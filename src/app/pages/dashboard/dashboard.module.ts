@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {DashboardRoutingModule} from "./dashboard-routing.module";
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {DashboardComponent} from "./dashboard.component";
 
 @NgModule({
@@ -12,7 +12,8 @@ import {DashboardComponent} from "./dashboard.component";
     ],
     imports: [
         CommonModule,
-        DashboardRoutingModule
+        DashboardRoutingModule,
+        NgOptimizedImage
     ]
 })
 export class DashboardModule { }

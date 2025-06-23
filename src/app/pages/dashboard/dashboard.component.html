@@ -19,7 +19,16 @@
         <div class="card">
             <div class="card-header">
                 <label>Contratos ativos</label>
-                <h5>{{ qtdActiveContract.quantity }}</h5>
+                <ng-container *ngIf="!qtdActiveContract.loading; else showContractActive">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showContractActive>
+                    <h5>{{ qtdActiveContract.quantity }}</h5>
+                </ng-template>
             </div>
         </div>
     </div>
@@ -28,7 +37,16 @@
         <div class="card">
             <div class="card-header">
                 <label>Contratos encerrados</label>
-                <h5>{{ qtdContractTerminated.quantity }}</h5>
+                <ng-container *ngIf="!qtdContractTerminated.loading; else showTerminatedContract">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showTerminatedContract>
+                    <h5>{{ qtdContractTerminated.quantity }}</h5>
+                </ng-template>
             </div>
         </div>
     </div>
@@ -37,7 +55,16 @@
         <div class="card">
             <div class="card-header">
                 <label>Veículos parados</label>
-                <h5>{{ qtdStoppedVehicles.quantity }}</h5>
+                <ng-container *ngIf="!qtdStoppedVehicles.loading; else showStoppedVehicle">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showStoppedVehicle>
+                    <h5>{{ qtdStoppedVehicles.quantity }}</h5>
+                </ng-template>
             </div>
         </div>
     </div>
@@ -46,7 +73,16 @@
         <div class="card">
             <div class="card-header">
                 <label>Veículos alugados</label>
-                <h5>{{ qtdRentalVehicles.quantity }}</h5>
+                <ng-container *ngIf="!qtdRentalVehicles.loading; else showRentalVehicle">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showRentalVehicle>
+                    <h5>{{ qtdRentalVehicles.quantity }}</h5>
+                </ng-template>
             </div>
         </div>
     </div>
@@ -56,9 +92,18 @@
     <div class="col-md-3 col-sm-12 mb-10">
         <div class="card">
             <div class="card-header">
-                <label>Cobranças em atraso</label>
-                <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardOverdue.quantity }} </span>
-                <h5>{{ cardOverdue.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                <label>Receitas em atraso</label>
+                <ng-container *ngIf="!cardOverdueRevenue.loading; else showOverdueRevenue">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showOverdueRevenue>
+                    <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardOverdueRevenue.quantity }} </span>
+                    <h5>{{ cardOverdueRevenue.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                </ng-template>
             </div>
         </div>
     </div>
@@ -66,9 +111,18 @@
     <div class="col-md-3 col-sm-12 mb-10">
         <div class="card">
             <div class="card-header">
-                <label>Cobranças efetivadas</label>
-                <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardChargeMade.quantity }} </span>
-                <h5>{{ cardChargeMade.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                <label>Receitas pendentes</label>
+                <ng-container *ngIf="!cardPendingRevenue.loading; else showPendingRevenue">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showPendingRevenue>
+                    <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardPendingRevenue.quantity }} </span>
+                    <h5>{{ cardPendingRevenue.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                </ng-template>
             </div>
         </div>
     </div>
@@ -76,10 +130,194 @@
     <div class="col-md-3 col-sm-12 mb-10">
         <div class="card">
             <div class="card-header">
-                <label>Manutenções realizadas</label>
-                <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardMaintenance.quantity }} </span>
-                <h5> {{ cardMaintenance.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </h5>
+                <label>Receitas efetivadas</label>
+                <ng-container *ngIf="!cardRealizedRevenue.loading; else showRealizedRevenue">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showRealizedRevenue>
+                    <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardRealizedRevenue.quantity }} </span>
+                    <h5>{{ cardRealizedRevenue.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-12 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label>Receita bruta</label>
+                <ng-container *ngIf="!cardGrossRevenue.loading; else showGrossRevenue">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showGrossRevenue>
+                    <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardGrossRevenue.quantity }} </span>
+                    <h5>{{ cardGrossRevenue.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                </ng-template>
             </div>
         </div>
     </div>
 </div>
+
+<div class="row g-3 mt-0">
+    <div class="col-md-3 col-sm-12 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label>Despesas em atraso</label>
+                <ng-container *ngIf="!cardOverdueExpense.loading; else showOverdueExpense">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showOverdueExpense>
+                    <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardOverdueExpense.quantity }} </span>
+                    <h5> {{ cardOverdueExpense.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </h5>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-12 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label>Despesas pendentes</label>
+                <ng-container *ngIf="!cardOverdueExpense.loading; else showPendingExpense">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showPendingExpense>
+                    <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardPendingExpense.quantity }} </span>
+                    <h5> {{ cardPendingExpense.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </h5>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-12 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label>Despesas efetivadas</label>
+                <ng-container *ngIf="!cardRealizedExpense.loading; else showRealizedExpense">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showRealizedExpense>
+                    <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardRealizedExpense.quantity }} </span>
+                    <h5> {{ cardRealizedExpense.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </h5>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-12 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label>Despesa bruta</label>
+                <ng-container *ngIf="!cardGrossExpense.loading; else showGrossExpense">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showGrossExpense>
+                    <span class="badge text-bg-secondary text-white m-1 float-end"> {{ cardGrossExpense.quantity }} </span>
+                    <h5> {{ cardGrossExpense.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </h5>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mt-0">
+    <div class="col-md-6 col-sm-12 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label style="font-size: 1.2rem;">Saldo geral nas contas</label>
+                <h5> {{ generalBalance | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </h5>
+                <hr class="my-1" />
+                <ul class="list-unstyled m-0 pb-3">
+                    <ng-container *ngIf="!loadingAccounts; else showAccounts">
+                        <div class="loading-overlay">
+                            <div class="spinner-border text-secondary" role="status" style="display: block; margin-top: 1rem;">
+                                <span class="visually-hidden">Carregando...</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-template #showAccounts>
+                        <li class="d-flex justify-content-between align-items-center py-1" *ngFor="let account of balanceInAccounts">
+                            <label style="font-size: 1rem;">
+                                <img src="{{ account.iconPath }}" alt="icon"  style="width: 2.1rem; border-radius: 30%;"/>
+                                {{ account.description }}
+                            </label>
+                            <h5 class="mb-0">{{ account.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </h5>
+                        </li>
+                    </ng-template>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label style="font-size: 1.2rem;">Faturas de {{ decriptionAmount }}</label>
+                <h5>{{ generalInvoiceValue | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                <hr class="my-1" />
+                <ul class="list-unstyled m-0 pb-3">
+                    <ng-container *ngIf="!loadingInvoices; else showInvoices">
+                        <div class="loading-overlay">
+                            <div class="spinner-border text-secondary" role="status" style="display: block; margin-top: 1rem;">
+                                <span class="visually-hidden">Carregando...</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-template #showInvoices>
+                        <li class="d-flex justify-content-between align-items-center py-1" *ngFor="let card of invoicesByCards">
+                            <label style="font-size: 1rem;">
+                                <img src="{{ card.iconPath }}" alt="icon"  style="width: 2.1rem; border-radius: 30%;"/>
+                                {{ card.description }}
+                            </label>
+                            <h5 class="mb-0">{{ card.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                        </li>
+                    </ng-template>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--
+<div class="row g-3 mt-0">
+    <div class="col-md-6 col-sm-12 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label style="font-size: 1.2rem;">Receitas por categoria</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-10">
+        <div class="card">
+            <div class="card-header">
+                <label style="font-size: 1.2rem;">Depesas por categoria</label>
+            </div>
+        </div>
+    </div>
+</div>
+-->

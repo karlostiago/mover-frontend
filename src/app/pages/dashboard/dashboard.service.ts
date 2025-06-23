@@ -38,13 +38,53 @@ export class DashboardService extends BaseService<any> {
         return this.toPromise(request);
     }
 
-    async chargesMade(): Promise<DashboardCard> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/charges-made`, this.options());
+    async realizedRevenue(): Promise<DashboardCard> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/realized-revenue`, this.options());
         return this.toPromise(request);
     }
 
-    async overdue(): Promise<DashboardCard> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/overdue-charges`, this.options());
+    async pendingRevenue(): Promise<DashboardCard> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/pending-revenue`, this.options());
+        return this.toPromise(request);
+    }
+
+    async grossRevenue(): Promise<DashboardCard> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/gross-revenue`, this.options());
+        return this.toPromise(request);
+    }
+
+    async overdueRevenue(): Promise<DashboardCard> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/overdue-revenue`, this.options());
+        return this.toPromise(request);
+    }
+
+    async realizedExpense(): Promise<DashboardCard> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/realized-expense`, this.options());
+        return this.toPromise(request);
+    }
+
+    async overdueExpense(): Promise<DashboardCard> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/overdue-expense`, this.options());
+        return this.toPromise(request);
+    }
+
+    async pendingExpense(): Promise<DashboardCard> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/pending-expense`, this.options());
+        return this.toPromise(request);
+    }
+
+    async grossExpense(): Promise<DashboardCard> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/gross-expense`, this.options());
+        return this.toPromise(request);
+    }
+
+    async balanceInAccounts(): Promise<Array<DashboardCard>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/balance-accounts`, this.options());
+        return this.toPromise(request);
+    }
+
+    async invoices(): Promise<Array<DashboardCard>> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/invoices`, this.options());
         return this.toPromise(request);
     }
 

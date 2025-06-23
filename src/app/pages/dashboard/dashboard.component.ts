@@ -2,12 +2,22 @@ import {Component, OnInit} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
 import {LoaderService} from "../../core/loader/loader.service";
 
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { Chart } from 'chart.js';
+
+Chart.register(ChartDataLabels);
+
 export class DashboardCard {
     description: string;
     quantity: number = 0;
     value: number = 0;
     iconPath: string;
     loading: boolean = false;
+}
+
+export class DashboardChartDoughnut {
+    labels: Array<string>;
+    values: Array<number>;
 }
 
 @Component({
@@ -32,8 +42,6 @@ export class DashboardComponent implements OnInit {
     cardGrossExpense: DashboardCard = new DashboardCard();
     cardPendingExpense: DashboardCard = new DashboardCard();
 
-    cardMaintenance: DashboardCard = new DashboardCard();
-
     balanceInAccounts: Array<DashboardCard> = new Array<DashboardCard>();
     generalBalance: number = 0;
 
@@ -43,6 +51,14 @@ export class DashboardComponent implements OnInit {
 
     loadingAccounts: boolean = false;
     loadingInvoices: boolean = false;
+
+    basicIncomeData: any;
+    basicIncomeOptions: any;
+    loadingChartIncome: boolean = false;
+
+    basicExpenseData: any;
+    basicExpenseOptions: any;
+    loadingChartExpense: boolean = false;
 
     constructor(
         private loader: LoaderService,
@@ -65,7 +81,8 @@ export class DashboardComponent implements OnInit {
         void this.pedingExpense();
         void this.balanceAccounts();
         void this.invoices();
-        void this.maintenance();
+        void this.chartRecipeCategory();
+        void this.chartExpenseCategory();
         this.loader.automatic = true;
     }
 
@@ -123,10 +140,6 @@ export class DashboardComponent implements OnInit {
         this.cardPendingExpense = await this.dashboardService.pendingExpense();
     }
 
-    private async maintenance() {
-        this.cardMaintenance = await this.dashboardService.maintenancePerformed();
-    }
-
     private async balanceAccounts() {
         this.balanceInAccounts = await this.dashboardService.balanceInAccounts();
         this.generalBalance = this.balanceInAccounts
@@ -141,5 +154,150 @@ export class DashboardComponent implements OnInit {
             .map(card => card.value)
             .reduce((total, balance) => total + balance, 0);
         this.loadingInvoices = true;
+    }
+
+    private async chartRecipeCategory() {
+        this.dashboardService.recipeChartCategory().then(response => {
+            this.basicIncomeData = this.chartDoughnutData(response.labels, response.values);
+            this.basicIncomeOptions = this.chartDoughnutOptions();
+            this.loadingChartIncome = true;
+        });
+    }
+
+    private async chartExpenseCategory() {
+        this.dashboardService.expenseChartCategory().then(response => {
+            this.basicExpenseData = this.chartDoughnutData(response.labels, response.values);
+            this.basicExpenseOptions = this.chartDoughnutOptions();
+            this.loadingChartExpense = true;
+        });
+    }
+
+    private chartDoughnutData(labels: Array<string>, values: Array<number>) {
+        return {
+            labels: labels,
+            datasets: [
+                {
+                    data: values
+                }
+            ]
+        };
+    }
+
+    private chartDoughnutOptions() {
+        return {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '60%',
+            layout: {
+                padding: {
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'left',        // 🔑 Faz a legenda ficar à esquerda
+                    align: 'start',
+                    labels: {
+                        boxWidth: 20,          // Tamanho da caixinha de cor ao lado do texto
+                        color: '#495057',      // Cor da fonte
+                        padding: 10,           // Espaçamento entre os itens da legenda
+                        usePointStyle: true    // Se quiser usar bolinha ao invés de quadrado
+                    }
+                },
+                datalabels: {
+                    display: false,
+                    color: '#757575',
+                    anchor: 'end',
+                    align: 'end',
+                    offset: 5,
+                    formatter: (value: any, context: any) => {
+                        const label = context.chart.data.labels?.[context.dataIndex] || '';
+                        const formattedValue = new Intl.NumberFormat('pt-BR', {
+                            style: 'currency',
+                            currency: 'BRL',
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }).format(value);
+                        return [label, formattedValue];
+                    },
+                    font: {
+                        weight: 'bold'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (tooltipItem: any) => {
+                            const value = tooltipItem.raw || 0;
+                            const formattedValue = new Intl.NumberFormat('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL',
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            }).format(value);
+                            return `${formattedValue}`;
+                        }
+                    }
+                }
+            }
+        };
+    }
+
+    private chartIncome(labels: Array<string>, values: Array<number>) {
+        this.basicIncomeData = {
+            labels: ['Aluguel', 'Prestação', 'Manutenção'],
+            datasets: [
+                {
+                    data: [300, 50, 100]
+                }
+            ]
+        };
+
+        this.basicIncomeOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '60%',
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                datalabels: {
+                    color: '#757575',
+                    anchor: 'end',
+                    align: 'end',
+                    offset: 5,
+                    formatter: (value: any, context: any) => {
+                        const label = context.chart.data.labels?.[context.dataIndex] || '';
+                        const formattedValue = new Intl.NumberFormat('pt-BR', {
+                            style: 'currency',
+                            currency: 'BRL',
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }).format(value);
+                        return [label, formattedValue];
+                    },
+                    font: {
+                        weight: 'bold'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (tooltipItem: any) => {
+                            const value = tooltipItem.raw || 0;
+                            const formattedValue = new Intl.NumberFormat('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL',
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            }).format(value);
+                            return `${formattedValue}`;
+                        }
+                    }
+                }
+            }
+        };
     }
 }

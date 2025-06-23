@@ -302,12 +302,24 @@
     </div>
 
 </div>
-<!--
+
 <div class="row g-3 mt-0">
     <div class="col-md-6 col-sm-12 mb-10">
         <div class="card">
             <div class="card-header">
                 <label style="font-size: 1.2rem;">Receitas por categoria</label>
+                <ng-container *ngIf="!loadingChartIncome; else showChartIncome">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block; margin-top: 1rem;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showChartIncome>
+                    <div class="chart-wrapper">
+                        <p-chart type="doughnut" [data]="basicIncomeData" [options]="basicIncomeOptions" />
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>
@@ -316,8 +328,20 @@
         <div class="card">
             <div class="card-header">
                 <label style="font-size: 1.2rem;">Depesas por categoria</label>
+                <ng-container *ngIf="!loadingChartIncome; else showChartExpense">
+                    <div class="loading-overlay">
+                        <div class="spinner-border text-secondary" role="status" style="display: block; margin-top: 1rem;">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #showChartExpense>
+                    <div class="chart-wrapper">
+                        <p-chart type="doughnut" [data]="basicExpenseData" [options]="basicExpenseOptions" />
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>
 </div>
--->
+

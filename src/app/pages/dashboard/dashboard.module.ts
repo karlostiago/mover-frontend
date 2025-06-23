@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {DashboardComponent} from "./dashboard.component";
+import {ChartModule} from "primeng/chart";
 
 @NgModule({
     declarations: [
@@ -13,7 +14,8 @@ import {DashboardComponent} from "./dashboard.component";
     imports: [
         CommonModule,
         DashboardRoutingModule,
-        NgOptimizedImage
+        NgOptimizedImage,
+        ChartModule
     ]
 })
 export class DashboardModule { }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BaseService} from "../../../abstract/BaseService";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../core/handler/ErrorHandler";
-import {DashboardCard} from "./dashboard.component";
+import {DashboardCard, DashboardChartDoughnut} from "./dashboard.component";
 
 
 @Injectable({
@@ -88,8 +88,13 @@ export class DashboardService extends BaseService<any> {
         return this.toPromise(request);
     }
 
-    async maintenancePerformed(): Promise<DashboardCard> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/maintenance-performed`, this.options());
+    async recipeChartCategory(): Promise<DashboardChartDoughnut> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/recipe-chart-category`, this.options());
+        return this.toPromise(request);
+    }
+
+    async expenseChartCategory(): Promise<DashboardChartDoughnut> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/expense-chart-category`, this.options());
         return this.toPromise(request);
     }
 }

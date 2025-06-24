@@ -199,72 +199,17 @@ export class DashboardComponent implements OnInit {
             plugins: {
                 legend: {
                     display: true,
-                    position: 'left',        // 🔑 Faz a legenda ficar à esquerda
+                    position: 'left',
                     align: 'start',
                     labels: {
-                        boxWidth: 20,          // Tamanho da caixinha de cor ao lado do texto
-                        color: '#495057',      // Cor da fonte
-                        padding: 10,           // Espaçamento entre os itens da legenda
-                        usePointStyle: true    // Se quiser usar bolinha ao invés de quadrado
+                        boxWidth: 20,
+                        color: '#495057',
+                        padding: 10,
+                        usePointStyle: true
                     }
                 },
                 datalabels: {
                     display: false,
-                    color: '#757575',
-                    anchor: 'end',
-                    align: 'end',
-                    offset: 5,
-                    formatter: (value: any, context: any) => {
-                        const label = context.chart.data.labels?.[context.dataIndex] || '';
-                        const formattedValue = new Intl.NumberFormat('pt-BR', {
-                            style: 'currency',
-                            currency: 'BRL',
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                        }).format(value);
-                        return [label, formattedValue];
-                    },
-                    font: {
-                        weight: 'bold'
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: (tooltipItem: any) => {
-                            const value = tooltipItem.raw || 0;
-                            const formattedValue = new Intl.NumberFormat('pt-BR', {
-                                style: 'currency',
-                                currency: 'BRL',
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2
-                            }).format(value);
-                            return `${formattedValue}`;
-                        }
-                    }
-                }
-            }
-        };
-    }
-
-    private chartIncome(labels: Array<string>, values: Array<number>) {
-        this.basicIncomeData = {
-            labels: ['Aluguel', 'Prestação', 'Manutenção'],
-            datasets: [
-                {
-                    data: [300, 50, 100]
-                }
-            ]
-        };
-
-        this.basicIncomeOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '60%',
-            plugins: {
-                legend: {
-                    display: false,
-                },
-                datalabels: {
                     color: '#757575',
                     anchor: 'end',
                     align: 'end',

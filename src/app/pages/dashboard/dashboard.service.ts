@@ -18,6 +18,11 @@ export class DashboardService extends BaseService<any> {
         return "dashboard";
     }
 
+    async refresh(): Promise<void> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/refresh`, this.options());
+        return this.toPromise(request);
+    }
+
     async contractsActive(): Promise<DashboardCard> {
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/contracts-active`, this.options());
         return this.toPromise(request);

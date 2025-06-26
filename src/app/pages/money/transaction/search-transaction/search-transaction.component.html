@@ -142,11 +142,15 @@
                         <ng-template pTemplate="groupheader" let-transaction>
                             <tr pRowGroupHeader>
                                 <td colspan="6">
-                                    <strong style="font-size: 1rem;"> {{ transaction['date'] }} </strong> <i style="font-size: 1rem;">({{ transaction['dayOfWeek'].toUpperCase() }})</i><br/>
-                                    <span style="font-size: 1rem!important;">
-                                        Saldo do dia
-                                        {{ transaction['dailyBalance'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-                                    </span>
+                                    <div class="transaction-info">
+                                        <div class="transaction-date">
+                                            {{ transaction['date'] }} <i>({{ transaction['dayOfWeek'].toUpperCase() }})</i>
+                                        </div>
+                                        <div class="transaction-balance">
+                                            Saldo do dia
+                                            {{ transaction['dailyBalance'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         </ng-template>

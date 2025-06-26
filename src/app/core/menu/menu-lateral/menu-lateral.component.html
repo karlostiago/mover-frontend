@@ -7,13 +7,13 @@
     <span *ngIf="showMenu" class="fa-solid fa-sliders cursor-pointer mv-toggle" (click)="showOrHideMenu()"></span>
 
     <ul class="sidebar">
-        <li>
+        <li routerLink="/dashboard">
             <i class="fa-solid fa-gauge"></i>
-            <a routerLink="/dashboard" (click)="showOrHideMenu()"> Dashboard </a>
+            <a (click)="showOrHideMenu()"> Dashboard </a>
         </li>
         <li>
             <i class="fa-solid fa-user"></i>
-            <a href="#"> Meus Clientes </a>
+            <a> Meus Clientes </a>
             <ul>
                 <li routerLink="/clients" (click)="showOrHideMenu()"> <span> Clientes </span> </li>
                 <li routerLink="/contracts" (click)="showOrHideMenu()"> <span> Contratos </span> </li>
@@ -21,7 +21,7 @@
         </li>
         <li>
             <i class="fa-solid fa-car"></i>
-            <a href="#"> Minha Frota </a>
+            <a> Minha Frota </a>
             <ul>
                 <li routerLink="/vehicles" (click)="showOrHideMenu()"> <span> Veículos </span> </li>
                 <li routerLink="/maintenance" (click)="showOrHideMenu()"> <span> Manutenções </span> </li>
@@ -29,14 +29,14 @@
         </li>
         <li>
             <i class="fa-solid fa-sack-dollar"></i>
-            <a href="#"> Meu Dinheiro </a>
+            <a> Meu Dinheiro </a>
             <ul>
                 <li routerLink="/transactions" (click)="showOrHideMenu()"> <span> Lançamentos </span> </li>
             </ul>
         </li>
         <li>
             <i class="fa-solid fa-gear"></i>
-            <a href="#"> Configurações </a>
+            <a> Configurações </a>
             <ul>
                 <li routerLink="/accounts" (click)="showOrHideMenu()"> <span> Contas </span> </li>
                 <li routerLink="/cards" (click)="showOrHideMenu()"> <span> Cartões </span> </li>
@@ -49,7 +49,7 @@
         </li>
         <li>
             <i class="fa-solid fa-shield-halved"></i>
-            <a href="#"> Segurança </a>
+            <a> Segurança </a>
             <ul>
                 <li routerLink="/changepassword" (click)="showOrHideMenu()"> <span> Alterar senha </span> </li>
 <!--                <li routerLink="/users" (click)="showOrHideMenu()"> <span> Usuário </span> </li>-->
@@ -58,7 +58,7 @@
         </li>
         <li routerLink="/login" (click)="showOrHideMenu()">
             <i class="fa-solid fa-power-off"></i>
-            <a href="#"> Sair </a>
+            <a> Sair </a>
         </li>
     </ul>
 

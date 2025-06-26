@@ -4,10 +4,12 @@
             <div class="col-12 col-md-6">
                 <h1 class="title">Dashboard</h1>
             </div>
-            <!--                    <div class="col-12 col-md-6 text-md-end mt-md-0">-->
-            <!--                        <label>Período:</label>-->
-            <!--                        <p-calendar inputStyleClass="form-control d-inline-block ms-1"  />-->
-            <!--                    </div>-->
+            <div class="col-12 col-md-6 text-md-end mt-md-0">
+                <button type="button" pButton class="p-button-contrast p-button-sm" (click)="refresh()">
+                    <i class="fa-solid fa-refresh me-1"></i>
+                    Atualizar
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -15,6 +17,10 @@
 <br />
 
 <div class="row g-3">
+    <div class="col-md-12 col-sm-12 text-md-end mt-md-0">
+
+    </div>
+
     <div class="col-md-3 col-sm-12 mb-10">
         <div class="card">
             <div class="card-header">

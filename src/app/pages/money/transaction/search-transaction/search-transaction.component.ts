@@ -105,7 +105,9 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
             if (transaction.invoice) {
                 this.redirectToInvoice(transaction);
             } else {
-               this.globalService.openDialog<any>(TypeDialog.CONFIRMATION_PAYMENT_TRANSACTION, transaction, {});
+               this.globalService.openDialog<any>(TypeDialog.CONFIRMATION_PAYMENT_TRANSACTION, transaction, {})?.subscribe({
+                   next: (response) => this.updateTransaction(response.entity)
+               });
             }
         }
     }
@@ -174,6 +176,15 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     }
 
     updateTransaction(transaction: TransactionEntity) {
+        const isTransfer = transaction.categoryType === 'TRANSFERÊNCIA';
+
+        if (isTransfer) {
+            this.transactions
+                .filter(t => t.signature === transaction.signature)
+                .forEach(t => t.paid = transaction.paid);
+            return;
+        }
+
         const index = this.transactions.findIndex(t => t.id === transaction.id);
         if (index !== -1) {
             this.transactions[index] = transaction;

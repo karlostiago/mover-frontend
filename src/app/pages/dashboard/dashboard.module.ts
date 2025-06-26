@@ -3,6 +3,7 @@ import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {DashboardComponent} from "./dashboard.component";
 import {ChartModule} from "primeng/chart";
+import {ButtonDirective} from "primeng/button";
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import {ChartModule} from "primeng/chart";
         CommonModule,
         DashboardRoutingModule,
         NgOptimizedImage,
-        ChartModule
+        ChartModule,
+        ButtonDirective
     ]
 })
 export class DashboardModule { }

@@ -65,6 +65,16 @@ export class DashboardComponent implements OnInit {
         private dashboardService: DashboardService) { }
 
     async ngOnInit(): Promise<void> {
+        this.load();
+    }
+
+    refresh() {
+        this.dashboardService.refresh().then(() => {
+            this.load();
+        });
+    }
+
+    private load() {
         this.loader.automatic = false;
         this.generatedDescriptionMonth();
         void this.contractsActive();

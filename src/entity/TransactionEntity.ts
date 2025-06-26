@@ -38,4 +38,5 @@ export class TransactionEntity {
     residualValue: number;
     amountPaid: number;
     signature: string;
+    dailyBalance: number;
 }

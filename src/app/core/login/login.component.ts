@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
         this.authService.resetPermissions();
         this.version = environment.version;
 
-        // this.auth.username = 'mover@sistemas.com';
-        // this.auth.password = '#moversistemas$';
+        this.auth.username = 'mover@sistemas.com';
+        this.auth.password = '#moversistemas$';
     }
 
     async login() {
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('APP_TOKEN_EXPIRATION', String(response.expiration));
                 this.authService.loadingPermissions();
             }
-            this.router.navigate(['/dashboard']).then(r => console.log('login executado com sucesso.'));
+            this.router.navigate(['/dashboard']);
         });
     }
 

@@ -276,8 +276,32 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.loaderService.automatic = false;
         this.balanceService.calculateBalances(filters).then(response => {
             this.balance = response;
+            this.recalculateDailyBalance();
         });
         this.loaderService.automatic = true;
+    }
+
+    private recalculateDailyBalance() {
+        let balance = this.balance.currentAccount;
+        const groupedDate: { [date: string]: any[] } = {};
+        for (const transaction of this.transactions) {
+            const date = transaction.date.toString();
+            if (!groupedDate[date]) {
+                groupedDate[date] = [];
+            }
+            groupedDate[date].push(transaction);
+        }
+        const dates = Object.keys(groupedDate).sort();
+        for (const date of dates) {
+            const transactions = groupedDate[date];
+            for (const transaction of transactions) {
+                const value = transaction.value || 0;
+                balance += value;
+            }
+            for (const transaction of transactions) {
+                transaction.dailyBalance = balance;
+            }
+        }
     }
 
     private createFilters() {

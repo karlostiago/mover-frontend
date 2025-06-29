@@ -20,6 +20,7 @@ import {BalanceWebsocketService} from "../balance-websocket.service";
 import {Page} from "../../../../../entity/Page";
 import {FilterStorageManager} from "../../../../../shared/helper/FilterStorageManager";
 import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/GlobalDialogService";
+import {TransactionBalanceService} from "../transaction-balance.service";
 
 interface Filters {
     period: string;
@@ -63,6 +64,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 private router: Router,
                 private loaderService: LoaderService,
                 private balanceWebSocketService: BalanceWebsocketService,
+                private transactionBalanceService: TransactionBalanceService,
                 private globalService: GlobalDialogService) {
         super();
     }
@@ -106,7 +108,9 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 this.redirectToInvoice(transaction);
             } else {
                this.globalService.openDialog<any>(TypeDialog.CONFIRMATION_PAYMENT_TRANSACTION, transaction, {})?.subscribe({
-                   next: (response) => this.updateTransaction(response.entity)
+                   next: (response) => {
+                       this.updateTransaction(response.entity);
+                   }
                });
             }
         }
@@ -287,32 +291,44 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.loaderService.automatic = false;
         this.balanceService.calculateBalances(filters).then(response => {
             this.balance = response;
-            this.recalculateDailyBalance();
+            this.recalculateDailyBalance(filters);
         });
         this.loaderService.automatic = true;
     }
 
-    private recalculateDailyBalance() {
-        let balance = this.balance.currentAccount;
-        const groupedDate: { [date: string]: any[] } = {};
-        for (const transaction of this.transactions) {
-            const date = transaction.date.toString();
-            if (!groupedDate[date]) {
-                groupedDate[date] = [];
+    private recalculateDailyBalance(filters: string) {
+        let accountBalance = this.balance.currentAccount;
+        this.transactionBalanceService.calculateBalances(filters).then(response => {
+            const transactionsBalance = (response ?? []).map(transaction => ({
+                ...transaction,
+                parsedDate: new Date(DateHelpers.parseToUS(transaction.date.toString()))
+            }));
+
+            transactionsBalance
+                .sort((a, b) => a.parsedDate.getTime() - b.parsedDate.getTime());
+
+            const dailyBalances: { date: Date, cumulativeBalance: number }[] = [];
+            let runningBalance = accountBalance;
+
+            for (const transaction of transactionsBalance) {
+                runningBalance += transaction.balance;
+                dailyBalances.push({
+                    date: transaction.date,
+                    cumulativeBalance: parseFloat(runningBalance.toFixed(2))
+                });
             }
-            groupedDate[date].push(transaction);
-        }
-        const dates = Object.keys(groupedDate).sort();
-        for (const date of dates) {
-            const transactions = groupedDate[date];
-            for (const transaction of transactions) {
-                const value = transaction.value || 0;
-                balance += value;
+
+            const balanceMap = new Map(
+                dailyBalances.map(d => [d.date, d.cumulativeBalance])
+            );
+
+            for (const transaction of this.transactions) {
+                const balance = balanceMap.get(transaction.date);
+                if (balance !== undefined) {
+                    transaction.dailyBalance = balance;
+                }
             }
-            for (const transaction of transactions) {
-                transaction.dailyBalance = balance;
-            }
-        }
+        });
     }
 
     private createFilters() {

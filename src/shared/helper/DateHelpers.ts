@@ -52,19 +52,27 @@ export class DateHelpers {
     }
 
 
-    private static format(dateStr: string, format: 'pt-BR' | 'US') {
-        if (dateStr && dateStr.length === 10) return dateStr;
+    private static format(dateStr: string | Date, format: 'pt-BR' | 'US') {
 
-        const date = new Date(dateStr);
+        if (!dateStr) return '';
 
-        if (isNaN(date.getTime())) {
-            return '';
+        let date: Date;
+
+        if (dateStr instanceof Date) {
+            date = dateStr;
+        } else if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) {
+            const [day, month, year] = dateStr.split('/').map(Number);
+            date = new Date(year, month - 1, day);
+        } else {
+            date = new Date(dateStr);
         }
+
+        if (isNaN(date.getTime())) return '';
 
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const year = date.getFullYear();
 
-        return format === 'pt-BR' ? `${day}/${month}/${year}` :  `${year}-${month}-${day}`
+        return format === 'pt-BR' ? `${day}/${month}/${year}` : `${year}-${month}-${day}`;
     }
 }

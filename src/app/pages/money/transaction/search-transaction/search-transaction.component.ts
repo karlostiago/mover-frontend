@@ -20,7 +20,7 @@ import {BalanceWebsocketService} from "../balance-websocket.service";
 import {Page} from "../../../../../entity/Page";
 import {FilterStorageManager} from "../../../../../shared/helper/FilterStorageManager";
 import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/GlobalDialogService";
-import {TransactionBalanceService} from "../transaction-balance.service";
+import {DailyBalanceEntity} from "../../../../../entity/DailyBalanceEntity";
 
 interface Filters {
     period: string;
@@ -64,7 +64,6 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 private router: Router,
                 private loaderService: LoaderService,
                 private balanceWebSocketService: BalanceWebsocketService,
-                private transactionBalanceService: TransactionBalanceService,
                 private globalService: GlobalDialogService) {
         super();
     }
@@ -175,6 +174,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
 
                 this.transactions = [...this.transactions];
                 this.updateBalance(this.createFilters());
+                this.updateDailyBalance(this.createFilters());
             }
         );
     }
@@ -193,6 +193,8 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         if (index !== -1) {
             this.transactions[index] = transaction;
         }
+
+        this.updateDailyBalance(this.createFilters());
     }
 
     deleteTransaction(e: { transaction: TransactionEntity, batch: boolean }) {
@@ -291,44 +293,39 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.loaderService.automatic = false;
         this.balanceService.calculateBalances(filters).then(response => {
             this.balance = response;
-            this.recalculateDailyBalance(filters);
+        }).finally(() => {
+            this.loaderService.automatic = true;
         });
-        this.loaderService.automatic = true;
     }
 
-    private recalculateDailyBalance(filters: string) {
-        let accountBalance = this.balance.currentAccount;
-        this.transactionBalanceService.calculateBalances(filters).then(response => {
-            const transactionsBalance = (response ?? []).map(transaction => ({
-                ...transaction,
-                parsedDate: new Date(DateHelpers.parseToUS(transaction.date.toString()))
-            }));
+    private updateDailyBalance(filters: string) {
+        this.loaderService.automatic = false;
+        this.balanceService.findDailyBalances(filters).then(response => {
+           const dailyBalances = response;
+           const groupedDate = this.groupTransactionsByPeriod();
 
-            transactionsBalance
-                .sort((a, b) => a.parsedDate.getTime() - b.parsedDate.getTime());
-
-            const dailyBalances: { date: Date, cumulativeBalance: number }[] = [];
-            let runningBalance = accountBalance;
-
-            for (const transaction of transactionsBalance) {
-                runningBalance += transaction.balance;
-                dailyBalances.push({
-                    date: transaction.date,
-                    cumulativeBalance: parseFloat(runningBalance.toFixed(2))
-                });
-            }
-
-            const balanceMap = new Map(
-                dailyBalances.map(d => [d.date, d.cumulativeBalance])
-            );
-
-            for (const transaction of this.transactions) {
-                const balance = balanceMap.get(transaction.date);
-                if (balance !== undefined) {
-                    transaction.dailyBalance = balance;
-                }
-            }
+           for (const dailyBalance of dailyBalances) {
+               const transactions = groupedDate.get(dailyBalance.period);
+               if (transactions) {
+                   for (const tr of transactions) {
+                        tr.dailyBalance = dailyBalance.balance;
+                   }
+               }
+           }
+        }).finally(() => {
+            this.loaderService.automatic = true;
         });
+    }
+
+    private groupTransactionsByPeriod(): Map<Date, TransactionEntity[]> {
+        return this.transactions.reduce((map, transaction) => {
+            const date = transaction.date;
+            if (!map.has(date)) {
+                map.set(date, []);
+            }
+            map.get(date)!.push(transaction);
+            return map;
+        }, new Map<Date, TransactionEntity[]>());
     }
 
     private createFilters() {

@@ -118,7 +118,7 @@
             <div class="card">
                 <div class="card-body">
                     <p-table [value]="transactions"
-                             responsiveLayout="stack" [breakpoint]="'1300px'" appStickTableHeader
+                             responsiveLayout="stack" [breakpoint]="'1300px'"
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines"
                              dataKey="id"
                              rowGroupMode="subheader"
@@ -145,10 +145,6 @@
                                     <div class="transaction-info">
                                         <div class="transaction-date">
                                             {{ transaction['date'] }} <i>({{ transaction['dayOfWeek'].toUpperCase() }})</i>
-                                        </div>
-                                        <div class="transaction-balance">
-                                            Saldo do dia
-                                            {{ transaction['dailyBalance'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                                         </div>
                                     </div>
                                 </td>
@@ -190,6 +186,19 @@
                                         <span class="badge rounded-pill text-bg-danger"> Não </span>
                                     </a>
                                 </td>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="groupfooter" let-transaction>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td class="text-right">
+                                    <span class="font-bold" style="font-size: 1rem!important">Saldo no dia</span>
+                                </td>
+                                <td class="text-right">
+                                    <span class="font-bold" style="font-size: 1rem!important">{{ transaction['dailyBalance'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
+                                </td>
+                                <td colspan="2"></td>
                             </tr>
                         </ng-template>
 

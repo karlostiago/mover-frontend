@@ -195,8 +195,8 @@
                                 <td class="text-right">
                                     <span>Saldo previsto no dia</span>
                                 </td>
-                                <td class="text-right">
-                                    <span>{{ transaction['dailyBalance'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
+                                <td class="text-right {{ transaction['dailyBalance'] < 0 ? 'text-danger' : '' }}">
+                                    <span>{{ NumberHelpers.invertSignalWhenNegative(transaction['dailyBalance']) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
                                 </td>
                                 <td colspan="2"></td>
                             </tr>

@@ -1,11 +1,36 @@
 import {Component, OnInit} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
 import {LoaderService} from "../../core/loader/loader.service";
+import {NumberHelpers} from "../../../shared/helper/NumberHelpers";
+import {Chart, Plugin} from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { Chart } from 'chart.js';
+export const noDataPlugin: Plugin = {
+    id: 'noDataPlugin',
+    beforeDraw(chart) {
+        const data = chart.data.datasets[0]?.data || [];
+        const hasData = data.some((value: any) => value !== 0 && value !== null);
+
+        if (!hasData) {
+            const { ctx, width, height } = chart;
+
+            ctx.save();
+            ctx.clearRect(0, 0, width, height);
+
+            const message = 'Sem dados para exibir';
+            ctx.font = '1rem ubuntu';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = '#747474';
+
+            ctx.fillText(message, width / 2, height / 2);
+            ctx.restore();
+        }
+    }
+}
 
 Chart.register(ChartDataLabels);
+Chart.register(noDataPlugin);
 
 export class DashboardCard {
     description: string;
@@ -226,13 +251,7 @@ export class DashboardComponent implements OnInit {
                     offset: 5,
                     formatter: (value: any, context: any) => {
                         const label = context.chart.data.labels?.[context.dataIndex] || '';
-                        const formattedValue = new Intl.NumberFormat('pt-BR', {
-                            style: 'currency',
-                            currency: 'BRL',
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                        }).format(value);
-                        return [label, formattedValue];
+                        return [label, NumberHelpers.currencyBRL(value)];
                     },
                     font: {
                         weight: 'bold'
@@ -242,13 +261,7 @@ export class DashboardComponent implements OnInit {
                     callbacks: {
                         label: (tooltipItem: any) => {
                             const value = tooltipItem.raw || 0;
-                            const formattedValue = new Intl.NumberFormat('pt-BR', {
-                                style: 'currency',
-                                currency: 'BRL',
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2
-                            }).format(value);
-                            return `${formattedValue}`;
+                            return `${NumberHelpers.currencyBRL(value)}`;
                         }
                     }
                 }

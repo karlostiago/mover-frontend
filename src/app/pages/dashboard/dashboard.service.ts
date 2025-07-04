@@ -4,7 +4,6 @@ import {HttpClient} from "@angular/common/http";
 import {ErrorHandler} from "../../core/handler/ErrorHandler";
 import {DashboardCard, DashboardChartDoughnut} from "./dashboard.component";
 
-
 @Injectable({
   providedIn: 'root'
 })

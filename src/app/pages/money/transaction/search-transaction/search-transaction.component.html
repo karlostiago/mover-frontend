@@ -76,7 +76,7 @@
             <div class="col-md-3 col-sm-12 mb-10">
                 <div class="card">
                     <div class="card-header">
-                        <label>Saldo em conta corrente</label>
+                        <label>Saldo em conta</label>
                         <h5 class="{{ balance['currentAccount'] < 0 ? 'text-danger' : '' }}">{{ NumberHelpers.invertSignalWhenNegative(balance['currentAccount']) | currency:'BRL' }}</h5>
                     </div>
                 </div>
@@ -193,10 +193,10 @@
                             <tr>
                                 <td colspan="2"></td>
                                 <td class="text-right">
-                                    <span class="font-bold" style="font-size: 1rem!important">Saldo no dia</span>
+                                    <span>Saldo previsto no dia</span>
                                 </td>
                                 <td class="text-right">
-                                    <span class="font-bold" style="font-size: 1rem!important">{{ transaction['dailyBalance'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
+                                    <span>{{ transaction['dailyBalance'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
                                 </td>
                                 <td colspan="2"></td>
                             </tr>

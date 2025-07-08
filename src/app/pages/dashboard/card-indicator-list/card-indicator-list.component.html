@@ -1,0 +1,25 @@
+<div class="card">
+    <div class="card-header">
+        <label style="font-size: 1.4rem;">{{ label }}</label>
+        <h5>{{ totalValue | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+        <hr class="my-1" />
+        <ul class="list-unstyled m-0 pb-3">
+            <ng-container *ngIf="!loading; else showContent">
+                <div class="loading-overlay">
+                    <div class="spinner-border text-secondary" role="status" style="display: block; margin-top: 1rem;">
+                        <span class="visually-hidden">Carregando...</span>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #showContent>
+                <li class="d-flex justify-content-between align-items-center py-1" *ngFor="let item of items">
+                    <label style="font-size: 1rem;">
+                        <img src="{{ item.iconPath }}" alt="icon"  style="width: 2.1rem; border-radius: 30%;"/>
+                        {{ item.description }}
+                    </label>
+                    <h5 class="mb-0">{{ item.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
+                </li>
+            </ng-template>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="card-header">
+        <label style="font-size: 1.4rem;"> {{ label }}</label>
+        <ng-container *ngIf="!loading; else showContent">
+            <div class="loading-overlay">
+                <div class="spinner-border text-secondary" role="status" style="display: block; margin-top: 1rem;">
+                    <span class="visually-hidden">Carregando...</span>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #showContent>
+            <div class="chart-wrapper">
+                <p-chart [type]="type" [data]="data" [options]="options" />
+            </div>
+        </ng-template>
+    </div>
+</div>

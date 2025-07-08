@@ -4,10 +4,18 @@ import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {DashboardComponent} from "./dashboard.component";
 import {ChartModule} from "primeng/chart";
 import {ButtonDirective} from "primeng/button";
+import {CardIndicatorValueComponent} from "./card-indicator-value/card-indicator-value.component";
+import {CardIndicatorComponent} from "./card-indicator/card-indicator.component";
+import {CardIndicatorListComponent} from "./card-indicator-list/card-indicator-list.component";
+import {CardIndicatorChartComponent} from "./card-indicator-chart/card-indicator-chart.component";
 
 @NgModule({
     declarations: [
-        DashboardComponent
+        DashboardComponent,
+        CardIndicatorValueComponent,
+        CardIndicatorComponent,
+        CardIndicatorListComponent,
+        CardIndicatorChartComponent
     ],
     exports: [
         DashboardComponent

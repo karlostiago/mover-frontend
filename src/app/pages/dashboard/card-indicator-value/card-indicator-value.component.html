@@ -1,0 +1,16 @@
+<div class="card">
+    <div class="card-header">
+        <label> {{ label }}</label>
+        <ng-container *ngIf="!loading; else showContent">
+            <div class="loading-overlay">
+                <div class="spinner-border text-secondary" role="status" style="display: block;">
+                    <span class="visually-hidden">Carregando...</span>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #showContent>
+            <span class="badge text-bg-secondary text-white m-1 float-end"> {{ quantity }} </span>
+            <h5> {{ value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </h5>
+        </ng-template>
+    </div>
+</div>

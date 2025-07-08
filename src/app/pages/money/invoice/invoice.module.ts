@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RegisterInvoiceComponent} from "./register-invoce/register-invoice.component";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {Button, ButtonDirective} from "primeng/button";
@@ -21,13 +20,11 @@ import {GlobalDialogModule} from "../../../../shared/dialog/global-dialog.module
 
 @NgModule({
     declarations: [
-        RegisterInvoiceComponent,
         SearchInvoiceComponent,
         InvoicePaymentDetailComponent,
         InvoiceCardComponent
     ],
     exports: [
-        RegisterInvoiceComponent,
         SearchInvoiceComponent
     ],
     imports: [

@@ -39,23 +39,22 @@
         <div class="col-md-12 mb-10">
             <div class="card">
                 <div class="card-body">
-                    <p-table appStickTableHeader
-                             [value]="contracts"
+                    <p-table [value]="contracts"
                              dataKey="id"
                              selectionMode="single"
                              rowGroupMode="subheader"
-                             groupRowsBy="clientId"
+                             groupRowsBy="vehicleId"
                              [(selection)]="selectedValue"
                              (onRowSelect)="onRowSelect()"
                              (onRowUnselect)="onRowUnSelect($event)"
                              responsiveLayout="stack" [breakpoint]="'1300px'"
                              styleClass="p-datatable-striped p-datatable p-datatable-gridlines"
-                             [customSort]="true">
+                             [customSort]="false">
                         <ng-template pTemplate="header">
                             <tr *ngIf="contracts.length > 0">
                                 <th class="text-left">NÚMERO</th>
-                                <th class="text-left">VEÍCULO</th>
-                                <th class="text-center">CICLO PAGAMENTO</th>
+                                <th class="text-left">CLIENTE</th>
+                                <th class="text-center">PAGAMENTO</th>
                                 <th class="text-center">VALOR</th>
                                 <th class="text-center">SITUAÇÃO</th>
                                 <th class="text-center">ATIVO</th>
@@ -65,7 +64,7 @@
                         <ng-template pTemplate="groupheader" let-contract>
                             <tr pRowGroupHeader>
                                 <td colspan="6">
-                                    <strong style="font-size: 1rem;"> {{ contract['clientName'] }} </strong>
+                                    <strong style="font-size: 1rem;"> {{ contract['vehicleName'] }} </strong>
                                 </td>
                             </tr>
                         </ng-template>
@@ -77,11 +76,11 @@
                                     <span> {{ contract['number'] }} </span>
                                 </td>
                                 <td class="text-left">
-                                    <span class="p-column-title">VEÍCULO</span>
-                                    <span> {{ contract['vehicleName'] }} </span>
+                                    <span class="p-column-title">CLIENTE</span>
+                                    <span> {{ contract['clientName'] }} </span>
                                 </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">CICLO PAG.</span>
+                                    <span class="p-column-title">PAGAMENTO</span>
                                     {{ contract['paymentFrequency'] }}
                                 </td>
                                 <td class="text-right">

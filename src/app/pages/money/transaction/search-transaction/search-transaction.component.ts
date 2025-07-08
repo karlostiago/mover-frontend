@@ -49,6 +49,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     allowUndoScheduling: boolean = false;
     allowFilterTransactions: boolean = false;
     loadingData: boolean = true;
+    isMobile: boolean = false;
 
     private subscription: Subscription;
     private calendarFocused: boolean = false;
@@ -66,6 +67,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 private balanceWebSocketService: BalanceWebsocketService,
                 private globalService: GlobalDialogService) {
         super();
+        this.checkScreenSize();
     }
 
     async ngOnInit() {
@@ -78,12 +80,14 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         });
         this.search();
         this.loadingData = false;
+        this.resizeEventListener();
     }
 
     ngOnDestroy(): void {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
+        this.resizeEventListener();
     }
 
     confirmationDelete(transaction: TransactionEntity) {
@@ -224,6 +228,14 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
 
     onCalendarBlur() {
         this.calendarFocused = !this.calendarFocused;
+    }
+
+    private checkScreenSize() {
+        this.isMobile = window.innerWidth <= 1300;
+    }
+
+    private resizeEventListener() {
+        window.addEventListener('resize', () => this.checkScreenSize());
     }
 
     private delete(transaction: TransactionEntity) {

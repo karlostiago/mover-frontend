@@ -190,12 +190,12 @@
                         </ng-template>
 
                         <ng-template pTemplate="groupfooter" let-transaction>
-                            <tr>
+                            <tr class="table-footer">
                                 <td colspan="2"></td>
-                                <td class="text-right">
-                                    <span>Saldo previsto no dia</span>
+                                <td class="text-right table-footer-h" style="{{ isMobile ? 'width: 50%!important' : ''}}">
+                                    <span>SALDO PREVISTO</span>
                                 </td>
-                                <td class="text-right {{ transaction['dailyBalance'] < 0 ? 'text-danger' : '' }}">
+                                <td class="text-right table-footer-v {{ transaction['dailyBalance'] < 0 ? 'text-danger' : '' }}" style="{{ isMobile ? 'width: 50%!important' : ''}}">
                                     <span>{{ NumberHelpers.invertSignalWhenNegative(transaction['dailyBalance']) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
                                 </td>
                                 <td colspan="2"></td>

@@ -31,3 +31,16 @@
 .transaction-date {
     font-weight: bold;
 }
+
+@media (max-width: 1300px) {
+    :host ::ng-deep .p-datatable .table-footer {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        align-content: space-between !important;
+    }
+
+    :host ::ng-deep .p-datatable .table-footer-v span {
+        position: absolute !important;
+        right: 20px !important;
+    }
+}

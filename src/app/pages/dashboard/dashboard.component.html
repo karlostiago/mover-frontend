@@ -17,25 +17,25 @@
 <br />
 
 <div class="row g-3">
-    <div class="col-md-3 col-sm-12 mb-10">
+    <div class="col-md-3 col-sm-12">
         <app-card-indicator label="Contratos ativos"
                             [loading]="qtdActiveContract.loading"
                             [quantity]="qtdActiveContract.quantity" />
     </div>
 
-    <div class="col-md-3 col-sm-12 mb-10">
+    <div class="col-md-3 col-sm-12">
         <app-card-indicator label="Contratos encerrados"
                             [loading]="qtdContractTerminated.loading"
                             [quantity]="qtdContractTerminated.quantity" />
     </div>
 
-    <div class="col-md-3 col-sm-12 mb-10">
+    <div class="col-md-3 col-sm-12">
         <app-card-indicator label="Veículos parados"
                             [loading]="qtdStoppedVehicles.loading"
                             [quantity]="qtdStoppedVehicles.quantity" />
     </div>
 
-    <div class="col-md-3 col-sm-12 mb-10">
+    <div class="col-md-3 col-sm-12">
         <app-card-indicator label="Veículos alugados"
                                   [loading]="qtdRentalVehicles.loading"
                                   [quantity]="qtdRentalVehicles.quantity" />
@@ -43,28 +43,28 @@
 </div>
 
 <div class="row g-3 mt-0">
-    <div class="col-md-3 col-sm-12 mb-10">
+    <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Receita em atraso"
                             [loading]="cardOverdueRevenue.loading"
                             [quantity]="cardOverdueRevenue.quantity"
                             [value]="cardOverdueRevenue.value" />
     </div>
 
-    <div class="col-md-3 col-sm-12 mb-10">
+    <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Receita pendentes"
                             [loading]="cardPendingRevenue.loading"
                             [quantity]="cardPendingRevenue.quantity"
                             [value]="cardPendingRevenue.value" />
     </div>
 
-    <div class="col-md-3 col-sm-12 mb-10">
+    <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Receita efetivadas"
                             [loading]="cardRealizedRevenue.loading"
                             [quantity]="cardRealizedRevenue.quantity"
                             [value]="cardRealizedRevenue.value" />
     </div>
 
-    <div class="col-md-3 col-sm-12 mb-10">
+    <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Receita bruta"
                             [loading]="cardGrossRevenue.loading"
                             [quantity]="cardGrossRevenue.quantity"
@@ -73,28 +73,28 @@
 </div>
 
 <div class="row g-3 mt-0">
-    <div class="col-md-3 col-sm-12 mb-10">
+    <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Despesas em atraso"
                             [loading]="cardOverdueExpense.loading"
                             [quantity]="cardOverdueExpense.quantity"
                             [value]="cardOverdueExpense.value" />
     </div>
 
-    <div class="col-md-3 col-sm-12 mb-10">
+    <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Despesas pendentes"
                             [loading]="cardPendingExpense.loading"
                             [quantity]="cardPendingExpense.quantity"
                             [value]="cardPendingExpense.value" />
     </div>
 
-    <div class="col-md-3 col-sm-12 mb-10">
+    <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Despesas efetivadas"
                             [loading]="cardRealizedExpense.loading"
                             [quantity]="cardRealizedExpense.quantity"
                             [value]="cardRealizedExpense.value" />
     </div>
 
-    <div class="col-md-3 col-sm-12 mb-10">
+    <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Despesa bruta"
                             [loading]="cardGrossExpense.loading"
                             [quantity]="cardGrossExpense.quantity"
@@ -102,20 +102,19 @@
     </div>
 </div>
 
-<div class="row g-3 mt-0">
-    <div class="panel-container">
-        <!-- Lado Esquerdo -->
-        <div class="panel-side">
-            <div class="col-md-12 col-sm-12 mb-10">
-                <app-card-indicator-list
-                    label="Saldo geral nas contas"
-                    [totalValue]="generalBalance"
-                    [loading]="loadingAccounts"
-                    [items]="balanceInAccounts"/>
-            </div>
+<div class="row g-3">
+    <div class="col-md-6 col-sm-12 mb-0" style="margin-bottom: -15px!important">
+        <div class="panel-container">
+            <div class="panel-side">
+                <div class="row g-3 mt-0">
+                    <app-card-indicator-list
+                        label="Saldo geral nas contas"
+                        [totalValue]="generalBalance"
+                        [loading]="loadingAccounts"
+                        [items]="balanceInAccounts"/>
+                </div>
 
-            <div class="row g-3 mt-0">
-                <div class="col-md-12 col-sm-12 mb-10">
+                <div class="row g-3 mt-0">
                     <app-card-indicator-chart label="Receitas por categoria"
                                               [loading]="loadingChartIncome"
                                               [data]="basicIncomeData"
@@ -124,24 +123,25 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Lado Direito -->
-        <div class="panel-side">
-            <div class="col-md-12 col-sm-12 mb-10">
-                <app-card-indicator-list
-                    label="Faturas de {{ decriptionAmount}}"
-                    [totalValue]="generalInvoiceValue"
-                    [loading]="loadingInvoices"
-                    [items]="invoicesByCards"/>
-            </div>
+    <div class="col-md-6 col-sm-12 mb-5">
+        <div class="panel-container">
+            <div class="panel-side">
+                <div class="row g-3 mt-0">
+                    <app-card-indicator-list
+                        label="Faturas de {{ decriptionAmount}}"
+                        [totalValue]="generalInvoiceValue"
+                        [loading]="loadingInvoices"
+                        [items]="invoicesByCards"/>
+                </div>
 
-            <div class="row g-3 mt-0">
-                <div class="col-md-12 col-sm-12 mb-10">
+                <div class="row g-3 mt-0">
                     <app-card-indicator-chart label="Depesas por categoria"
-                        [loading]="loadingChartExpense"
-                        [data]="basicExpenseData"
-                        [options]="basicExpenseOptions"
-                        type="doughnut"/>
+                                              [loading]="loadingChartExpense"
+                                              [data]="basicExpenseData"
+                                              [options]="basicExpenseOptions"
+                                              type="doughnut"/>
                 </div>
             </div>
         </div>

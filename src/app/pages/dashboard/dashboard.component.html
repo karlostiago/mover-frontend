@@ -47,28 +47,32 @@
         <app-card-indicator-value label="Receita em atraso"
                             [loading]="cardOverdueRevenue.loading"
                             [quantity]="cardOverdueRevenue.quantity"
-                            [value]="cardOverdueRevenue.value" />
+                            [value]="cardOverdueRevenue.value"
+                            [filterParams]="{ q: 'OVERDUE_REVENUE', comeToDashboard: true }"/>
     </div>
 
     <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Receita pendentes"
                             [loading]="cardPendingRevenue.loading"
                             [quantity]="cardPendingRevenue.quantity"
-                            [value]="cardPendingRevenue.value" />
+                            [value]="cardPendingRevenue.value"
+                            [filterParams]="{ q: 'REVENUE_PENDING', comeToDashboard: true }"/>
     </div>
 
     <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Receita efetivadas"
                             [loading]="cardRealizedRevenue.loading"
                             [quantity]="cardRealizedRevenue.quantity"
-                            [value]="cardRealizedRevenue.value" />
+                            [value]="cardRealizedRevenue.value"
+                            [filterParams]="{ q: 'REALIZED_PENDING', comeToDashboard: true }"/>
     </div>
 
     <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Receita bruta"
                             [loading]="cardGrossRevenue.loading"
                             [quantity]="cardGrossRevenue.quantity"
-                            [value]="cardGrossRevenue.value" />
+                            [value]="cardGrossRevenue.value"
+                            [filterParams]="{ q: 'GROSS_REVENUE', comeToDashboard: true }"/>
     </div>
 </div>
 
@@ -77,28 +81,32 @@
         <app-card-indicator-value label="Despesas em atraso"
                             [loading]="cardOverdueExpense.loading"
                             [quantity]="cardOverdueExpense.quantity"
-                            [value]="cardOverdueExpense.value" />
+                            [value]="cardOverdueExpense.value"
+                            [filterParams]="{ q: 'OVERDUE_EXPENSE', comeToDashboard: true }"/>
     </div>
 
     <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Despesas pendentes"
                             [loading]="cardPendingExpense.loading"
                             [quantity]="cardPendingExpense.quantity"
-                            [value]="cardPendingExpense.value" />
+                            [value]="cardPendingExpense.value"
+                            [filterParams]="{ q: 'EXPENSE_PENDING', comeToDashboard: true }"/>
     </div>
 
     <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Despesas efetivadas"
                             [loading]="cardRealizedExpense.loading"
                             [quantity]="cardRealizedExpense.quantity"
-                            [value]="cardRealizedExpense.value" />
+                            [value]="cardRealizedExpense.value"
+                            [filterParams]="{ q: 'REALIZED_EXPENSE', comeToDashboard: true }"/>
     </div>
 
     <div class="col-md-3 col-sm-12">
         <app-card-indicator-value label="Despesa bruta"
                             [loading]="cardGrossExpense.loading"
                             [quantity]="cardGrossExpense.quantity"
-                            [value]="cardGrossExpense.value" />
+                            [value]="cardGrossExpense.value"
+                            [filterParams]="{ q: 'GROSS_EXPENSE', comeToDashboard: true }"/>
     </div>
 </div>
 

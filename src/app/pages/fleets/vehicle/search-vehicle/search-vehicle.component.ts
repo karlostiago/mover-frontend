@@ -71,7 +71,7 @@ export class SearchVehicleComponent extends AbstractSearch implements OnInit {
             { label: 'Placa', value: this.selectedValue.licensePlate, col: 2, visible: true },
             { label: 'Ano fabricação', value: this.selectedValue.yearManufacture, col: 2, visible: true },
             { label: 'Ano modelo', value: this.selectedValue.modelYear, col: 2, visible: true },
-            { label: 'Renavam', value: this.selectedValue.renavam, col: 3, visible: true },
+            { label: 'Renavam', value: this.selectedValue.nationalRegistryCode, col: 3, visible: true },
             { label: 'Km de aquisição', value: this.selectedValue.mileageAtAcquisition, col: 3, visible: true },
             { label: 'Cor', value: this.selectedValue.color, col: 2, visible: true },
             { label: 'Tipo combustível', value: this.selectedValue.fuelType, col: 2, visible: true },

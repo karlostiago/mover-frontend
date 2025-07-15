@@ -12,20 +12,20 @@ import {BalanceService} from "../balance.service";
 import {AuthService} from "../../../../core/login/auth.service";
 import {PaginationHelper} from "../../../../../shared/helper/PaginationHelper";
 import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {InvoiceService} from "../../invoice/invoice.service";
 import {LoaderService} from "../../../../core/loader/loader.service";
-import {Subscription} from "rxjs";
+import {filter, Subscription} from "rxjs";
 import {BalanceWebsocketService} from "../balance-websocket.service";
 import {Page} from "../../../../../entity/Page";
 import {FilterStorageManager} from "../../../../../shared/helper/FilterStorageManager";
 import {GlobalDialogService, TypeDialog} from "../../../../../shared/service/GlobalDialogService";
-import {DailyBalanceEntity} from "../../../../../entity/DailyBalanceEntity";
 
 interface Filters {
     period: string;
     accounts: number[];
     searchText: string;
+    comeToDashboard?: boolean;
 }
 
 @Component({
@@ -53,6 +53,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
 
     private subscription: Subscription;
     private calendarFocused: boolean = false;
+    private comeToDashboard: boolean = false;
     private filterManager = new FilterStorageManager<Filters>('TRANSACTION_FILTER');
 
     constructor(private alertService: AlertService,
@@ -65,6 +66,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 private router: Router,
                 private loaderService: LoaderService,
                 private balanceWebSocketService: BalanceWebsocketService,
+                private route: ActivatedRoute,
                 private globalService: GlobalDialogService) {
         super();
         this.checkScreenSize();
@@ -75,9 +77,17 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         await this.loadingAccounts();
         this.pagination.initialization(15);
         this.loadingPermission();
+
+        this.route.queryParams.subscribe(params => {
+           if (Object.keys(params).length > 0) {
+               this.applyFiltersFromDashboard(params);
+           }
+        });
+
         this.subscription = this.balanceWebSocketService.balanceUpdated$.subscribe(() => {
             this.updateBalance(this.createFilters());
         });
+
         this.search();
         this.loadingData = false;
         this.resizeEventListener();
@@ -230,6 +240,26 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.calendarFocused = !this.calendarFocused;
     }
 
+    private applyFiltersFromDashboard(params: any) {
+        const filters = {
+            period: DateHelpers.getMonthAndYear(new Date()),
+            accounts: this.accounts.map(account => account.id),
+            searchText: '',
+            comeToDashboard: false
+        }
+
+        if (params.q) {
+            filters.searchText = params.q;
+        }
+
+        if (params.comeToDashboard) {
+            filters.comeToDashboard = params.comeToDashboard;
+        }
+
+        this.updateFilters(filters);
+        this.filterManager.save(filters);
+    }
+
     private checkScreenSize() {
         this.isMobile = window.innerWidth <= 1300;
     }
@@ -354,19 +384,21 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
             filter = {
                 period: DateHelpers.getMonthAndYear(this.periodFilter ?? new Date()),
                 accounts: this.selectedAccounts.map(account => account.id),
-                searchText: this.searchText
+                searchText: this.searchText,
+                comeToDashboard: this.comeToDashboard
             }
             this.updateFilters(filter);
             this.filterManager.save(filter!);
         }
 
-        return `${filter?.period};${filter?.accounts.join(',')};${filter?.searchText}`;
+        return `${filter?.period};${filter?.accounts.join(',')};${filter?.searchText};${filter?.comeToDashboard}`;
     }
 
     private updateFilters(filter: Filters) {
         this.periodFilter = DateHelpers.parseMonthAndYearToDate(filter.period);
         this.selectedAccounts = this.accounts.filter(acc => String(filter?.accounts).split(',').includes(String(acc.id)));
         this.searchText = filter?.searchText;
+        this.comeToDashboard = filter?.comeToDashboard ?? false
     }
 
     private async loadingAccounts() {

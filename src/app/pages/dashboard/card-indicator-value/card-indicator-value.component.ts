@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-card-indicator-value',
@@ -11,6 +12,15 @@ export class CardIndicatorValueComponent implements OnInit {
     @Input() loading: boolean = false;
     @Input() quantity?: number;
     @Input() value: number = 0;
+    @Input() filterParams: any = '';
+
+    constructor(private router: Router) { }
 
     ngOnInit(): void { }
+
+    navigateToTransactions() {
+        void this.router.navigate(['/transactions'], {
+            queryParams: this.filterParams
+        })
+    }
 }

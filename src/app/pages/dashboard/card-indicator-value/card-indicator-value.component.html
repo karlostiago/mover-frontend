@@ -9,16 +9,11 @@
             </div>
         </ng-container>
         <ng-template #showContent>
-<!--            <span class="badge text-bg-secondary text-white m-1 float-end">-->
-<!--                {{ quantity }}-->
-<!--            </span>-->
-<!--            <a>Detalhar</a>-->
-<!--            <h5> {{ value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </h5>-->
             <div class="card-content">
                 <h5>{{ value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
                 <div class="info-container">
                     <span class="badge text-bg-secondary text-white mb-1">{{ quantity }}</span>
-                    <a href="#" class="action-link">Detalhar</a>
+                    <a (click)="navigateToTransactions()" class="action-link" *ngIf="quantity ?? 0" style="cursor: pointer;">Detalhar</a>
                 </div>
             </div>
         </ng-template>

@@ -8,7 +8,7 @@ const routes: Routes = [
     { path: '', component: SearchTransactionComponent, canActivate: [CanActivate] },
     { path: ':type/new', component: RegisterTransactionComponent, canActivate: [CanActivate] },
     { path: ':type/:id', component: RegisterTransactionComponent, canActivate: [CanActivate] },
-    { path: ':type/:id/clone', component: RegisterTransactionComponent, canActivate: [CanActivate] },
+    { path: ':type/:id/clone', component: RegisterTransactionComponent, canActivate: [CanActivate] }
 ]
 
 @NgModule({

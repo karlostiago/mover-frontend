@@ -7,7 +7,7 @@ export class VehicleEntity {
     licensePlate: string;
     yearManufacture: number;
     modelYear: number;
-    renavam: string;
+    nationalRegistryCode: string;
     fipeValueAtAcquisition: number;
     acquisitionValue: number;
     acquisitionDate: Date;
@@ -20,4 +20,5 @@ export class VehicleEntity {
     fuelType: string | null;
     fullname: string;
     active: boolean = true;
+    odometer: number | null = 0;
 }

@@ -15,7 +15,7 @@ import {AbstractSearch} from "../../../../../abstract/AbstractSearch";
 import {ActivatedRoute, Router} from "@angular/router";
 import {InvoiceService} from "../../invoice/invoice.service";
 import {LoaderService} from "../../../../core/loader/loader.service";
-import {filter, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {BalanceWebsocketService} from "../balance-websocket.service";
 import {Page} from "../../../../../entity/Page";
 import {FilterStorageManager} from "../../../../../shared/helper/FilterStorageManager";
@@ -81,6 +81,10 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.route.queryParams.subscribe(params => {
            if (Object.keys(params).length > 0) {
                this.applyFiltersFromDashboard(params);
+           } else {
+               const filter = this.getFilters(this.periodFilter ?? new Date(), false);
+               this.updateFilters(filter);
+               this.filterManager.save(filter);
            }
         });
 

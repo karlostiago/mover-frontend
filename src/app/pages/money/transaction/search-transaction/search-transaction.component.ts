@@ -322,7 +322,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
 
     private updateDailyBalance(filters: string) {
         this.loaderService.automatic = false;
-        this.balanceService.findDailyBalances(filters).then(response => {
+        this.balanceService.findExpectedBalanceOnDay(filters).then(response => {
            const dailyBalances = response;
            const groupedDate = this.groupTransactionsByPeriod();
 

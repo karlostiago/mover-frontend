@@ -23,8 +23,8 @@ export class BalanceService extends BaseService<BalanceEntity> {
         return this.toPromise(request);
     }
 
-    async findDailyBalances(filterURI: string): Promise<DailyBalanceEntity[]> {
-        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/daily?filterURI=${filterURI}`, this.options());
+    async findExpectedBalanceOnDay(filterURI: string): Promise<DailyBalanceEntity[]> {
+        const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/expected-balance-on-day?filterURI=${filterURI}`, this.options());
         return this.toPromise(request);
     }
 }

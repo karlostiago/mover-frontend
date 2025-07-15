@@ -240,26 +240,6 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.calendarFocused = !this.calendarFocused;
     }
 
-    private applyFiltersFromDashboard(params: any) {
-        const filters = {
-            period: DateHelpers.getMonthAndYear(new Date()),
-            accounts: this.accounts.map(account => account.id),
-            searchText: '',
-            comeToDashboard: false
-        }
-
-        if (params.q) {
-            filters.searchText = params.q;
-        }
-
-        if (params.comeToDashboard) {
-            filters.comeToDashboard = params.comeToDashboard;
-        }
-
-        this.updateFilters(filters);
-        this.filterManager.save(filters);
-    }
-
     private checkScreenSize() {
         this.isMobile = window.innerWidth <= 1300;
     }
@@ -381,12 +361,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
                 this.updateFilters(filter);
             }
         } else {
-            filter = {
-                period: DateHelpers.getMonthAndYear(this.periodFilter ?? new Date()),
-                accounts: this.selectedAccounts.map(account => account.id),
-                searchText: this.searchText,
-                comeToDashboard: this.comeToDashboard
-            }
+            filter = this.getFilters(this.periodFilter ?? new Date(), this.comeToDashboard);
             this.updateFilters(filter);
             this.filterManager.save(filter!);
         }
@@ -394,11 +369,31 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         return `${filter?.period};${filter?.accounts.join(',')};${filter?.searchText};${filter?.comeToDashboard}`;
     }
 
-    private updateFilters(filter: Filters) {
-        this.periodFilter = DateHelpers.parseMonthAndYearToDate(filter.period);
-        this.selectedAccounts = this.accounts.filter(acc => String(filter?.accounts).split(',').includes(String(acc.id)));
-        this.searchText = filter?.searchText;
-        this.comeToDashboard = filter?.comeToDashboard ?? false
+    private updateFilters(filters: Filters) {
+        this.periodFilter = DateHelpers.parseMonthAndYearToDate(filters.period);
+        this.selectedAccounts = this.accounts.filter(acc => String(filters?.accounts).split(',').includes(String(acc.id)));
+        this.searchText = filters?.searchText;
+        this.comeToDashboard = filters?.comeToDashboard ?? false
+    }
+
+    private applyFiltersFromDashboard(params: any) {
+        const filters = this.getFilters(new Date(), true);
+
+        if (params.q) {
+            filters.searchText = params.q;
+        }
+
+        this.updateFilters(filters);
+        this.filterManager.save(filters);
+    }
+
+    private getFilters(period: Date, comeToDashboard: boolean = false): Filters {
+        return {
+            period: DateHelpers.getMonthAndYear(period),
+            accounts: this.selectedAccounts.map(account => account.id),
+            searchText: this.searchText,
+            comeToDashboard: comeToDashboard
+        }
     }
 
     private async loadingAccounts() {

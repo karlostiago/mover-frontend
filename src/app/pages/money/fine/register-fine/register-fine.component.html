@@ -1,0 +1,104 @@
+<form autocomplete="off" class="fade-in" #form="ngForm" (ngSubmit)="saveOrUpdate(form)">
+    <app-title name="Multas"></app-title>
+
+    <div class="row g-3">
+        <div class="col-md-12 mb-10">
+            <div class="card">
+                <div class="card-header">
+                    <h4> {{ isNewRegister() ? 'Cadastrar' : 'Atualizar' }}</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-10">
+                            <small class="float-end">Campos com ( * ) são obrigatórios.</small>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <h6>Identificação da infração:</h6>
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Número renainf *:</label>
+                            <input pInputText class="form-control" name="numberRenainf" id="numberRenainf" [(ngModel)]="fine['numberRenainf']" [required]="true">
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Auto de infração *:</label>
+                            <input pInputText class="form-control" name="infractionNotice" id="infractionNotice" [(ngModel)]="fine['infractionNotice']" [required]="true">
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Coódigo infração *:</label>
+                            <input pInputText class="form-control" name="infractionCode" id="infractionCode" appOnlyNumber [(ngModel)]="fine['infractionCode']" [required]="true">
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row">
+                        <h6>Detalhes da infração:</h6>
+                        <div class="col-md-12 col-sm-12">
+                            <label class="form-label"> Descrição *:</label>
+                            <textarea rows="5" id="detail" name="detail" pInputTextarea [(ngModel)]="fine['description']"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Valor *:</label>
+                            <input pInputText class="form-control" name="value" id="value" [(ngModel)]="fine['value']" appCurrencyFormatPtBr [required]="true" />
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Vencimento *:</label>
+                            <p-calendar appendTo="body" name="dueDate" id="dueDate" [(ngModel)]="fine['dueDate']"
+                                    [required]="true" dateFormat="dd/mm/yy" [readonlyInput]="true" />
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Data/Hora do cometimento *:</label>
+                            <p-calendar appendTo="body" name="dateTimeOfCommitment" id="dateTimeOfCommitment" [(ngModel)]="fine['dateTimeOfCommitment']"
+                                        [required]="true" dateFormat="dd/mm/yy" [readonlyInput]="true" [showTime]="true" hourFormat="24"/>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row">
+                        <h6>Informações adicionais:</h6>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="form-label"> Cliente *:</label>
+                            <p-dropdown styleClass="w-100" name="client" id="client" placeholder="Selecione" emptyMessage="Nenhum cliente encontrado"
+                                        optionLabel="name" optionValue="id" [(ngModel)]="fine['clientId']" required="true"
+                                        [options]="clients" />
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="form-label"> Veiculo *:</label>
+                            <p-dropdown styleClass="w-100" name="vehicle" id="vehicle" placeholder="Selecione" emptyMessage="Nehnum veiculo encontrado"
+                                        optionLabel="fullname" optionValue="id" [(ngModel)]="fine['vehicleId']" required="true"
+                                        [options]="vehicles" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div  class="col-md-12 col-sm-12">
+                            <label class="form-label">Real infrator indicado:</label>
+                            <p-inputSwitch name="active" id="active" styleClass="form-control"
+                                           [(ngModel)]="fine['realOffender']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !authService.hasPermission('REGISTER_ACCOUNTS')">
+                        <i class="fa-solid fa-save m-1"></i>
+                        Salvar
+                    </button>
+                    <button pButton type="button" (click)="cancel(form)" class="p-button-danger p-button-sm ms-2" [disabled]="!isNewRegister()">
+                        <i class="fa-solid fa-remove m-1"></i>
+                        Cancelar
+                    </button>
+                    <a class="btn" style="float: right; margin-top: 5px;" routerLink="/fines">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

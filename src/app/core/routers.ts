@@ -81,6 +81,10 @@ export const routers: Routes = [
         loadChildren: () => import('../pages/security/change-password/change-password.module').then(m => m.ChangePasswordModule),
     },
     {
+        path: 'fines',
+        loadChildren: () => import('../pages/money/fine/fine.module').then(m => m.FineModule),
+    },
+    {
         path: 'forbidden',
         component: ForbiddenComponent,
         canActivate: [CanActivate]

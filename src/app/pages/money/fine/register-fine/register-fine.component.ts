@@ -1,0 +1,82 @@
+import {Component, OnInit} from '@angular/core';
+import {NgForm} from "@angular/forms";
+import {AbstractRegister} from "../../../../../abstract/AbstractRegister";
+import {ActivatedRoute} from "@angular/router";
+import {AlertService} from "../../../../../shared/service/AlertService";
+import {FineService} from "../fine.service";
+import {AuthService} from "../../../../core/login/auth.service";
+import {FineEntity} from "../../../../../entity/FineEntity";
+import {VehicleService} from "../../../fleets/vehicle/vehicle.service";
+import {VehicleEntity} from "../../../../../entity/VehicleEntity";
+import {ClientEntity} from "../../../../../entity/ClientEntity";
+import {ClientService} from "../../../clients/client/client.service";
+
+@Component({
+  selector: 'app-register-fine' +
+      '',
+  templateUrl: './register-fine.component.html',
+  styleUrls: ['./register-fine.component.css']
+})
+export class RegisterFineComponent extends AbstractRegister implements OnInit {
+
+    fine = new FineEntity();
+    vehicles = new Array<VehicleEntity>();
+    clients = new Array<ClientEntity>();
+
+    constructor(protected override activatedRoute: ActivatedRoute,
+                private alertService: AlertService,
+                protected authService: AuthService,
+                private vehicleService: VehicleService,
+                private clientService: ClientService,
+                private fineService: FineService) {
+        super(activatedRoute);
+    }
+
+    async ngOnInit() {
+        await this.loadingVehicles();
+        await this.loadingClients();
+
+        if (!this.registerNew) {
+            this.fineService.findById(this.id).then(response => {
+                this.fine = response;
+            });
+        }
+    }
+
+    saveOrUpdate(form: NgForm) {
+        if (this.fine.id) {
+            this.update();
+        } else {
+            this.save(form);
+        }
+    }
+
+    override cancel(form: NgForm) {
+        form.resetForm({
+            active: true,
+        });
+    }
+
+    private save(form: NgForm) {
+        this.fineService.save(this.fine).then(() => {
+            this.alertService.success("Registro cadastrado com sucesso.");
+            this.cancel(form);
+        });
+    }
+
+    private update() {
+        this.fineService.update(this.fine.id, this.fine).then(() => {
+            this.alertService.success("Registro atualizado com sucesso.");
+        });
+    }
+
+    private async loadingVehicles() {
+        const response = await this.vehicleService.findAll();
+        this.vehicles =  [...response.filter(r => r.active)];
+    }
+
+    private async loadingClients() {
+        const response = await this.clientService.findAll();
+        this.clients =  [...response.filter(s => s.active)];
+    }
+}

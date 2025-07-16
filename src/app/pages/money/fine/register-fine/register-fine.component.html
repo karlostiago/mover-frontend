@@ -92,7 +92,7 @@
                             <label class="form-label"> Conta *:</label>
                             <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione" emptyMessage="Nenhum conta encontrado"
                                         optionLabel="name" optionValue="id" [(ngModel)]="fine['accountId']" required="true"
-                                        [options]="accounts" />
+                                        [options]="accounts" (onChange)="filterCardsByAccount()" />
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label class="form-label"> Cartão:</label>

@@ -13,10 +13,10 @@ import {ClientService} from "../../../clients/client/client.service";
 import {AccountEntity} from "../../../../../entity/AccountEntity";
 import {AccountService} from "../../../configuration/account/account.service";
 import {CardEntity} from "../../../../../entity/CardEntity";
+import {CardService} from "../../../configuration/card/card.service";
 
 @Component({
-  selector: 'app-register-fine' +
-      '',
+  selector: 'app-register-fine',
   templateUrl: './register-fine.component.html',
   styleUrls: ['./register-fine.component.css']
 })
@@ -27,6 +27,7 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
     clients = new Array<ClientEntity>();
     accounts = new Array<AccountEntity>();
     cards = new Array<CardEntity>();
+    selectedCards  = new Array<CardEntity>();
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
@@ -34,6 +35,7 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
                 private vehicleService: VehicleService,
                 private clientService: ClientService,
                 private accountService: AccountService,
+                private cardService: CardService,
                 private fineService: FineService) {
         super(activatedRoute);
     }
@@ -42,6 +44,7 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
         await this.loadingVehicles();
         await this.loadingClients();
         await this.loadingAccounts();
+        await this.loadingCards();
 
         if (!this.registerNew) {
             this.fineService.findById(this.id).then(response => {
@@ -58,10 +61,16 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
         }
     }
 
+    filterCardsByAccount() {
+        this.cards = this.selectedCards
+            .filter(s => s.accountId === this.fine.accountId);
+    }
+
     override cancel(form: NgForm) {
         form.resetForm({
             realOffender: false,
         });
+        this.cards = [];
     }
 
     private save(form: NgForm) {
@@ -90,5 +99,10 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
     private async loadingAccounts() {
         const response = await this.accountService.findAll();
         this.accounts =  [...response.filter(s => s.active)];
+    }
+
+    private async loadingCards() {
+        const response = await this.cardService.findAll();
+        this.selectedCards =  [...response.filter(s => s.active)];
     }
 }

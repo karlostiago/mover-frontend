@@ -4,6 +4,7 @@ import {LoaderService} from "../../core/loader/loader.service";
 import {NumberHelpers} from "../../../shared/helper/NumberHelpers";
 import {Chart, Plugin} from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import {DateHelpers} from "../../../shared/helper/DateHelpers";
 
 export const noDataPlugin: Plugin = {
     id: 'noDataPlugin',
@@ -38,6 +39,8 @@ export class DashboardCard {
     value: number = 0;
     iconPath: string;
     loading: boolean = false;
+    paid: boolean = false;
+    dueDate?: Date;
 }
 
 export class DashboardChartDoughnut {
@@ -85,6 +88,8 @@ export class DashboardComponent implements OnInit {
     basicExpenseOptions: any;
     loadingChartExpense: boolean = false;
 
+    private dueDate: Date = new Date();
+
     constructor(
         private loader: LoaderService,
         private dashboardService: DashboardService) { }
@@ -101,7 +106,6 @@ export class DashboardComponent implements OnInit {
 
     private load() {
         this.loader.automatic = false;
-        this.generatedDescriptionMonth();
         void this.contractsActive();
         void this.terminatedContracts();
         void this.rentalVehicles();
@@ -119,12 +123,6 @@ export class DashboardComponent implements OnInit {
         void this.chartRecipeCategory();
         void this.chartExpenseCategory();
         this.loader.automatic = true;
-    }
-
-    private generatedDescriptionMonth() {
-        const date = new Date();
-        const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
-        this.decriptionAmount = capitalize(date.toLocaleString('pt-BR', { month: 'long' }));
     }
 
     private async contractsActive() {
@@ -188,7 +186,15 @@ export class DashboardComponent implements OnInit {
         this.generalInvoiceValue = this.invoicesByCards
             .map(card => card.value)
             .reduce((total, balance) => total + balance, 0);
+
+        this.dueDate = DateHelpers.toDate(this.invoicesByCards[0].dueDate!.toString());
+        this.generatedDescriptionMonth();
         this.loadingInvoices = true;
+    }
+
+    private generatedDescriptionMonth() {
+        const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+        this.decriptionAmount = capitalize(this.dueDate.toLocaleString('pt-BR', { month: 'long' }));
     }
 
     private async chartRecipeCategory() {

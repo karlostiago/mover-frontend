@@ -138,10 +138,11 @@
             <div class="panel-side">
                 <div class="row g-3 mt-0">
                     <app-card-indicator-list
-                        label="Faturas de {{ decriptionAmount}}"
+                        label="Faturas de {{ decriptionAmount }}"
                         [totalValue]="generalInvoiceValue"
                         [loading]="loadingInvoices"
-                        [items]="invoicesByCards"/>
+                        [items]="invoicesByCards"
+                        [invoice]="true" />
                 </div>
 
                 <div class="row g-3 mt-0">

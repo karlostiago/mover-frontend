@@ -16,6 +16,9 @@
                     <label style="font-size: 1rem;">
                         <img src="{{ item.iconPath }}" alt="icon"  style="width: 2.1rem; border-radius: 30%;"/>
                         {{ item.description }}
+                        <small class="badge {{ item.paid ? 'text-bg-success' : 'text-bg-danger' }} text-white mx-1" *ngIf="invoice">
+                            {{ item.paid ? 'PAGO' : 'A PAGAR' }}
+                        </small>
                     </label>
                     <h5 class="mb-0">{{ item.value | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h5>
                 </li>

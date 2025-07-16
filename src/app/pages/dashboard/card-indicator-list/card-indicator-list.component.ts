@@ -11,6 +11,7 @@ export class CardIndicatorListComponent implements OnInit {
     @Input() loading: boolean = false;
     @Input() totalValue: number = 0;
     @Input() items: any[] = [];
+    @Input() invoice: boolean = false;
 
     ngOnInit(): void { }
 }

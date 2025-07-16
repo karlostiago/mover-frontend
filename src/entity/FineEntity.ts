@@ -10,4 +10,6 @@ export class FineEntity {
     value: number;
     description: string;
     realOffender: boolean;
+    accountId: number;
+    cardId: number;
 }

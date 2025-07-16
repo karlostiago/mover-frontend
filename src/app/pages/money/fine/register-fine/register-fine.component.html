@@ -79,8 +79,26 @@
                     <div class="row">
                         <div  class="col-md-12 col-sm-12">
                             <label class="form-label">Real infrator indicado:</label>
-                            <p-inputSwitch name="active" id="active" styleClass="form-control"
+                            <p-inputSwitch name="realOffender" id="realOffender" styleClass="form-control"
                                            [(ngModel)]="fine['realOffender']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row">
+                        <h6>Informações de pagamento:</h6>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="form-label"> Conta *:</label>
+                            <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione" emptyMessage="Nenhum conta encontrado"
+                                        optionLabel="name" optionValue="id" [(ngModel)]="fine['accountId']" required="true"
+                                        [options]="accounts" />
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="form-label"> Cartão:</label>
+                            <p-dropdown styleClass="w-100" name="card" id="card" placeholder="Selecione" emptyMessage="Nehnum cartão encontrado"
+                                        optionLabel="name" optionValue="id" [(ngModel)]="fine['cardId']" required="true"
+                                        [options]="cards" />
                         </div>
                     </div>
                 </div>

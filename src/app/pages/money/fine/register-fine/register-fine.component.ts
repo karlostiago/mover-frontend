@@ -10,6 +10,9 @@ import {VehicleService} from "../../../fleets/vehicle/vehicle.service";
 import {VehicleEntity} from "../../../../../entity/VehicleEntity";
 import {ClientEntity} from "../../../../../entity/ClientEntity";
 import {ClientService} from "../../../clients/client/client.service";
+import {AccountEntity} from "../../../../../entity/AccountEntity";
+import {AccountService} from "../../../configuration/account/account.service";
+import {CardEntity} from "../../../../../entity/CardEntity";
 
 @Component({
   selector: 'app-register-fine' +
@@ -22,12 +25,15 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
     fine = new FineEntity();
     vehicles = new Array<VehicleEntity>();
     clients = new Array<ClientEntity>();
+    accounts = new Array<AccountEntity>();
+    cards = new Array<CardEntity>();
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 protected authService: AuthService,
                 private vehicleService: VehicleService,
                 private clientService: ClientService,
+                private accountService: AccountService,
                 private fineService: FineService) {
         super(activatedRoute);
     }
@@ -35,6 +41,7 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
     async ngOnInit() {
         await this.loadingVehicles();
         await this.loadingClients();
+        await this.loadingAccounts();
 
         if (!this.registerNew) {
             this.fineService.findById(this.id).then(response => {
@@ -53,7 +60,7 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
 
     override cancel(form: NgForm) {
         form.resetForm({
-            active: true,
+            realOffender: false,
         });
     }
 
@@ -78,5 +85,10 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
     private async loadingClients() {
         const response = await this.clientService.findAll();
         this.clients =  [...response.filter(s => s.active)];
+    }
+
+    private async loadingAccounts() {
+        const response = await this.accountService.findAll();
+        this.accounts =  [...response.filter(s => s.active)];
     }
 }

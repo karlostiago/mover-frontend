@@ -27,6 +27,9 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
     vehicles = new Array<VehicleEntity>();
     types = new Array<MaintenanceTypeEntity>();
 
+    parts: [] = [];
+    services: [] = [];
+
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
                 private accountService: AccountService,

@@ -16,6 +16,130 @@
                     </div>
 
                     <div class="row">
+                        <h6>Informações do veículo:</h6>
+                        <div class="col-md-8 col-sm-12">
+                            <label class="form-label"> Veículo *:</label>
+                            <p-dropdown styleClass="w-100" name="vehicle" id="vehicle" placeholder="Selecione"
+                                        optionLabel="fullname" optionValue="id" [(ngModel)]="this.maintenance['vehicleId']"
+                                        [options]="vehicles" required="true" />
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Hodômetro atual *:</label>
+                            <input pInputText class="form-control" name="odometer" id="odometer" appOnlyNumber [required]="true">
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row">
+                        <h6>Informações da manutenção:</h6>
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Valor *:</label>
+                            <input pInputText class="form-control" name="value" id="value" appOnlyNumber [required]="true">
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Data do serviço *:</label>
+                            <p-calendar appendTo="body" name="date" id="date"
+                                        [required]="true" dateFormat="dd/mm/yy" [readonlyInput]="true" />
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Prestador do serviço *:</label>
+                            <p-dropdown styleClass="w-100" name="serviceProvider" id="serviceProvider" placeholder="Selecione"
+                                        optionLabel="fullname" optionValue="id" [(ngModel)]="this.maintenance['vehicleId']"
+                                        [options]="vehicles" required="true" emptyMessage="Nenhum prestador de serviço encontrado" />
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row">
+                        <h6>Peças utilizadas:</h6>
+                        <p-table [value]="parts"
+                                 responsiveLayout="stack"
+                                 [breakpoint]="'960px'"
+                                 styleClass="p-datatable-striped p-datatable p-datatable-gridlines table-border">
+
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th class="text-center">QTD</th>
+                                    <th class="text-left">VALOR</th>
+                                    <th class="text-center">TOTAL</th>
+                                    <th class="text-center">DESCRIÇÃO</th>
+                                    <th class="text-center">MARCA</th>
+                                    <th class="text-center">MODELO</th>
+                                </tr>
+                            </ng-template>
+
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="6" style="text-align: center;">
+                                        Nenhum registro lançado.
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+
+                    <br/>
+
+                    <div class="row">
+                        <h6>Serviço realizado:</h6>
+                        <p-table [value]="services"
+                                 responsiveLayout="stack"
+                                 [breakpoint]="'960px'"
+                                 styleClass="p-datatable-striped p-datatable p-datatable-gridlines">
+
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th class="text-center">VALOR</th>
+                                    <th class="text-left">DESCRIÇÃO</th>
+                                    <th class="text-left">PERIODICIDADE</th>
+                                </tr>
+                            </ng-template>
+
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="3" style="text-align: center;">
+                                        Nenhum registro lançado.
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+
+                    <br/>
+
+                    <div class="row">
+                        <h6>Informações para pagamento:</h6>
+                        <div class="col-md-5 col-sm-12">
+                            <label class="form-label"> Conta *:</label>
+                            <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione"
+                                        optionLabel="name" optionValue="id" [(ngModel)]="this.maintenance['accountId']"
+                                        [options]="accounts" required="true" (onChange)="onChanceCard()" />
+                        </div>
+                        <div class="col-md-5 col-sm-12">
+                            <label class="form-label"> Cartão :</label>
+                            <p-dropdown styleClass="w-100" name="card" id="card" placeholder="Selecione"
+                                        optionLabel="name" optionValue="id" [(ngModel)]="this.maintenance['cardId']"
+                                        [options]="cards" emptyMessage="Nenhum cartão disponível"/>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label"> Total de parcelas :</label>
+                            <input pInputText class="form-control" name="totalInstallment" id="totalInstallment" appOnlyNumber [required]="true">
+
+                        </div>
+                    </div>
+
+<!--                    <br/>-->
+<!---->
+<!--                    <div class="row">-->
+<!--                        <h6>Resumo financeiro do serviço:</h6>-->
+<!--                        <strong>Total em peças</strong>-->
+<!--                        <strong>Total em serviços</strong>-->
+<!--                        <strong>Total da manutenção</strong>-->
+<!--                    </div>-->
+<!--
+                    <div class="row">
                         <div class="col-md-3">
                             <label class="form-label"> Veículo *:</label>
                             <p-dropdown styleClass="w-100" name="vehicle" id="vehicle" placeholder="Selecione"
@@ -79,6 +203,7 @@
                                            [(ngModel)]="maintenance['active']" [style]="{ width: '3rem', border: 'none' }"></p-inputSwitch>
                         </div>
                     </div>
+                    -->
                 </div>
 
                 <div class="card-footer">

@@ -62,8 +62,9 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
     }
 
     filterCardsByAccount() {
-        this.cards = this.selectedCards
+        const filteredCards = this.selectedCards
             .filter(s => s.accountId === this.fine.accountId);
+        this.cards = [{ id: 0, name: 'Selecione' } as CardEntity, ...filteredCards];
     }
 
     override cancel(form: NgForm) {
@@ -88,17 +89,17 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
 
     private async loadingVehicles() {
         const response = await this.vehicleService.findAll();
-        this.vehicles =  [...response.filter(r => r.active)];
+        this.vehicles =  [{ id: 0, fullname: 'Selecione' } as VehicleEntity, ...response.filter(r => r.active)];
     }
 
     private async loadingClients() {
         const response = await this.clientService.findAll();
-        this.clients =  [...response.filter(s => s.active)];
+        this.clients =  [{ id: 0, name: 'Selecione' } as ClientEntity, ...response.filter(s => s.active)];
     }
 
     private async loadingAccounts() {
         const response = await this.accountService.findAll();
-        this.accounts =  [...response.filter(s => s.active)];
+        this.accounts =  [{ id: 0, name: 'Selecione' } as AccountEntity, ...response.filter(s => s.active)];
     }
 
     private async loadingCards() {

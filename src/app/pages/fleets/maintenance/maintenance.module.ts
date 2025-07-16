@@ -13,6 +13,7 @@ import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../../../shared/SharedModule";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {SidebarDetailsModule} from "../../../core/components/sidebar-details/sidebar-details.module";
+import {CalendarModule} from "primeng/calendar";
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import {SidebarDetailsModule} from "../../../core/components/sidebar-details/sid
         DialogModule,
         SharedModule,
         InputTextareaModule,
-        SidebarDetailsModule
+        SidebarDetailsModule,
+        CalendarModule
     ]
 })
 export class MaintenanceModule { }

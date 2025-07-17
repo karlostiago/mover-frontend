@@ -53,13 +53,11 @@
 
                     <br/>
 
-                    <app-table-maintenance title="Peças utilizadas" [items]="parts"
-                                           (add)="addParts($event)" />
+                    <app-table-maintenance [title]="'Itens utilizadas'" [items]="items" />
 
                     <br/>
 
-                    <app-table-maintenance title="Serviços realizado" [items]="services"
-                                           (add)="addServices($event)" />
+                    <app-table-maintenance [title]="'Serviços realizado'" [items]="services" />
 
                     <br/>
 

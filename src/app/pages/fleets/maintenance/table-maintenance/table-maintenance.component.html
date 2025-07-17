@@ -18,11 +18,11 @@
             <button pButton type="button" class="p-button-success p-button-sm" style="height: 2.79rem;" (click)="save()">
                 <i class="fa-solid fa-save"></i>
             </button>
-            <button pButton type="button" class="p-button-danger p-button-sm" style="height: 2.79rem;">
+            <button pButton type="button" class="p-button-danger p-button-sm" style="height: 2.79rem;" (click)="delete()">
                 <i class="fa-solid fa-remove"></i>
             </button>
-            <button pButton type="button" class="p-button-secondary p-button-sm" style="height: 2.79rem;">
-                <i class="fa-solid fa-edit"></i>
+            <button pButton type="button" class="p-button-contrast p-button-sm" style="height: 2.79rem;" (click)="clear()">
+                <i class="fa-solid fa-broom"></i>
             </button>
         </div>
     </div>
@@ -30,24 +30,32 @@
     <div class="mb-3"></div>
 
     <p-table [value]="items"
+             [(selection)]="selectedItems"
              responsiveLayout="stack"
+             dataKey="id"
              [breakpoint]="'960px'"
+             editMode="row"
              styleClass="p-datatable-striped p-datatable p-datatable-gridlines table-border">
 
         <ng-template pTemplate="header">
             <tr>
+                <th style="width: 4rem"> <p-tableHeaderCheckbox /> </th>
                 <th class="text-left">DESCRIÇÃO</th>
                 <th class="text-center">QTD</th>
                 <th class="text-right">VALOR</th>
                 <th class="text-right">TOTAL</th>
+                <th style="width: 4rem"></th>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-item>
             <tr>
+                <td>
+                    <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                </td>
                 <td class="text-left">
                     <span class="p-column-title">DESCRIÇÃO</span>
-                    {{ item['description'] }}
+                    {{ item['description'].toUpperCase() }}
                 </td>
                 <td class="text-center">
                     <span class="p-column-title">QTD</span>
@@ -59,7 +67,12 @@
                 </td>
                 <td class="text-right">
                     <span class="p-column-title">TOTAL</span>
-                    <span> {{ item['total'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </span>
+                    <span> {{ (item['quantity'] * item['value']) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </span>
+                </td>
+                <td>
+                    <p-button [link]="true" (click)="update(item)">
+                        <i class="fa-regular fa-pen-to-square m-sm-1"></i>
+                    </p-button>
                 </td>
             </tr>
         </ng-template>

@@ -28,7 +28,7 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
     vehicles = new Array<VehicleEntity>();
     types = new Array<MaintenanceTypeEntity>();
 
-    parts = new Array<ItemMaintenanceEntity>();
+    items = new Array<ItemMaintenanceEntity>();
     services= new Array<ItemMaintenanceEntity>();
 
     constructor(protected override activatedRoute: ActivatedRoute,
@@ -54,24 +54,6 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
                 this.onChanceCard();
             });
         }
-    }
-
-    addParts(item: ItemMaintenanceEntity) {
-        this.parts.push({
-            description: item.description.trim().toUpperCase(),
-            value: item.value,
-            quantity: item.quantity,
-            total: item.quantity * item.value
-        } as ItemMaintenanceEntity);
-    }
-
-    addServices(item: ItemMaintenanceEntity) {
-        this.services.push({
-            description: item.description.trim().toUpperCase(),
-            value: item.value,
-            quantity: item.quantity,
-            total: item.quantity * item.value
-        } as ItemMaintenanceEntity);
     }
 
     saveOrUpdate(form: NgForm) {

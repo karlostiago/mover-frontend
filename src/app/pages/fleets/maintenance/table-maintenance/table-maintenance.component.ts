@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ItemMaintenanceEntity} from "../../../../../entity/ItemMaintenanceEntity";
 import {AlertService} from "../../../../../shared/service/AlertService";
+import {ConfirmationService} from "primeng/api";
 
 @Component({
   selector: 'app-table-maintenance',
@@ -17,7 +18,8 @@ export class TableMaintenanceComponent implements OnInit {
 
     private updating: boolean = false;
 
-    constructor(private alertService: AlertService) { }
+    constructor(private alertService: AlertService,
+                private confirmationService: ConfirmationService,) { }
 
     ngOnInit(): void { }
 
@@ -41,15 +43,18 @@ export class TableMaintenanceComponent implements OnInit {
         );
     }
 
-    delete() {
+    confirmationDelete() {
         if (this.selectedItems.length === 0) {
             this.alertService.error("Selecione ao menos 1 registro para remover.")
             return;
-        } else {
-            const deleteIds = new Set(this.selectedItems.map(i => i.id));
-            this.items = this.items.filter(item => !deleteIds.has(item.id))
-            this.alertService.success('Registro(s) removido(s) com sucesso.');
         }
+
+        this.confirmationService.confirm({
+            message: `Tem certeza que deseja excluir os item(s) selecionados ?`,
+            accept: () => {
+                this.delete();
+            }
+        });
     }
 
     update(item: ItemMaintenanceEntity) {
@@ -61,6 +66,12 @@ export class TableMaintenanceComponent implements OnInit {
         this.item = new ItemMaintenanceEntity();
         this.updating = false;
         this.selectedItems = [];
+    }
+
+    private delete() {
+        const deleteIds = new Set(this.selectedItems.map(i => i.id));
+        this.items = this.items.filter(item => !deleteIds.has(item.id))
+        this.alertService.success('Registro(s) removido(s) com sucesso.');
     }
 
     private addItem() {

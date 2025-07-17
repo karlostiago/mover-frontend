@@ -10,7 +10,8 @@
     </div>
     <div class="col-md-2 col-sm-12">
         <label class="form-label"> Valor *:</label>
-        <input pInputText class="form-control" name="value" id="value" appCurrencyFormatPtBr [required]="true" [(ngModel)]="item['value']" />
+        <input pInputText class="form-control" name="value" id="value" appCurrencyFormatPtBr [required]="true" [(ngModel)]="item['value']"
+           (keydown.enter)="save()" />
     </div>
 
     <div class="col-md-2 col-sm-12 mb-0">
@@ -18,7 +19,7 @@
             <button pButton type="button" class="p-button-success p-button-sm" style="height: 2.79rem;" (click)="save()">
                 <i class="fa-solid fa-save"></i>
             </button>
-            <button pButton type="button" class="p-button-danger p-button-sm" style="height: 2.79rem;" (click)="delete()">
+            <button pButton type="button" class="p-button-danger p-button-sm" style="height: 2.79rem;" (click)="confirmationDelete()">
                 <i class="fa-solid fa-remove"></i>
             </button>
             <button pButton type="button" class="p-button-contrast p-button-sm" style="height: 2.79rem;" (click)="clear()">

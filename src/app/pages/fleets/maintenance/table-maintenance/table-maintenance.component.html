@@ -1,0 +1,75 @@
+<div class="row align-items-end">
+    <h6> {{ title }}:</h6>
+    <div class="col-md-6 col-sm-12">
+        <label class="form-label"> Descrição *:</label>
+        <input pInputText class="form-control" name="description" [(ngModel)]="item['description']" id="description">
+    </div>
+    <div class="col-md-2 col-sm-12">
+        <label class="form-label"> Quantidade *:</label>
+        <input pInputText class="form-control" name="quantity" id="quantity" [(ngModel)]="item['quantity']">
+    </div>
+    <div class="col-md-2 col-sm-12">
+        <label class="form-label"> Valor *:</label>
+        <input pInputText class="form-control" name="value" id="value" appCurrencyFormatPtBr [required]="true" [(ngModel)]="item['value']" />
+    </div>
+
+    <div class="col-md-2 col-sm-12 mb-0">
+        <div class="d-flex gap-2">
+            <button pButton type="button" class="p-button-success p-button-sm" style="height: 2.79rem;" (click)="save()">
+                <i class="fa-solid fa-save"></i>
+            </button>
+            <button pButton type="button" class="p-button-danger p-button-sm" style="height: 2.79rem;">
+                <i class="fa-solid fa-remove"></i>
+            </button>
+            <button pButton type="button" class="p-button-secondary p-button-sm" style="height: 2.79rem;">
+                <i class="fa-solid fa-edit"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="mb-3"></div>
+
+    <p-table [value]="items"
+             responsiveLayout="stack"
+             [breakpoint]="'960px'"
+             styleClass="p-datatable-striped p-datatable p-datatable-gridlines table-border">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-left">DESCRIÇÃO</th>
+                <th class="text-center">QTD</th>
+                <th class="text-right">VALOR</th>
+                <th class="text-right">TOTAL</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td class="text-left">
+                    <span class="p-column-title">DESCRIÇÃO</span>
+                    {{ item['description'] }}
+                </td>
+                <td class="text-center">
+                    <span class="p-column-title">QTD</span>
+                    <span> {{ item['quantity'] }} </span>
+                </td>
+                <td class="text-right">
+                    <span class="p-column-title">VALOR</span>
+                    <span> {{ item['value'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </span>
+                </td>
+                <td class="text-right">
+                    <span class="p-column-title">TOTAL</span>
+                    <span> {{ item['total'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} </span>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="6" style="text-align: center;">
+                    Nenhum registro lançado.
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

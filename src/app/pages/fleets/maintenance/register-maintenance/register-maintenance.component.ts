@@ -13,6 +13,7 @@ import {CardEntity} from "../../../../../entity/CardEntity";
 import {CardService} from "../../../configuration/card/card.service";
 import {MaintenanceTypeEntity} from "../../../../../entity/MaintenanceTypeEntity";
 import {AuthService} from "../../../../core/login/auth.service";
+import {ItemMaintenanceEntity} from "../../../../../entity/ItemMaintenanceEntity";
 
 @Component({
   selector: 'app-register-maintenance',
@@ -27,8 +28,8 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
     vehicles = new Array<VehicleEntity>();
     types = new Array<MaintenanceTypeEntity>();
 
-    parts: [] = [];
-    services: [] = [];
+    parts = new Array<ItemMaintenanceEntity>();
+    services= new Array<ItemMaintenanceEntity>();
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
@@ -53,6 +54,24 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
                 this.onChanceCard();
             });
         }
+    }
+
+    addParts(item: ItemMaintenanceEntity) {
+        this.parts.push({
+            description: item.description.trim().toUpperCase(),
+            value: item.value,
+            quantity: item.quantity,
+            total: item.quantity * item.value
+        } as ItemMaintenanceEntity);
+    }
+
+    addServices(item: ItemMaintenanceEntity) {
+        this.services.push({
+            description: item.description.trim().toUpperCase(),
+            value: item.value,
+            quantity: item.quantity,
+            total: item.quantity * item.value
+        } as ItemMaintenanceEntity);
     }
 
     saveOrUpdate(form: NgForm) {

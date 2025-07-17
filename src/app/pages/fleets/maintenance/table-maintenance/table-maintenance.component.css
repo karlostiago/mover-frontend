@@ -1,0 +1,8 @@
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+    background: #e5e5e5 !important;
+    color: #898989 !important;
+}
+
+:host ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
+    background: #f7f7f7 !important;
+}

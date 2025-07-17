@@ -14,11 +14,13 @@ import {SharedModule} from "../../../../shared/SharedModule";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {SidebarDetailsModule} from "../../../core/components/sidebar-details/sidebar-details.module";
 import {CalendarModule} from "primeng/calendar";
+import {TableMaintenanceComponent} from "./table-maintenance/table-maintenance.component";
 
 @NgModule({
     declarations: [
         RegisterMaintenanceComponent,
-        SearchMaintenanceComponent
+        SearchMaintenanceComponent,
+        TableMaintenanceComponent
     ],
     exports: [
         RegisterMaintenanceComponent,

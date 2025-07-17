@@ -53,11 +53,11 @@
 
                     <br/>
 
-                    <app-table-maintenance [title]="'Itens utilizadas'" [items]="items" />
+                    <app-table-maintenance [title]="'Itens utilizados'" [items]="items" />
 
                     <br/>
 
-                    <app-table-maintenance [title]="'Serviços realizado'" [items]="services" />
+                    <app-table-maintenance [title]="'Serviços realizados'" [items]="services" />
 
                     <br/>
 
@@ -77,8 +77,9 @@
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="form-label"> Total de parcelas :</label>
-                            <input pInputText class="form-control" name="totalInstallment" id="totalInstallment" appOnlyNumber [required]="true">
-
+                            <input pInputText class="form-control" name="totalInstallment" id="totalInstallment" appOnlyNumber
+                                   [(ngModel)]="maintenance['totalInstallment']"
+                                   [required]="true">
                         </div>
                     </div>
 

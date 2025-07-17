@@ -13,4 +13,5 @@ export class MaintenanceEntity {
     active: boolean = true;
     card: string;
     account: string;
+    totalInstallment: number = 0;
 }

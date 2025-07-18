@@ -123,7 +123,7 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
     }
 
     calculateInstallmentValue() {
-        if (this.maintenance.totalInstallment) {
+        if (this.maintenance.totalInstallment > 0) {
             this.maintenance.installmentValue = (this.maintenance.value / this.maintenance.totalInstallment);
         } else {
             this.maintenance.totalInstallment = 0;

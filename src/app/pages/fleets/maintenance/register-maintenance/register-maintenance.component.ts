@@ -30,6 +30,7 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
 
     items = new Array<ItemMaintenanceEntity>();
     services= new Array<ItemMaintenanceEntity>();
+    invoices = new Array<any>()
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
@@ -67,14 +68,35 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
     onChanceCard() {
         this.cardService.findAll().then(response => {
             const cards = response.filter(c => c.accountId === this.maintenance['accountId']);
-
             if (cards.length === 0) {
                 this.maintenance['cardId'] = 0;
             }
-
-            // @ts-ignore
-            this.cards = [{ id: 0, name: 'Selecione' }, ...cards];
+            this.cards = [{ id: 0, name: 'Selecione' } as CardEntity, ...cards];
         });
+    }
+
+    onGenerateInvoices() {
+        if (this.maintenance.cardId) {
+            const index = this.cards.findIndex(c => c.id === this.maintenance.cardId);
+            const card = this.cards[index];
+            const today = new Date();
+            const dueDate = new Date(today.getFullYear(), today.getMonth(), card.dueDate);
+            this.invoices = this.generatedSurroundingDueDate(dueDate, 3, 3);
+            this.maintenance.dueDate = dueDate;
+            this.maintenance.totalInstallment = 1;
+            this.calculateInstallmentValue();
+        } else {
+            this.maintenance.totalInstallment = 0;
+            this.maintenance.dueDate = null!;
+            this.maintenance.installmentValue = 0;
+        }
+    }
+
+    updateValue() {
+        const itemsValue = this.sumValues(this.items);
+        const servicesValue = this.sumValues(this.services);
+        this.maintenance.value = (itemsValue + servicesValue)  - this.maintenance.discount;
+        this.calculateInstallmentValue();
     }
 
     override cancel(form: NgForm) {
@@ -82,12 +104,35 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
             date: new Date(),
             active: true
         });
+        this.items = [];
+        this.services = [];
     }
 
     enable(form: NgForm) {
         const hasPermission = this.authService.hasPermission('REGISTER_MAINTENANCE') ||
             this.authService.hasPermission('UPDATE_MAINTENANCE');
         return !form.valid && hasPermission;
+    }
+
+    showWhenCardSelected(maintenance: MaintenanceEntity) {
+        return maintenance.cardId;
+    }
+
+    notShowWhenCardSelected(maintenance: MaintenanceEntity) {
+        return !this.showWhenCardSelected(maintenance)
+    }
+
+    calculateInstallmentValue() {
+        if (this.maintenance.totalInstallment) {
+            this.maintenance.installmentValue = (this.maintenance.value / this.maintenance.totalInstallment);
+        } else {
+            this.maintenance.totalInstallment = 0;
+            this.maintenance.installmentValue = 0;
+        }
+    }
+
+    private sumValues(values: ItemMaintenanceEntity[]) {
+        return values.reduce((sum, i) => sum + (i.value * i.quantity), 0);
     }
 
     private async save(form: NgForm) {

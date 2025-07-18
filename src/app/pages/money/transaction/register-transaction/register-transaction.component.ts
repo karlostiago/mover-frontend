@@ -83,7 +83,7 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
                 this.updateWhenClone();
                 this.findCategories();
                 if (this.transaction.cardId > 0) {
-                    this.generatedSurroundingDueDate(DateHelpers.toDate(this.transaction.dueDate), 3, 3);
+                    this.invoices = this.generatedSurroundingDueDate(DateHelpers.toDate(this.transaction.dueDate), 3, 3);
                     const selectedInvoice = this.invoices.find(invoice =>
                         invoice.value.getTime() === DateHelpers.toDate(this.transaction.dueDate!).getTime()
                     );
@@ -206,30 +206,8 @@ export class RegisterTransactionComponent extends AbstractRegister implements On
 
         this.transactionService.calculateCutOffDate(this.transaction).then(response => {
             this.transaction.dueDate = DateHelpers.toDate(response.dueDate);
-            this.generatedSurroundingDueDate(this.transaction.dueDate!, 3, 3);
+            this.invoices = this.generatedSurroundingDueDate(this.transaction.dueDate!, 3, 3);
         });
-    }
-
-    private generatedSurroundingDueDate(dueDate: Date, monthBefore: number, monthAfter: number) {
-        const invoices = new Array<Date>();
-        for (let i = monthBefore; i >= 1; i--) {
-            const date = new Date(dueDate);
-            date.setMonth(date.getMonth() - i);
-            invoices.push(date);
-        }
-
-        invoices.push(new Date(dueDate));
-
-        for (let i = 1; i <= monthAfter; i++) {
-            const date = new Date(dueDate);
-            date.setMonth(date.getMonth() + i);
-            invoices.push(date);
-        }
-
-        this.invoices = invoices.map(date => ({
-            label: `${DateHelpers.formatLongDate(date, false)}`,
-            value: date
-        }));
     }
 
     private updateWhenClone() {

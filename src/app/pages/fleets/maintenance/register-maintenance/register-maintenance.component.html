@@ -33,53 +33,84 @@
 
                     <div class="row">
                         <h6>Informações da manutenção:</h6>
-                        <div class="col-md-4 col-sm-12">
-                            <label class="form-label"> Valor *:</label>
-                            <input pInputText class="form-control" name="value" id="value" [(ngModel)]="maintenance['value']"
-                                   appCurrencyFormatPtBr [required]="true" />
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label class="form-label"> Data do serviço *:</label>
-                            <p-calendar appendTo="body" name="date" id="date"
-                                        [required]="true" dateFormat="dd/mm/yy" [readonlyInput]="true" />
-                        </div>
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-10 col-sm-12">
                             <label class="form-label"> Prestador do serviço *:</label>
                             <p-dropdown styleClass="w-100" name="serviceProvider" id="serviceProvider" placeholder="Selecione"
                                         optionLabel="fullname" optionValue="id" [(ngModel)]="this.maintenance['vehicleId']"
                                         [options]="vehicles" required="true" emptyMessage="Nenhum prestador de serviço encontrado" />
                         </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label"> Data do serviço *:</label>
+                            <p-calendar appendTo="body" name="date" id="date"
+                                        [required]="true" dateFormat="dd/mm/yy" [readonlyInput]="true" />
+                        </div>
                     </div>
 
                     <br/>
 
-                    <app-table-maintenance [title]="'Itens utilizados'" [items]="items" />
+                    <app-table-maintenance [title]="'Itens utilizados'" [items]="items"
+                                           (itemsChange)="items = $event" (updateValue)="updateValue()" />
 
                     <br/>
 
-                    <app-table-maintenance [title]="'Serviços realizados'" [items]="services" />
+                    <app-table-maintenance [title]="'Serviços realizados'" [items]="services"
+                                           (itemsChange)="services = $event" (updateValue)="updateValue()" />
 
                     <br/>
 
                     <div class="row">
-                        <h6>Informações para pagamento:</h6>
-                        <div class="col-md-5 col-sm-12">
+                        <h6>Informações de pagamento:</h6>
+                        <div class="col-md-3 col-sm-12">
                             <label class="form-label"> Conta *:</label>
                             <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione"
                                         optionLabel="name" optionValue="id" [(ngModel)]="this.maintenance['accountId']"
                                         [options]="accounts" required="true" (onChange)="onChanceCard()" />
                         </div>
-                        <div class="col-md-5 col-sm-12">
+                        <div class="col-md-3 col-sm-12">
                             <label class="form-label"> Cartão :</label>
                             <p-dropdown styleClass="w-100" name="card" id="card" placeholder="Selecione"
                                         optionLabel="name" optionValue="id" [(ngModel)]="this.maintenance['cardId']"
-                                        [options]="cards" emptyMessage="Nenhum cartão disponível"/>
+                                        [options]="cards" emptyMessage="Nenhum cartão disponível"
+                                        (onChange)="onGenerateInvoices()" />
+                        </div>
+                        <div class="col-md-2" *ngIf="notShowWhenCardSelected(maintenance)">
+                            <label class="form-label"> Data Vencimento *:</label>
+                            <p-calendar appendTo="body" name="dueDate" id="dueDate" [(ngModel)]="maintenance['dueDate']" [required]="true" dateFormat="dd/mm/yy"
+                                        [readonlyInput]="true" [disabled]="!notShowWhenCardSelected(maintenance)" />
+                        </div>
+                        <div class="col-md-2" *ngIf="showWhenCardSelected(maintenance)">
+                            <label class="form-label"> Fatura de *:</label>
+                            <p-dropdown styleClass="w-100" name="invoice" id="invoice" placeholder="Selecione" optionLabel="label" optionValue="value"
+                                        [options]="invoices" emptyMessage="Nenhuma fatura encontrada" required="true"
+                                        [(ngModel)]="maintenance['dueDate']" />
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="form-label"> Total de parcelas :</label>
+                            <label class="form-label"> Desconto:</label>
+                            <input pInputText class="form-control" name="discount" id="discount" [(ngModel)]="maintenance['discount']"
+                                   appCurrencyFormatPtBr [required]="true" (ngModelChange)="updateValue()" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label"> Valor:</label>
+                            <input pInputText class="form-control" name="value" id="value" [(ngModel)]="maintenance['value']"
+                                   appCurrencyFormatPtBr [readonly]="true" />
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row">
+                        <h6>Opções de parcelamento:</h6>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label"> Quantidade de parcelas :</label>
                             <input pInputText class="form-control" name="totalInstallment" id="totalInstallment" appOnlyNumber
                                    [(ngModel)]="maintenance['totalInstallment']"
-                                   [required]="true">
+                                   [required]="true" (ngModelChange)="calculateInstallmentValue()">
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label"> Valor da parcela :</label>
+                            <input pInputText class="form-control" name="installmentValue" id="installmentValue" appCurrencyFormatPtBr
+                                   [(ngModel)]="maintenance['installmentValue']"
+                                   [readonly]="true">
                         </div>
                     </div>
 

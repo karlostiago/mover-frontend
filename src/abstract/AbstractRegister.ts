@@ -1,5 +1,6 @@
 import {ActivatedRoute} from "@angular/router";
 import {NgForm} from "@angular/forms";
+import {DateHelpers} from "../shared/helper/DateHelpers";
 
 export abstract class AbstractRegister  {
 
@@ -26,5 +27,27 @@ export abstract class AbstractRegister  {
     protected validDate(date: Date | null) {
         if (date === null) return null;
         return date && !date.toString().includes('1800')
+    }
+
+    protected generatedSurroundingDueDate(dueDate: Date, monthBefore: number, monthAfter: number) {
+        const invoices = new Array<Date>();
+        for (let i = monthBefore; i >= 1; i--) {
+            const date = new Date(dueDate);
+            date.setMonth(date.getMonth() - i);
+            invoices.push(date);
+        }
+
+        invoices.push(new Date(dueDate));
+
+        for (let i = 1; i <= monthAfter; i++) {
+            const date = new Date(dueDate);
+            date.setMonth(date.getMonth() + i);
+            invoices.push(date);
+        }
+
+        return invoices.map(date => ({
+            label: `${DateHelpers.formatLongDate(date, false).toUpperCase()}`,
+            value: date
+        }));
     }
 }

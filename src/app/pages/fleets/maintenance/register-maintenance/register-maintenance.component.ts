@@ -106,6 +106,7 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
         });
         this.items = [];
         this.services = [];
+        this.cards = [];
     }
 
     enable(form: NgForm) {

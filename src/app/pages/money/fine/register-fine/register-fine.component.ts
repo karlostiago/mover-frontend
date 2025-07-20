@@ -14,6 +14,7 @@ import {AccountEntity} from "../../../../../entity/AccountEntity";
 import {AccountService} from "../../../configuration/account/account.service";
 import {CardEntity} from "../../../../../entity/CardEntity";
 import {CardService} from "../../../configuration/card/card.service";
+import {MaintenanceEntity} from "../../../../../entity/MaintenanceEntity";
 
 @Component({
   selector: 'app-register-fine',
@@ -28,6 +29,7 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
     accounts = new Array<AccountEntity>();
     cards = new Array<CardEntity>();
     selectedCards  = new Array<CardEntity>();
+    invoices = new Array<any>()
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
@@ -64,7 +66,45 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
     filterCardsByAccount() {
         const filteredCards = this.selectedCards
             .filter(s => s.accountId === this.fine.accountId);
-        this.cards = [{ id: 0, name: 'Selecione' } as CardEntity, ...filteredCards];
+        if (filteredCards.length > 0) {
+            this.cards = [{ id: 0, name: 'Selecione' } as CardEntity, ...filteredCards];
+        } else {
+            this.invoices = [];
+            this.fine.cardId = 0;
+            this.fine.dueDate = null!;
+            this.cards = [];
+        }
+    }
+
+    calculateAmountPaid() {
+        const value = this.fine.originalValue - this.fine.discount;
+        if (value > 0) {
+            this.fine.value = value;
+        } else {
+            this.fine.value = 0;
+        }
+    }
+
+    showWhenCardSelected(fine: FineEntity) {
+        return fine.cardId;
+    }
+
+    notShowWhenCardSelected(fine: FineEntity) {
+        return !this.showWhenCardSelected(fine)
+    }
+
+    onGenerateInvoices() {
+        if (this.fine.cardId) {
+            const index = this.cards.findIndex(c => c.id === this.fine.cardId);
+            const card = this.cards[index];
+            const today = new Date();
+            const dueDate = new Date(today.getFullYear(), today.getMonth(), card.dueDate);
+            this.invoices = this.generatedSurroundingDueDate(dueDate, 3, 3);
+            this.fine.dueDate = dueDate;
+        } else {
+            this.fine.dueDate = null!;
+            this.invoices = [];
+        }
     }
 
     override cancel(form: NgForm) {

@@ -42,19 +42,15 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4 col-sm-12">
-                            <label class="form-label"> Valor *:</label>
-                            <input pInputText class="form-control" name="value" id="value" [(ngModel)]="fine['value']" appCurrencyFormatPtBr [required]="true" />
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label class="form-label"> Vencimento *:</label>
-                            <p-calendar appendTo="body" name="dueDate" id="dueDate" [(ngModel)]="fine['dueDate']"
-                                    [required]="true" dateFormat="dd/mm/yy" [readonlyInput]="true" />
-                        </div>
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-6 col-sm-12">
                             <label class="form-label"> Data/Hora do cometimento *:</label>
                             <p-calendar appendTo="body" name="dateTimeOfCommitment" id="dateTimeOfCommitment" [(ngModel)]="fine['dateTimeOfCommitment']"
                                         [required]="true" dateFormat="dd/mm/yy" [readonlyInput]="true" [showTime]="true" hourFormat="24"/>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="form-label"> Vencimento da infração *:</label>
+                            <p-calendar appendTo="body" name="expirationInfraction" id="expirationInfraction" [(ngModel)]="fine['expirationInfraction']"
+                                        [required]="true" dateFormat="dd/mm/yy" [readonlyInput]="true" />
                         </div>
                     </div>
 
@@ -88,23 +84,52 @@
 
                     <div class="row">
                         <h6>Informações de pagamento:</h6>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <label class="form-label"> Conta *:</label>
                             <p-dropdown styleClass="w-100" name="account" id="account" placeholder="Selecione" emptyMessage="Nenhum conta encontrado"
                                         optionLabel="name" optionValue="id" [(ngModel)]="fine['accountId']" required="true"
                                         [options]="accounts" (onChange)="filterCardsByAccount()" />
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <label class="form-label"> Cartão:</label>
                             <p-dropdown styleClass="w-100" name="card" id="card" placeholder="Selecione" emptyMessage="Nehnum cartão encontrado"
-                                        optionLabel="name" optionValue="id" [(ngModel)]="fine['cardId']" required="true"
-                                        [options]="cards" />
+                                        optionLabel="name" optionValue="id" [(ngModel)]="fine['cardId']"
+                                        [options]="cards" (onChange)="onGenerateInvoices()" />
+                        </div>
+                        <div class="col-md-4" *ngIf="notShowWhenCardSelected(fine)">
+                            <label class="form-label"> Data Vencimento *:</label>
+                            <p-calendar appendTo="body" name="dueDate" id="dueDate" [(ngModel)]="fine['dueDate']" [required]="true"
+                                        dateFormat="dd/mm/yy" [readonlyInput]="true" [disabled]="!notShowWhenCardSelected(fine)" />
+                        </div>
+                        <div class="col-md-4" *ngIf="showWhenCardSelected(fine)">
+                            <label class="form-label"> Fatura de *:</label>
+                            <p-dropdown styleClass="w-100" name="invoice" id="invoice" placeholder="Selecione" optionLabel="label" optionValue="value"
+                                        [options]="invoices" emptyMessage="Nenhuma fatura encontrada" required="true"
+                                        [(ngModel)]="fine['dueDate']" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Valor original *:</label>
+                            <input pInputText class="form-control" name="originalValue" id="originalValue" [(ngModel)]="fine['originalValue']"
+                                   appCurrencyFormatPtBr [required]="true" (ngModelChange)="calculateAmountPaid()" />
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Desconto:</label>
+                            <input pInputText class="form-control" name="discount" id="discount" [(ngModel)]="fine['discount']"
+                                   appCurrencyFormatPtBr [required]="true" (ngModelChange)="calculateAmountPaid()" />
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-label"> Valor a pagar *:</label>
+                            <input pInputText class="form-control" name="value" id="value" [(ngModel)]="fine['value']"
+                                   appCurrencyFormatPtBr [readonly]="true" />
                         </div>
                     </div>
                 </div>
 
                 <div class="card-footer">
-                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !authService.hasPermission('REGISTER_ACCOUNTS')">
+                    <button pButton type="submit" class="p-button-success p-button-sm" [disabled]="!form.valid || !authService.hasPermission('REGISTER_FINES')">
                         <i class="fa-solid fa-save m-1"></i>
                         Salvar
                     </button>

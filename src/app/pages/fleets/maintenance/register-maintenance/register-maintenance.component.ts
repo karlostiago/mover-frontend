@@ -30,7 +30,7 @@ export class RegisterMaintenanceComponent extends AbstractRegister implements On
 
     items = new Array<ItemMaintenanceEntity>();
     services= new Array<ItemMaintenanceEntity>();
-    invoices = new Array<any>()
+    invoices = new Array<any>();
 
     constructor(protected override activatedRoute: ActivatedRoute,
                 private alertService: AlertService,

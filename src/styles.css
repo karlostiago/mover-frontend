@@ -443,6 +443,11 @@ textarea {
     border-color: #dee2e6 !important;
 }
 
+.p-datepicker {
+    min-width: 100px !important;
+    width: auto !important;
+}
+
 /**
  * ---------------------------------------------------------
  *      Configuração de estilos mult-select

@@ -62,13 +62,13 @@
                             <label class="form-label"> Cliente *:</label>
                             <p-dropdown styleClass="w-100" name="client" id="client" placeholder="Selecione" emptyMessage="Nenhum cliente encontrado"
                                         optionLabel="name" optionValue="id" [(ngModel)]="fine['clientId']" required="true"
-                                        [options]="clients" />
+                                        [options]="clients" filter="true" />
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label class="form-label"> Veiculo *:</label>
                             <p-dropdown styleClass="w-100" name="vehicle" id="vehicle" placeholder="Selecione" emptyMessage="Nehnum veiculo encontrado"
                                         optionLabel="fullname" optionValue="id" [(ngModel)]="fine['vehicleId']" required="true"
-                                        [options]="vehicles" />
+                                        [options]="vehicles" filter="true" />
                         </div>
                     </div>
 

@@ -4,6 +4,19 @@ export class DateHelpers {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate());
     }
 
+    static toUTCWithHour(date: Date) {
+        return new Date(
+            Date.UTC(
+                date.getFullYear(),
+                date.getMonth(),
+                date.getDate(),
+                date.getHours(),
+                date.getMinutes(),
+                date.getSeconds()
+            )
+        );
+    }
+
     static parseToPtBr(dateStr: string) {
         return this.format(dateStr, 'pt-BR');
     }

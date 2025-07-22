@@ -50,4 +50,14 @@ export abstract class AbstractRegister  {
             value: date
         }));
     }
+
+    protected clone(obj: any) {
+        const clone = {...obj};
+        for (const key in clone) {
+            if (clone[key] instanceof Date) {
+                clone[key] = DateHelpers.toUTCWithHour(clone[key]);
+            }
+        }
+        return clone;
+    }
 }

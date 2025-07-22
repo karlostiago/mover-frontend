@@ -14,7 +14,7 @@ import {AccountEntity} from "../../../../../entity/AccountEntity";
 import {AccountService} from "../../../configuration/account/account.service";
 import {CardEntity} from "../../../../../entity/CardEntity";
 import {CardService} from "../../../configuration/card/card.service";
-import {MaintenanceEntity} from "../../../../../entity/MaintenanceEntity";
+import {DateHelpers} from "../../../../../shared/helper/DateHelpers";
 
 @Component({
   selector: 'app-register-fine',
@@ -47,6 +47,27 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
         await this.loadingClients();
         await this.loadingAccounts();
         await this.loadingCards();
+
+        this.fineService.findAll().then(response => {
+            console.log(response);
+        })
+
+        this.fine = {
+            infractionCode: 7455,
+            value: 104.13,
+            discount: 26.03,
+            originalValue: 130.16,
+            description: 'TRANSITAR EM VELOCIDADE SUPERIOR A MAXIMA PERMITIDA EM ATE 20%',
+            realOffender: false,
+            expirationInfraction: new Date(),
+            dueDate: new Date(),
+            dateTimeOfCommitment: new Date(),
+            clientId: 69,
+            vehicleId: 2,
+            accountId: 4,
+            numberRenainf: 10451144201,
+            infractionNotice: 'F600133735',
+        } as FineEntity;
 
         if (!this.registerNew) {
             this.fineService.findById(this.id).then(response => {
@@ -115,7 +136,7 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
     }
 
     private save(form: NgForm) {
-        this.fineService.save(this.fine).then(() => {
+        this.fineService.save(this.clone(this.fine)).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
             this.cancel(form);
         });

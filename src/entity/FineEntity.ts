@@ -15,4 +15,5 @@ export class FineEntity {
     realOffender: boolean;
     accountId: number;
     cardId: number;
+    status: 'PENDING' | 'PAID' | 'OVERDUE';
 }

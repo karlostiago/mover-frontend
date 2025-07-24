@@ -44,45 +44,43 @@
 
                         <ng-template pTemplate="header">
                             <tr *ngIf="fines.length > 0">
-                                <th class="text-center">ÍCONE</th>
+                                <th class="text-left">VEÍCULO</th>
                                 <th class="text-left">DESCRIÇÃO</th>
-                                <th class="text-center">NÚMERO</th>
-                                <th class="text-center">SALDO INICIAL</th>
-                                <th class="text-center">CAUÇÃO</th>
-                                <th class="text-center">ATIVO</th>
+                                <th class="text-right">VALOR</th>
+                                <th class="text-center">DATA COMETIMENTO</th>
+                                <th class="text-center">VENCIMENTO</th>
+                                <th class="text-center">STATUS</th>
                                 <th class="text-center">AÇÕES</th>
                             </tr>
                         </ng-template>
 
-                        <ng-template pTemplate="body" let-account>
+                        <ng-template pTemplate="body" let-fine>
                             <tr>
-                                <td class="text-center">
-                                    <span class="p-column-title">ÍCONE</span>
-                                    <img src="{{ account['imageIcon'] }}" style="width: 2rem; border-radius: 8px"  alt="icon" />
+                                <td class="text-left">
+                                    <span class="p-column-title">VEÍCULO</span>
+                                    {{ generateShotenedVehicleName(fine['vehicleId']) }}
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">DESCRIÇÃO</span>
-                                    <span>{{ account['name'] }}</span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="p-column-title">NÚMERO</span>
-                                    {{ account['number'] }}
+                                    <span>{{ fine['description'] }}</span>
                                 </td>
                                 <td class="text-right">
-                                    <span class="p-column-title">SALDO INICIAL</span>
-                                    {{ account['initialBalance'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                                    <span class="p-column-title">VALOR</span>
+                                    {{ fine['value'] | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                                 </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">CAUÇÃO</span>
-                                    <span class="badge rounded-pill {{ account['caution'] == true ? 'text-bg-success' : 'text-bg-danger' }} ">
-                                        {{ account["caution"] === true ? 'Sim' : 'Não' }}
-                                    </span>
+                                    <span class="p-column-title">DATA COMETIMENTO</span>
+                                    {{ fine['dateTimeOfCommitment'] }}
                                 </td>
                                 <td class="text-center">
-                                    <span class="p-column-title">ATIVO</span>
-                                    <span class="badge rounded-pill {{ account['active'] == true ? 'text-bg-success' : 'text-bg-danger' }} ">
-                                        {{ account["active"] === true ? 'Sim' : 'Não' }}
-                                    </span>
+                                    <span class="p-column-title">VENCIMENTO</span>
+                                    {{ fine['dueDate'] }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="p-column-title">STATUS</span>
+                                    <span class="badge rounded-pill text-bg-warning" *ngIf="fine['status'] === 'PENDING'"> {{ fine['status'] }} </span>
+                                    <span class="badge rounded-pill text-bg-danger" *ngIf="fine['status'] === 'OVERDUE'"> {{ fine['status'] }} </span>
+                                    <span class="badge rounded-pill text-bg-success" *ngIf="fine['status'] === 'PAID'"> {{ fine['status'] }} </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÕES</span>
@@ -92,12 +90,12 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="actions">
                                             <li>
-                                                <p-button class="dropdown-item" [link]="true" (click)="confirmationDelete(account)" [disabled]="!authService.hasPermission('DELETE_ACCOUNTS')">
+                                                <p-button class="dropdown-item" [link]="true" (click)="confirmationDelete(fine)" [disabled]="!authService.hasPermission('DELETE_FINES')">
                                                     <i class="fa-regular fa-trash-can m-sm-1"></i> Excluir
                                                 </p-button>
                                             </li>
                                             <li>
-                                                <p-button class="dropdown-item" [link]="true" [routerLink]="['/accounts/', account.id]" [disabled]="!authService.hasPermission('UPDATE_ACCOUNTS')">
+                                                <p-button class="dropdown-item" [link]="true" [routerLink]="['/fines/', fine.id]" [disabled]="!authService.hasPermission('UPDATE_FINES')">
                                                     <i class="fa-regular fa-pen-to-square m-sm-1"></i> Editar
                                                 </p-button>
                                             </li>
@@ -109,7 +107,7 @@
 
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td colspan="6" style="text-align: center;">
+                                <td colspan="7" style="text-align: center;">
                                     Nenhum registro encontrado.
                                 </td>
                             </tr>

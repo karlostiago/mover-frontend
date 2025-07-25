@@ -48,8 +48,4 @@ export class SearchFineComponent implements OnInit {
             this.fines = response;
         })
     }
-
-    generateShotenedVehicleName(vehicleId: number) {
-        return 'FIAT MOBI - POT1297';
-    }
 }

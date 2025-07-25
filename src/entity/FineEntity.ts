@@ -8,6 +8,7 @@ export class FineEntity {
     expirationInfraction: Date;
     clientId: number;
     vehicleId: number;
+    vehicleShortName: string;
     value: number = 0;
     originalValue: number = 0;
     discount: number = 0;

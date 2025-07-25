@@ -58,7 +58,7 @@
                             <tr>
                                 <td class="text-left">
                                     <span class="p-column-title">VEÍCULO</span>
-                                    {{ generateShotenedVehicleName(fine['vehicleId']) }}
+                                    {{ fine['vehicleShortName'] }}
                                 </td>
                                 <td class="text-left">
                                     <span class="p-column-title">DESCRIÇÃO</span>
@@ -78,9 +78,9 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">STATUS</span>
-                                    <span class="badge rounded-pill text-bg-warning" *ngIf="fine['status'] === 'PENDING'"> {{ fine['status'] }} </span>
-                                    <span class="badge rounded-pill text-bg-danger" *ngIf="fine['status'] === 'OVERDUE'"> {{ fine['status'] }} </span>
-                                    <span class="badge rounded-pill text-bg-success" *ngIf="fine['status'] === 'PAID'"> {{ fine['status'] }} </span>
+                                    <span class="badge rounded-pill text-bg-warning text-white" *ngIf="fine['status'] === 'PENDENTE'"> {{ fine['status'] }} </span>
+                                    <span class="badge rounded-pill text-bg-danger" *ngIf="fine['status'] === 'EM ATRASO'"> {{ fine['status'] }} </span>
+                                    <span class="badge rounded-pill text-bg-success" *ngIf="fine['status'] === 'PAGO'"> {{ fine['status'] }} </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÕES</span>

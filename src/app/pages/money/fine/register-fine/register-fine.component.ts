@@ -47,26 +47,22 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
         await this.loadingAccounts();
         await this.loadingCards();
 
-        this.fineService.findAll().then(response => {
-            console.log(response);
-        })
-
-        this.fine = {
-            infractionCode: 7455,
-            value: 104.13,
-            discount: 26.03,
-            originalValue: 130.16,
-            description: 'TRANSITAR EM VELOCIDADE SUPERIOR A MAXIMA PERMITIDA EM ATE 20%',
-            realOffender: false,
-            expirationInfraction: new Date(),
-            dueDate: new Date(),
-            dateTimeOfCommitment: new Date(),
-            clientId: 69,
-            vehicleId: 2,
-            accountId: 4,
-            numberRenainf: 10451144201,
-            infractionNotice: 'F600133735',
-        } as FineEntity;
+        // this.fine = {
+        //     infractionCode: 7455,
+        //     value: 104.13,
+        //     discount: 26.03,
+        //     originalValue: 130.16,
+        //     description: 'TRANSITAR EM VELOCIDADE SUPERIOR A MAXIMA PERMITIDA EM ATE 20%',
+        //     realOffender: false,
+        //     expirationInfraction: new Date(),
+        //     dueDate: new Date(),
+        //     dateTimeOfCommitment: new Date(),
+        //     clientId: 69,
+        //     vehicleId: 2,
+        //     accountId: 4,
+        //     numberRenainf: 10451144201,
+        //     infractionNotice: 'F600133735',
+        // } as FineEntity;
 
         if (!this.registerNew) {
             this.fineService.findById(this.id).then(response => {

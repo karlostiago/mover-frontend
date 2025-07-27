@@ -49,6 +49,7 @@
                                 <th class="text-right">VALOR</th>
                                 <th class="text-center">DATA COMETIMENTO</th>
                                 <th class="text-center">VENCIMENTO</th>
+                                <th class="text-center">SINCRONIZADO</th>
                                 <th class="text-center">STATUS</th>
                                 <th class="text-center">AÇÕES</th>
                             </tr>
@@ -77,10 +78,17 @@
                                     {{ fine['dueDate'] }}
                                 </td>
                                 <td class="text-center">
+                                    <span class="p-column-title">SINCRONIZADO</span>
+                                    <span *ngIf="fine['syncronizedTransaction'] === true" class="badge rounded-pill text-bg-success"> Sim </span>
+                                    <a *ngIf="fine['syncronizedTransaction'] === false" style="cursor: pointer" (click)="synchronize(fine.id, fine)">
+                                        <span class="badge rounded-pill text-bg-danger"> Não </span>
+                                    </a>
+                                </td>
+                                <td class="text-center">
                                     <span class="p-column-title">STATUS</span>
-                                    <span class="badge rounded-pill text-bg-warning text-white" *ngIf="fine['status'] === 'PENDENTE'"> {{ fine['status'] }} </span>
-                                    <span class="badge rounded-pill text-bg-danger" *ngIf="fine['status'] === 'EM ATRASO'"> {{ fine['status'] }} </span>
-                                    <span class="badge rounded-pill text-bg-success" *ngIf="fine['status'] === 'PAGO'"> {{ fine['status'] }} </span>
+                                    <span class="badge rounded-pill" [ngClass]="getStatusClass(fine['status'])">
+                                        {{ fine['status'] }}
+                                    </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">AÇÕES</span>

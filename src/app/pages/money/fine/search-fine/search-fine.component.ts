@@ -48,4 +48,24 @@ export class SearchFineComponent implements OnInit {
             this.fines = response;
         })
     }
+
+    synchronize(id: number, fine: FineEntity) {
+        this.fineService.synchronize(id).then(() => {
+            fine.syncronizedTransaction = true;
+            this.alertService.success("Registro sincronizado com sucesso.");
+        })
+    }
+
+    getStatusClass(status: string): string {
+        switch (status) {
+            case 'Pendente':
+                return 'text-bg-warning text-white';
+            case 'Em atraso':
+                return 'text-bg-danger';
+            case 'Pago':
+                return 'text-bg-success';
+            default:
+                return 'text-bg-secondary';
+        }
+    }
 }

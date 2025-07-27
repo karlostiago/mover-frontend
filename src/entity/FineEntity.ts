@@ -17,4 +17,5 @@ export class FineEntity {
     accountId: number;
     cardId: number;
     status: 'PENDING' | 'PAID' | 'OVERDUE';
+    syncronizedTransaction: boolean = false;
 }

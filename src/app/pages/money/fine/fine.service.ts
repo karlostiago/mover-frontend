@@ -21,4 +21,9 @@ export class FineService extends BaseService<FineEntity> {
         const request = this.httpClient.get(`${this.baseURL}/${this.pathURL()}/filterBy?search=${search}`, this.options());
         return this.toPromise(request);
     }
+
+    async synchronize(id: number): Promise<FineEntity> {
+        const request = this.httpClient.put(`${this.baseURL}/${this.pathURL()}/${id}/synchronize`, this.options());
+        return this.toPromise(request);
+    }
 }

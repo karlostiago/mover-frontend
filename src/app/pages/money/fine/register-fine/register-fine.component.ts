@@ -14,6 +14,7 @@ import {AccountEntity} from "../../../../../entity/AccountEntity";
 import {AccountService} from "../../../configuration/account/account.service";
 import {CardEntity} from "../../../../../entity/CardEntity";
 import {CardService} from "../../../configuration/card/card.service";
+import {DateHelpers} from "../../../../../shared/helper/DateHelpers";
 
 @Component({
   selector: 'app-register-fine',
@@ -47,26 +48,36 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
         await this.loadingAccounts();
         await this.loadingCards();
 
-        // this.fine = {
-        //     infractionCode: 7455,
-        //     value: 104.13,
-        //     discount: 26.03,
-        //     originalValue: 130.16,
-        //     description: 'TRANSITAR EM VELOCIDADE SUPERIOR A MAXIMA PERMITIDA EM ATE 20%',
-        //     realOffender: false,
-        //     expirationInfraction: new Date(),
-        //     dueDate: new Date(),
-        //     dateTimeOfCommitment: new Date(),
-        //     clientId: 69,
-        //     vehicleId: 2,
-        //     accountId: 4,
-        //     numberRenainf: 10451144201,
-        //     infractionNotice: 'F600133735',
-        // } as FineEntity;
+        this.fine = {
+            infractionCode: 7455,
+            value: 104.13,
+            discount: 26.03,
+            originalValue: 130.16,
+            description: 'TRANSITAR EM VELOCIDADE SUPERIOR A MAXIMA PERMITIDA EM ATE 20%',
+            realOffender: false,
+            expirationInfraction: new Date(),
+            dueDate: new Date(),
+            dateTimeOfCommitment: new Date(),
+            clientId: 69,
+            vehicleId: 2,
+            accountId: 4,
+            numberRenainf: 10451144201,
+            infractionNotice: 'F600133735',
+        } as FineEntity;
 
         if (!this.registerNew) {
             this.fineService.findById(this.id).then(response => {
                 this.fine = response;
+                this.filterCardsByAccount();
+                if (this.fine.cardId) {
+                    this.onGenerateInvoices();
+                    for (const invoice of this.invoices) {
+                        if (DateHelpers.parseToPtBr(invoice.value) === DateHelpers.parseToPtBr(DateHelpers.toDate(response.dueDate))) {
+                            this.fine.dueDate = DateHelpers.toDate(response.dueDate);
+                            break;
+                        }
+                    }
+                }
             });
         }
     }
@@ -116,7 +127,6 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
             const today = new Date();
             const dueDate = new Date(today.getFullYear(), today.getMonth(), card.dueDate);
             this.invoices = this.generatedSurroundingDueDate(dueDate, 3, 3);
-            this.fine.dueDate = dueDate;
         } else {
             this.fine.dueDate = null!;
             this.invoices = [];
@@ -131,14 +141,14 @@ export class RegisterFineComponent extends AbstractRegister implements OnInit {
     }
 
     private save(form: NgForm) {
-        this.fineService.save(this.clone(this.fine)).then(() => {
+        this.fineService.save(this.fine).then(() => {
             this.alertService.success("Registro cadastrado com sucesso.");
             this.cancel(form);
         });
     }
 
     private update() {
-        this.fineService.update(this.fine.id, this.fine).then(() => {
+        this.fineService.update(this.fine.id, this.fine).then(response => {
             this.alertService.success("Registro atualizado com sucesso.");
         });
     }

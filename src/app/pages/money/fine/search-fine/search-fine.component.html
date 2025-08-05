@@ -79,7 +79,7 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="p-column-title">SINCRONIZADO</span>
-                                    <span *ngIf="fine['syncronizedTransaction'] === true" class="badge rounded-pill text-bg-success"> Sim </span>
+                                    <span *ngIf="fine['syncronizedTransaction'] === true" class="badge rounded-pill text-bg-success" (click)="redirectToTransaction(fine)"> Sim </span>
                                     <a *ngIf="fine['syncronizedTransaction'] === false" style="cursor: pointer" (click)="synchronize(fine.id, fine)">
                                         <span class="badge rounded-pill text-bg-danger"> Não </span>
                                     </a>

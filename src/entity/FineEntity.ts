@@ -18,4 +18,5 @@ export class FineEntity {
     cardId: number;
     status: 'PENDING' | 'PAID' | 'OVERDUE';
     syncronizedTransaction: boolean = false;
+    signature: string;
 }

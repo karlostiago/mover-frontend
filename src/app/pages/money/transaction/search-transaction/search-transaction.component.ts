@@ -79,7 +79,9 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.loadingPermission();
 
         this.route.queryParams.subscribe(params => {
-           if (Object.keys(params).length > 0) {
+           if (params['code']) {
+               this.searchTransactionBySignature(params['code'])
+           } else if (Object.keys(params).length > 0) {
                this.applyFiltersFromDashboard(params);
            } else {
                const filter = this.getFilters(this.periodFilter ?? new Date(), false);
@@ -244,6 +246,10 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
         this.calendarFocused = !this.calendarFocused;
     }
 
+    private searchTransactionBySignature(params: any) {
+        console.log(params)
+    }
+
     private checkScreenSize() {
         this.isMobile = window.innerWidth <= 1300;
     }
@@ -381,7 +387,7 @@ export class SearchTransactionComponent extends AbstractSearch implements OnInit
     }
 
     private applyFiltersFromDashboard(params: any) {
-        const filters = this.getFilters(new Date(), true);
+        let filters = this.getFilters(new Date(), true);
 
         if (params.q) {
             filters.searchText = params.q;

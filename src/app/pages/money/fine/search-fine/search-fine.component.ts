@@ -4,6 +4,7 @@ import {AlertService} from "../../../../../shared/service/AlertService";
 import {FineService} from "../fine.service";
 import {AuthService} from "../../../../core/login/auth.service";
 import {FineEntity} from "../../../../../entity/FineEntity";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-search-fine',
@@ -18,7 +19,8 @@ export class SearchFineComponent implements OnInit {
     constructor(private confirmationService: ConfirmationService,
                 private alertService: AlertService,
                 protected authService: AuthService,
-                private fineService: FineService) {
+                private fineService: FineService,
+                private router: Router) {
     }
 
     async ngOnInit() {
@@ -53,6 +55,12 @@ export class SearchFineComponent implements OnInit {
         this.fineService.synchronize(id).then(() => {
             fine.syncronizedTransaction = true;
             this.alertService.success("Registro sincronizado com sucesso.");
+        })
+    }
+
+    redirectToTransaction(fine: FineEntity) {
+        void this.router.navigate(['/transactions'], {
+            queryParams: { code: fine.signature }
         })
     }
 
